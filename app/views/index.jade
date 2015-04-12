@@ -1,0 +1,49 @@
+html(ng-app="clementineJS")
+	head
+		title clementine.js - A lightweight MEAN stack boilerplate.
+		link(type="text/css" rel="stylesheet" href="public/css/main.css")
+	body
+		.header
+			ul.nav
+				li#active Home
+				li Docs
+		.banner
+			
+			.title
+				img.logo(src="public/img/clementine_150.png")
+				.clemjs clementine.js
+						p A lightweight MEAN stack boilerplate.
+
+						.buttons
+							a(href="https://twitter.com/johnstonbl01").twitter
+								img(src="public/img/twitter_logo_32x26.png" a href="https://twitter.com/johnstonbl01")
+							.github
+								img(src="public/img/github_32px.png")
+							a(href="mailto:johnstonbl01@gmail.com").email
+								img(src="public/img/mail_32x28.png")
+		.footer
+			.comments(ng-controller="commentCtrlr")
+
+				ul.commentlist
+					li(ng-repeat="comment in comments")
+						p "{{comment.comments}}"
+						p#commentemail - {{comment.email}}
+				
+				form(ng-submit="createComment()").newcomment
+					input(type="text" ng-model="commentEmail" placeholder="email address")
+					input(type="text" ng-model="commentBody" placeholder="comment")
+					button(type="submit") Save Comment
+
+			.rightboxes
+				.about 
+					p Bacon ipsum dolor amet jerky alcatra tail venison, cupim short ribs brisket beef ribs. Meatloaf brisket bresaola tri-tip. Ball tip meatball kevin, cupim porchetta pork chop jerky fatback shankle t-bone tenderloin beef ribs sirloin capicola hamburger. Andouille tail short loin brisket pork loin.
+
+				.tech
+			
+
+
+		script(type="text/javascript" src="public/lib/angular/angular.min.js")
+		script(type="text/javascript" src="public/lib/angular-resource/angular-resource.min.js")
+		script(type="text/javascript" src="/public/application.js")
+		script(type="text/javascript" src="/controllers/juiceCtrlr.client.js")
+		script(type="text/javascript" src="/controllers/commentCtrlr.client.js")
