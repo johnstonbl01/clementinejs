@@ -17,6 +17,7 @@ app.set('views', './app/views');
 //Static directory shortcuts
 app.use('/controllers', express.static(__dirname + '/app/controllers'));
 app.use('/public', express.static(__dirname + '/public'));
+app.use('/directives', express.static(__dirname + '/app/directives'));
 
 //Routes
 require('./app/routes/index.js')(app);

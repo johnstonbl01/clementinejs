@@ -11,3 +11,45 @@ body
 	padding: 0
 	margin: 0
 	background-color: $lightgrey
+
+[material-ripple] 
+	position: relative
+	overflow: hidden
+	border: none
+	background: none
+
+.material-ripple 
+	display: block
+	overflow: hidden
+	position: absolute
+	background-color: rgba(0,0,0,0.1)
+	border-radius: 50%
+	-moz-transform: scale(0)
+	-webkit-transform: scale(0)
+	transform: scale(0)
+
+.material-ripple.animate 
+	-moz-animation: ripple 0.35s linear
+	-webkit-animation: ripple 0.35s linear
+	animation: ripple 0.35s linear
+
+@-moz-keyframes ripple 
+	100% 
+		opacity: 0
+		-moz-transform: scale(2.5)
+		-webkit-transform: scale(2.5)
+		transform: scale(2.5)
+
+@-webkit-keyframes ripple 
+	100% 
+		opacity: 0
+		-moz-transform: scale(2.5)
+		-webkit-transform: scale(2.5)
+		transform: scale(2.5)
+
+@keyframes ripple 
+	100% 
+		opacity: 0
+		-moz-transform: scale(2.5)
+		-webkit-transform: scale(2.5)
+		transform: scale(2.5)

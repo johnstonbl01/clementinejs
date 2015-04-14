@@ -1,1 +1,1 @@
-var app = angular.module('clementineJS', ['ngResource']);
+var app = angular.module('clementineJS', ['ngResource', 'materialRipple']);

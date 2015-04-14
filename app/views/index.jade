@@ -5,8 +5,8 @@ html(ng-app="clementineJS")
 	body
 		.header
 			ul.nav
-				li#active Home
-				li Docs
+				li#active(material-ripple="") Home
+				li(material-ripple="") Docs
 		.banner
 			
 			.title
@@ -15,11 +15,11 @@ html(ng-app="clementineJS")
 						p A lightweight MEAN stack boilerplate.
 
 						.buttons
-							a(href="https://twitter.com/johnstonbl01").twitter
-								img(src="public/img/twitter_logo_32x26.png" a href="https://twitter.com/johnstonbl01")
-							.github
+							a.twitter(href="https://twitter.com/johnstonbl01" target="_blank" material-ripple="")
+								img(src="public/img/twitter_logo_32x26.png")
+							a.github(href="https://github.com/johnstonbl01/clementinejs" target="_blank" material-ripple="")
 								img(src="public/img/github_32px.png")
-							a(href="mailto:johnstonbl01@gmail.com").email
+							a(href="mailto:johnstonbl01@gmail.com" target="_blank" material-ripple="").email
 								img(src="public/img/mail_32x28.png")
 		.footer
 			.comments(ng-controller="commentCtrlr")
@@ -42,8 +42,8 @@ html(ng-app="clementineJS")
 			
 
 
-		script(type="text/javascript" src="public/lib/angular/angular.min.js")
-		script(type="text/javascript" src="public/lib/angular-resource/angular-resource.min.js")
+		script(type="text/javascript" src="/public/lib/angular/angular.min.js")
+		script(type="text/javascript" src="/public/lib/angular-resource/angular-resource.min.js")
 		script(type="text/javascript" src="/public/application.js")
-		script(type="text/javascript" src="/controllers/juiceCtrlr.client.js")
+		script(type="text/javascript" src="/directives/materialRipple.js")
 		script(type="text/javascript" src="/controllers/commentCtrlr.client.js")

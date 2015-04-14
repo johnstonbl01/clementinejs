@@ -6,6 +6,48 @@ body {
   margin: 0;
   background-color: #f9f9f9; }
 
+[material-ripple] {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: none; }
+
+.material-ripple {
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  -moz-transform: scale(0);
+  -webkit-transform: scale(0);
+  transform: scale(0); }
+
+.material-ripple.animate {
+  -moz-animation: ripple 0.35s linear;
+  -webkit-animation: ripple 0.35s linear;
+  animation: ripple 0.35s linear; }
+
+@-moz-keyframes ripple {
+  100% {
+    opacity: 0;
+    -moz-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5); } }
+
+@-webkit-keyframes ripple {
+  100% {
+    opacity: 0;
+    -moz-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5); } }
+
+@keyframes ripple {
+  100% {
+    opacity: 0;
+    -moz-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5); } }
+
 .header {
   position: relative;
   margin: 0;
@@ -109,7 +151,7 @@ body {
 .about {
   background-color: white;
   width: 725px;
-  height: 140px;
+  height: 190px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   padding: 0;
   margin: 0;
@@ -131,15 +173,17 @@ body {
   margin: auto;
   width: 200px;
   height: 50px;
-  padding: 5px 0 0 0; }
+  padding: 5px 0 0 0;
+  cursor: pointer; }
 
 .twitter {
   background-color: #4DD0E1;
   height: 50px;
   width: 50px;
-  border-radius: 25px;
+  border-radius: 50%;
   float: left;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  -webkit-transform: rotate(0.0deg); }
 
 .twitter > img {
   margin: auto;
@@ -151,7 +195,7 @@ body {
   background-color: #4DD0E1;
   height: 50px;
   width: 50px;
-  border-radius: 25px;
+  border-radius: 50%;
   float: right;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
 
@@ -165,7 +209,7 @@ body {
   background-color: #4DD0E1;
   height: 50px;
   width: 50px;
-  border-radius: 25px;
+  border-radius: 50%;
   float: left;
   margin-left: 25px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
