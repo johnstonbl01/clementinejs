@@ -5,14 +5,15 @@
 
 	matRipple.directive('materialRipple', function () {
 		return {
-			restrict: 'A',
-			link: function (scope, element, attrs) {
+			restrict: 'A', //restricts angular to only match names of HTML attributes;
+			link: function (scope, element, attrs) { 
 				var x, y, size, offsets;
 
 				element.on('click', function (event) {
 					var ripple = this.querySelector('.material-ripple');
 					var eventType = event.type;
 
+					//create ripple effect if it does not already exist
 					if (ripple === null) {
 						
 						ripple = document.createElement('span');
@@ -23,6 +24,7 @@
 						console.dir('offsetHeight: ' + element[0].offsetHeight);
 						console.dir('offsetWidth: ' + element[0].offsetWidth);
 
+						//set size of ripple effect
 						if (!ripple.offsetHeight && !ripple.offsetWidth) {
 							size = Math.max(element[0].offsetWidth, element[0].offsetHeight);
 							ripple.style.width = size + 'px';
@@ -40,6 +42,7 @@
 					console.log('x: ' + x);
 					console.log('y: ' + y);
 
+					//set ripple position
 					function getPosition (element) {
 						var docElement = document.documentElement;
 						var elemSize = element.getBoundingClientRect();
@@ -54,6 +57,7 @@
 
 					}
 
+					//final ripple coordinates
 					offsets = getPosition (element[0]);
 					console.dir('offsets: ' + offsets);
 					ripple.style.left = (x - offsets.left - size / 2) + 'px';
