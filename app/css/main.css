@@ -48,29 +48,26 @@ body {
     -webkit-transform: scale(2.5);
     transform: scale(2.5); } }
 
-.header {
-  position: relative;
-  margin: 0;
+.navbar {
   color: white;
-  padding: 0;
-  height: 50px;
+  height: 64px;
   background-color: #FFA000;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  z-index: 2;
+  position: relative;
+  font-weight: 500;
+  font-size: 16px; }
 
 .nav {
+  display: inline-block;
   list-style-type: none;
-  float: right; }
+  float: right;
+  text-align: center; }
 
-.nav > li {
-  display: inline;
-  padding: 0 25 11 25;
-  text-align: center;
-  font-weight: 500;
-  font-size: 16px;
-  box-sizing: border-box; }
-
-#active {
-  border-bottom: 4px solid #4DD0E1; }
+.nav-button {
+  display: inline-block;
+  line-height: 56px;
+  padding: 0 16px; }
 
 .banner {
   background-color: #FFA000;
@@ -78,8 +75,11 @@ body {
   color: white;
   margin: 0;
   padding: 0;
-  height: 375px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
+  height: 375px; }
+
+.banner-background {
+  background: url('/public/img/clementine_bg.png') bottom center no-repeat;
+  background-size: 100%; }
 
 .title {
   text-align: center;

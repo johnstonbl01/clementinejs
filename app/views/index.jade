@@ -3,24 +3,25 @@ html(ng-app="clementineJS")
 		title clementine.js - A lightweight MEAN stack boilerplate.
 		link(type="text/css" rel="stylesheet" href="public/css/main.css")
 	body
-		.header
+		.navbar
 			ul.nav
-				li#active(material-ripple="") Home
-				li(material-ripple="") Docs
-		.banner
-			
-			.title
-				img.logo(src="public/img/clementine_150_white.png")
-				.clemjs clementine.js
-						p A lightweight MEAN stack boilerplate.
+				li.nav-button(material-ripple="") FEATURES
+				li.nav-button(material-ripple="") DOCS
 
-						.buttons
-							a.twitter(href="https://twitter.com/johnstonbl01" target="_blank" material-ripple="")
-								img(src="public/img/twitter_logo_32x26.png")
-							a.github(href="https://github.com/johnstonbl01/clementinejs" target="_blank" material-ripple="")
-								img(src="public/img/github_32px.png")
-							a(href="mailto:johnstonbl01@gmail.com" target="_blank" material-ripple="").email
-								img(src="public/img/mail_32x28.png")
+		.banner
+			.banner-background
+				.title
+					img.logo(src="public/img/clementine_150_white.png")
+					.clemjs clementine.js
+							p A lightweight MEAN stack boilerplate.
+
+							.buttons
+								a.twitter(href="https://twitter.com/johnstonbl01" target="_blank" material-ripple="")
+									img(src="public/img/twitter_logo_32x26.png")
+								a.github(href="https://github.com/johnstonbl01/clementinejs" target="_blank" material-ripple="")
+									img(src="public/img/github_32px.png")
+								a(href="mailto:johnstonbl01@gmail.com" target="_blank" material-ripple="").email
+									img(src="public/img/mail_32x28.png")
 		.footer
 			.comments(ng-controller="commentCtrlr")
 
