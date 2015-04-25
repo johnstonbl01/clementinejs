@@ -5,13 +5,15 @@ html(ng-app="clementineJS")
 	body
 		.navbar
 			ul.nav
+				li.nav-button
+					img(src="public/img/clementine_white_nav.png")
 				li.nav-button(material-ripple="") FEATURES
 				li.nav-button(material-ripple="") DOCS
 
 		.banner
 			.banner-background
 				.title
-					img.logo(src="public/img/clementine_150_white.png")
+					img.logo(src="public/img/clementine_150_white_ds.png")
 					.clemjs clementine.js
 							p A lightweight MEAN stack boilerplate.
 
@@ -22,22 +24,26 @@ html(ng-app="clementineJS")
 									img(src="public/img/github_32px.png")
 								a(href="mailto:johnstonbl01@gmail.com" target="_blank" material-ripple="").email
 									img(src="public/img/mail_32x28.png")
-		.footer
-			.comments(ng-controller="commentCtrlr")
+		.content
+			
+			.divider
 
-				ul.commentlist
-					li(ng-repeat="comment in comments")
-						p "{{comment.comments}}"
-						p#commentemail - {{comment.email}}
-				
-				form(ng-submit="createComment()").newcomment
-					input(type="text" ng-model="commentEmail" placeholder="email address")
-					input(type="text" ng-model="commentBody" placeholder="comment")
-					button(type="submit") Save Comment
+			.container
 
-			.rightboxes
 				.about 
 					p Bacon ipsum dolor amet jerky alcatra tail venison, cupim short ribs brisket beef ribs. Meatloaf brisket bresaola tri-tip. Ball tip meatball kevin, cupim porchetta pork chop jerky fatback shankle t-bone tenderloin beef ribs sirloin capicola hamburger. Andouille tail short loin brisket pork loin.
+				
+				.comments(ng-controller="commentCtrlr")
+
+					ul.commentlist
+						li(ng-repeat="comment in comments")
+							p "{{comment.comments}}"
+							p#commentemail - {{comment.email}}
+					
+					form(ng-submit="createComment()").newcomment
+						input(type="text" ng-model="commentEmail" placeholder="email address")
+						input(type="text" ng-model="commentBody" placeholder="comment")
+						button(type="submit") Save Comment
 
 				.tech
 			
