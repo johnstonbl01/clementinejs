@@ -15,7 +15,7 @@ body {
   display: block;
   overflow: hidden;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.4);
   border-radius: 50%;
   -moz-transform: scale(0);
   -webkit-transform: scale(0);
@@ -49,7 +49,7 @@ body {
 
 .navbar {
   color: white;
-  height: 64px;
+  height: 56px;
   background-color: #FFA000;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   z-index: 2;
@@ -59,17 +59,32 @@ body {
   display: block; }
 
 .nav {
-  display: inline-block;
   list-style-type: none;
   float: left;
   text-align: center;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  float: left; }
 
 .nav-button {
   display: inline-block;
   line-height: 56px;
   padding: 0 16px; }
+
+.navbar h1 {
+  width: 250px;
+  float: left;
+  height: 20px;
+  margin: 0;
+  padding: 0; }
+
+.navbar h1 a {
+  background: url('/public/img/clementine_white_nav.png') 0 8px no-repeat;
+  height: 56px;
+  width: 179px;
+  margin: 0 0 0 16px;
+  padding: 0;
+  float: left; }
 
 .banner {
   background-color: #FFA000;
@@ -87,17 +102,17 @@ body {
 
 .clemjs {
   position: relative;
-  margin: -20px 0 0 0; }
+  margin: -40px 0 0 0; }
 
 .clemjs > p {
   font-size: 18px;
   color: #212121;
   margin: -10px 0 0 0;
-  padding: 0;
+  padding: 0 0 10px 0;
   font-weight: 400; }
 
 .logo {
-  padding: 70px 0 30px 0;
+  padding: 80px 0 30px 0;
   display: block;
   margin: 0 auto; }
 
@@ -107,8 +122,8 @@ body {
   padding: 0; }
 
 .divider {
-  background-color: #f9f9f9;
-  height: 125px;
+  background-color: #ECEFF1;
+  height: 100PX;
   width: 100%; }
 
 .container {

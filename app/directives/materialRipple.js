@@ -10,6 +10,8 @@
 				var x, y, size, offsets;
 
 				element.on('click', function (event) {
+
+					event.preventDefault();
 					var ripple = this.querySelector('.material-ripple');
 					var eventType = event.type;
 
@@ -21,16 +23,12 @@
 
 						this.insertBefore(ripple, this.firstChild);
 
-						console.dir('offsetHeight: ' + element[0].offsetHeight);
-						console.dir('offsetWidth: ' + element[0].offsetWidth);
-
 						//set size of ripple effect
 						if (!ripple.offsetHeight && !ripple.offsetWidth) {
 							size = Math.max(element[0].offsetWidth, element[0].offsetHeight);
 							ripple.style.width = size + 'px';
 							ripple.style.height = size + 'px';
 						}
-						console.log('size: ' + size);
 					}
 
 					ripple.classList.remove('animate');
@@ -39,8 +37,6 @@
 						x = event.pageX;
 						y = event.pageY;
 					}
-					console.log('x: ' + x);
-					console.log('y: ' + y);
 
 					//set ripple position
 					function getPosition (element) {
@@ -49,21 +45,17 @@
 						var top = elemSize.top + window.pageYOffset - docElement.clientTop;
 						var left = elemSize.left + window.pageXOffset - docElement.clientLeft;
 
-						console.dir('elemTop: ' + elemSize.top);
-						console.dir('top: ' + top);
-						console.dir('left: ' + left);
-
 						return { top: top, left: left };
 
 					}
 
 					//final ripple coordinates
 					offsets = getPosition (element[0]);
-					console.dir('offsets: ' + offsets);
 					ripple.style.left = (x - offsets.left - size / 2) + 'px';
 					ripple.style.top = (y  - offsets.top - size / 2) + 'px';
 
 					ripple.classList.add('animate');
+
 				});
 			}
 		};

@@ -2,27 +2,27 @@ html(ng-app="clementineJS")
 	head
 		title clementine.js - A lightweight MEAN stack boilerplate.
 		link(type="text/css" rel="stylesheet" href="public/css/main.css")
-	body
+	body(ng-controller="linkCtrlr")
 		.navbar
+			h1
+				a.nav-logo(href="/")
 			ul.nav
-				li.nav-button
-					img(src="public/img/clementine_white_nav.png")
-				li.nav-button(material-ripple="") FEATURES
-				li.nav-button(material-ripple="") DOCS
+				li.nav-button(href="/" material-ripple="") FEATURES
+				li.nav-button(href="/" material-ripple="") DOCS
 
 		.banner
 			.banner-background
 				.title
-					img.logo(src="public/img/clementine_150_white_ds.png")
+					img.logo(src="public/img/clementine_white.png")
 					.clemjs clementine.js
-							p A lightweight MEAN stack boilerplate.
+							p A lightweight MEAN boilerplate.
 
 							.buttons
-								a.twitter(href="https://twitter.com/johnstonbl01" target="_blank" material-ripple="")
+								a.twitter(href="https://twitter.com/johnstonbl01" material-ripple="" ng-click="delayLink($event)")
 									img(src="public/img/twitter_logo_32x26.png")
-								a.github(href="https://github.com/johnstonbl01/clementinejs" target="_blank" material-ripple="")
+								a.github(href="https://github.com/johnstonbl01/clementinejs" target="_blank" material-ripple="" ng-click="delayLink($event)")
 									img(src="public/img/github_32px.png")
-								a(href="mailto:johnstonbl01@gmail.com" target="_blank" material-ripple="").email
+								a.email(href="mailto:johnstonbl01@gmail.com" target="_blank" material-ripple="" ng-click="delayLink($event)")
 									img(src="public/img/mail_32x28.png")
 		.content
 			
@@ -54,3 +54,4 @@ html(ng-app="clementineJS")
 		script(type="text/javascript" src="/public/application.js")
 		script(type="text/javascript" src="/directives/materialRipple.js")
 		script(type="text/javascript" src="/controllers/commentCtrlr.client.js")
+		script(type="text/javascript" src="/controllers/linkCtrlr.client.js")
