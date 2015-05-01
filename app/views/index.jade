@@ -57,9 +57,15 @@ html(ng-app="clementineJS")
 						input(type="text" ng-model="commentEmail" placeholder="email address")
 						input(type="text" ng-model="commentBody" placeholder="comment")
 						button(type="submit") Save Comment
+						button(type="submit" ng-click="deleteComments()") Delete All Comments
 
-				.tech
-			
+				.features
+					p
+						| Clementine.js features utilizes a few libraries to make your development life easier, and
+						| features a fully integrated build system via Gulp.js.
+						br
+						br
+						| MongoDB Node.js Angular.js Express.js Jade Sass Bower Gulp Mongoose			
 
 
 		script(type="text/javascript" src="/public/lib/angular/angular.min.js")
