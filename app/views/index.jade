@@ -7,6 +7,8 @@ html(ng-app="clementineJS")
 			h1
 				a.nav-logo(href="/")
 			ul.nav
+				li.nav-button(href="/" material-ripple="") ABOUT
+				li.nav-button(href="/" material-ripple="") DEMO
 				li.nav-button(href="/" material-ripple="") FEATURES
 				li.nav-button(href="/" material-ripple="") DOCS
 
@@ -30,42 +32,65 @@ html(ng-app="clementineJS")
 
 			.container
 
-				.about 
-					p
-						| Clementine.js started as a personal project to create boilerplate that would help me easily stand up
-						| a new project using the MEAN stack (MongoDB, Express.js, Angular.js & Node.js). As a novice, I found
-						| that other boilerplates were often too feature-rich and contained a lot of overhead.
-						br
-						br
-						| The purpose of Clementine.js is to provide a lightweight boilerplate for projects where the developer
-						| wishes to perform most of the integration himself without having to remove many (or any) features.
-						br
-						br
-						| Currently, Clementine.js is relatively simple and lacks a few essential features: linting & tests to name
-						| a few. However, I believe that it can be a great start for many beginner-level projects. Over the course
-						| of the next several months, Clementine.js will evolve to include the missing features and offer a rich, 
-						| but still lightweight boilerplate for MEAN projects.
-				
-				.comments(ng-controller="commentCtrlr")
-
-					ul.commentlist
-						li(ng-repeat="comment in comments")
-							p "{{comment.comments}}"
-							p#commentemail - {{comment.email}}
+				.about
+					.textcontent 
+						h3.headline About Clementine.js
+							p
+								| Clementine.js started as a personal project to create boilerplate that would help me easily stand up
+								| a new project using the MEAN stack (MongoDB, Express, Angular.js & Node.js). As a novice, I found
+								| that other boilerplates were often too feature-rich and contained a lot of overhead.
+								br
+								br
+								| The purpose of Clementine.js is to provide a lightweight boilerplate for projects where the developer
+								| wishes to perform most of the integration himself without having to remove many (or any) features.
+								br
+								br
+								| Currently, Clementine.js is relatively simple and lacks a few essential features: linting & tests to name
+								| a few. However, I believe that it can be a great start for many beginner-level projects. Over the course
+								| of the next several months, Clementine.js will evolve to include the missing features and offer a rich, 
+								| but still lightweight boilerplate for MEAN projects.
 					
-					form(ng-submit="createComment()").newcomment
-						input(type="text" ng-model="commentEmail" placeholder="email address")
-						input(type="text" ng-model="commentBody" placeholder="comment")
-						button(type="submit") Save Comment
-						button(type="submit" ng-click="deleteComments()") Delete All Comments
+					.textcontent
+						h3.headline Easy to Start, Great for Beginners
+							.textcontent
+								p
+									| Get started with development quickly by cloning the repo. The underpinnings of the MEAN stack are already
+									| configured and ready to use! If you're a beginner, Clementine.js offers an easy-to-understand structure
+									| for building your first application. Feel free to contact me directly with any questions.
+					
+					.textcontent
+						h3.headline Community-Driven
+							.textcontent
+								p
+									| Clementine.js is developed in the open, and the repo is available on GitHub. Contribution and community
+									| will help to take Clementine.js to the next level.
+
+				.demo
+					h3.headline Demonstration
+						p
+							| Below is a simple demonstration of the MEAN stack using a sample comment section.
+
+					.comments(ng-controller="commentCtrlr")
+
+						ul.commentlist
+							li(ng-repeat="comment in comments")
+								p "{{comment.comments}}"
+								p - {{comment.email}}
+						
+						form(ng-submit="createComment()").newcomment
+							input(type="text" ng-model="commentEmail" placeholder="email address")
+							input(type="text" ng-model="commentBody" placeholder="comment")
+							button(type="submit") Save Comment
+							button(type="submit" ng-click="deleteComments()") Delete All Comments
 
 				.features
-					p
-						| Clementine.js features utilizes a few libraries to make your development life easier, and
-						| features a fully integrated build system via Gulp.js.
-						br
-						br
-						| MongoDB Node.js Angular.js Express.js Jade Sass Bower Gulp Mongoose			
+					h3.headline Features
+						p
+							| Clementine.js features utilizes a few libraries to make your development life easier, and
+							| features a fully integrated build system via Gulp.js.
+							br
+							br
+							| MongoDB Node.js Angular.js Express.js Jade Sass Bower Gulp Mongoose			
 
 
 		script(type="text/javascript" src="/public/lib/angular/angular.min.js")
