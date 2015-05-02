@@ -8,7 +8,7 @@ app.controller('linkCtrlr', function ($scope, $timeout) {
 		} else {
 			return e.target.href;
 		}
-	}
+	};
 
 
 	$scope.delayLink = function (e) {
@@ -16,6 +16,14 @@ app.controller('linkCtrlr', function ($scope, $timeout) {
 			var url = getHref(e);
 
 			window.open(url, '_blank');
+		}, 350);
+	};
+
+	$scope.delayLinkNav = function (e) {
+		$timeout(function () {
+			var url = getHref(e);	
+
+			window.open(url, '_self');
 		}, 350);
 	};
 
