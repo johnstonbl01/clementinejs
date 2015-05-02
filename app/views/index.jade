@@ -7,10 +7,14 @@ html(ng-app="clementineJS")
 			h1
 				a.nav-logo(href="/")
 			ul.nav
-				li.nav-button(href="/" material-ripple="") ABOUT
-				li.nav-button(href="/" material-ripple="") DEMO
-				li.nav-button(href="/" material-ripple="") FEATURES
-				li.nav-button(href="/" material-ripple="") DOCS
+				li(material-ripple="")
+					a.nav-button(href="#about_location") ABOUT
+				li(material-ripple="")
+					a.nav-button(href="#demo_location") DEMO
+				li(material-ripple="")
+					a.nav-button(href="#features_location") FEATURES
+				li(material-ripple="")
+					a.nav-button(href="/") DOCS
 
 		.banner
 			.banner-background
@@ -33,7 +37,7 @@ html(ng-app="clementineJS")
 			.container
 
 				.about
-					.textcontent 
+					.textcontent#about_location 
 						h3.headline About Clementine.js
 							p
 								| Clementine.js started as a personal project to create boilerplate that would help me easily stand up
@@ -65,7 +69,7 @@ html(ng-app="clementineJS")
 									| Clementine.js is developed in the open, and the repo is available on GitHub. Contribution and community
 									| will help to take Clementine.js to the next level.
 
-				.demo
+				.demo#demo_location
 					h3.headline Demonstration
 						p
 							| Below is a simple demonstration of the MEAN stack using a sample comment section.
@@ -83,7 +87,7 @@ html(ng-app="clementineJS")
 							button(type="submit") Save Comment
 							button(type="submit" ng-click="deleteComments()") Delete All Comments
 
-				.features
+				.features#features_location
 					h3.headline Features
 						p
 							| Clementine.js features utilizes a few libraries to make your development life easier, and
