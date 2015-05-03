@@ -80,12 +80,17 @@ html(ng-app="clementineJS")
 							li(ng-repeat="comment in comments")
 								p "{{comment.comments}}"
 								p - {{comment.email}}
-						
-						form(ng-submit="createComment()").newcomment
-							input(type="text" ng-model="commentEmail" placeholder="email address")
-							input(type="text" ng-model="commentBody" placeholder="comment")
-							button(type="submit") Save Comment
-							button(type="submit" ng-click="deleteComments()") Delete All Comments
+						.newcomment
+							form(ng-submit="createComment()")
+								.input-container
+									input(type="text" ng-model="commentEmail" placeholder="email address").email-input
+								.input-container
+									input(type="text" ng-model="commentBody" placeholder="comment").comment-input
+								br
+								.input-button-container
+									button(type="submit" material-ripple="").savecomment SAVE
+								.input-button-container
+									button(type="submit" ng-click="deleteComments()" material-ripple="").deletecomments DELETE COMMENTS
 
 				.features#features_location
 					h3.headline Features
