@@ -1,3 +1,5 @@
+'use strict';
+
 app.controller('commentCtrlr', ['$scope', '$resource', function ($scope, $resource) {
 	var Comment = $resource('/api/comments');
 
@@ -6,7 +8,7 @@ app.controller('commentCtrlr', ['$scope', '$resource', function ($scope, $resour
 	});
 
 	$scope.createComment = function () {
-		var comment = new Comment ();
+		var comment = new Comment();
 
 		comment.email = $scope.commentEmail;
 		comment.comments = $scope.commentBody;

@@ -1,6 +1,6 @@
-var express = require ('express'),
-	app = express(),
-	commentCtrlr = require(process.cwd() + '/app/controllers/commentCtrlr.server.js');
+'use strict';
+
+var	commentCtrlr = require(process.cwd() + '/app/controllers/commentCtrlr.server.js');
 
 module.exports = function (app) {
 	//Index route

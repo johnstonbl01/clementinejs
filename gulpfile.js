@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp'),
 	nodemon = require('gulp-nodemon'),
 	uglify = require('gulp-uglify'),

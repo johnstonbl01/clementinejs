@@ -1,8 +1,11 @@
+'use strict';
+
 //Initialize Dependencies
 var express = require('express'),
-	app = express(),
 	db = require('mongoose'),
 	bodyParser = require('body-parser');
+
+var	app = express();
 
 //Database connection
 db.connect('mongodb://localhost:27017/clementinejs');
