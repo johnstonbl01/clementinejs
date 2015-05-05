@@ -2,8 +2,8 @@ html(ng-app="clementineJS")
 	head
 		title clementine.js - A lightweight MEAN stack boilerplate.
 		link(type="text/css" rel="stylesheet" href="public/css/main.css")
-	body(ng-controller="linkCtrlr")
-		.navbar
+	body
+		.navbar(ng-controller="linkCtrlr")
 			h1
 				a.nav-logo(href="/")
 			ul.nav
@@ -23,7 +23,7 @@ html(ng-app="clementineJS")
 					.clemjs clementine.js
 							p A lightweight MEAN boilerplate.
 
-							.buttons
+							.buttons(ng-controller="linkCtrlr")
 								a.twitter(href="https://twitter.com/johnstonbl01" material-ripple="" ng-click="delayLink($event)")
 									img(src="public/img/twitter_logo_32x26.png")
 								a.github(href="https://github.com/johnstonbl01/clementinejs" target="_blank" material-ripple="" ng-click="delayLink($event)")
@@ -77,20 +77,27 @@ html(ng-app="clementineJS")
 					.comments(ng-controller="commentCtrlr")
 
 						ul.commentlist
-							li(ng-repeat="comment in comments")
-								p "{{comment.comments}}"
-								p - {{comment.email}}
+							li(ng-repeat="comment in comments | limitTo: limitQuantity | orderBy: orderProperty")
+								p {{comment.email}}: "{{comment.comments}}"
 						.newcomment
-							form(ng-submit="createComment()")
+							form(name="commentForm" novalidate)
+								.input-container(ng-class="{ 'has-error' : commentForm.email.$invalid && !commentForm.email.$pristine }")
+									input(type="email" ng-model="commentEmail" required name="email").email-input
+									span.highlight
+									span.underline
+									label.input-content(ng-class="{ 'touched-input' : commentForm.email.$touched && commentForm.email.$invalid, 'input-content' : 0 }") Email
+									label.email-validation(ng-show="commentForm.email.$invalid && !commentForm.email.$pristine") Please enter a valid email.
+
 								.input-container
-									input(type="text" ng-model="commentEmail" placeholder="email address").email-input
-								.input-container
-									input(type="text" ng-model="commentBody" placeholder="comment").comment-input
+									input(type="text" ng-model="commentBody" required).comment-input
+									span.highlight
+									span.underline
+									label.input-content Comment
 								br
 								.input-button-container
-									button(type="submit" material-ripple="").savecomment SAVE
+									button(type="submit" material-ripple="" ng-click="createComment()").savecomment SAVE
 								.input-button-container
-									button(type="submit" ng-click="deleteComments()" material-ripple="").deletecomments DELETE COMMENTS
+									button(ng-click="deleteComments()" material-ripple="").deletecomments DELETE COMMENTS
 
 				.features#features_location
 					h3.headline Features

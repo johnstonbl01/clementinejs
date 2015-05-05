@@ -11,7 +11,10 @@
 
 				element.on('click', function (event) {
 
-					event.preventDefault();
+					if (element[0].type !== 'submit') {
+						event.preventDefault();
+					}
+
 					var ripple = this.querySelector('.material-ripple');
 					var eventType = event.type;
 
