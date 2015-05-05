@@ -11,16 +11,20 @@ app.controller('commentCtrlr', ['$scope', '$resource', function ($scope, $resour
 	});
 
 	$scope.createComment = function () {
-		var comment = new Comment();
 
-		comment.email = $scope.commentEmail;
-		comment.comments = $scope.commentBody;
+		if ($scope.commentForm.$valid) {
+			var comment = new Comment();
 
-		comment.$save(function (result) {
-			$scope.comments.push(result);
+			comment.email = $scope.commentEmail;
+			comment.comments = $scope.commentBody;
 
-			$scope.commentEmail = '';
-			$scope.commentBody = '';
-		});
+			comment.$save(function (result) {
+				$scope.comments.push(result);
+
+				$scope.commentEmail = '';
+				$scope.commentBody = '';
+			});
+
+		}
 	};
 }]);

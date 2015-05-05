@@ -78,7 +78,8 @@ html(ng-app="clementineJS")
 
 						ul.commentlist
 							li(ng-repeat="comment in comments | limitTo: limitQuantity | orderBy: orderProperty")
-								p {{comment.email}}: "{{comment.comments}}"
+								h3 {{comment.email}}
+								p {{comment.comments}}
 						.newcomment
 							form(name="commentForm" novalidate)
 								.input-container(ng-class="{ 'has-error' : commentForm.email.$invalid && !commentForm.email.$pristine }")
@@ -95,7 +96,7 @@ html(ng-app="clementineJS")
 									label.input-content Comment
 								br
 								.input-button-container
-									button(type="submit" material-ripple="" ng-click="createComment()").savecomment SAVE
+									button(type="submit" material-ripple="" ng-click="createComment()" ng-disabled="commentForm.$invalid").savecomment SAVE
 								.input-button-container
 									button(ng-click="deleteComments()" material-ripple="").deletecomments DELETE COMMENTS
 

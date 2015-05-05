@@ -1,6 +1,39 @@
+.commentlist
+	margin: 16 0 0 0
+	padding: 0 0 22px
+	list-style-type: none
+	border-bottom: 1px solid rgba(0,0,0,0.12)
+
+.commentlist li
+	-webkit-align-items: flex-start
+	-ms-flex-align: start
+	align-items: flex-start
+	position: relative;
+	padding: 8px 16px
+
+
+.commentlist li p
+	letter-spacing: 0.01em
+	font-size: 14px
+	font-weight: 500
+	line-height: 1.6em
+	color: rgba(0,0,0,0.54);
+	margin: 0
+
+.commentlist li h3
+	font-size: 16px
+	line-height: 0.75em
+	font-weight: 400
+	letter-spacing: 0.01em
+	color: rgba(0,0,0,0.87)
+	margin: 0 0 6px 0
+
 .comments
-	width: 500px
+	width: 550px
 	margin: 0 auto
+	border: 1px solid rgba(0,0,0,0.12)
+	box-shadow: $shadow
+	margin-bottom: 26px
 
 input:focus
 	outline: none
@@ -54,7 +87,7 @@ input:focus ~ .input-content, input:valid ~ .input-content
 
 .input-button-container
 	padding: 4px
-	padding-bottom: 26px
+	padding-bottom: 0px
 	display: inline-block
 
 .underline
@@ -141,10 +174,16 @@ input:focus ~ .underline:before, input:focus ~ .underline:after
 	padding: 10px 5px
 	width: 170px
 
+.newcomment form
+	margin: 26px 0 22px 0
+
 .savecomment
 	background: $cyan
 	color: white
 	box-shadow: $shadow
+
+.savecomment:disabled
+	opacity: .45 !important
 
 .deletecomments
 	color: $darkgrey
