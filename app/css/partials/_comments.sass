@@ -1,5 +1,6 @@
 .commentlist
 	margin: 16 0 0 0
+	height: 388px
 	padding: 0 0 22px
 	list-style-type: none
 	border-bottom: 1px solid rgba(0,0,0,0.12)
@@ -29,11 +30,12 @@
 	margin: 0 0 6px 0
 
 .comments
+	clear: left
+	float: right
 	width: 550px
-	margin: 0 auto
+	margin: 0 auto 0 16px
 	border: 1px solid rgba(0,0,0,0.12)
 	box-shadow: $shadow
-	margin-bottom: 26px
 
 input:focus
 	outline: none
@@ -110,7 +112,7 @@ input:focus ~ .input-content, input:valid ~ .input-content
 	position: absolute
 	height: 35%
 	width: 30%
-	top: 5%
+	top: 10%
 	left: 5px
 	pointer-events: none
 	opacity: 0.5

@@ -143,11 +143,6 @@ body {
   line-height: 28px;
   font-size: 16px; }
 
-.divider {
-  background-color: #ECEFF1;
-  height: 100PX;
-  width: 100%; }
-
 .container {
   background-color: white;
   padding: 64px 96px; }
@@ -160,7 +155,41 @@ body {
   list-style-type: none; }
 
 .textcontent {
-  margin: 0 0 26px 0; }
+  margin: 0 0 26px 0;
+  float: left; }
+
+.html-css {
+  float: right;
+  padding: 0 16px 16px 16px;
+  margin-top: 53px; }
+
+.code-excerpt {
+  float: right;
+  border: 3px solid #00BCD4;
+  margin: 23px 16px 0 16px;
+  border-radius: 3px; }
+
+.gh-octocat {
+  float: right;
+  margin: 23px 16px 0 8px; }
+
+.open-source {
+  float: right;
+  margin: 23px 8px 0 16px; }
+
+#community {
+  width: 100%; }
+
+.license {
+  clear: left;
+  display: block; }
+
+.license p {
+  font-size: 10px;
+  color: #212121;
+  padding: 16px 0 0 0;
+  margin: 26px auto 0 auto;
+  text-align: center; }
 
 .buttons {
   margin: auto;
@@ -348,6 +377,7 @@ body {
 
 .commentlist {
   margin: 16 0 0 0;
+  height: 388px;
   padding: 0 0 22px;
   list-style-type: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
@@ -376,11 +406,12 @@ body {
   margin: 0 0 6px 0; }
 
 .comments {
+  clear: left;
+  float: right;
   width: 550px;
-  margin: 0 auto;
+  margin: 0 auto 0 16px;
   border: 1px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  margin-bottom: 26px; }
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
 
 input:focus {
   outline: none; }
@@ -457,7 +488,7 @@ input:focus ~ .input-content, input:valid ~ .input-content {
   position: absolute;
   height: 35%;
   width: 30%;
-  top: 5%;
+  top: 10%;
   left: 5px;
   pointer-events: none;
   opacity: 0.5; }

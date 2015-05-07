@@ -6,9 +6,27 @@ app.controller('commentCtrlr', ['$scope', '$resource', function ($scope, $resour
 	$scope.limitQuantity = -5;
 	$scope.orderProperty = '_id';
 
-	Comment.query(function (results) {
-		$scope.comments = results;
-	});
+
+	$scope.queryComments = function () {
+		Comment.query(function (results) {
+			$scope.comments = results;
+
+			if ($scope.comments.length === 0) {
+				var firstComment = new Comment();
+
+				firstComment.email = 'sunnyside@citruslovers.com';
+				firstComment.comments = 'The best thing to happen to internet citrus since the orange press!';
+
+				firstComment.$save(function (result) {
+					$scope.comments.push(result);
+
+				});
+			}
+
+		});
+	};
+
+	$scope.queryComments();
 
 	$scope.createComment = function () {
 
@@ -23,8 +41,21 @@ app.controller('commentCtrlr', ['$scope', '$resource', function ($scope, $resour
 
 				$scope.commentEmail = '';
 				$scope.commentBody = '';
+
+				$scope.queryComments();
 			});
 
 		}
+	};
+
+	$scope.deleteComments = function () {
+
+		if ($scope.comments.length !== 0) {
+			Comment.delete($scope.comments, function () {
+				$scope.queryComments();
+			});
+
+		}
+
 	};
 }]);

@@ -12,6 +12,7 @@ module.exports = function (app) {
 	//API routes
 	app.route('/api/comments')
 		.get(commentCtrlr.list)
+		.delete(commentCtrlr.remove)
 		.post(commentCtrlr.create);
 
 	//Exception handling for unspecified routes
