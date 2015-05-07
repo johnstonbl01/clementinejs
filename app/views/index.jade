@@ -92,7 +92,7 @@ html(ng-app="clementineJS")
 											input(type="email" ng-model="commentEmail" required name="email").email-input
 											span.highlight
 											span.underline
-											label.input-content(ng-class="{ 'touched-input' : commentForm.email.$touched && commentForm.email.$invalid, 'input-content': commentForm.email.$invalid && !commentForm.email.length }") Email
+											label.input-content(ng-class="{ 'touched-input' : commentForm.email.$touched && commentForm.email.$invalid }") Email
 											label.email-validation(ng-show="commentForm.email.$invalid && !commentForm.email.$pristine") Please enter a valid email.
 
 										.input-container
@@ -128,19 +128,30 @@ html(ng-app="clementineJS")
 
 				.features#features_location
 					.textcontent
-						h3.headline Features
-							p
-								| Clementine.js utilizes several libraries to make your development life easier
-								| Features List
-								| Gulp build system (including SASS pre-processing)
-								| Jade syntax & templating (optional)
-								| Mongoose schema design for MongoDB
-								| NPM & Bower package management
-								| Live & Development environment setup
-								| Really great citrus-related colors & images
-								br
-				.libraries
+						h3.headline Why use Clementine.js?
+							ul.features-list
+								li Simple and easy to understand architecture
+								li Fully commented oode
+								li Beginner mode CLI that strips the boilerplate down to just the bare essentials
+								li Gulp build system (including Sass pre-processing, watch mode and CSS/JS minimization)
+								li Sass CSS syntax
+								li Jade HTML syntax
+								li Mongoose schemas for MongoDB
+								li NPM & Bower package management
+								li Really great citrus-related colors & images
 
+							p
+								| Compared to similar boilerplates, Clementine is meant to be a simpler alternative withou the bells and
+								| whistles. Occasionally, you will want a more robust boilerplate for your project, but in some cases
+								| all of the extraneous features are not necessary. This is particularly true when learning to code, as
+								| some of the additional features and architecture can obfuscate the details that are important for learning.
+								br
+								br
+								| That said, Clementine.js does include a few bells and maybe a whistle or two. Each of the features on the right
+								| can be easily removed from the boilerplate for a bare bones experience. This is detailed in the setup 
+								| documentation.
+
+				.libraries
 					.libraries-row-one
 						a.mongodb(href="http://www.mongodb.com/" target="_blank")
 							img(src="public/img/mongodb_logo.png")
