@@ -5,7 +5,8 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	sass = require('gulp-sass'),
 	minifyCSS = require('gulp-minify-css'),
-	rename = require('gulp-rename');
+	rename = require('gulp-rename'),
+	concat = require('gulp-concat');
 
 function restartTime () {
 	function checkTime(i) {
@@ -34,7 +35,13 @@ gulp.task('minify', function () {
 		}))
 		.pipe(gulp.dest('./app/css'))
 		.pipe(minifyCSS())
+		.pipe(rename('main.min.css'))
 		.pipe(gulp.dest('./public/css'));
+
+	gulp.src(['./app/directives/materialRipple.js'])
+		.pipe(concat('site.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('./public/scripts'));
 });
 
 gulp.task('default', ['watch']);

@@ -1,7 +1,7 @@
 html(ng-app="clementineJS")
 	head
 		title clementine.js - A lightweight MEAN stack boilerplate.
-		link(type="text/css" rel="stylesheet" href="public/css/main.css")
+		link(type="text/css" rel="stylesheet" href="public/css/main.min.css")
 	body
 		.navbar(ng-controller="linkCtrlr")
 			h1
@@ -177,7 +177,7 @@ html(ng-app="clementineJS")
 
 		script(type="text/javascript" src="/public/lib/angular/angular.min.js")
 		script(type="text/javascript" src="/public/lib/angular-resource/angular-resource.min.js")
-		script(type="text/javascript" src="/public/application.js")
-		script(type="text/javascript" src="/directives/materialRipple.js")
-		script(type="text/javascript" src="/controllers/commentCtrlr.client.js")
+		script(type="text/javascript" src="/public/scripts/angular.js")
+		script(type="text/javascript" src="/public/scripts/site.js")
 		script(type="text/javascript" src="/controllers/linkCtrlr.client.js")
+		script(type="text/javascript" src="/controllers/commentCtrlr.client.js")
