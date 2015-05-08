@@ -10,11 +10,11 @@ html(ng-app="clementineJS")
 				li(material-ripple="")
 					a.nav-button(href="#about_location" ng-click="delayLinkNav($event)") ABOUT
 				li(material-ripple="")
-					a.nav-button(href="#demo_location") DEMO
+					a.nav-button(href="#demo_location" ng-click="delayLinkNav($event)") DEMO
 				li(material-ripple="")
-					a.nav-button(href="#features_location") FEATURES
+					a.nav-button(href="#features_location" ng-click="delayLinkNav($event)") FEATURES
 				li(material-ripple="")
-					a.nav-button(href="/") DOCS
+					a.nav-button(href="/" ng-click="delayLinkNav($event)") DOCS
 
 		.banner
 			.banner-background
@@ -126,8 +126,8 @@ html(ng-app="clementineJS")
 								| If you're interested in learning how to create this application, please check out the Tutorial in the
 								| documentation.
 
-				.features#features_location
-					.textcontent
+				.features
+					.textcontent#features_location
 						h3.headline Why use Clementine.js?
 							ul.features-list
 								li Simple and easy to understand architecture
@@ -177,7 +177,4 @@ html(ng-app="clementineJS")
 
 		script(type="text/javascript" src="/public/lib/angular/angular.min.js")
 		script(type="text/javascript" src="/public/lib/angular-resource/angular-resource.min.js")
-		script(type="text/javascript" src="/public/scripts/angular.js")
 		script(type="text/javascript" src="/public/scripts/site.js")
-		script(type="text/javascript" src="/controllers/linkCtrlr.client.js")
-		script(type="text/javascript" src="/controllers/commentCtrlr.client.js")
