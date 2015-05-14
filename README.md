@@ -1,44 +1,35 @@
-##Docs Outline##
+##Overview
 
-App Overview
-Two scenarios: beginner / experienced
+Clementine.js is a lightweight MEAN stack boilerplate intended for beginners and advanced users alike. 
 
-**Overview**
+There are 3 versions of Clementine.js:
 
-Why Clementine.js?
+**Beginner** - The beginner boilerplate contains a very simple application that is intended to show a beginner how the MEAN stack fits together and get started on his or her first web application.
 
-Why Jade / Sass / MEAN / Mongoose / Gulp?
+**Advanced** - The advanced boilerplate includes a few more bells and whistles to improve workflow, but remains a simple boilerplate without much fluff to get in the way. This version of the boilerplate contains a website that demonstrates the power of the stack, including some examples of how to apply Angular & data-binding using MEAN.
 
-**Beginner**
+**Advanced -- Bare** - The bare template includes all of the additional libraries, but pared down to only include the necessities. There is a simple web app here (the same as the beginner sample), but using the additional libraries included in the advanced version.
 
-TBC
+##Quick Start Guide
 
-**Experienced**
+**Prerequisites**
+In order to use Clementine.js, you must have the following installed:
 
-###App explanation###
+_Node_ & _NPM_ - https://nodejs.org/
+MongoDB - http://www.mongodb.org/
 
-Node Server & Express Routes
+#Beginner
+To begin developing with the beginner version of Clementine.js, simply run the following from your terminal:
+[insert repo clone information]
 
-MongoDB / Mongoose setup
+#Advanced
+To begin developing with the advanced version of Clementine.js, simply run the following from your terminal:
+[insert repo clone information]
 
-Angular controllers & directives
+#Advanced -- Bare
+To begin developing with the advanced -- bare bones version of Clementine.js, simply run the following from your terminal:
+[insert repo clone information]
 
-Gulp build system
+##Documentation
 
-Sass Integration
-
-Jade Integration
-
-###Removing different parts of the app###
-
-Jade
-
-Gulp
-
-Mongoose
-
-Bower
-
-Sass
-
-###Future Additions###
+Complete documentation can be found at: http://johnstonbl01.github.io/clementinejs
