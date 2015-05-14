@@ -20,17 +20,17 @@ _Node_ & _NPM_ - https://nodejs.org/
 
 MongoDB - http://www.mongodb.org/
 
-#Beginner
+###Beginner
 To begin developing with the beginner version of Clementine.js, simply run the following from your terminal:
 
 [insert repo clone information]
 
-#Advanced
+###Advanced
 To begin developing with the advanced version of Clementine.js, simply run the following from your terminal:
 
 [insert repo clone information]
 
-#Advanced -- Bare
+###Advanced -- Bare
 To begin developing with the advanced -- bare bones version of Clementine.js, simply run the following from your terminal:
 
 [insert repo clone information]
