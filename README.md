@@ -8,26 +8,31 @@ There are 3 versions of Clementine.js:
 
 **Advanced** - The advanced boilerplate includes a few more bells and whistles to improve workflow, but remains a simple boilerplate without much fluff to get in the way. This version of the boilerplate contains a website that demonstrates the power of the stack, including some examples of how to apply Angular & data-binding using MEAN.
 
-**Advanced -- Bare** - The bare template includes all of the additional libraries, but pared down to only include the necessities. There is a simple web app here (the same as the beginner sample), but using the additional libraries included in the advanced version.
+**Advanced: Bare** - The bare template includes all of the additional libraries, but pared down to only include the necessities. There is a simple web app here (the same as the beginner sample), but using the additional libraries included in the advanced version.
 
 ##Quick Start Guide
 
 **Prerequisites**
+
 In order to use Clementine.js, you must have the following installed:
 
 _Node_ & _NPM_ - https://nodejs.org/
+
 MongoDB - http://www.mongodb.org/
 
 #Beginner
 To begin developing with the beginner version of Clementine.js, simply run the following from your terminal:
+
 [insert repo clone information]
 
 #Advanced
 To begin developing with the advanced version of Clementine.js, simply run the following from your terminal:
+
 [insert repo clone information]
 
 #Advanced -- Bare
 To begin developing with the advanced -- bare bones version of Clementine.js, simply run the following from your terminal:
+
 [insert repo clone information]
 
 ##Documentation
