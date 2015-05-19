@@ -1,4 +1,4 @@
-##Overview
+## Overview
 
 Clementine.js is a lightweight MEAN stack boilerplate intended for beginners and advanced users alike. 
 
@@ -10,9 +10,9 @@ There are 3 versions of Clementine.js:
 
 **Advanced: Bare** - The bare template includes all of the additional libraries, but pared down to only include the necessities. There is a simple web app here (the same as the beginner sample), but using the additional libraries included in the advanced version.
 
-##Quick Start Guide
+## Quick Start Guide
 
-**Prerequisites**
+#### Prerequisites
 
 In order to use Clementine.js, you must have the following installed:
 
@@ -20,21 +20,33 @@ _Node_ & _NPM_ - https://nodejs.org/
 
 MongoDB - http://www.mongodb.org/
 
-###Beginner
+#### Beginner
 To begin developing with the beginner version of Clementine.js, simply run the following from your terminal:
 
 [insert repo clone information]
 
-###Advanced
+#### Advanced
 To begin developing with the advanced version of Clementine.js, simply run the following from your terminal:
 
 [insert repo clone information]
 
-###Advanced -- Bare
+#### Advanced -- Bare
 To begin developing with the advanced -- bare bones version of Clementine.js, simply run the following from your terminal:
 
 [insert repo clone information]
 
-##Documentation
+## Documentation
 
 Complete documentation can be found at: http://johnstonbl01.github.io/clementinejs
+
+## Future Updates / Features
+
+The below additions will be made as I have the opportunity, and not necessarily in the order listed.
+
+- [ ] NPM packages for installation
+	- [ ] Beginner
+	- [ ] Advanced
+	- [ ] Advanced - Bare
+- [ ] Add tests with Karma / Jasmine
+- [ ] Refactor Angular code
+- [ ] Prod / Dev ENV setup
