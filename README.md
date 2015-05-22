@@ -16,9 +16,9 @@ There are 3 versions of Clementine.js:
 
 In order to use Clementine.js, you must have the following installed:
 
-_Node_ & _NPM_ - https://nodejs.org/
+[_Node_ & _NPM_](https://nodejs.org/)
 
-MongoDB - http://www.mongodb.org/
+[MongoDB](http://www.mongodb.org/)
 
 #### Beginner
 To begin developing with the beginner version of Clementine.js, simply run the following from your terminal:
@@ -37,7 +37,7 @@ To begin developing with the advanced -- bare bones version of Clementine.js, si
 
 ## Documentation
 
-Complete documentation can be found at: http://johnstonbl01.github.io/clementinejs
+Complete documentation can be [found here](http://johnstonbl01.github.io/clementinejs).
 
 ## Future Updates / Features
 
