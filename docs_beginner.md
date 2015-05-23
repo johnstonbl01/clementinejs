@@ -63,9 +63,43 @@ For more information on Node, [try their site](https://nodejs.org/documentation/
 
 #### Installation
 
+Installation of the boilerplate has two prerequisites: Node.js / NPM and MongoDB. The instructions for these are detailed below, followed by installation instructions for Clementine.js.
+
 ##### Node.js & NPM
 
+_Note:_ The Node insallation installs both Node & NPM.
+
+**MAC OSX & Windows**
+
+Head to the [Node.js install page](https://nodejs.org/download/). Download the appropriate file follow the installation instructions.
+
+**Linux**
+
+_Option 1_ - Install via PPA
+```
+$ sudo add-apt-repository ppa:chris-lea/node.js
+$ sudo apt-get update
+$ sudo apt-get install nodejs
+```
+
+_Option 2_ - Install via LinuxBrew
+
+First, ensure [LinuxBrew](http://brew.sh/linuxbrew/) is installed. Then, enter the below into the Linux terminal:
+```
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+```
+
 ##### MongoDB
+
+MongoDB has great installation instructutions for MAC OSX, Windows and Linux. [See this page.](http://docs.mongodb.org/manual/installation/)
+
+##### Clementine.js
+
+To install the boilerplate, first create a new directory for your project and cd into that directory from the terminal. Then type:
+```
+https://github.com/johnstonbl01/clementinejs-beginner.git .
+```
+_Note:_ The period at the end is important. If the period is excluded, git will create a new directory named clementinejs-beginner in your current directory.
 
 #### Folder Structure
 
