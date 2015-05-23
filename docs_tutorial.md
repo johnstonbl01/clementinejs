@@ -1,0 +1,40 @@
+### Steps
+- prerequisite installation
+	- note on internet connection
+- npm init
+- install modules
+	- express
+	- mongodb node driver
+- .gitignore
+	- don't forget note about eslint file
+- folder creation
+	- app
+		- controllers
+		- routes
+	- public
+		- css
+		- img
+- simple node server (server.js)
+- simple hello world html (index.html)
+- test app
+- refactor route to own directory (index.js)
+- test app
+- update html file
+	- top div
+	- bottom div
+		- p
+		- button
+- test app
+- add angular file
+- add angular functionality
+	- html
+		- ng-app
+		- ng-click
+		- ng-controller()
+		- {{ clicks }}
+	- controller
+		- controller js file
+		- controller file in html
+		- controller directory (app.use) in node
+- test app
+- add mongodb functionality
