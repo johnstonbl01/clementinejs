@@ -26,6 +26,8 @@
 		- button
 - test app
 - add angular file
+	- standard
+	- resource
 - add angular functionality
 	- html
 		- ng-app
@@ -38,3 +40,27 @@
 		- controller directory (app.use) in node
 - test app
 - add mongodb functionality
+	- require in node
+	- connection
+	- setup API
+		- server click handler
+			- get clicks
+			- test app
+			- add clicks
+			- test app
+			- reset clicks
+			- test app
+		- update click controller
+			- get clicks
+			- test app
+			- add clicks
+			- test app
+			- reset clicks
+			- test app
+		- routes
+- test app
+- add clementine img to html
+	- update static /public in server.js
+- add css file; update html file
+- test app
+- done!
