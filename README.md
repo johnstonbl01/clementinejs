@@ -39,6 +39,10 @@ To begin developing with the advanced -- bare bones version of Clementine.js, si
 
 Complete documentation can be [found here](http://johnstonbl01.github.io/clementinejs).
 
+## License
+
+MIT License. [Click here for more information.](LICENSE.md)
+
 ## Future Updates / Features
 
 The below additions will be made as I have the opportunity, and not necessarily in the order listed.
