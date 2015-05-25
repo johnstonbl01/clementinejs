@@ -101,7 +101,46 @@ https://github.com/johnstonbl01/clementinejs-beginner.git .
 ```
 _Note:_ The period at the end is important. If the period is excluded, git will create a new directory named clementinejs-beginner in your current directory.
 
+##### Starting the App
+
+To start the app, make sure you're in the project directory and type `node server.js` into the terminal. This will start the Node server and connect to MongoDB.
+
+You should the following messages within the terminal window:
+```
+MongoDB successfully connected on port 27017.
+Node.js listening on port 3000...
+```
+Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up and running!
+
 #### Folder Structure
+```
++--	Project Folder
+	+--	app
+	|	\--	controllers
+	|	\--	routes
+	|
+	+-- public
+	|	\--	css
+	|	\-- img
+```
+
+**Project / Root Folder** - The project directory. This directory contains:
+- _.gitignore_ - A file specifying which directories git should ignore when pushing to the master
+- _package.json_ - A file specifying which packages should be installed by NPM, in addition general application information (name, version, license, etc).
+- _server.js_ - The primary Node file used to start the server and initialize necessary services / frameworks for the application (i.e. connecting to the Mongo database, intializing Express, etc).
+
+**app** - The directory containing the "behind-the-scenes" (i.e. controllers) and server-side JavaScript files (i.e. routes).
+- **controllers** - Directory for client and server-side controller files. Controllers are used to either manipulate / modify the view or the model (i.e. the database).
+	- _clickController.client.js_ - This is an Angular controller that instructs Angular how to interact with the view (i.e. the web page). In this case, events such as getting the number of times someone has clicked the button are handled through this controller.
+	- _clickHandler.server.js_ - This is a server-side controller that tells Mongo what to do when a particular HTTP request is made (i.e. GET, POST, etc).
+- **routes** - This folder contains route files. Routes give directions on what to do when a particular URL or HTTP request is made from the client (i.e. browser) to the server.
+	- _index.js_ - contains route code for the application
+
+**public** - This directory contains information used to render the view (i.e. css & images). Traditionally, this directory would also include a libary of any vendor code (i.e. AngularJS, jQuery, etc) used in the application. In this instance, we're simply linking directly to the Google CDN (content delivery network) for AngularJS.
+- **css** - Contains the style sheet for the application
+- **img** - Contains any images used in the view (i.e. the Clementine.js logo)
+- _index.html_ - This file contains all HTML code to render the view for this single-page application.
+
 
 #### Tutorial
 
