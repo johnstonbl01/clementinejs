@@ -28,7 +28,7 @@
 
 #### Folder Structure
 
-#### Tutorial
+#### [Tutorial](docs_tutorial.md)
 
 ### [Advanced Boilerplate](docs_advanced.md)
 
