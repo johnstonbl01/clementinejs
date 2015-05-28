@@ -338,7 +338,66 @@ Let's move on to giving some more pizazz to our HTML file.
 
 #### Adding Additional Elements to Index.HTML
 
+In this section, we're going to update our HTML file to include more content and get it ready for AngularJS integration. Here's the updated HTML code:
 
+```
+<head>
+	<title>Clementine.js - A beginner level MEAN stack application</title>
+</head>
+
+<body>
+
+	<div class="container">
+		<img src="/public/img/clementine_150.png" />
+		<br />
+		<p class="clementine-text">Clementine.js</p>
+	</div>
+
+	<div class="container">
+
+		<p>You have clicked the button X times.</p>
+		<br />
+		<div class="btn-container">
+			<button type="submit" class="btn">CLICK ME!</button>
+			<button class="btn btn-delete">RESET</button>
+		</div>
+
+	</div>
+
+</body>
+```
+I've added some Clementine features and text to the application, but feel free to modify however you like. If you'd like to include a copy of the clementine logo, feel free to download a copy (right-click > Save Image As) from the [this GitHub page](https://github.com/johnstonbl01/clementinejs-beginner/blob/master/public/img/clementine_150.png). Make sure to save it within the public/img directory.
+
+What did we accomplish with the new HTML? We included two `div` elements that contain a top and bottom portion of our small application. The top portion includes a picture and the name of the application.
+
+The bottom portion contains text telling us how many times the button has been clicked, and the two buttons: one button to add clicks, and one to reset the clicks.
+
+Now let's ensure that everything still works. Test the app by starting up the Node server and checking it in the browser. You should see:
+
+[insert img here]
+
+Oh no! Why isn't our image loading? Well, when Node tries to access the `/public/img/` directory, it doesn't have any reference for how to find that file.
+
+This can be solved by adding an additional line to the `server.js` file.
+```
+var path = process.cwd();
+
+app.use('/public', express.static(path + '/public'));
+```
+
+Here we will use Express's [`app.use`](http://expressjs.com/4x/api.html#app.use) and [`express.static`](http://expressjs.com/4x/api.html#express.static) to bind the directory path for `/public` to a shortcut: `/public`. Now when `/public` is referenced within our HTML file, Express and Node should be able to locate the logo and pass it to the browser successfully.
+
+Let's check to make sure that this is the case. Start the node server and point the browser to `localhost:3000`.
+
+[insert img here]
+
+Ahhh, that's better!
+
+Now let's begin integrating AngularJS into our application.
+
+#### AngularJS HTML Integration
+
+#### AngularJS Interactivity via the Controller
 
 /**************************************************************************/
 
