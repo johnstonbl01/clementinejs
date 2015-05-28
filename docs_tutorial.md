@@ -140,6 +140,38 @@ Now let's spend a few moments to create the file structure we'll be using.
 - **css** - Contains the style sheet for the application
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
 
+#### App Architecture Overview
+
+Before we begin writing actual code, it's helpful to think of the overall picture for the application and how the pieces fit together. We'll be using an MVC (model-view-controller) architecture for this particular app.
+
+This is a common architecture in web development. The model manages the application and data / database logic. The view is the content that is visible to the user. The controller helps manage data between the view and the model. In many cases, the controller will accept data and manipulate it, passing the results to the view.
+
+Here's a diagram of this:
+
+[insert picture here]
+
+Additionally, for more information on the MVC architectural pattern, check out the [Wikipedia page](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller).
+
+In this tutorial, we're going to create a small application that will have the following functionality:
+- Count the number of times a button is clicked
+	- Store this count within a database
+- Reset the count to 0
+
+In the context of our application, we will have the following:
+- A Node / Express web server that responds to HTTP request and passes files to the browswer
+- A MongoDB database that stores the number of clicks
+- A server-side controller that will add, reset and retrieve the number of clicks from the database
+	- This data will be passed to an API (application program interface)
+- A client-side controller that handles user input, retrieves and modifies click information via the exposed API
+- A client-side view that the user interacts with and sees
+	- This is our HTML page that includes a logo and the buttons for interaction
+
+All together, this looks like:
+
+[insert graphic]
+
+This should provide some general contextthat will be helpful as we proceed with development.
+
 #### Simple Node Server
 
 /**************************************************************************/
