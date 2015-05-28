@@ -242,14 +242,14 @@ This is an extremely simple HTML file, but will allow us to begin returning a fi
 
 Let's update the `server.js` file to accomplish this.
 
-** Before: **
+_Before:_
 ```
 app.get('/', function (req, res) {
 	res.send('Hello world!');
 });
 ```
 
-** After: **
+_After:_
 ```
 var path = process.cwd();
 
@@ -261,6 +261,82 @@ app.get('/', function (req, res) {
 The first order of business is to capture the current directory path in a variable. For this, we use Node's [`process.cwd()`](https://nodejs.org/api/process.html#process_process_cwd) method.
 
 Next, we tell Express to respond by sending a file to the browser, and specifying the location and name of the file: `res.sendFile(path + '/index.html');`.
+
+Let's test the application now to ensure this is working correctly. Again from the project folder, type `$ node server.js` into the terminal.
+
+Point the browser to `localhost:3000` and you should again see "Hello world!"
+
+#### Refactoring Routes
+
+Our next step is going to be refactoring our routes by using another common Express & Node pattern. Web applications have a number of routes (the HTTP requests made to the server), and it's common to store these in separate directories and files. That's our goal for this portion of the tutorial.
+
+Begin by creating a new file within the `/app/routes` directory named `index.js`. This will be the JavaScript file containing our routes.
+
+Remove the following from the `server.js` file:
+```
+app.get('/', function (req, res) {
+	res.sendFile(path + '/index.html');
+});
+```
+
+The next order of business is to add our new route file as a dependency for the server.js file. At the top of the file:
+```
+var express = require('express'),
+	routes = require('./app/routes/index.js');
+```
+
+Now we need to pass the Express application as an argument to our route function object. Essentially, we will export our routes, and that function object will accept one argument, `app`. This will allow us to use Express functionality within the scope of our new route function. Hang in there if this doesn't make sense right away.
+
+Include the following code where our former route code was within the file:
+```
+routes(app);
+```
+
+Your `server.js` file should look like:
+```
+'use strict';
+
+var express = require('express'),
+	routes = require('./app/routes/index.js');
+
+var app = express();
+
+var path = process.cwd();
+
+routes(app);
+
+app.listen(3000, function () {
+	console.log('Listening on port 3000...');
+});
+```
+
+Now, let's add some content to the `index.js` file. We're going to use the [`module.exports`](https://nodejs.org/api/modules.html#modules_module_exports) method in Node to extend this function and make it available to other Node files (i.e. our `server.js` file). This function will accept a single argument (`app`), which will be the Express app.
+
+index.js:
+```
+'use strict';
+
+var path = process.cwd();
+
+module.exports = function (app) {
+	app.route('/')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/index.html');
+		});
+};
+```
+
+Some of this will look familiar, but it's important to note that we're using a different routing method from Express: [`app.route`](http://expressjs.com/4x/api.html#app.route). This is an alternative to app.get, and let's us bundle together several types of routes for a single page request (this will become apparently later in the tutorial). The remainder of this code is exactly the same as our former `app.get` route.
+
+Next, move the index.html file into the `/public` directory. This will be the permanent home of this file.
+
+Let's test this update to ensure everything has been setup correctly. From the project folder, type `$ node server.js` into the terminal.
+
+Point the browser to `localhost:3000` and you should again see "Hello world!"
+
+Let's move on to giving some more pizazz to our HTML file.
+
+#### Adding Additional Elements to Index.HTML
 
 
 
