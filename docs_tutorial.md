@@ -174,6 +174,96 @@ This should provide some general contextthat will be helpful as we proceed with 
 
 #### Simple Node Server
 
+To begin our application, let's start by standing up a simple Node server. This will serve as the foundation of our application, and we'll continue to build on top of this for the remainder of the tutorial.
+
+Begin by creating a `server.js` file in the root project folder. Within this file:
+```
+'use strict';
+
+var express = require('express');
+
+var app = express();
+
+app.get('/', function (req, res) {
+	res.send('Hello world!');
+});
+
+app.listen(3000, function () {
+	console.log('Listening on port 3000...');
+});
+```
+
+Let's discuss what the above code is doing:
+
+`'use strict'`
+
+This command enables ["strict mode"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode), which is a way to opt in to a more strict version of JavaScript. This is best practice because it enforces more secure syntax and best practices through sticter syntax constraints. The documentation above provides some great examples of this behavior and how strict mode enforces them.
+
+`var express = require('express');`
+
+This is the node syntax for including Express as a dependency of our application. We store this within a variable that we can use later in the Node application.
+
+`var app = express();`
+
+This line initializes Express and allows us to access all of its great web application functionality via the `app` variable. Express has a number of great and helpful methods (functions) that make web applications easier to program.
+
+`app.get( ... )`
+
+[App.get](http://expressjs.com/4x/api.html#app.get.method) is an Express method that is going to take a request (`req`) from the client (browser) for a root URL ('/' - think of www.google.com/ as a root URL - basically the default web address for a site) and respond (`res`) by sending ([`res.send`](http://expressjs.com/4x/api.html#res.send)) a message to the browser. This is an extremely common pattern in Express, and one you'll see a lot.
+
+`app.listen( ... )`
+
+Lastly, [app.listen](http://expressjs.com/4x/api.html#app.listen) is going to tell Node which port to listen on (3000). In this case, we're also providing a callback function (a function that gets called once the app.listen function has finished) that will tell us when Node is ready and the server has been started.
+
+Let's test the applicaton now, by typing `$ node server.js` in the terminal window (make sure you're within the project directory). You should see the following:
+```
+$ node server.js
+Listening on port 3000...
+```
+Great!
+
+Now, open a browser and point it to `localhost:3000`. Within the browser window you should see the "Hello world!" message.
+
+Let's take this one step further and serve the browser an actual HTML file. Within the project folder, create an `index.html` file.
+
+Within this file:
+```
+<!DOCTYPE html>
+<html>
+<head>
+	<title>First Node App</title>
+</head>
+<body>
+	<p>Hello, world!</p>
+</body>
+</html>
+```
+This is an extremely simple HTML file, but will allow us to begin returning a file to the browser rather than a message.
+
+Let's update the `server.js` file to accomplish this.
+
+** Before: **
+```
+app.get('/', function (req, res) {
+	res.send('Hello world!');
+});
+```
+
+** After: **
+```
+var path = process.cwd();
+
+app.get('/', function (req, res) {
+	res.sendFile(path + '/index.html');
+});
+```
+
+The first order of business is to capture the current directory path in a variable. For this, we use Node's [`process.cwd()`](https://nodejs.org/api/process.html#process_process_cwd) method.
+
+Next, we tell Express to respond by sending a file to the browser, and specifying the location and name of the file: `res.sendFile(path + '/index.html');`.
+
+
+
 /**************************************************************************/
 
 - prerequisite installation
