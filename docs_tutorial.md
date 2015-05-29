@@ -459,45 +459,73 @@ This is likely a good time to expand on how Angular interacts with both the view
 
 Now that our HTML view is ready for Angular, let's define our client-side controller.
 
+#### AngularJS $scope Manipulation
+
+Begin this process by creating a new file named `clickController.client.js` in the `/app/controllers` directory. In this file, we'll put all the client-side code to handle events in the browser, like clicking on one of the buttons.
+
+To begin, we're going to include `'use strict';` again at the top of the file. Then, we're going to wrap all of our Angular code in what's called an [immediately invoked function express (IIFE)](http://en.wikipedia.org/wiki/Immediately-invoked_function_expression). Let's start with that:
+
+```
+'use strict';
+
+(function () {
+
+})();
+```
+An IIFE is going to bind all the variables within to the local scope of that function. This means that functions declared within this function will not conflict with other variables within the application that may share the same name or need to be re-used. This is a common practice in Angular code (and JS in general), and a good best practice to use.
+
+Within this, let's first define our Angular module (i.e. the app), and then the controller.
+
+```
+(function () {
+
+angular
+	.module('clementineApp', [])
+	.controller('clickController', ['$scope', function ($scope) {
+		$scope.clicks = 1000;
+	}]);
+
+})();
+```
+
+First, `angular` is a global variable recognized by AngularJS that allows its built-in methods.
+
+[`angular.module('clementineApp', [])`](https://docs.angularjs.org/api/ng/type/angular.Module) is the syntax used to define an Angular module. Note that the name of the application must match the name specified in the `ng-app` directive of the HTML. The empty array is where we will inject dependencies for this module.
+
+Next, we define the name of our [Angular controller](https://docs.angularjs.org/guide/controller) using the syntax `angular.controller( ... )`. Again, note that the name of the controller defined as the first argument of this expression must match the name specified via the `ng-controller` directive included in the HTML file.
+
+You'll notice that the dependency array isn't empty here. We bind include the `$scope` object as a dependency, and then pass it as the argument for the following call back function. This is what will allow us to access and manipulate information bound to the `$scope` object and make it available within the view of our application.
+
+Lastly, we set the `clicks` variable within the scope to be equal to 1000. I chose an arbitrary number here that we will easily recognize when testing. Keep in mind that the name of the variable on the `$scope` object ('clicks'), must also match the name of the variable we placed inside the brackets on the HTML page ({{ clicks }}).
+
+Before we test this, there are a few additional adjustments we need to make to the `index.html` and `server.js` files.
+
+_index.html_
+```
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+	<script type="text/javascript" src="/controllers/clickController.client.js"></script>
+</body>
+```
+Here, we have added our new JS file to the HTML so that it is included in the page and can be executed when called upon. Take note of the order of the files here -- it does matter. The clickController needs functionality from the ng-resource file, which in turn depends on functionality within the angular script.
+
+_server.js_
+```
+app.use('/public', express.static(path + '/public'));
+app.use('/controllers', express.static(path + '/app/controllers'));
+```
+
+We've added an additional static path so that when the browser makes a request for the `/controllers' directory, the server can correctly serve the appropriate file.
+
+Once that has been completed, fire up the Node server and browse to `localhost:3000`. You should now see, "You have clicked the button 1000 times." Congratulations, you've set up your first AngularJS controller!
+
+However, neither of our buttons work when clicking on them. Hmm, let's fix that, shall we?
+
 #### AngularJS Interactivity via the Controller
+
 
 /**************************************************************************/
 
-- prerequisite installation
-	- note on internet connection
-- npm init
-- install modules
-	- express
-	- mongodb node driver
-- .gitignore
-	- don't forget note about eslint file
-- folder creation
-	- app
-		- controllers
-		- routes
-	- public
-		- css
-		- img
-- simple node server (server.js)
-- simple hello world html (index.html)
-- test app
-- refactor route to own directory (index.js)
-- test app
-- update html file
-	- top div
-	- bottom div
-		- p
-		- button
-- test app
-- add angular file
-	- standard
-	- resource
-- add angular functionality
-	- html
-		- ng-app
-		- ng-click
-		- ng-controller()
-		- {{ clicks }}
 	- controller
 		- controller js file
 		- controller file in html
