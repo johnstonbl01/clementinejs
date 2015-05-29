@@ -366,7 +366,7 @@ In this section, we're going to update our HTML file to include more content and
 
 </body>
 ```
-I've added some Clementine features and text to the application, but feel free to modify however you like. If you'd like to include a copy of the clementine logo, feel free to download a copy (right-click > Save Image As) from the [this GitHub page](https://github.com/johnstonbl01/clementinejs-beginner/blob/master/public/img/clementine_150.png). Make sure to save it within the public/img directory.
+I've added some Clementine features and text to the application, but feel free to modify however you like. If you'd like to include a copy of the clementine logo, feel free to download a copy (right-click > Save Image As) from the [this GitHub page](https://github.com/johnstonbl01/clementinejs-beginner/blob/master/public/img/clementine_150.png). Make sure to save it within the `/public/img` directory.
 
 What did we accomplish with the new HTML? We included two `div` elements that contain a top and bottom portion of our small application. The top portion includes a picture and the name of the application.
 
@@ -396,6 +396,68 @@ Ahhh, that's better!
 Now let's begin integrating AngularJS into our application.
 
 #### AngularJS HTML Integration
+
+To start our AngularJS integration, we need to update our HTML file to include Angular functionality. For starters, let's add a script tag that points to the Google CDN (Content Delivery Network), so that we can load AngularJS on our page.
+
+To get the URL for this, head to `http://angularjs.org`. Click on the download button in the middle of the page, and copy the CDN URL to your clipboard.
+
+[insert cdn image here]
+
+Next, let's include this in our index.HTML file:
+```
+...
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+</body>
+```
+
+In addition to the traditional AngularJS source file, we need to use the [ngResource module](https://docs.angularjs.org/api/ngResource) as a dependency in our application. This module allows us to interact with an API by providing common data & API related functions.
+
+To do this, return to the AngularJS site and click the download button again. This time, click on the "browse additional modules" link. (Alternatively, you can just click [here](https://code.angularjs.org/1.3.15/).) On this page, you'll need to find the `angular-resource.min.js` file and right-click on it. Choose "Copy link address." Return to the HTML file and we will now paste this location into another `<script>` tag.
+
+...
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+</body>
+```
+
+AngularJS needs to know what Angular module to run when the website is loaded. This is done through the inclusion of the [`ng-app`](https://docs.angularjs.org/api/ng/directive/ngApp) directive. For small apps like this one, it's common to only use a single Angular module; therefore, we will include the `ng-app` directive in the `<html>` element so that it will encompass the entire page.
+
+Wait - what's an [Angular directive](https://docs.angularjs.org/guide/directive)? Directives are essentially a marker within the HTML that instruct Angular to bind specific functionality to that HTML element. An example of this would be to have a text box that is only visible when certain criteria is met. In that case, the directive would be included in the element tag, and Angular would know to execute the "show" action based on the directive code that was provided to Angular.
+
+In this app, we're only going to use the out-of-the-box Angular directives. However, if you'd like to see a custom directive in action, check out the standard Clementine.js app.
+
+```
+<html ng-app="clementineApp">
+```
+
+Including this directive will allow us to use other Angular directives on the page. Note that this is a required piece of an Angular application.
+
+Next, let's assign a few more directives to the bottom portion of our site:
+```
+<div class="container" ng-controller="clickController">
+
+	<p>You have clicked the button {{ clicks }} times.</p>
+	<br />
+	<div class="btn-container">
+		<button type="submit" class="btn" ng-click="addClick()">CLICK ME!</button>
+		<button class="btn btn-delete" ng-click="resetClicks()">RESET</button>
+	</div>
+
+</div>
+```
+
+Let's break down the new functionality we've included:
+- `ng-controller` - This is another AngularJS directive that will allow us to define which controller to use within the current block of HTML elements. We will get to definiing this controller in detail soon enough.
+- `ng-click` - A directive that allows us to specify the name of the controller function that is executed when the button is clicked. In this case, we have defined separate functions for the two buttons -- `addClick()` and `resetClicks()`.
+- `{{ clicks }}` - This is the Angular syntax that allows us to bind a data value within our HTML code. In this case, the `{{ clicks }}` will be replaced by the clicks value within the scope. This value will first be defined within our controller, and eventually by the database.
+
+This is likely a good time to expand on how Angular interacts with both the view, and how scope fits into the picture.
+
+[Scope ($scope)](https://docs.angularjs.org/guide/scope) is an Angular object that binds the view to the controller. This object is where functions / methods and variable values (i.e. 'clicks') are stored and passed back and forth between the controller and the view.
+
+[insert scope picture here]
+
+Now that our HTML view is ready for Angular, let's define our client-side controller.
 
 #### AngularJS Interactivity via the Controller
 
