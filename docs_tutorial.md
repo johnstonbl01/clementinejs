@@ -177,7 +177,7 @@ This should provide some general contextthat will be helpful as we proceed with 
 To begin our application, let's start by standing up a simple Node server. This will serve as the foundation of our application, and we'll continue to build on top of this for the remainder of the tutorial.
 
 Begin by creating a `server.js` file in the root project folder. Within this file:
-```
+```js
 'use strict';
 
 var express = require('express');
@@ -414,7 +414,7 @@ In addition to the traditional AngularJS source file, we need to use the [ngReso
 
 To do this, return to the AngularJS site and click the download button again. This time, click on the "browse additional modules" link. (Alternatively, you can just click [here](https://code.angularjs.org/1.3.15/).) On this page, you'll need to find the `angular-resource.min.js` file and right-click on it. Choose "Copy link address." Return to the HTML file and we will now paste this location into another `<script>` tag.
 
-...
+```
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
 </body>
