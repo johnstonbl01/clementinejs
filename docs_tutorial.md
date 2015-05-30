@@ -523,13 +523,61 @@ However, neither of our buttons work when clicking on them. Hmm, let's fix that,
 
 #### AngularJS Interactivity via the Controller
 
+The next step we need to take is to make something happen when one of the buttons is clicked. If you'll remember back to the HTML Angular section, we defined two separate functions for each of the button `ng-click` directives: `addClick()` and `resetClicks()`.
+
+Let's add those functions to the scope by defining them within the newly created controller.
+
+To start, we'll need to:
+- Define the default value of clicks each time the browser is started
+- Define what happens when we click the 'CLICK ME!' button
+
+_clickController.client.js_:
+```
+.controller('clickController', ['$scope', function ($scope) {
+
+		$scope.clicks = 0;
+
+		$scope.addClick = function () {
+			$scope.clicks += 1;
+		};
+
+}]);
+```
+
+Above we have defined the default value of the clicks property on the scope method, and then defined the `addClick()` method. This method will add 1 to the number of clicks every time the button is clicked. Feel free to test this out at this point if you'd like.
+
+Next, let's add the `resetClicks()` method to the same controller.
+```
+.controller('clickController', ['$scope', function ($scope) {
+
+	$scope.clicks = 0;
+
+	$scope.addClick = function () {
+		$scope.clicks += 1;
+	};
+
+	$scope.resetClicks = function () {
+		$scope.clicks = 0;
+	};
+
+}]);
+```
+
+The app should now function as intended. When the 'CLICK ME!' button is clicked, it will add one to the number of times the button was clicked. Additionally, when the 'RESET' button is clicked, the number of clicks should reset iteslf to 0.
+
+At this point, we have a fully functioning front-end application. However, wouldn't it be great if the browser would remember the number of times the button had been clicked? Currently, the number of clicks will reset to 0 every time the page is refreshed. This is happening because the number of clicks is not being stored anywhere. Every time the browser renders the page, it will set the number of clicks to the value we have defined in our controller (0).
+
+We can fix this by storing our data somewhere -- in a MongoDB database!
+
+#### API & MongoDB Setup
+
+
+
+#### Integrating the API
+
 
 /**************************************************************************/
 
-	- controller
-		- controller js file
-		- controller file in html
-		- controller directory (app.use) in node
 - test app
 - add mongodb functionality
 	- require in node
