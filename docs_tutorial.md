@@ -1017,7 +1017,9 @@ Let's start up the app. Wow! Your app should now look something like:
 
 Congratulations on completing your first MEAN stack application! If you're a beginner, my advice is to build upon this knowledge by continuing build things -- a log-in application, a comment application, etc. Building will solidify your understanding of these concepts, and force you to learn new things as well. If you enjoyed this tutorial, please feel free to [let me know on Twitter](https://twitter.com/johnstonbl01)!
 
-**Additional Resources**
+If you encounter any issues whatsoever, submit an issue here on GitHub, or let me know via Twitter.
+
+#### Additional Resources
 
 **MongoDB**
 	- [Mongo University's Mongo101JS](https://university.mongodb.com/courses/M101JS/about) - This is a really great course for learning the power and functionality of MongoDB. The difficulty ramps up in Week 2, so make sure you're comfortable with Node.js.
