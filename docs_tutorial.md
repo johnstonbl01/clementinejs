@@ -569,11 +569,74 @@ At this point, we have a fully functioning front-end application. However, would
 
 We can fix this by storing our data somewhere -- in a MongoDB database!
 
-#### API & MongoDB Setup
+#### Connecting to MongoDB
+
+In order to pass data values between the database and the client, we'll use an API. In this case, the API will be exposed via the browser, but that doesn't always have to be the case.  We're going to do it this way because it is an illustrative example. Traditionally, this would be done if you want to expose particular app information to the public for others to use in some way.
+
+Using an API in this way adds a little bit of complexity, but it's worth it to be able to see the actual data values being passed around via the API. 
+
+To begin, we will need to set up our MongoDB database. This is done within the `server.js` file. We're going to have to do a bit of shuffling around to get everything in the correct place. Here's the way the file should look:
+```
+'use strict';
+
+var express = require('express'),
+	routes = require('./app/routes/index.js'),
+	mongo = require('mongodb').MongoClient;
+
+var app = express();
+
+mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
+
+	if (err) {
+		throw new Error('Database failed to connect!');
+	} else {
+		console.log('MongoDB successfully connected on port 27017.');
+	}
+
+	var path = process.cwd();
+
+	app.use('/public', express.static(path + '/public'));
+	app.use('/controllers', express.static(path + '/app/controllers'));
+
+	routes(app, db);
+
+	app.listen(3000, function () {
+		console.log('Listening on port 3000...');
+	});
+
+});
+```
+
+There are a few changes here. Most notably, many lines of our previous `server.js` code have been wrapped inside a MongoDB connectivity function. It's important to note that we had to begin by requiring the MongoDB Node.js driver with `require('mongodb').MongoClient`. [`MongoClient()`](https://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html) is an object that allows use to use functionality like `connect`. 
+
+Additionally, it's important to initialize Express _before_ connecting to the database. In this case, we want to ensure that Express is ready to go when we call upon its functionality within the connect function.
+
+Next, we connect to the MongoDB database using the [`connect`](https://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html#connect) method of the MongoClient object. The first argument is the connection string. Port 27017 is the default port that MongoDB uses, but this can be easily changed if needed. `clementinejs` is the actual name of the database within MongoDB that we would like to use. If this database does not exist, MongoDB is smart enough to create it for us.
+
+The second argument of the `connect` method is a callback function. This function takes an err as the first argument, and the database object as the second argument.
+
+The first order of business within this function is to tell Node.js what to do if there is an error when trying to connect to the database. Here, we have opted to throw a custom error message if there is an issue with connection using [`throw new Error( ... )`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error).
+
+If there is no error, then 'MongoDB successfully connected on Port 27017.' is logged to the console. The remainder of the code within this function is the same as before except for one line:
+```
+routes(app, db);
+```
+
+Here, we are passing the database object to our routes in addition to the Express `app` object. We're going to use this to to help pass data between the database on the client-side of our application.
+
+Feel free to test the application at this point. Everything should work as before, and a successful MongoDB connection message should show up in the console when the application is started.
+
+#### Setting Up the Server-Side Controller
+
+Similar to how the app has a client-side controller that is helping with the data between the client (browser) and the API (model), we'll also implement a server-side controller that will handle the information between the database and the API.
+
+This controller will query our database, and update the API with the results. The client-side controller will update the API results immediately in the browser.
+
+Let's begin with the creation of this server-side controller. Begin by creating a file named `clickHandler.server.js` in the `/app/controllers` directory.
 
 
 
-#### Integrating the API
+#### Integrating the API into Angular
 
 
 /**************************************************************************/
