@@ -1022,19 +1022,24 @@ If you encounter any issues whatsoever, submit an issue here on GitHub, or let m
 #### Additional Resources
 
 **MongoDB**
-	- [Mongo University's Mongo101JS](https://university.mongodb.com/courses/M101JS/about) - This is a really great course for learning the power and functionality of MongoDB. The difficulty ramps up in Week 2, so make sure you're comfortable with Node.js.
+
+- [Mongo University's Mongo101JS](https://university.mongodb.com/courses/M101JS/about) - This is a really great course for learning the power and functionality of MongoDB. The difficulty ramps up in Week 2, so make sure you're comfortable with Node.js.
 
 **Express**
-	- Code School's [Building Blocks of Express.js](https://www.codeschool.com/courses/building-blocks-of-express-js) - Code School's courses are great supplemental material. Make sure to build something alongside the videos and exercises to really ensure you're learning the concepts.
+
+- Code School's [Building Blocks of Express.js](https://www.codeschool.com/courses/building-blocks-of-express-js) - Code School's courses are great supplemental material. Make sure to build something alongside the videos and exercises to really ensure you're learning the concepts.
 
 **AngularJS**
-	- Dan Wahlin's [AngularJS Fundamentals in 60-ish Minutes](https://www.youtube.com/watch?v=i9MHigUZKEM&index=39&list=WL) - A really great video demonstrating slightly more in-depth Angular functionality than this tutorial. Dan does an excellent job of illustrating how Angular works and explainging the building blocks of the framework.
-	- [ng-book](https://www.ng-book.com/) - A fantastic read. Make sure to purchase this book from the website to get free updates. If you purchase from another vendor, the free updates aren't included.
+
+- Dan Wahlin's [AngularJS Fundamentals in 60-ish Minutes](https://www.youtube.com/watch?v=i9MHigUZKEM&index=39&list=WL) - A really great video demonstrating slightly more in-depth Angular functionality than this tutorial. Dan does an excellent job of illustrating how Angular works and explainging the building blocks of the framework.
+- [ng-book](https://www.ng-book.com/) - A fantastic read. Make sure to purchase this book from the website to get free updates. If you purchase from another vendor, the free updates aren't included.
 
 **Node.js**
-	- Node School's [Learn You Node](http://nodeschool.io/#workshoppers) - A really great introdution to Node.
-	- Code School's [Real Time Web with Node.js](https://www.codeschool.com/courses/real-time-web-with-node-js) - Similar to the Express course, Code School offers a great primer on Node. Again, make sure you're building something alongside this tutorial for it to really pay off.
+
+- Node School's [Learn You Node](http://nodeschool.io/#workshoppers) - A really great introdution to Node.
+- Code School's [Real Time Web with Node.js](https://www.codeschool.com/courses/real-time-web-with-node-js) - Similar to the Express course, Code School offers a great primer on Node. Again, make sure you're building something alongside this tutorial for it to really pay off.
 
 **General**
-	- [Free Code Camp](http://www.freecodecamp.com/) - If you're just starting out and want a free resource to help you learn to code, I highly suggest checking out FCC. The community is wonderful and extremely helpul.
-	- [JavaScript Is Sexy](http://javascriptissexy.com/) - A wonderful blog with treasure troves of useful explanations regarding some of JavaScript's more difficult subject areas.
+
+- [Free Code Camp](http://www.freecodecamp.com/) - If you're just starting out and want a free resource to help you learn to code, I highly suggest checking out FCC. The community is wonderful and extremely helpul.
+- [JavaScript Is Sexy](http://javascriptissexy.com/) - A wonderful blog with treasure troves of useful explanations regarding some of JavaScript's more difficult subject areas.
