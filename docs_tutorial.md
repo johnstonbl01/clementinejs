@@ -227,7 +227,7 @@ Now, open a browser and point it to `localhost:3000`. Within the browser window 
 Let's take this one step further and serve the browser an actual HTML file. Within the project folder, create an `index.html` file.
 
 Within this file:
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -243,14 +243,14 @@ This is an extremely simple HTML file, but will allow us to begin returning a fi
 Let's update the `server.js` file to accomplish this.
 
 _Before:_
-```
+```js
 app.get('/', function (req, res) {
 	res.send('Hello world!');
 });
 ```
 
 _After:_
-```
+```js
 var path = process.cwd();
 
 app.get('/', function (req, res) {
@@ -273,14 +273,14 @@ Our next step is going to be refactoring our routes by using another common Expr
 Begin by creating a new file within the `/app/routes` directory named `index.js`. This will be the JavaScript file containing our routes.
 
 Remove the following from the `server.js` file:
-```
+```js
 app.get('/', function (req, res) {
 	res.sendFile(path + '/index.html');
 });
 ```
 
 The next order of business is to add our new route file as a dependency for the server.js file. At the top of the file:
-```
+```js
 var express = require('express'),
 	routes = require('./app/routes/index.js');
 ```
@@ -288,12 +288,12 @@ var express = require('express'),
 Now we need to pass the Express application as an argument to our route function object. Essentially, we will export our routes, and that function object will accept one argument, `app`. This will allow us to use Express functionality within the scope of our new route function. Hang in there if this doesn't make sense right away.
 
 Include the following code where our former route code was within the file:
-```
+```js
 routes(app);
 ```
 
 Your `server.js` file should look like:
-```
+```js
 'use strict';
 
 var express = require('express'),
@@ -313,7 +313,7 @@ app.listen(3000, function () {
 Now, let's add some content to the `index.js` file. We're going to use the [`module.exports`](https://nodejs.org/api/modules.html#modules_module_exports) method in Node to extend this function and make it available to other Node files (i.e. our `server.js` file). This function will accept a single argument (`app`), which will be the Express app.
 
 index.js:
-```
+```js
 'use strict';
 
 var path = process.cwd();
@@ -340,7 +340,7 @@ Let's move on to giving some more pizazz to our HTML file.
 
 In this section, we're going to update our HTML file to include more content and get it ready for AngularJS integration. Here's the updated HTML code:
 
-```
+```html
 <head>
 	<title>Clementine.js - A beginner level MEAN stack application</title>
 </head>
@@ -379,7 +379,7 @@ Now let's ensure that everything still works. Test the app by starting up the No
 Oh no! Why isn't our image loading? Well, when Node tries to access the `/public/img/` directory, it doesn't have any reference for how to find that file.
 
 This can be solved by adding an additional line to the `server.js` file.
-```
+```js
 var path = process.cwd();
 
 app.use('/public', express.static(path + '/public'));
@@ -404,7 +404,7 @@ To get the URL for this, head to `http://angularjs.org`. Click on the download b
 [insert cdn image here]
 
 Next, let's include this in our index.HTML file:
-```
+```html
 ...
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 </body>
@@ -414,7 +414,7 @@ In addition to the traditional AngularJS source file, we need to use the [ngReso
 
 To do this, return to the AngularJS site and click the download button again. This time, click on the "browse additional modules" link. (Alternatively, you can just click [here](https://code.angularjs.org/1.3.15/).) On this page, you'll need to find the `angular-resource.min.js` file and right-click on it. Choose "Copy link address." Return to the HTML file and we will now paste this location into another `<script>` tag.
 
-```
+```html
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
 </body>
@@ -426,14 +426,14 @@ Wait - what's an [Angular directive](https://docs.angularjs.org/guide/directive)
 
 In this app, we're only going to use the out-of-the-box Angular directives. However, if you'd like to see a custom directive in action, check out the standard Clementine.js app.
 
-```
+```html
 <html ng-app="clementineApp">
 ```
 
 Including this directive will allow us to use other Angular directives on the page. Note that this is a required piece of an Angular application.
 
 Next, let's assign a few more directives to the bottom portion of our site:
-```
+```html
 <div class="container" ng-controller="clickController">
 
 	<p>You have clicked the button {{ clicks }} times.</p>
@@ -465,7 +465,7 @@ Begin this process by creating a new file named `clickController.client.js` in t
 
 To begin, we're going to include `'use strict';` again at the top of the file. Then, we're going to wrap all of our Angular code in what's called an [immediately invoked function express (IIFE)](http://en.wikipedia.org/wiki/Immediately-invoked_function_expression). Let's start with that:
 
-```
+```js
 'use strict';
 
 (function () {
@@ -476,7 +476,7 @@ An IIFE is going to bind all the variables within to the local scope of that fun
 
 Within this, let's first define our Angular module (i.e. the app), and then the controller.
 
-```
+```js
 (function () {
 
 angular
@@ -500,8 +500,8 @@ Lastly, we set the `clicks` variable within the scope to be equal to 1000. I cho
 
 Before we test this, there are a few additional adjustments we need to make to the `index.html` and `server.js` files.
 
-_index.html_
-```
+_index.html_:
+```html
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
 	<script type="text/javascript" src="/controllers/clickController.client.js"></script>
@@ -509,8 +509,8 @@ _index.html_
 ```
 Here, we have added our new JS file to the HTML so that it is included in the page and can be executed when called upon. Take note of the order of the files here -- it does matter. The clickController needs functionality from the ng-resource file, which in turn depends on functionality within the angular script.
 
-_server.js_
-```
+_server.js_:
+```js
 app.use('/public', express.static(path + '/public'));
 app.use('/controllers', express.static(path + '/app/controllers'));
 ```
@@ -532,7 +532,7 @@ To start, we'll need to:
 - Define what happens when we click the 'CLICK ME!' button
 
 _clickController.client.js_:
-```
+```js
 .controller('clickController', ['$scope', function ($scope) {
 
 		$scope.clicks = 0;
@@ -547,7 +547,7 @@ _clickController.client.js_:
 Above we have defined the default value of the clicks property on the scope method, and then defined the `addClick()` method. This method will add 1 to the number of clicks every time the button is clicked. Feel free to test this out at this point if you'd like.
 
 Next, let's add the `resetClicks()` method to the same controller.
-```
+```js
 .controller('clickController', ['$scope', function ($scope) {
 
 	$scope.clicks = 0;
@@ -576,7 +576,7 @@ In order to pass data values between the database and the client, we'll use an A
 Using an API in this way adds a little bit of complexity, but it's worth it to be able to see the actual data values being passed around via the API. 
 
 To begin, we will need to set up our MongoDB database. This is done within the `server.js` file. We're going to have to do a bit of shuffling around to get everything in the correct place. Here's the way the file should look:
-```
+```js
 'use strict';
 
 var express = require('express'),
@@ -618,7 +618,7 @@ The second argument of the `connect` method is a callback function. This functio
 The first order of business within this function is to tell Node.js what to do if there is an error when trying to connect to the database. Here, we have opted to throw a custom error message if there is an issue with connection using [`throw new Error( ... )`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error).
 
 If there is no error, then 'MongoDB successfully connected on Port 27017.' is logged to the console. The remainder of the code within this function is the same as before except for one line:
-```
+```js
 routes(app, db);
 ```
 
@@ -634,9 +634,197 @@ This controller will query our database, and update the API with the results. Th
 
 Let's begin with the creation of this server-side controller. Begin by creating a file named `clickHandler.server.js` in the `/app/controllers` directory.
 
+_clickHandler.server.js_:
+```js
+'use strict';
 
+module.exports.clickHandler = function (db) {
+
+	var clicks = db.collection('clicks');
+
+	this.getClicks = function (req, res) {
+		clicks
+			.findOne(
+				{},
+				{ '_id': false },
+				function (err, result) {
+					if (err) { throw err; }
+
+					var clickResults = [];
+
+					clickResults.push(result);
+					res.json(clickResults);
+				}
+			);
+	};
+};
+```
+
+Again, some of this code will look familiar. We're [exporting](https://nodejs.org/api/modules.html#modules_module_exports) a function object named `clickHandler` to be used elsewhere in Node. 
+
+Next, we define which [MongoDB collection](http://docs.mongodb.org/manual/reference/glossary/#term-collection) ([`db.collection(...)`](https://mongodb.github.io/node-mongodb-native/api-generated/db.html#collection)) we would like to use within the database. Collections are analagous to tables in the relational database world, and there can be multiple collections for a single database. In this case, MongoDB is smart enough to create the collection for us if it doesn't already exist. Thanks, Mongo.
+
+For this application, our collection is named `clicks`. Afterward, we need to create a method that will retrieve the current number of clicks from the database. This funtionality will be contained within a `getClicks()` method of the `clickHandler` function object.
+
+Let's break down each line of the `getClicks` method:
+- `function (req, res)` - A request and response are arguments for this particular function. This is similar to other functions previously defined in this application.
+- `clicks` - the name of our database collection, which we have stored in a variable thanks to `var clicks = ...`
+- [`.findOne`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#find-first-occurence-with-findone) - This is a MongoDB query that will find the first document (analgous to record or row in relational databases) that meet the query criteria. It's possible to also use the [`find()`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#making-queries-with-find) method, but our collection will only have one document, so that's not necessary.
+- `{},` - This is the query argument for the `findOne()` method. If we had multiple documents in our collection, we could specify certain criteria within this object to filter down the results. `{}` will return all documents (in our case, this is just 1).
+- `{ '_id': false }` - Every document in MongoDB is [automatically assigned an '_id'](http://docs.mongodb.org/manual/reference/object-id/) when inserted into a collection, unless otherwise specified. It's possible to specify a value or field as the '_id', but in our case we're going to leave it as is. This argument is known as the projection, which allows us to manipulate & exclude fields from the query results before they're passed on. In this case, we don't want the '_id' field to show up in our results since it's not needed. Due to that, the value has been set to `false` for this field.
+- `function (err, result) {` - This is the callback argument for the findOne method. This callback function will define what Node should do with the results once the query has finished.
+- `if (err) { throw err; }` - If an error is passed to the callback, then it will interrupt the application and throw an error message.
+- `var clickResults = []` - The Angular ngResource query parameters require that the API data is within an array. This can be changed, but for the sake of this example, we will simply create an array and push the results to that array.
+- `clickResults.push(result);` - Push the results from the query to the clickResults array.
+- `res.json(clickResults);` - Send a response to the browser with a [JSON](http://www.json.org/) version of the clickResults array.
+
+Whew! That's a lot of new information!
+
+Our new server-side controller is well on its way, but there's a problem. What happens if there are no documents in our collection? MongoDB is great about creating database and collections for us automatically when needed, but the data must be populated by us. If it's the first time using the application, there will not be any documents in the collection. We should account for this within this controller by inserting a document if one does not already exist.
+
+Let's update the `getClicks()` function:
+```js
+this.getClicks = function (req, res) {
+	clicks
+		.findOne(
+			{},
+			{ '_id': false },
+			function (err, result) {
+				if (err) { throw err; }
+
+				var clickResults = [];
+
+				if (result) {
+
+					clickResults.push(result);
+					res.json(clickResults);
+
+				} else {
+
+					clicks.insert({ 'clicks': 0 }, function (err) {
+						if (err) { throw err; }
+
+						clicks.findOne(
+							{},
+							{'_id': false},
+							function (err, doc) {
+								if (err) { throw err; }
+
+								clickResults.push(doc);
+								res.json(clickResults);
+						});
+
+					});
+
+				}
+			}
+		);
+	};
+```
+
+The first order of business is to check that the original `findOne()` query actually returns a result. If it does, then we proceed with the same as before by inserting the results into an array and passing that back to Node and the browser. This is done within the `if (result) { ... }` block above.
+
+However, if no result is returned, then we need to insert a document into the database using the [`insert()`](http://mongodb.github.io/node-mongodb-native/api-generated/collection.html#insert) method. This method takes two arguments, the document to insert (`{ 'clicks': 0 }`) and a callback function. The callback function will tell Node what do with the results. If there is an error, we throw the error. Once the new document is inserted, we query the DB to find the newly inserted document and return it to the browswer in JSON format.
+
+Before we test this out, we will want to change our routes a little bit.
+
+_index.js_:
+```js
+'use strict';
+
+var ClickHandler = require('/controllers/clickHandler.server.js');
+
+var path = process.cwd();
+
+module.exports = function (app, db) {
+
+	var clickHandler = new ClickHandler(db);
+
+	app.route('/')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/index.html');
+		});
+
+	app.route('/api/clicks')
+		.get(clickHandler.getClicks);
+};
+```
+
+Let's take a look at the changes:
+- `var ClickHandler...` - Here, we're storing the function object we created from the `clickHanlder.server.js` file in a variable.
+- `var clickHandler = new ClickHandler(db)` - On this line, we're instantiating a new instance of the ClickHandler function object, and passing in the MongoDB object as an argument. This is going to allow us to reference the methods we created in the `clickHandler.server.js` in addition to passing in the database information for use in those methods.
+- `app.route('/api/clicks')` - We're defining a new route here for our API
+- `.get(clickHandler.getclicks)` - The `getClicks` function will be executed anytime there is an HTTP GET request on the `/api/clicks` URL. This will tell the Node to execute the controller function we defined previously and get the results from the database.
+
+Let's give this a test! If this is your first time through the tutorial, it's likely that you have no documents in your clicks collection. This will be a great test for our insert statement. Fire up the node server and point your browser to `localhost:3000/api/clicks`. When the site loads, you should see: `[{"clicks":0}]`. If that is what you see, then everything has been setup correctly!
+
+If you'd like to test this again, we can manually remove the document from the database with some help from the MongoDB console. Leave Node running and open a new terminal window. Type `$ mongo` in the terminal window to connect to the MongDB console.
+
+If successful, you should see something along the lines of:
+```
+Mongo Shell Version: 3.0.3
+connecting to: test
+>
+```
+
+At the prompt, type `use clementinejs`. This tells the MongoDB console which database we want to use. Now, type `db.clicks.find({})`. This command tells the console to use the current database and find all results within the clicks collection. After pressing enter, you should see the result of the query, which is a single object looking something like:
+```
+{ "_id": ObjectId(randomNumber), "clicks": 0 }
+```
+
+Great! Now let's remove this document so that when we refresh the page again, it should re-create this record. Enter `db.remove({})` into the console. This will remove all documents in the collection. If you go back to the browser and refresh the page, a new document should get inserted in the database. 
+
+We now have a working query that will return the contents of the database. However, we still need to provide routes and logic to tell the application controller what to do when the two HTML buttons are clicked.
+
+Let's update our controller with a few more methods.
+
+_clickHandler.server.js_:
+```js
+this.addClick = function (req, res) {
+	clicks
+		.findAndModify(
+			{},
+			{ '_id': 1 },
+			{ $inc: { 'clicks': 1 } },
+			function (err, result) {
+				if (err) { throw err; }
+
+				res.json(result);
+			}
+		);
+};
+
+this.resetClicks = function (req, res) {
+	clicks
+		.update(
+			{},
+			{ 'clicks': 0 },
+			function (err, result) {
+				if (err) { throw err; }
+
+				res.json(result);
+			}
+		);
+};
+```
+
+These two new methods, `addClick` and `resetClicks` are very similar to our original `getClicks` method. However, each of them uses a different MongoDB method.
+
+`addClick` uses the [`findAndModify`](http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findAndModify) method. The first two arguments are simlar to the `findOne` method: first identify what you want to find (`{}` - returns all documents) and then provide the sort order in which you'd like the documents returned (in our case, sort in ascending order by the id field with `'_id': 1` -- this parameter doesn't matter much since we only have a single document). Then, we tell Node & MongoDB how we'd like to update the record(s) that were found.
+
+In this particular case, we've opted to use `{ $inc: { 'clicks': 1 } }`. This uses the [Mongo `$inc` method](http://docs.mongodb.org/manual/reference/operator/update/inc/). The `$inc` method takes the property we want to modify (`clicks`) and provides the number by which we want to increment (1). So every time the `addClick` function is run, the number of clicks will increment by 1.
+
+Lasly, we provide a callback function which will throw an error if one occurs, else the results are updated and sent back to the browser in JSON format.
+
+Lastly, we use the [Mongo `update` method](http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#update) for the `resetClicks` method. This will take a query for the first parameter (`{}` will return all documents), and the updated value (`{ 'clicks': 0 }`) for any records found. In this case, the `resetClicks` method will update the `clicks` property of our document to 0. The result of this operation is then passed back to the browser in JSON format.
+
+That brings us to the end of the server-side controller. Now, we need to hook our API up in Angular.
 
 #### Integrating the API into Angular
+
+#### Add Styling
+
+#### Next Steps
 
 
 /**************************************************************************/
