@@ -918,21 +918,121 @@ Let's test these out in the browser! Start node and browse to `localhost:3000`. 
 
 We'll finish up with a little bit of styling to make it look nice.
 
-#### Add Styling
+#### Adding CSS Styling
+
+The end is nigh! If you've stuck with the tutorial this long -- congratulations! We're almost done. Let's make the application look a bit more modern, and less like something from the 1990's.
+
+Create a new file named `main.css` in the `/public/css` directory. Here the contents of that file:
+
+_main.css_:
+```css
+/****** Main Styling ******/
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+}
+
+p {
+	margin: 8px 0 0 0;
+}
+
+.container p {
+	text-align: center;
+	padding: 0;
+}
+
+/****** Logo Div Styling ******/
+
+img {
+	margin: 0 auto;
+	display: block;
+}
+
+.clementine-text { /* Styling for the Clementine.js text */
+	padding: 0;
+	margin: -25px 0 0 0;
+	font-weight: 500;
+	font-size: 60px;
+	color: #FFA000;
+}
+
+/****** Click Styling ******/
+
+.btn-container {	/* Styling for the div that contains the buttons */
+	margin: -10px auto 0 auto;
+	text-align: center;
+}
+
+.btn {	/* Styling for buttons */
+	margin: 0 8px;
+	color: white;
+	background-color: #00BCD4;
+	display: inline-block;
+	border: 0;
+	font-size: 14px;
+	border-radius: 3px;
+	padding: 10px 5px;
+	width: 100px;
+	font-weight: 500;
+}
+
+.btn:focus {	/* Remove outline when hovering over button */
+	outline: none;
+}
+
+.btn:active {	/* Scale the button down by 10% when clicking on button */
+	transform: scale(0.9, 0.9);
+	-webkit-transform: scale(0.9, 0.9);
+	-moz-transform: scale(0.9, 0.9);
+}
+
+.btn-delete {	/* Styling for delete button */
+	background-color: #ECEFF1;
+	color: #212121;
+}
+```
+
+Each of the styles are commented in case something is confusing. Now, let's integrate this file into our HTML page.
+
+_index.html_:
+```html
+<head>
+
+	<title>Clementine.js - A beginner level MEAN stack application</title>
+	
+	<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+	<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+
+</head>
+```
+
+The first `<link>` is referring to a Google Font CDN. This isn't required, but I really like the Roboto font. The second `<link>` is the link to our CSS file.
+
+Let's start up the app. Wow! Your app should now look something like:
+
+[insert finished app img here]
 
 #### Next Steps
 
+Congratulations on completing your first MEAN stack application! If you're a beginner, my advice is to build upon this knowledge by continuing build things -- a log-in application, a comment application, etc. Building will solidify your understanding of these concepts, and force you to learn new things as well. If you enjoyed this tutorial, please feel free to [let me know on Twitter](https://twitter.com/johnstonbl01)!
 
-/**************************************************************************/
+##### Additional Resources
 
-- update click controller
-	- get clicks
-	- test app
-	- add clicks
-	- test app
-	- reset clicks
-	- test app
-- test app
-- add css file; update html files
-- test app
-- done!
+**MongoDB**
+	- [Mongo University's Mongo101JS](https://university.mongodb.com/courses/M101JS/about) - This is a really great course for learning the power and functionality of MongoDB. The difficulty ramps up in Week 2, so make sure you're comfortable with Node.js.
+
+**Express**
+	- Code School's [Building Blocks of Express.js](https://www.codeschool.com/courses/building-blocks-of-express-js) - Code School's courses are great supplemental material. Make sure to build something alongside the videos and exercises to really ensure you're learning the concepts.
+
+**AngularJS**
+	- Dan Wahlin's [AngularJS Fundamentals in 60-ish Minutes](https://www.youtube.com/watch?v=i9MHigUZKEM&index=39&list=WL) - A really great video demonstrating slightly more in-depth Angular functionality than this tutorial. Dan does an excellent job of illustrating how Angular works and explainging the building blocks of the framework.
+	- [ng-book](https://www.ng-book.com/) - A fantastic read. Make sure to purchase this book from the website to get free updates. If you purchase from another vendor, the free updates aren't included.
+
+**Node.js**
+	- Node School's [Learn You Node](http://nodeschool.io/#workshoppers) - A really great introdution to Node.
+	- Code School's [Real Time Web with Node.js](https://www.codeschool.com/courses/real-time-web-with-node-js) - Similar to the Express course, Code School offers a great primer on Node. Again, make sure you're building something alongside this tutorial for it to really pay off.
+
+**General**
+	- [Free Code Camp](http://www.freecodecamp.com/) - If you're just starting out and want a free resource to help you learn to code, I highly suggest checking out FCC. The community is wonderful and extremely helpul.
+	- [JavaScript Is Sexy](http://javascriptissexy.com/) - A wonderful blog with treasure troves of useful explanations regarding some of JavaScript's more difficult subject areas.
