@@ -818,9 +818,105 @@ Lasly, we provide a callback function which will throw an error if one occurs, e
 
 Lastly, we use the [Mongo `update` method](http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#update) for the `resetClicks` method. This will take a query for the first parameter (`{}` will return all documents), and the updated value (`{ 'clicks': 0 }`) for any records found. In this case, the `resetClicks` method will update the `clicks` property of our document to 0. The result of this operation is then passed back to the browser in JSON format.
 
+Finally, let's add routes for the remainder of our new ClickHandler methods.
+
+_index.js_:
+```js
+app.route('/api/clicks')
+		.get(clickHandler.getClicks)
+		.post(clickHandler.addClick)
+		.delete(clickHandler.resetClicks);
+```
+
 That brings us to the end of the server-side controller. Now, we need to hook our API up in Angular.
 
-#### Integrating the API into Angular
+#### Integrating the API into AngularJS
+
+To begin intregrating the API with Angular, we need to ensure that we update the Angular module and define `ngResource` as a dependency.
+
+```js
+angular
+	.module('clementineApp', ['ngResource'])
+```
+
+Next, the `$resource` object needs to be injected into the controller. Similar to the `$scope` object, this will let us access the `$resource` object and some of the built-in `ngResource` methods.
+
+```js
+.controller('clickController',
+	['$scope', '$resource', function ($scope, $resource) { ... }]
+```
+
+Now let's point Angular to where our resource data is - the API that's been set up at `/api/clicks`.
+
+```js
+var Click = $resource('/api/clicks');
+```
+
+This new $resource object allows us to query this API, and will return the results to a field in the browser. However, before doing this, we'll need to create a new method that does this:
+
+```js
+$scope.getClicks = function () {
+	Click.query(function (results) {
+		$scope.clicks = results[0].clicks;
+	});
+};
+```
+
+This code will bind a `getClicks` method to the $scope. The [`Click.query( ... )`](https://docs.angularjs.org/api/ngResource/service/$resource) will query the API and return all of the results. This can then be either manipulated in some way before passing it on to the browser, or (as in our case) just pass it straight in to a variable on the `$scope`. Because the API is an array, we're going to bind the first element's (`[0]`) clicks property to `$scope.clicks`.
+
+This function needs to run whenever the controller is invoked (i.e. when the app is first started), so we should add `$scope.getClicks()` beneath the function definition. At this point, the controller file should look like:
+
+_clickController.client.js_:
+```js
+'use strict';
+
+(function () {
+
+angular
+	.module('clementineApp', ['ngResource'])
+	.controller('clickController',
+		['$scope', '$resource', function ($scope, $resource) {
+
+			var Click = $resource('/api/clicks');
+
+			$scope.getClicks = function () {
+				Click.query(function (results) {
+					$scope.clicks = results[0].clicks;
+				});
+			};
+
+			$scope.getClicks();
+		
+	}]);
+
+})();
+```
+
+Let's test the application. Start the Node server, and browse to `localhost:3000`. Ensure everything loads correctly, and that the text says, "You have clicked the button 0 times."
+
+Now we need to update the two additional methods in the controller: `addClick` and `resetClicks`.
+
+```js
+$scope.addClick = function () {
+	Click.save(function () {
+		$scope.getClicks();
+	});
+};
+
+$scope.resetClicks = function () {
+	Click.remove(function () {
+		$scope.getClicks();
+	});
+};
+```
+
+We're doing something a bit tricky here. For `addClick`, we're instructing Angular to use [`$resource.save`](https://docs.angularjs.org/api/ngResource/service/$resource), which will prompt an [HTTP POST](http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods) request. This in turn will get routed by our `index.js` file and run the clickHandler.addClick method on the database. Once that action has been performed, we query the API via `$scope.getClicks`, therefore forcing the `$scope.clicks` variable to update and represent the new number of clicks.
+
+Lastly, we perform something similar with the `resetClicks` method. Instead of an HTTP POST method, we use Angular's [`$resource.remove`](https://docs.angularjs.org/api/ngResource/service/$resource) method to prompt an [HTTP DELETE](http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods) request. Again, the `index.js` file will know to route this request using the `clickHandler.resetClicks` method.
+
+Let's test these out in the browser! Start node and browse to `localhost:3000`. Click on all the buttons! Everything should update and reset appropriately. You've so close to finishing your first MEAN application! 
+
+We'll finish up with a little bit of styling to make it look nice.
 
 #### Add Styling
 
@@ -829,29 +925,14 @@ That brings us to the end of the server-side controller. Now, we need to hook ou
 
 /**************************************************************************/
 
+- update click controller
+	- get clicks
+	- test app
+	- add clicks
+	- test app
+	- reset clicks
+	- test app
 - test app
-- add mongodb functionality
-	- require in node
-	- connection
-	- setup API
-		- server click handler
-			- get clicks
-			- test app
-			- add clicks
-			- test app
-			- reset clicks
-			- test app
-		- update click controller
-			- get clicks
-			- test app
-			- add clicks
-			- test app
-			- reset clicks
-			- test app
-		- routes
-- test app
-- add clementine img to html
-	- update static /public in server.js
-- add css file; update html file
+- add css file; update html files
 - test app
 - done!
