@@ -6,9 +6,9 @@ There are 3 versions of Clementine.js:
 
 **Beginner** - The beginner boilerplate contains a very simple application that is intended to show a beginner how the MEAN stack fits together and get started on his or her first web application.
 
-**Advanced** - The advanced boilerplate includes a few more bells and whistles to improve workflow, but remains a simple boilerplate without much fluff to get in the way. This version of the boilerplate contains a website that demonstrates the power of the stack, including some examples of how to apply Angular & data-binding using MEAN.
+**Standard** - The Standard boilerplate includes a few more bells and whistles to improve workflow, but remains a simple boilerplate without much fluff to get in the way. This version of the boilerplate contains a website that demonstrates the power of the stack, including some examples of how to apply Angular & data-binding using MEAN.
 
-**Advanced: Bare** - The bare template includes all of the additional libraries, but pared down to only include the necessities. There is a simple web app here (the same as the beginner sample), but using the additional libraries included in the advanced version.
+**Bare** - The bare template includes all of the additional libraries, but pared down to only include the necessities. There is a simple web app here (the same as the beginner sample), but using the additional libraries included in the Standard version.
 
 ## Quick Start Guide
 
@@ -25,13 +25,13 @@ To begin developing with the beginner version of Clementine.js, simply run the f
 
 [insert repo clone information]
 
-#### Advanced
-To begin developing with the advanced version of Clementine.js, simply run the following from your terminal:
+#### Standard
+To begin developing with the Standard version of Clementine.js, simply run the following from your terminal:
 
 [insert repo clone information]
 
-#### Advanced -- Bare
-To begin developing with the advanced -- bare bones version of Clementine.js, simply run the following from your terminal:
+#### Bare
+To begin developing with the bare bones version of Clementine.js, simply run the following from your terminal:
 
 [insert repo clone information]
 
@@ -49,8 +49,8 @@ The below additions will be made as I have the opportunity, and not necessarily 
 
 - [ ] NPM packages for installation
 	- [ ] Beginner
-	- [ ] Advanced
-	- [ ] Advanced - Bare
+	- [ ] Standard
+	- [ ] Bare
 - [ ] Add tests with Karma / Jasmine
 - [ ] Refactor Angular code
 - [ ] Prod / Dev ENV setup
