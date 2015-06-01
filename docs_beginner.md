@@ -105,7 +105,7 @@ _Note:_ The period at the end is important. If the period is excluded, git will 
 
 To start the app, make sure you're in the project directory and type `node server.js` into the terminal. This will start the Node server and connect to MongoDB.
 
-You should the following messages within the terminal window:
+You should see the following messages within the terminal window:
 ```
 MongoDB successfully connected on port 27017.
 Node.js listening on port 3000...
