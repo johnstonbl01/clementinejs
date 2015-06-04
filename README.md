@@ -25,7 +25,7 @@ In order to use Clementine.js, you must have the following installed:
 To begin developing with the bare version of Clementine.js, create a project directory and run the following from your terminal:
 
 ```
-https://github.com/johnstonbl01/clementinejs.git .
+https://github.com/johnstonbl01/clementinejs-beginner.git .
 ```
 
 #### Standard
@@ -33,7 +33,7 @@ https://github.com/johnstonbl01/clementinejs.git .
 To begin developing with the bare version of Clementine.js, create a project directory and run the following from your terminal:
 
 ```
-https://github.com/johnstonbl01/clementinejs-bare.git .
+https://github.com/johnstonbl01/clementinejs.git .
 ```
 
 #### Bare
