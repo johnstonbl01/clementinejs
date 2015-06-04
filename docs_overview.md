@@ -33,9 +33,9 @@ Sass is really great. The syntax makes CSS easier to read and faster to code. Th
 
 #### Why 3 versions?
 
-Originally, there was only going to be the standard version. As I continued to build out the boilerplate, it became more and more unwieldy. At some point, I realized that I needed a simpler version in addition to the standard version. There needed to be a version of the boilerplate for absolute beginners to pick and easily see how all the pieces fit together.
+Originally, there was only going to be the standard version. As I continued to build out the boilerplate, I continued to realize that I would need a simple version for beginners and a bare bones version for someone who wanted to get started quickly. 
 
-In addition, there also needed to be a version of the standard template that didn't contain as many examples so that it could be installed and used quickly -- without having to go through and remove anything. This version also needed to be easy to read and use for a beginner. Below is a table showing the features between the three versions.
+Below is a table showing the features between the three versions.
 
 | Features 				| Beginner 	| Standard 	| Std--Bare |
 |:---------				|:--------:	|:--------:	|:---------:|
