@@ -161,3 +161,127 @@ Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up 
 - **scripts** - This folder contains minified versions of the all the JavaScript files used in the application
 
 #### Removing Components
+
+Occasionally, it may be desirable to strip out certain components of the boilerplate. This section will detail how to remove some of these additional libraries and provide options for proceeding without their integration.
+
+_Note_: This section will not include information on how to remove any of the integral parts of the MEAN stack (MongoDB, Express.js, AngularJS and Node.js).
+
+##### Removing Jade
+
+Jade is intergrated into a few places within the boilerplate. The first step should be to remove the `index.jade` file contianed in the `/app/views/` directory. This file can easily be converted to HTML. For an example of what the Jade file looks like in HTML, see the beginner version of Clementine.js.
+
+The following row should be removed from the package.json:
+```
+"jade": "^1.9.2"
+```
+
+In addition to changing the type of view file, Node must be directed to use another rendering engine or to send an HTML file to the browser when requested.
+
+If another view engine is being used, the `server.js` snippet below should be updated:
+```js
+// View engine config
+app.set('view engine', 'jade');
+app.set('views', './app/views');
+```
+
+Additionally, the routes must be configured to send an HTML file, if no rendering engine is being used.
+
+Current _index.js_:
+```js
+app.route('/')
+	.get(function (req, res) {
+		res.render('index'); // This renders the jade file
+	});
+```
+
+Updated _index.js:
+```js
+var path = process.cwd();
+
+app.route('/')
+	.get(function (req, res) {
+		res.sendFile(path + '/public/index.html');
+	});
+```
+
+##### Removing Mongoose
+
+Mongoose is the most difficult component to remove. However, it is possible. Without Mongoose, another ODM can be used or the MongoDB Node.js driver can be used. To see an example of this application using the MongoDB Node.js driver instead of Mongoose, check out the beginner Clementine.js application.
+
+The following rows should be removed from the `package.json` file:
+```
+"mongoose": "^4.0.2"
+```
+
+When this is done, the `/app/models` directory and its contents can be removed. Here are the changes that must be accounted for if the MongoDB Node.js driver is used in place of Mongoose:
+- Connection string must be handled using the Node.js driver
+- The database object must be passed as an argument to the routes (for use when creating a new controller object)
+- The database object must be passed to the server-side controller
+- The ClickHandler controller functions must be updated to use MongoDB Node.js syntax.
+- Validation / error handling must be done independently (Mongoose does some of this automatically)
+
+Again, for an example of what this application would look like using the Node.js driver, check out the beginner version of Clementine.js. 
+
+##### Removing Gulp
+
+Gulp servers a few functions within the boilerplate: minification (CSS & JavaScript), watching (auto server restarts) and pre-processing for Sass files. In order to remove Gulp, the `gulpfile.js` file can be removed within the project folder.
+
+The following information should be removed from the `package.json` file:
+```
+"gulp": "^3.8.11",
+"gulp-concat": "^2.5.2",
+"gulp-minify-css": "^1.0.0",
+"gulp-nodemon": "^1.0.5",
+"gulp-rename": "^1.2.2",
+"gulp-sass": "^1.3.3",
+"gulp-uglify": "^1.1.0"
+```
+
+If no build system is desired, then the `index.jade` file must be updated to point to a new css and client-side controller file. Since the minification step will be ommitted, it's possible to simply point to the non-minified versions of these files (moving the CSS file to the `/public/css/` directory is recommended).
+
+This would mean changing the Jade or HTML file to:
+
+_index.jade_:
+```html
+head
+	title Clementine.js - A lightweight MEAN stack boilerplate
+	link(rel="stylesheet" type="text/css" href="/public/css/main.css")
+
+...
+...
+
+script(type="text/javascript" src="/public/lib/angular/angular.min.js")
+script(type="text/javascript" src="/public/lib/angular-resource/angular-resource.min.js")
+script(type="text/javascript" src="/app/controllers/clickController.client.js")
+
+```
+
+Additionally, there will still need to be some method of Sass pre-processing implemented. This can be done via another build system (i.e. Grunt) or a stand-alone app (like [CodeKit](http://incident57.com/codekit/)).
+
+##### Removing Bower
+
+Bower can be easily removed from the project. Start by removing the `"bower": "^1.3.12"` line from the `package.json` file. Additionally, the `.bowerrc` and `bower.json` files should be removed.
+
+Bower is used to integrate the standard AngularJS module and the ng-resource module. It's possible to include these files by linking to the Google CDN (this method is demonstrated in the beginner version of the boilerplate) or to download the files manually and place them inside the `/public/lib/angular` and `/public/lib/angular-resource` respectively.
+
+##### Removing Sass
+
+Removing Sass from Clementine.js is relatively straight-forward. First, the decision must be made to continue using Gulp or not.
+
+If Gulp should remain within the application, then a slighly different approach is required for removing Sass. Begin by removing the `"gulp-sass": "^1.3.3"` line from the `package.json` file. Next, the Gulp setup file should be amended. Specifically, the minify task should be changed to remove the Sass functionality. See below for a revised version of this task.
+
+_gulpfile.js_:
+```js
+gulp.task('minify', function () {
+	gulp.src(['./app/controllers/clickController.client.js'])
+		.pipe(uglify())
+		.pipe(rename('site.min.js'))
+		.pipe(gulp.dest('./public/scripts'));
+});
+```
+
+_Note_: The above will also remove the step that minifies CSS.
+
+Next, feel the `/app/css/` directory and all of its contents can be removed. The final step to remove Sass from the boilerplate is to store all styling within a `/public/css/` directory. The `index.jade` file will need to be amended to point to this new, non-minified CSS file.
+
+If Gulp is also being removed, use the Gulp removal steps above followed by the Sass removal steps after the `gulpfile.js` update (i.e. beginning with the removal of the `/app/css/` directory).
