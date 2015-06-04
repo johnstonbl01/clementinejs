@@ -138,14 +138,14 @@ Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up 
 - _server.js_ - The primary Node file used to start the server and initialize necessary services / frameworks for the application (i.e. connecting to the Mongo database, intializing Express, etc).
 
 **app** - The directory containing the "behind-the-scenes" (i.e. controllers) and server-side JavaScript files (i.e. routes).
-- **controllers** - Directory for client and server-side controller files. Controllers are used to either manipulate / modify the view or the model (i.e. the database).
+- **controllers** - Directory for client and server-side controller files.
 	- _commentCtrlr.client.js_ - A client-side controller for the comment section of the application. This Angular controller handles requests between the view and the API.
 	- _commentCtrlr.server.js_ - A server-side controller handling communication between the database and the API
 	- _linkCtrlr.client.js_ - A client-side controller that works in conjunction with the `materialRipple` directive to delay links from working until after the directive animation has completed
 - **css** - Folder for Sass CSS files
 	- **partials** - Folder containing the modular Sass files for different portions of the application
-		- _banner.sass_ - Contains css for the top banner of the page (where the logo is located)
-		- _base.sass - Contains base css styles and variables for elements used in different sections of the app
+		- _banner.sass_ - Contains CSS for the top banner of the page (where the logo is located)
+		- _base.sass - Contains base CSS styles and variables for elements used in different sections of the app
 		- _buttons.sass_ - CSS for the social buttons
 		- _comments.sass_ - Styling specifically for the comments demonstration
 		- _features.sass_ - Contains styles for the features section of the application
@@ -162,7 +162,7 @@ Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up 
 - **views** - View files are contained within this directory
 	- _index.jade_ - The Jade file which is processed and compiled into HTML by Node. This file contains all the HTML code for the Clementine.js application.
 
-**public** - This directory contains information used to render the view (i.e. css & images). Traditionally, this directory would also include a libary of any vendor code (i.e. AngularJS, jQuery, etc) used in the application. In this instance, we're simply linking directly to the Google CDN (content delivery network) for AngularJS.
+**public** - This directory contains information used to render the view (i.e. css & images).
 - **css** - Contains the style sheet for the application
 	- _main.min.css_ - Post Sass processing and minified CSS file for the entire application
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
@@ -185,4 +185,6 @@ At a high level, the strategy for achieving this effect is:
 
 Sass pre-processing in Clementine.js is handled through Gulp. The process will look at the `main.sass` file and compile each of the imported files into a single file in the `/app/css` directory named `main.css`. This file is then minified and copied into the `/public/css` directory.
 
-To re-compile the Sass files after changes are made, simply type `gulp sass` into the terminal.
+To re-compile the Sass files after changes are made, simply type `gulp minify` into the terminal.
+
+_Note_: This task minifies the javascript files in addition to compiling the Sass files.

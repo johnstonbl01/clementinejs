@@ -2,7 +2,11 @@
 
 #### About
 
+Clementine.js is a lightweight MEAN stack boilerplate. In addition to MongoDB, Express, AngularJS and Node.js, Clementine.js uses Jade, Mongoose, Gulp, Bower and Sass. The purpose of this boilerplate is to offer a lightweight alternative to other boilerplates. This version of Clementine.js is stripped down to only include the essentials, and a small app template.
 
+If you're just learning how to code, I suggest checking out the beginner version of Clementine.js. 
+
+If you're looking for a demonstration of these technologies for a simple website, check out the standard version of Clementine.js.
 
 ##### MongoDB
 
@@ -105,5 +109,55 @@ To start the app, make sure you're in the project directory and type `gulp` into
 Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up and running!
 
 #### Folder Structure
+
+```
++--	Project Folder
+	+--	app
+	|	\--	controllers
+	|	\-- css
+	|	\-- models
+	|	\--	routes
+	|	\-- views
+	|
+	+-- public
+	|	\--	css
+	|	\-- img
+	|	\-- lib
+	|	\--scripts
+```
+
+**Project / Root Folder** - The project directory. This directory contains:
+- _.bowerrc_ - A bower file that specifies an alternate location for Bower to install dependencies. In this case, these are routed to `/public/lib`.
+- _.gitignore_ - A file specifying which directories git should ignore when pushing to the master
+- _LICENSE.md_ - Text file containing license information
+- _README.md_ - Readme file for GitHub
+- _bower.json_ - Bower package management file
+- _gulpfile.js_ - Gulp task automation file
+- _package.json_ - A file specifying which packages should be installed by NPM, in addition general application information (name, version, license, etc).
+- _server.js_ - The primary Node file used to start the server and initialize necessary services / frameworks for the application (i.e. connecting to the Mongo database, intializing Express, etc).
+
+**app** - The directory containing the "behind-the-scenes" (i.e. controllers) and server-side JavaScript files (i.e. routes).
+- **controllers** - Directory for client and server-side controller files.
+	- _clickController.client.js_ - This is an Angular controller that instructs Angular how to interact with the view. In this case, events such as getting the number of times someone has clicked the button are handled through this controller.
+	- _clickHandler.server.js_ - This is a server-side controller that tells Mongo what to do when a particular HTTP request is made (i.e. GET, POST, etc).
+- **css** - Folder for Sass CSS files
+	- **partials** - Folder containing the modular Sass files for different portions of the application
+		- _base.sass - Contains base CSS styles and variables for elements used in different sections of the app
+		- _buttons.sass_ - CSS for the buttons
+		- _logo.sass_ - Styling for the logo portion of the app
+	- _main.sass_ - A file that has links to all of the partial files and links to the Google fonts uesd in the application
+- **models** - Directory which contains model-specific files
+	- _clicks.js_ - A Mongoose schema file used to define the type of data objects (documents) that can be pushed to the MongoDB.
+- **routes** - This folder contains route files. 
+	- _index.js_ - contains routing code for the application
+- **views** - View files are contained within this directory
+	- _index.jade_ - The Jade file which is processed and compiled into HTML by Node. This file contains all the HTML code for the Clementine.js application.
+
+**public** - This directory contains information used to render the view (i.e. css & images).
+- **css** - Contains the style sheet for the application
+	- _main.min.css_ - Post Sass processing and minified CSS file for the entire application
+- **img** - Contains any images used in the view (i.e. the Clementine.js logo)
+- **lib** - Contains Bower-installed dependencies (i.e. AngularJS)
+- **scripts** - This folder contains minified versions of the all the JavaScript files used in the application
 
 #### Removing Components

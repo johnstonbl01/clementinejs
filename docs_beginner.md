@@ -126,6 +126,8 @@ Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up 
 
 **Project / Root Folder** - The project directory. This directory contains:
 - _.gitignore_ - A file specifying which directories git should ignore when pushing to the master
+- _LICENSE.md_ - Text file containing license information
+- _README.md_ - Readme file for GitHub
 - _package.json_ - A file specifying which packages should be installed by NPM, in addition general application information (name, version, license, etc).
 - _server.js_ - The primary Node file used to start the server and initialize necessary services / frameworks for the application (i.e. connecting to the Mongo database, intializing Express, etc).
 
