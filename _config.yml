@@ -1,1 +1,4 @@
 baseurl: /clementinejs
+
+kramdown:
+	input: GFM
