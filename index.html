@@ -1,7 +1,6 @@
 ---
 layout: site
 ---
-
 <section class="main">
 
 	<div class="container">
@@ -12,6 +11,17 @@ layout: site
 				<p>
 					Clementine.js started as a personal project to create a boilerplate that would help me easily stand up a new project using the MEAN stack (MongoDB, Express, Angular.js & Node.js). As a novice, I found that other boilerplates were often too feature-rich and contained a lot of moving pieces that were difficult to untangle. Additionally, I wanted to ensure that each piece of the application was well-documented and easy to grasp for new developers.
 					
+{% highlight ruby %}
+def show
+  @widget = Widget(params[:id])
+  respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @widget }
+  end
+end
+
+{% endhighlight %}
+
 					<br />
 					<br />
 
@@ -97,15 +107,6 @@ layout: site
 					- Beginner
 					- Bare
 				</p>
-{% highlight ruby %}
-def show
-  @widget = Widget(params[:id])
-  respond_to do |format|
-    format.html # show.html.erb
-    format.json { render json: @widget }
-  end
-end
-{% endhighlight %}
 			</div>
 
 	</div>
