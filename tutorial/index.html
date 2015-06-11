@@ -1,0 +1,356 @@
+---
+layout: site
+---
+
+<section class="main">
+	<div class="container">
+			<div class="content">
+		
+				<h2>Prerequisites</h2>
+					<p>
+						Installation of the boilerplate has two prerequisites: Node.js / NPM and MongoDB. The instructions for these are detailed below, followed by installation instructions for Clementine.js.
+					</p>
+					<p>
+						<em>Note:</em> An internet connection is required to successfully complete this tutorial. Additionally, this tutorial assumes basic knowledge of HTML, CSS and JavaScript.
+					</p>
+					
+					<h4>Node.js & NPM</h4>
+					
+					<p>
+						<em>Note:</em> The Node insallation installs both Node & NPM.
+					</p>
+
+					<h4>MAC OSX & Windows</h4>
+
+					<p>Head to the <a href="https://nodejs.org/download/">Node.js install page</a>. Download the appropriate file follow the installation instructions.</p>
+
+					<h4>Linux</h4>
+					
+					<p>
+						<em>Option 1</em> - Install via PPA
+					</p>
+
+{% highlight bash %}
+$ sudo add-apt-repository ppa:chris-lea/node.js
+$ sudo apt-get update
+$ sudo apt-get install nodejs
+{% endhighlight %}
+
+					<p>
+						<em>Option 2</em> - Install via LinuxBrew
+					</p>
+					<p>
+						First, ensure <a href="http://brew.sh/linuxbrew/">LinuxBrew</a> is installed. Then, enter the below into the Linux terminal:
+		
+{% highlight bash %}
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+{% endhighlight %}
+					</p>
+					
+					<h4>MongoDB</h4>
+
+					<p>
+						MongoDB has great installation instructions for MAC OSX, Windows and Linux. <a href="http://docs.mongodb.org/manual/installation/">See this page.</a>
+					</p>
+
+					<h4>NPM Package Initialization</h4>
+					
+					<p>
+						Once the prerequisites are installed, the next order of business to get install the necessary Node packages that will be used in the app.
+					</p>
+					<p>
+						The first step is to create a `package.json` file. This is a file that will store all NPM package prerequisites in addition to other information about the application.
+					</p>
+					<p>
+						In the terminal window and within the project directory, enter `$ npm init`. This will step you through a series of prompted questions and finally create a `package.json` file in the root direcotry of your project folder.
+					</p>
+					<p>
+						Open the file and it should look similar to the below:
+
+{% highlight json %}
+{
+  "name": "beginner-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
+{% endhighlight %}
+					</p>
+					<p>
+						Feel free to update this information to be whatever you'd like. The main thing that needs to change is "main" should be set to "server.js."
+					</p>
+					<p>
+						Now that we've initialized NPM in our project directory and checked out the `package.json` file, let's install the NPM packages that we'll need to create this application.
+					</p>
+					<p>
+						In the terminal window:
+
+{% highlight bash %}
+$ npm install express mongodb --save
+{% endhighlight %}
+					</p>
+					<p>
+						This command will install Express and the MongoDB Node.js driver. In addition, you'll notice a new directory named `node_modules`. This is the directory where Node installes the packages locally. 
+					</p>
+					<p>
+						The `--save` command tells NPM to save the dependency in the `package.json` file. If you open that file, it's now possible to see these dependencies.
+					
+{% highlight json %}
+{
+  "name": "beginner-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.12.4",
+    "mongodb": "^2.0.33"
+  }
+}
+{% endhighlight %}
+					</p>
+
+					<h4>About Express</h4>
+
+					<p>
+						Express is a framework for Node.js that creates additional functionality for the creation of web application. A framework simply means that it is written based on another technology, and provides additional functionality through abstraction. Essentially, Express provides a number of very useful functions written for Node.js.
+					</p>
+					<p>
+						Without the Express framework, developers would have to write similar code for web applications every time they started a new project. Additionally, Express is unopinionated. This means that it isn't strict about how the functionality it provides is implemented. For an example of an opinionated framework, check out Ember.js.
+					</p>
+					<p>
+						For more information on express, check out their <a href="http://expressjs.com/">website and documentation</a>.
+					</p>
+
+					<h4>About MongoDB</h4>
+
+					<p>
+						MongoDB is what's known as a document-store database. Each record within the database is stored in an individual "document." This type of database is also known as a NoSQL database, which stands for Not only SQL (structured-query language).
+					</p>
+
+					<p>
+						SQL databases are very common and have been around for a very long time as the defacto type of data storage. The most common examples are MySQL and PostgreSQL. The NoSQL databases (of which there are a number) are an alternative to SQL.
+					</p>
+					<p>
+						MongoDB is used as part of the MEAN stack because it allows us to write queries (code that the database receives and interprets to retrieve data) using JavaScript syntax.
+					</p>
+					<p>
+						For more information on MongoDB, please <a href="http://docs.mongodb.org/manual/">have a look at their stellar documentation</a>. In addition, once you have practiced your Node skills, I highly recommend taking <a href="https://university.mongodb.com/courses/M101JS/about">this free 7-week online course</a> that MongoDB offers.
+					</p>
+					<p>
+						The MongoDB Node.js driver will allow us to use Node to query the MongoDB database.
+					</p>
+
+				<h2>.gitignore</h2>
+
+					<p>
+						It is often common to see a file named `.gitignore` in the root directoyr of projects. This file simply tells git (version control software) to ignore particular files. Many times, the content of this file contains the `node_modules` directory. This prevents the directory from being uploaded to GitHub (on large projects, this directory can become quite large).
+					</p>
+					<p>
+						Example .gitignore file:
+
+{% highlight text %}
+node_modules/
+{% endhighlight %}
+					</p>
+
+				<h2>Folder Creation</h2>
+
+					<p>
+					Now let's spend a few moments to create the file structure we'll be using.
+{% highlight text %}
++-- Project Folder
+    +-- app
+    |   \-- controllers
+    |   \-- routes
+    |
+    +-- public
+    |   \-- css
+    |   \-- img
+{% endhighlight %}
+					</p>
+
+					<ul><strong>Project / Root Folder</strong> - The project directory. This directory contains:
+						<ul><strong>app</strong> - The directory containing the "behind-the-scenes" (i.e. controllers) and server-side JavaScript files (i.e. routes).
+
+							<li><strong>controllers</strong> - Directory for client and server-side controller files. Controllers are used to either manipulate / modify the view or the model (i.e. the database).</li>
+							<li><strong>routes</strong> - This folder contains route files. Routes give directions on what to do when a particular URL or HTTP request is made from the client (i.e. browser) to the server.</li></ul>
+
+					<ul><strong>public</strong> - This directory contains information used to render the view (i.e. css & images). Traditionally, this directory would also include a libary of any vendor code (i.e. AngularJS, jQuery, etc) used in the application. In this instance, we're simply linking directly to the Google CDN (content delivery network) for AngularJS.
+							<li><strong>css</strong> - Contains the style sheet for the application</li>
+							<li><strong>img</strong> - Contains any images used in the view (i.e. the Clementine.js logo)</li></ul>
+
+					<li><em>.gitignore</em> - A file specifying which directories git should ignore when pushing to the master</li>
+					<li><em>package.json</em> - A file specifying which packages should be installed by NPM, in addition general application information (name, version, license, etc)</li></ul>
+			
+				<h2>App Architecture Overview</h2>
+					
+					<p>
+						Before we begin writing actual code, it's helpful to think of the overall picture for the application and how the pieces fit together. We'll be using an MVC (model-view-controller) architecture for this particular app.
+					</p>
+					<p>
+						This is a common architecture in web development. The model manages the application and data / database logic. The view is the content that is visible to the user. The controller helps manage data between the view and the model. In many cases, the controller will accept data and manipulate it, passing the results to the view.
+					</p>
+					<p>
+						Here's a diagram of this:
+					</p>
+					<p>
+						[insert picture here]
+					</p>
+					<p>
+						Additionally, for more information on the MVC architectural pattern, check out the <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">Wikipedia page</a>.
+					</p>
+
+					<ul>In this tutorial, we're going to create a small application that will have the following functionality:
+						<li>Count the number of times a button is clicked</li>
+						<li>Store this count within a database</li>
+						<li>Reset the count to 0</li></ul>
+
+					<ul>In the context of our application, we will have the following:
+						<li>A Node / Express web server that responds to HTTP request and passes files to the browser</li>
+						<li>A MongoDB database that stores the number of clicks</li>
+						<li>A server-side controller that will add, reset and retrieve the number of clicks from the database</li>
+						<li>This data will be passed to an API (application program interface)</li>
+						<li>A client-side controller that handles user input, retrieves and modifies click information via the exposed API</li>
+						<li>A client-side view that the user interacts with and sees</li>
+						<li>This is our HTML page that includes a logo and the buttons for interaction</li></ul>
+					
+					<p>
+						All together, this looks like:
+					</p>
+					<p>
+						[insert graphic]
+					</p>
+					<p>
+						This should provide some general context that will be helpful as we proceed with development.
+					</p>
+
+				<h2>Simple Node Server</h2>
+
+					<p>
+						To begin our application, let's start by standing up a simple Node server. This will serve as the foundation of our application, and we'll continue to build on top of this for the remainder of the tutorial.
+					</p>
+					<p>
+						Begin by creating a `server.js` file in the root project folder. Within this file:
+{% highlight javascript %}
+'use strict';
+
+var express = require('express');
+
+var app = express();
+
+app.get('/', function (req, res) {
+	res.send('Hello world!');
+});
+
+app.listen(3000, function () {
+	console.log('Listening on port 3000...');
+});
+{% endhighlight %}
+					</p>
+					<p>
+						Let's discuss what the above code is doing:
+					</p>
+					<p>
+						<code><strong>'use strict'</strong></code>
+						<br />
+						This command enables <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">"strict mode"</a>, which is a way to opt in to a more strict version of JavaScript. This is best practice because it enforces more secure syntax and best practices through sticter syntax constraints. The documentation above provides some great examples of this behavior and how strict mode enforces them.
+					</p>
+					<p>
+						<code><strong>var express = require('express');</strong></code>
+						<br />
+						This is the node syntax for including Express as a dependency of our application. We store this within a variable that we can use later in the Node application.
+					</p>
+					<p>
+						<code><strong>var app = express();</strong></code>
+						<br />
+						This line initializes Express and allows us to access all of its great web application functionality via the `app` variable. Express has a number of great and helpful methods (functions) that make web applications easier to program.
+					</p>
+					<p>
+						<code><strong>app.get( ... )</strong></code>
+						<br />
+						<a href="http://expressjs.com/4x/api.html#app.get.method">App.get</a> is an Express method that is going to take a request (<code>req</code>) from the client (browser) for a root URL ('/' - think of www.google.com/ as a root URL - basically the default web address for a site) and respond (`res`) by sending (<code><a href="http://expressjs.com/4x/api.html#res.send">res.send</a></code>) a message to the browser. This is an extremely common pattern in Express, and one you'll see a lot.
+					</p>
+					<p>
+						<code><strong>app.listen( ... )</strong></code>
+						<br />
+						Lastly, <a href="http://expressjs.com/4x/api.html#app.listen">app.listen</a> is going to tell Node which port to listen on (3000). In this case, we're also providing a callback function (a function that gets called once the app.listen function has finished) that will tell us when Node is ready and the server has been started.
+					</p>
+					<p>
+						Let's test the applicaton now, by typing `$ node server.js` in the terminal window (make sure you're within the project directory). You should see the following:
+{% highlight bash %}
+$ node server.js
+Listening on port 3000...
+{% endhighlight %}
+						<br />
+						Great!
+					</p>
+					<p>
+						Now, open a browser and point it to `localhost:3000`. Within the browser window you should see the "Hello world!" message.
+					</p>
+					<p>
+						Let's take this one step further and serve the browser an actual HTML file. Within the project folder, create an `index.html` file.
+					</p>
+					<p>
+						Within this file:
+{% highlight html %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>First Node App</title>
+	</head>
+	<body>
+		<p>Hello, world!</p>
+	</body>
+</html>
+{% endhighlight %}
+
+					</p>
+					<p>
+						This is an extremely simple HTML file, but will allow us to begin returning a file to the browser rather than a message.
+					</p>
+					<p>
+						Let's update the `server.js` file to accomplish this.
+						<br />
+
+						<em>Before:</em>
+{% highlight javascript %}
+app.get('/', function (req, res) {
+	res.send('Hello world!');
+});
+{% endhighlight %}
+					</p>
+					<p>
+						<em>After:</em>
+{% highlight javascript %}
+var path = process.cwd();
+
+app.get('/', function (req, res) {
+	res.sendFile(path + '/index.html');
+});
+{% endhighlight %}
+					</p>
+					<p>
+						The first order of business is to capture the current directory path in a variable. For this, we use Node's <code><a href="https://nodejs.org/api/process.html#process_process_cwd">process.cwd()</a></code> method.
+					</p>
+					<p>
+						Next, we tell Express to respond by sending a file to the browser, and specifying the location and name of the file: `res.sendFile(path + '/index.html');`.
+					</p>
+					<p>
+						Let's test the application now to ensure this is working correctly. Again from the project folder, type `$ node server.js` into the terminal.
+					</p>
+					<p>
+						Point the browser to `localhost:3000` and you should again see "Hello world!"
+					</p>
+			</div>
+	</div>
+</section>
