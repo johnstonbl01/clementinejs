@@ -232,6 +232,33 @@ $ git clone https://github.com/johnstonbl01/clementinejs.git .
 					<li><em>gulpfile.js</em> - Gulp task automation file</li>
 					<li><em>package.json</em> - A file specifying which packages should be installed by NPM, in addition general application information (name, version, license, etc)</li>
 					<li><em>server.js</em> - The primary Node file used to start the server and initialize necessary services / frameworks for the application (i.e. connecting to the Mongo database, intializing Express, etc)</li></ul>
+
+				<h2>AngularJS Directive</h2>
+
+					<p>
+						This version of Clementine.js includes an example of a custom Angular directive. The directive here is an attempt to mimic the <a href="https://material.angularjs.org/latest/#/demo/material.components.button">Google Material Design ripple effect</a>.
+					</p>
+					<p>
+						The code for this directive borrows heavily from <a href="https://github.com/nelsoncash/angular-ripple">this repository</a>.
+					</p>
+					<p>
+						<ul>At a high level, the strategy for achieving this effect is:
+							<li>Create a <code>&lt;span&gt;</code> element inside the target element. This <code>&lt;span&gt;</code> element is created to be slightly larger than the target element to ensure that the animation extends to the edge of the target element.</li>
+							<li>Find the start position for the animation based on mouse position relative to the target element.</li>
+							<li>Clear any previous animation attributes (in the event that the button is clicked multiple times)</li>
+							<li>Add the CSS animation attribute to the target element, creating the animation to occur.</li></ul>
+
+				<h2>Sass Pre-processing</h2>
+
+					<p>
+						Sass pre-processing in Clementine.js is handled through Gulp. The process will look at the <code>main.sass</code> file and compile each of the imported files into a single file in the <code>/app/css</code> directory named <code>main.css</code>. This file is then minified and copied into the <code>/public/css</code> directory.
+					</p>
+					<p>
+						To re-compile the Sass files after changes are made, simply type <code>gulp minify</code> into the terminal.
+					</p>
+					<p>
+						<em>Note</em>: This task minifies the javascript files in addition to compiling the Sass files.
+					</p>
 			</div>
 	</div>
 </section>
