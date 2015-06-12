@@ -59,10 +59,10 @@ $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/
 						Once the prerequisites are installed, the next order of business to get install the necessary Node packages that will be used in the app.
 					</p>
 					<p>
-						The first step is to create a `package.json` file. This is a file that will store all NPM package prerequisites in addition to other information about the application.
+						The first step is to create a <code>package.json</code> file. This is a file that will store all NPM package prerequisites in addition to other information about the application.
 					</p>
 					<p>
-						In the terminal window and within the project directory, enter `$ npm init`. This will step you through a series of prompted questions and finally create a `package.json` file in the root direcotry of your project folder.
+						In the terminal window and within the project directory, enter <code>$ npm init</code>. This will step you through a series of prompted questions and finally create a <code>package.json</code> file in the root direcotry of your project folder.
 					</p>
 					<p>
 						Open the file and it should look similar to the below:
@@ -85,7 +85,7 @@ $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/
 						Feel free to update this information to be whatever you'd like. The main thing that needs to change is "main" should be set to "server.js."
 					</p>
 					<p>
-						Now that we've initialized NPM in our project directory and checked out the `package.json` file, let's install the NPM packages that we'll need to create this application.
+						Now that we've initialized NPM in our project directory and checked out the <code>package.json</code> file, let's install the NPM packages that we'll need to create this application.
 					</p>
 					<p>
 						In the terminal window:
@@ -95,10 +95,10 @@ $ npm install express mongodb --save
 {% endhighlight %}
 					</p>
 					<p>
-						This command will install Express and the MongoDB Node.js driver. In addition, you'll notice a new directory named `node_modules`. This is the directory where Node installes the packages locally. 
+						This command will install Express and the MongoDB Node.js driver. In addition, you'll notice a new directory named <code>node_modules</code>. This is the directory where Node installes the packages locally. 
 					</p>
 					<p>
-						The `--save` command tells NPM to save the dependency in the `package.json` file. If you open that file, it's now possible to see these dependencies.
+						The <code>--save</code> command tells NPM to save the dependency in the <code>package.json</code> file. If you open that file, it's now possible to see these dependencies.
 					
 {% highlight json %}
 {
@@ -153,7 +153,7 @@ $ npm install express mongodb --save
 				<h2>.gitignore</h2>
 
 					<p>
-						It is often common to see a file named `.gitignore` in the root directoyr of projects. This file simply tells git (version control software) to ignore particular files. Many times, the content of this file contains the `node_modules` directory. This prevents the directory from being uploaded to GitHub (on large projects, this directory can become quite large).
+						It is often common to see a file named <code>.gitignore</code> in the root directoyr of projects. This file simply tells git (version control software) to ignore particular files. Many times, the content of this file contains the <code>node_modules</code> directory. This prevents the directory from being uploaded to GitHub (on large projects, this directory can become quite large).
 					</p>
 					<p>
 						Example .gitignore file:
@@ -240,7 +240,7 @@ node_modules/
 						To begin our application, let's start by standing up a simple Node server. This will serve as the foundation of our application, and we'll continue to build on top of this for the remainder of the tutorial.
 					</p>
 					<p>
-						Begin by creating a `server.js` file in the root project folder. Within this file:
+						Begin by creating a <code>server.js</code> file in the root project folder. Within this file:
 {% highlight javascript %}
 'use strict';
 
@@ -273,12 +273,12 @@ app.listen(3000, function () {
 					<p>
 						<code><strong>var app = express();</strong></code>
 						<br />
-						This line initializes Express and allows us to access all of its great web application functionality via the `app` variable. Express has a number of great and helpful methods (functions) that make web applications easier to program.
+						This line initializes Express and allows us to access all of its great web application functionality via the <code>app</code> variable. Express has a number of great and helpful methods (functions) that make web applications easier to program.
 					</p>
 					<p>
 						<code><strong>app.get( ... )</strong></code>
 						<br />
-						<a href="http://expressjs.com/4x/api.html#app.get.method">App.get</a> is an Express method that is going to take a request (<code>req</code>) from the client (browser) for a root URL ('/' - think of www.google.com/ as a root URL - basically the default web address for a site) and respond (`res`) by sending (<code><a href="http://expressjs.com/4x/api.html#res.send">res.send</a></code>) a message to the browser. This is an extremely common pattern in Express, and one you'll see a lot.
+						<a href="http://expressjs.com/4x/api.html#app.get.method">App.get</a> is an Express method that is going to take a request (<code>req</code>) from the client (browser) for a root URL ('/' - think of www.google.com/ as a root URL - basically the default web address for a site) and respond (<code>res</code>) by sending (<code><a href="http://expressjs.com/4x/api.html#res.send">res.send</a></code>) a message to the browser. This is an extremely common pattern in Express, and one you'll see a lot.
 					</p>
 					<p>
 						<code><strong>app.listen( ... )</strong></code>
@@ -286,7 +286,7 @@ app.listen(3000, function () {
 						Lastly, <a href="http://expressjs.com/4x/api.html#app.listen">app.listen</a> is going to tell Node which port to listen on (3000). In this case, we're also providing a callback function (a function that gets called once the app.listen function has finished) that will tell us when Node is ready and the server has been started.
 					</p>
 					<p>
-						Let's test the applicaton now, by typing `$ node server.js` in the terminal window (make sure you're within the project directory). You should see the following:
+						Let's test the applicaton now, by typing <code>$ node server.js</code> in the terminal window (make sure you're within the project directory). You should see the following:
 {% highlight bash %}
 $ node server.js
 Listening on port 3000...
@@ -295,10 +295,10 @@ Listening on port 3000...
 						Great!
 					</p>
 					<p>
-						Now, open a browser and point it to `localhost:3000`. Within the browser window you should see the "Hello world!" message.
+						Now, open a browser and point it to <code>localhost:3000</code>. Within the browser window you should see the "Hello world!" message.
 					</p>
 					<p>
-						Let's take this one step further and serve the browser an actual HTML file. Within the project folder, create an `index.html` file.
+						Let's take this one step further and serve the browser an actual HTML file. Within the project folder, create an <code>index.html</code> file.
 					</p>
 					<p>
 						Within this file:
@@ -319,7 +319,7 @@ Listening on port 3000...
 						This is an extremely simple HTML file, but will allow us to begin returning a file to the browser rather than a message.
 					</p>
 					<p>
-						Let's update the `server.js` file to accomplish this.
+						Let's update the <code>server.js</code> file to accomplish this.
 						<br />
 
 						<em>Before:</em>
@@ -343,14 +343,405 @@ app.get('/', function (req, res) {
 						The first order of business is to capture the current directory path in a variable. For this, we use Node's <code><a href="https://nodejs.org/api/process.html#process_process_cwd">process.cwd()</a></code> method.
 					</p>
 					<p>
-						Next, we tell Express to respond by sending a file to the browser, and specifying the location and name of the file: `res.sendFile(path + '/index.html');`.
+						Next, we tell Express to respond by sending a file to the browser, and specifying the location and name of the file: <code>res.sendFile(path + '/index.html');</code>.
 					</p>
 					<p>
-						Let's test the application now to ensure this is working correctly. Again from the project folder, type `$ node server.js` into the terminal.
+						Let's test the application now to ensure this is working correctly. Again from the project folder, type <code>$ node server.js</code> into the terminal.
 					</p>
 					<p>
-						Point the browser to `localhost:3000` and you should again see "Hello world!"
+						Point the browser to <code>localhost:3000</code> and you should again see "Hello world!"
 					</p>
+
+				<h2>Refactoring Routes</h2>
+					
+					<p>
+						Our next step is going to be refactoring our routes by using another common Express & Node pattern. Web applications have a number of routes (the HTTP requests made to the server), and it's common to store these in separate directories and files. That's our goal for this portion of the tutorial.
+					</p>
+					<p>
+						Begin by creating a new file within the <code>/app/routes</code> directory named <code>index.js</code>. This will be the JavaScript file containing our routes.
+					</p>
+					<p>
+						Remove the following from the <code>server.js</code> file:
+{% highlight javascript %}
+app.get('/', function (req, res) {
+	res.sendFile(path + '/index.html');
+});
+{% endhighlight %}
+					</p>
+					<p>
+						The next order of business is to add our new route file as a dependency for the server.js file. At the top of the file:
+
+{% highlight javascript %}
+var express = require('express'),
+	routes = require('./app/routes/index.js');
+{% endhighlight %}
+						<br />
+						Now we need to pass the Express application as an argument to our route function object. Essentially, we will export our routes, and that function object will accept one argument, <code>app</code>. This will allow us to use Express functionality within the scope of our new route function. Hang in there if this doesn't make sense right away.
+					</p>
+					<p>
+						Include the following code where our former route code was within the file:
+{% highlight javascript %}
+routes(app);
+{% endhighlight %}
+					</p>
+					<p>
+						Your <code>server.js</code> file should look like:
+{% highlight javascript %}
+'use strict';
+
+var express = require('express'),
+	routes = require('./app/routes/index.js');
+
+var app = express();
+
+var path = process.cwd();
+
+routes(app);
+
+app.listen(3000, function () {
+	console.log('Listening on port 3000...');
+});
+{% endhighlight %}
+					</p>
+					<p>
+						Now, let's add some content to the <code>index.js</code> file. We're going to use the <a href="https://nodejs.org/api/modules.html#modules_module_exports">module.exports</a> method in Node to extend this function and make it available to other Node files (i.e. our <code>server.js</code> file). This function will accept a single argument (<code>app</code>), which will be the Express app.
+					</p>
+					<p>
+						index.js:
+{% highlight javascript %}
+'use strict';
+
+var path = process.cwd();
+
+module.exports = function (app) {
+	app.route('/')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/index.html');
+		});
+};
+{% endhighlight %}
+					</p>
+					<p>
+						Some of this will look familiar, but it's important to note that we're using a different routing method from Express: <a href="http://expressjs.com/4x/api.html#app.route">app.route</a>. This is an alternative to app.get, and let's us bundle together several types of routes for a single page request (this will become apparently later in the tutorial). The remainder of this code is exactly the same as our former <code>app.get</code> route.
+					</p>
+					<p>
+						Next, move the index.html file into the <code>/public</code> directory. This will be the permanent home of this file.
+					</p>
+					<p>
+						Let's test this update to ensure everything has been setup correctly. From the project folder, type <code>$ node server.js</code> into the terminal.
+					</p>
+					<p>
+						Point the browser to <code>localhost:3000</code> and you should again see "Hello world!"
+					</p>
+					<p>
+						Let's move on to giving some more pizazz to our HTML file.
+					</p>
+
+				<h2>Adding Additional Elements to Index.HTML</h2>
+					
+					<p>
+						In this section, we're going to update our HTML file to include more content and get it ready for AngularJS integration. Here's the updated HTML code:
+					</p>
+
+{% highlight html %}
+<head>
+	<title>Clementine.js - A beginner level MEAN stack application</title>
+</head>
+
+<body>
+
+	<div class="container">
+		<img src="/public/img/clementine_150.png" />
+		<br />
+		<p class="clementine-text">Clementine.js</p>
+	</div>
+
+	<div class="container">
+
+		<p>You have clicked the button X times.</p>
+		<br />
+		<div class="btn-container">
+			<button type="submit" class="btn">CLICK ME!</button>
+			<button class="btn btn-delete">RESET</button>
+		</div>
+
+	</div>
+
+</body>
+{% endhighlight %}
+
+					<p>
+						I've added some Clementine features and text to the application, but feel free to modify however you like. If you'd like to include a copy of the clementine logo, feel free to download a copy (right-click > Save Image As) from <a href="https://github.com/johnstonbl01/clementinejs-beginner/blob/master/public/img/clementine_150.png">this GitHub page</a>. Make sure to save it within the <code>/public/img</code> directory.
+					</p>
+					<p>
+						What did we accomplish with the new HTML? We included two <code>div</code> elements that contain a top and bottom portion of our small application. The top portion includes a picture and the name of the application.
+					</p>
+					<p>
+						The bottom portion contains text telling us how many times the button has been clicked, and the two buttons: one button to add clicks, and one to reset the clicks.
+					</p>
+					<p>
+						Now let's ensure that everything still works. Test the app by starting up the Node server and checking it in the browser. You should see:
+					</p>
+					<p>
+						[insert img here]
+					</p>
+					<p>
+						Oh no! Why isn't our image loading? Well, when Node tries to access the <code>/public/img/</code> directory, it doesn't have any reference for how to find that file.
+					</p>
+					<p>
+						This can be solved by adding an additional line to the <code>server.js</code> file.
+
+{% highlight javascript %}
+var path = process.cwd();
+
+app.use('/public', express.static(path + '/public'));
+{% endhighlight %}
+					
+					</p>
+					<p>
+						Here we will use Express's <code><a href="http://expressjs.com/4x/api.html#app.use">app.use</a></code> and <code><a href="http://expressjs.com/4x/api.html#express.static">express.static</a></code> to bind the directory path for <code>/public</code> to a shortcut: <code>/public</code>. Now when <code>/public</code> is referenced within our HTML file, Express and Node should be able to locate the logo and pass it to the browser successfully.
+					</p>
+					<p>
+						Let's check to make sure that this is the case. Start the node server and point the browser to <code>localhost:3000</code>.
+					</p>
+					<p>
+						[insert img here]
+					</p>
+					<p>
+						Ahhh, that's better!
+					</p>
+					<p>
+						Now let's begin integrating AngularJS into our application.
+					</p>
+
+				<h2>AngularJS HTML Integration</h2>
+					
+					<p>
+						To start our AngularJS integration, we need to update our HTML file to include Angular functionality. For starters, let's add a script tag that points to the Google CDN (Content Delivery Network), so that we can load AngularJS on our page.
+					</p>
+					<p>
+						To get the URL for this, head to <a href="http://angularjs.org">the AngularjS homepage</a>. Click on the download button in the middle of the page, and copy the CDN URL to your clipboard.
+					</p>
+					<p>
+						[insert cdn image here]
+					</p>
+					<p>
+						Next, let's include this in our index.HTML file:
+{% highlight html %}
+...
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+</body>
+{% endhighlight %}
+					</p>
+					<p>
+						In addition to the traditional AngularJS source file, we need to use the <a href="https://docs.angularjs.org/api/ngResource">ngResource module</a> as a dependency in our application. This module allows us to interact with an API by providing common data & API related functions.
+					</p>
+					<p>
+						To do this, return to the AngularJS site and click the download button again. This time, click on the "browse additional modules" link. (Alternatively, you can just click <a href="https://code.angularjs.org/1.3.15/">here</a>.) On this page, you'll need to find the <code>angular-resource.min.js</code> file and right-click on it. Choose "Copy link address." Return to the HTML file and we will now paste this location into another <code>&lt;script&gt;</code> tag.
+					</p>
+
+{% highlight html %}
+...
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+</body>
+{% endhighlight %}
+					
+					<p>
+						AngularJS needs to know what Angular module to run when the website is loaded. This is done through the inclusion of the <a href="https://docs.angularjs.org/api/ng/directive/ngApp"><code>ng-app</code></a> directive. For small apps like this one, it's common to only use a single Angular module; therefore, we will include the <code>ng-app</code> directive in the <code>&lt;html&gt;</code> element so that it will encompass the entire page.
+					</p>
+					<p>
+						Wait - what's an <a href="https://docs.angularjs.org/guide/directive">Angular directive</a>? Directives are essentially a marker within the HTML that instruct Angular to bind specific functionality to that HTML element. An example of this would be to have a text box that is only visible when certain criteria is met. In that case, the directive would be included in the element tag, and Angular would know to execute the "show" action based on the directive code that was provided to Angular.
+					</p>
+					<p>
+						In this app, we're only going to use the out-of-the-box Angular directives. However, if you'd like to see a custom directive in action, check out the standard Clementine.js app.
+					</p>
+
+{% highlight html %}
+<html ng-app="clementineApp">
+{% endhighlight %}
+
+					<p>
+						Including this directive will allow us to use other Angular directives on the page. Note that this is a required piece of an Angular application.
+					</p>
+					<p>
+						Next, let's assign a few more directives to the bottom portion of our site:
+
+{% highlight html %}
+<div class="container" ng-controller="clickController">
+
+	<p>You have clicked the button &#123;&#123; clicks &#125;&#125; times.</p>
+	<br />
+	<div class="btn-container">
+		<button type="submit" class="btn" ng-click="addClick()">CLICK ME!</button>
+		<button class="btn btn-delete" ng-click="resetClicks()">RESET</button>
+	</div>
+
+</div>
+{% endhighlight %}
+
+					</p>
+					<p>
+						<ul>Let's break down the new functionality we've included:
+							<li><code><strong>ng-controller</strong></code> - This is another AngularJS directive that will allow us to define which controller to use within the current block of HTML elements. We will get to definiing this controller in detail soon enough.</li>
+							<li><code><strong>ng-click</strong></code> - A directive that allows us to specify the name of the controller function that is executed when the button is clicked. In this case, we have defined separate functions for the two buttons -- <code>addClick()</code> and <code>resetClicks()</code>.</li>
+							<li><code><strong>&#123;&#123; clicks &#125;&#125;</strong></code> - This is the Angular syntax that allows us to bind a data value within our HTML code. In this case, the <code>&#123;&#123; clicks &#125;&#125;</code> will be replaced by the clicks value within the scope. This value will first be defined within our controller, and eventually by the database.</li></ul>
+					</p>
+					<p>
+						This is likely a good time to expand on how Angular interacts with both the view, and how scope fits into the picture.
+					</p>
+					<p>
+					</p>
+					<p>
+						[insert scope picture here]
+					</p>
+					<p>
+						Now that our HTML view is ready for Angular, let's define our client-side controller.
+					</p>
+
+				<h2>AngularJS $Scope Manipulation</h2>
+
+					<p>
+						Begin this process by creating a new file named <code>clickController.client.js</code> in the <code>/app/controllers</code> directory. In this file, we'll put all the client-side code to handle events in the browser, like clicking on one of the buttons.
+					</p>
+					<p>
+						To begin, we're going to include <code>'use strict';</code> again at the top of the file. Then, we're going to wrap all of our Angular code in what's called an <a href="http://en.wikipedia.org/wiki/Immediately-invoked_function_expression">immediately invoked function express (IIFE)</a>. Let's start with that:
+					</p>
+
+{% highlight javascript %}
+'use strict';
+
+(function () {
+
+})();
+{% endhighlight %}
+
+					<p>
+						An IIFE is going to bind all the variables within to the local scope of that function. This means that functions declared within this function will not conflict with other variables within the application that may share the same name or need to be re-used. This is a common practice in Angular code (and JS in general), and a good best practice to use.
+					</p>
+					<p>
+						Within this, let's first define our Angular module (i.e. the app), and then the controller.
+
+{% highlight javascript %}
+(function () {
+
+angular
+	.module('clementineApp', [])
+	.controller('clickController', ['$scope', function ($scope) {
+		$scope.clicks = 1000;
+	}]);
+
+})();
+{% endhighlight %}
+					</p>
+					<p>
+						First, <code>angular</code> is a global variable recognized by AngularJS that references the angular object containing the new methods and functionality.
+					</p>
+					<p>
+						<a href="https://docs.angularjs.org/api/ng/type/angular.Module"><code>angular.module('clementineApp', [])</code></a> is the syntax used to define an Angular module. Note that the name of the application must match the name specified in the <code>ng-app</code> directive of the HTML. The empty array is where we will inject dependencies for this module.
+					</p>
+					<p>
+						Next, we define the name of our <a href="https://docs.angularjs.org/guide/controller">Angular controller</a> using the syntax <code>angular.controller( ... )</code>. Again, note that the name of the controller defined as the first argument of this expression must match the name specified via the <code>ng-controller</code> directive included in the HTML file.
+					</p>
+					<p>
+						You'll notice that the dependency array isn't empty here. We bind include the <code>$scope</code> object as a dependency, and then pass it as the argument for the following call back function. This is what will allow us to access and manipulate information bound to the <code>$scope</code> object and make it available within the view of our application.
+					</p>
+					<p>
+						Lastly, we set the <code>clicks</code> variable within the scope to be equal to 1000. I chose an arbitrary number here that we will easily recognize when testing. Keep in mind that the name of the variable on the <code>$scope</code> object ('clicks'), must also match the name of the variable we placed inside the brackets on the HTML page (&#123;&#123; clicks &#125;&#125;).
+					</p>
+					<p>
+						Before we test this, there are a few additional adjustments we need to make to the <code>index.html</code> and <code>server.js</code> files.
+					</p>
+					<p>
+					<em>index.html</em>:
+{% highlight html %}
+...
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+	<script type="text/javascript" src="/controllers/clickController.client.js"></script>
+</body>
+{% endhighlight %}
+					</script>
+					<p>
+						Here, we have added our new JS file to the HTML so that it is included in the page and can be executed when called upon. Take note of the order of the files here -- it does matter. The clickController needs functionality from the ng-resource file, which in turn depends on functionality within the angular script.
+					</p>
+					<p>
+						<em>server.js</em>:
+
+{% highlight javascript %}
+app.use('/public', express.static(path + '/public'));
+app.use('/controllers', express.static(path + '/app/controllers'));
+{% endhighlight %}
+					</p>
+					<p>
+						We've added an additional static path so that when the browser makes a request for the <code>/controllers</code> directory, the server can correctly serve the appropriate file.
+					</p>
+					<p>
+						Once that has been completed, fire up the Node server and browse to <code>localhost:3000</code>. You should now see, "You have clicked the button 1000 times." Congratulations, you've set up your first AngularJS controller!
+					</p>
+					<p>
+						However, neither of our buttons work when clicking on them. Hmm, let's fix that, shall we?
+					</p>
+
+				<h2>AngularJS Interactivity via the Controller</h2>
+
+					<p>
+						The next step we need to take is to make something happen when one of the buttons is clicked. If you'll remember back to the HTML Angular section, we defined two separate functions for each of the button <code>ng-click</code> directives: <code>addClick()</code> and <code>resetClicks()</code>.
+					</p>
+					<p>
+						Let's add those functions to the scope by defining them within the newly created controller.
+					</p>
+					<p>
+						<ul>To start, we'll need to:
+							<li>Define the default value of clicks each time the browser is started</li>
+							<li>Define what happens when we click the 'CLICK ME!' button</li></ul>
+					</p>
+					<p>
+						<em>clickController.client.js</em>:
+
+{% highlight javascript %}
+.controller('clickController', ['$scope', function ($scope) {
+
+	$scope.clicks = 0;
+
+	$scope.addClick = function () {
+		$scope.clicks += 1;
+	};
+
+}]);
+{% endhighlight %}
+					</p>
+					<p>
+						Above we have defined the default value of the clicks property on the scope method, and then defined the <code>addClick()</code> method. This method will add 1 to the number of clicks every time the button is clicked. Feel free to test this out at this point if you'd like.
+					</p>
+					<p>
+						Next, let's add the <code>resetClicks()</code> method to the same controller.
+{% highlight javascript %}
+.controller('clickController', ['$scope', function ($scope) {
+
+	$scope.clicks = 0;
+
+	$scope.addClick = function () {
+		$scope.clicks += 1;
+	};
+
+	$scope.resetClicks = function () {
+		$scope.clicks = 0;
+	};
+
+}]);
+{% endhighlight %}
+					</p>
+					<p>
+						The app should now function as intended. When the 'CLICK ME!' button is clicked, it will add one to the number of times the button was clicked. Additionally, when the 'RESET' button is clicked, the number of clicks should reset iteslf to 0.
+					</p>
+					<p>
+						At this point, we have a fully functioning front-end application. However, wouldn't it be great if the browser would remember the number of times the button had been clicked? Currently, the number of clicks will reset to 0 every time the page is refreshed. This is happening because the number of clicks is not being stored anywhere. Every time the browser renders the page, it will set the number of clicks to the value we have defined in our controller (0).
+					</p>
+					<p>
+						We can fix this by storing our data somewhere -- in a MongoDB database!
+					</p>
+
 			</div>
 	</div>
 </section>
