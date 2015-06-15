@@ -1,2 +1,5 @@
 baseurl: /clementinejs
 highlighter: pygments
+markdown: redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables"]
