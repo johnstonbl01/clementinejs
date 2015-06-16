@@ -2,12 +2,11 @@
   white-space: pre;
   overflow: auto;
   word-wrap: normal; /* horizontal scrolling */
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  padding: 20px;
-  padding-left: 10px;
-  background: #202020;
+  border-radius: 4px;
+  padding: 11.5px;
+  padding-left: 20px;
+  margin: 0 0 12px;
+  background-color: #212121;
   color: #C1C2C3;
 }
 

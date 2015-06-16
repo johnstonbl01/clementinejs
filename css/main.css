@@ -1,3 +1,147 @@
 body {
 	font-family: 'Roboto', sans-serif;
+	padding: 0;
+	margin: 0;
+	background-color: #FFF;
+	color: #333;
+}
+
+header {
+	background-color: #FFA000;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+#navbar {
+	color: white;
+	height: 56px;
+	font-weight: 500;
+	font-size: 18px;
+	display: block;
+}
+
+#navbar ul{
+	list-style-type: none;
+	float: right;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+#navbar li {
+	float: left;
+}
+
+.nav-button {
+	display: inline-block;
+	text-decoration: none;
+	line-height: 56px;
+	padding: 0 16px;
+}
+
+.nav-button:visited {
+	color: #FFFFFF;
+}
+
+.nav-button:hover {
+	text-decoration: none;
+}
+
+.nav-button:link {
+	color: #FFFFFF;
+}
+
+#nav-logo {
+	background: url('/img/clementine_white_nav.png') 0 8px no-repeat;
+	height: 56px;
+	width: 179px;
+	margin: 0 0 0 16px;
+	padding: 0;
+	float: left;
+}
+
+.container {
+	width: 900px;
+	margin: 0 auto;
+}
+
+p {
+	margin-bottom: 12px;
+	font-size: 16px;
+}
+
+h1 {
+	font-size: 44px;
+}
+
+h1, h2, h3 {
+	margin-top: 24px;
+	margin-bottom: 12px;
+	font-weight: 400;
+	line-height: 1.1;
+}
+
+a {
+	text-decoration: none;
+	color: #0093A6;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #0093A6;
+}
+
+a:active a:hover {
+	outline: 0;
+}
+
+p code {
+	padding: 2px 4px;
+	font-size: 90%;
+	color: #0093A6;
+	background-color: #F7F7F7;
+	white-space: nowrap;
+	border-radius: 4px
+}
+
+ul code {
+	padding: 2px 4px;
+	font-size: 90%;
+	color: #0093A6;
+	background-color: #F7F7F7;
+	white-space: nowrap;
+	border-radius: 4px
+}
+
+footer {
+	text-align: center;
+	padding: 20px 0 5px 0;
+}
+
+footer p {
+	font-size: 12px;
+	padding: 16px 0 0 0;
+	margin: 0;
+}
+
+table {
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+
+tr:nth-child(odd) {
+	background-color: #F7F7F7;
+}
+
+th {
+	padding: 10px;
+	border-bottom: 2px solid #212121;
+	font-size: 20px;
+	width: 140px;
+	font-weight: 400;
+	background-color: #FFF;
+	color: #0093A6;
+}
+
+td {
+	padding: 5px;
 }

@@ -2,7 +2,9 @@
 <body>
 	<div class="page">
 		{% include header.html %}
-		{{ page.content | markdownify }}
+		<div class="container">
+			{{ page.content | markdownify }}
+		</div>
 	</div>
 	{% include footer.html %}
 </body>
