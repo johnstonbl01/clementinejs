@@ -2,7 +2,34 @@
 layout: site
 ---
 
-### Bare Boilerplate
+# The Bare Boilerplate
+
+## Contents
+
+- [About](#about)
+	- [MongoDB](#mongodb)
+	- [Express.js](#express.js)
+	- [AngularJS](#angularjs)
+	- [Node.js](#node.js)
+	- [Jade](#jade)
+	- [Mongoose](#mongoose)
+	- [Gulp](#gulp)
+	- [Bower](#bower)
+	- [Sass](#sass)
+- [Installation](#installation)
+	- [Install Node.js and NPM](#install-node.js-and-npm)
+	- [Install MongoDB](#install-mongodb)
+	- [Install Clementine.js](#install-clementine.js)
+	- [Starting the App](#starting-the-app)
+- [Folder Structure](#folder-structure)
+- [Removing Components](#removing-components)
+	- [Removing Jade](#removing-jade)
+	- [Removing Mongoose](#removing-mongoose)
+	- [Removing Gulp](#removing-gulp)
+	- [Removing Bower](#removing-bower)
+	- [Removing Sass](#removing-sass)
+
+## About
 
 Clementine.js is a lightweight MEAN stack boilerplate. In addition to MongoDB, Express, AngularJS and Node.js, Clementine.js uses Jade, Mongoose, Gulp, Bower and Sass. The purpose of this boilerplate is to offer a lightweight alternative to other boilerplates. This version of Clementine.js is stripped down to only include the essentials, and a small app template.
 
@@ -10,65 +37,83 @@ If you're just learning how to code, I suggest checking out the beginner version
 
 If you're looking for a demonstration of these technologies for a simple website, check out the standard version of Clementine.js.
 
-#### MongoDB
+### MongoDB
 
 MongoDB is a document-store (NoSQL) database. Queries are written in JavaScript, and that is the primary reason for its inclusion in the MEAN stack.
 
 For more information on MongoDB, please [have a look at their stellar documentation](http://docs.mongodb.org/manual/). In addition, once you have practiced your Node skills, I highly recommend taking [this free 7-week online course](https://university.mongodb.com/courses/M101JS/about) that MongoDB offers.
 
-#### Express.js
+[Back to top.](#top)
+
+### Express.js
 
 Express is an unopinionated framework for Node.js that creates additional functionality for the creation of web applications. 
 
 For more information on express, check out their [website and documentation](http://expressjs.com/).
 
-#### Angular.js
+[Back to top.](#top)
+
+### Angular.js
 
 AngularJS is a front-end framework developed and backed by Google. Angular is a complete framework, meaning it has a great amount of built-in functionality for building web applications.
 
 For more about AngularJS, have a look at their [website and documentation](https://angularjs.org/). Google has also created a [site that showcases some of the new features coming in Angular 2.0](https://angular.io/).
 
-#### Node.js
+[Back to top.](#top)
+
+### Node.js
 
 Node.js is a platform built on Google's V8 JavaScript run-time, allowing server-side code to be written in JavaScript. 
 
 For more information on Node, [try their site](https://nodejs.org/documentation/). I also recommend having a look at [NodeSchool](http://nodeschool.io/).
 
-#### Jade
+[Back to top.](#top)
+
+### Jade
 
 Jade is a Node templating engine that uses terse syntax to render HTML pages. This syntax is similar to Sass in that it interprets white space and indentation when rendering.
 
 More info can be found on the [Jade website](http://jade-lang.com/).
 
-#### Mongoose
+[Back to top.](#top)
+
+### Mongoose
 
 Mongoose is an object modeling tool for MongoDB that allows for definition of schemas. This helps ensure data consistency in the MongoDB database.
 
 The Mongoose docs can be [found here](http://mongoosejs.com/index.html).
 
-#### Gulp
+[Back to top.](#top)
+
+### Gulp
 
 Gulp is a build system that uses the idea of streams to automate workflow (similar to Grunt). Clementine.js utilizes Gulp to automate watch, refresh and Sass pre-processing.
 
 Here's a link to the [Gulp documentation](http://gulpjs.com/).
 
-#### Bower
+[Back to top.](#top)
+
+### Bower
 
 Bower is a package manager for client-side frameworks, libraries, etc. In the case of Clementine.js, Bower is used to manage installation of the necessary AngularJS files.
 
 Check out the [Bower site](http://bower.io/) for more info.
 
-#### Sass
+[Back to top.](#top)
+
+### Sass
 
 Sass (Syntactically Awesome Style Sheets) is an extension language for CSS. It employs terse syntax (similar to Jade) that encourages the use of white space and indentation to write style sheets. Sass requires a pre-processor to compile it into traditional CSS. Additionally, Sass allows for the use of variables and a few other features that don't exist in traditional CSS.
 
 More information about [Sass can be found here](http://sass-lang.com/).
 
-### Installation
+[Back to top.](#top)
+
+## Installation
 
 Installation of Clementine.js has two prerequisites: Node.js / NPM and MongoDB. The instructions for these are detailed below, followed by installation instructions for the boilerplate.
 
-#### Node.js & NPM
+### Install Node.js and NPM
 
 _Note:_ The Node insallation installs both Node & NPM.
 
@@ -94,11 +139,15 @@ First, ensure [LinuxBrew](http://brew.sh/linuxbrew/) is installed. Then, enter t
 $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
 ```
 
-#### MongoDB
+[Back to top.](#top)
+
+### Install MongoDB
 
 MongoDB has great installation instructions for MAC OSX, Windows and Linux. [See this page.](http://docs.mongodb.org/manual/installation/)
 
-#### Clementine.js
+[Back to top.](#top)
+
+### Install Clementine.js
 
 To install the boilerplate, first create a new directory for your project and cd into that directory from the terminal. Then type:
 
@@ -108,13 +157,17 @@ https://github.com/johnstonbl01/clementinejs.git .
 
 _Note:_ The period at the end is important. If the period is excluded, git will create a new directory named clementinejs in your current directory.
 
-#### Starting the App
+[Back to top.](#top)
+
+### Starting the App
 
 To start the app, make sure you're in the project directory and type `gulp` into the terminal. This will instruct Gulp to start the Node server and watch files in the directory for changes.
 
 Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up and running!
 
-### Folder Structure
+[Back to top.](#top)
+
+## Folder Structure
 
 ```
 +--	Project Folder
@@ -169,13 +222,17 @@ Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up 
 - **lib** - Contains Bower-installed dependencies (i.e. AngularJS)
 - **scripts** - This folder contains minified versions of the all the JavaScript files used in the application
 
-### Removing Components
+[Back to top.](#top)
+
+## Removing Components
 
 Occasionally, it may be desirable to strip out certain components of the boilerplate. This section will detail how to remove some of these additional libraries and provide options for proceeding without their integration.
 
 _Note_: This section will not include information on how to remove any of the integral parts of the MEAN stack (MongoDB, Express.js, AngularJS and Node.js).
 
-#### Removing Jade
+[Back to top.](#top)
+
+### Removing Jade
 
 Jade is intergrated into a few places within the boilerplate. The first step should be to remove the `index.jade` file contianed in the `/app/views/` directory. This file can easily be converted to HTML. For an example of what the Jade file looks like in HTML, see the beginner version of Clementine.js.
 
@@ -217,7 +274,9 @@ app.route('/')
 	});
 ```
 
-#### Removing Mongoose
+[Back to top.](#top)
+
+### Removing Mongoose
 
 Mongoose is the most difficult component to remove. However, it is possible. Without Mongoose, another ODM can be used or the MongoDB Node.js driver can be used. To see an example of this application using the MongoDB Node.js driver instead of Mongoose, check out the beginner Clementine.js application.
 
@@ -237,7 +296,9 @@ When this is done, the `/app/models` directory and its contents can be removed. 
 
 Again, for an example of what this application would look like using the Node.js driver, check out the beginner version of Clementine.js. 
 
-#### Removing Gulp
+[Back to top.](#top)
+
+### Removing Gulp
 
 Gulp servers a few functions within the boilerplate: minification (CSS & JavaScript), watching (auto server restarts) and pre-processing for Sass files. In order to remove Gulp, the `gulpfile.js` file can be removed within the project folder.
 
@@ -275,13 +336,17 @@ script(type="text/javascript" src="/app/controllers/clickController.client.js")
 
 Additionally, there will still need to be some method of Sass pre-processing implemented. This can be done via another build system (i.e. Grunt) or a stand-alone app (like [CodeKit](http://incident57.com/codekit/)).
 
-#### Removing Bower
+[Back to top.](#top)
+
+### Removing Bower
 
 Bower can be easily removed from the project. Start by removing the `"bower": "^1.3.12"` line from the `package.json` file. Additionally, the `.bowerrc` and `bower.json` files should be removed.
 
 Bower is used to integrate the standard AngularJS module and the ng-resource module. It's possible to include these files by linking to the Google CDN (this method is demonstrated in the beginner version of the boilerplate) or to download the files manually and place them inside the `/public/lib/angular` and `/public/lib/angular-resource` respectively.
 
-#### Removing Sass
+[Back to top.](#top)
+
+### Removing Sass
 
 Removing Sass from Clementine.js is relatively straight-forward. First, the decision must be made to continue using Gulp or not.
 
@@ -303,3 +368,5 @@ _Note_: The above will also remove the step that minifies CSS.
 Next, feel the `/app/css/` directory and all of its contents can be removed. The final step to remove Sass from the boilerplate is to store all styling within a `/public/css/` directory. The `index.jade` file will need to be amended to point to this new, non-minified CSS file.
 
 If Gulp is also being removed, use the Gulp removal steps above followed by the Sass removal steps after the `gulpfile.js` update (i.e. beginning with the removal of the `/app/css/` directory).
+
+[Back to top.](#top)

@@ -73,6 +73,14 @@ h1 {
 	font-size: 44px;
 }
 
+h2 {
+	font-size: 32px;
+}
+
+h3 {
+	font-size: 23px;
+}
+
 h1, h2, h3 {
 	margin-top: 24px;
 	margin-bottom: 12px;
@@ -144,4 +152,27 @@ th {
 
 td {
 	padding: 5px;
+}
+
+img {
+	margin: 0 auto;
+	display: block;
+}
+
+.container > ul:first-of-type {
+	font-size: 18px;
+	list-style-type: none;
+	padding: 10px 0 10px 20px;
+	border-radius: 4px;
+	background-color: #F7F7F7;
+}
+
+.container > ul:first-of-type li {
+	padding: 3px;
+}
+
+.container > ul:first-of-type > li > ul {
+	font-size: 16px;
+	padding: 5px 0 0 20px;
+	list-style-type: none;
 }

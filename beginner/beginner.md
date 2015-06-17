@@ -2,7 +2,24 @@
 layout: site
 ---
 
-### Beginner Boilerplate
+# The Beginner Boilerplate
+
+## Contents
+
+- [About](#about)
+	- [MongoDB](#mongodb)
+	- [Express](#express)
+	- [AngularJS](#angularjs)
+	- [Node.js](#node.js)
+- [Installation](#installation)
+	- [Install Node.js and NPM](#install-node.js-and-npm)
+	- [Install MongoDB](#install-mongodb)
+	- [Install Clementine.js](#install-clementine.js)
+	- [Starting the App](#starting-the-app)
+- [Folder Structure](#folder-structure)
+- [Tutorial](#tutorial)
+
+## About
 
 The beginner version of Clementine.js is meant for those that are new to coding. This is a stripped down version of the boilerplate with fewer featured libaries, fully commented code and a tutorial.
 
@@ -27,7 +44,9 @@ The ubiquity of JavaScript adds to its appeal, and is also a reason for the popu
 
 If you are completely new to programming, and wish to understand how these pieces fit together, there is a tutorial included in this beginner version that will walk you through creating this demo application one step at a time.
 
-#### MongoDB
+[Back to top.](#top)
+
+### MongoDB
 
 MongoDB is what's known as a document-store database. Each record within the database is stored in an individual "document." This type of database is also known as a NoSQL database, which stands for Not only SQL (structured-query language).
 
@@ -37,7 +56,9 @@ MongoDB is used as part of the MEAN stack because it allows us to write queries 
 
 For more information on MongoDB, please [have a look at their stellar documentation](http://docs.mongodb.org/manual/). In addition, once you have practiced your Node skills, I highly recommend taking [this free 7-week online course](https://university.mongodb.com/courses/M101JS/about) that MongoDB offers.
 
-#### Express
+[Back to top.](#top)
+
+### Express
 
 Express is a framework for Node.js that creates additional functionality for the creation of web application. A framework simply means that it is written based on another technology, and provides additional functionality through abstraction. Essentially, Express provides a number of very useful functions written for Node.js.
 
@@ -45,7 +66,9 @@ Without the Express framework, developers would have to write similar code for w
 
 For more information on express, check out their [website and documentation](http://expressjs.com/).
 
-#### AngularJS
+[Back to top.](#top)
+
+### AngularJS
 
 AngularJS is a front-end framework developed and backed by Google. That sentence alone should say a lot. It is one of two current front-end frameworks that are very popular (React/Flux being the other). AngularJS is a full MVC (model-view-controller) framework, meaning that it contains a lot of functionality out of the box. It is very powerful, and supports a modular approach to development.
 
@@ -53,7 +76,9 @@ One of the current downsides to AngularJS is performance when compared to a few 
 
 For more about AngularJS, have a look at their [website and documentation](https://angularjs.org/). Google has also created a [site that showcases some of the new features coming in Angular 2.0](https://angular.io/).
 
-#### Node.js
+[Back to top.](#top)
+
+### Node.js
 
 Node.js is a platform based on Google's V8 JavaScript run-time. This run-time is part of the reason JavaScript has risen to such heights. V8 made JavaScript fast.
 
@@ -63,11 +88,13 @@ Node.js does not come with some of the common web application functionality out 
 
 For more information on Node, [try their site](https://nodejs.org/documentation/). I also recommend having a look at [NodeSchool](http://nodeschool.io/).
 
-### Installation
+[Back to top.](#top)
+
+## Installation
 
 Installation of the boilerplate has two prerequisites: Node.js / NPM and MongoDB. The instructions for these are detailed below, followed by installation instructions for Clementine.js.
 
-#### Node.js & NPM
+### Install Node.js and NPM
 
 _Note:_ The Node insallation installs both Node & NPM.
 
@@ -93,11 +120,15 @@ First, ensure [LinuxBrew](http://brew.sh/linuxbrew/) is installed. Then, enter t
 $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
 ```
 
-#### MongoDB
+[Back to top.](#top)
+
+### Install MongoDB
 
 MongoDB has great installation instructions for MAC OSX, Windows and Linux. [See this page.](http://docs.mongodb.org/manual/installation/)
 
-#### Clementine.js
+[Back to top.](#top)
+
+### Install Clementine.js
 
 To install the boilerplate, first create a new directory for your project and cd into that directory from the terminal. Then type:
 
@@ -107,7 +138,9 @@ https://github.com/johnstonbl01/clementinejs-beginner.git .
 
 _Note:_ The period at the end is important. If the period is excluded, git will create a new directory named clementinejs-beginner in your current directory.
 
-#### Starting the App
+[Back to top.](#top)
+
+### Starting the App
 
 To start the app, make sure you're in the project directory and type `node server.js` into the terminal. This will start the Node server and connect to MongoDB.
 
@@ -120,7 +153,9 @@ Node.js listening on port 3000...
 
 Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up and running!
 
-### Folder Structure
+[Back to top.](#top)
+
+## Folder Structure
 
 ```
 +--	Project Folder
@@ -155,6 +190,10 @@ Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up 
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
 - _index.html_ - This file contains all HTML code to render the view for this single-page application.
 
-### Tutorial
+[Back to top.](#top)
+
+## Tutorial
 
 You can find a complete step-by-step tutorial on how to create this app from the ground up [here]({{ site.baseurl }}/tutorial/tutorial.html).
+
+[Back to top.](#top)

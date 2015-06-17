@@ -2,15 +2,41 @@
 layout: site
 ---
 
-## Clementine.js Beginner Tutorial
+# Clementine.js Beginner Tutorial
 
-### Prerequisites
+## Contents
+
+- [Prerequisites](#prerequisites)
+	- [Install Node.js and NPM](#install-node.js-and-npm)
+	- [Install MongoDB](#install-mongodb)
+- [NPM Package Installation](#npm-package-installation)
+	- [About Express](#about-express)
+	- [About MongoDB](#about-mongodb)
+- [.gitignore](#.gitignore)
+- [Folder Creation](#folder-creation)
+- [App Architecture Overview](#app-architecture-overview)
+- [Simple Node Server](#simple-node-server)
+	- [Refactoring Routes](#refactoring-routes)
+	- [Adding Additional Elements to Index.HTML](#adding-additional-elements-to-index.html)
+- [AngularJS HTML Integration](#angularjs-html-integration)
+	- [AngularJS Scope Manipulation](#angularjs-scope-manipulation)
+- [AngularJS Interactivity via the Controller](#angularjs-interactivity-via-the-controller)
+- [Connecting to MongoDB](#connecting-to-mongodb)
+- [Setting Up the Server-Side Controller](#setting-up-the-server-side-controller)
+- [Integrating the API into AngularJS](#integrating-the-api-into-angularjs)
+- [Adding CSS Styling](#adding-css-styling)
+- [Next Steps](#next-steps)
+- [Additional Resources](#additional-resources)
+
+## Prerequisites
 
 Installation of the boilerplate has two prerequisites: Node.js / NPM and MongoDB. The instructions for these are detailed below, followed by installation instructions for Clementine.js.
 
 _Note:_ An internet connection is required to successfully complete this tutorial. Additionally, this tutorial assumes basic knowledge of HTML, CSS and JavaScript.
 
-#### Node.js & NPM
+[Back to top.](#top)
+
+### Install Node.js and NPM
 
 _Note:_ The Node insallation installs both Node & NPM.
 
@@ -36,11 +62,15 @@ First, ensure [LinuxBrew](http://brew.sh/linuxbrew/) is installed. Then, enter t
 $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
 ```
 
-#### MongoDB
+[Back to top.](#top)
+
+### Install MongoDB
 
 MongoDB has great installation instructions for MAC OSX, Windows and Linux. [See this page.](http://docs.mongodb.org/manual/installation/)
 
-### NPM Package Installation
+[Back to top.](#top)
+
+## NPM Package Installation
 
 Once the prerequisites are installed, the next order of business to get install the necessary Node packages that will be used in the app.
 
@@ -93,7 +123,9 @@ The `--save` command tells NPM to save the dependency in the `package.json` file
 }
 ```
 
-#### About Express
+[Back to top.](#top)
+
+### About Express
 
 Express is a framework for Node.js that creates additional functionality for the creation of web application. A framework simply means that it is written based on another technology, and provides additional functionality through abstraction. Essentially, Express provides a number of very useful functions written for Node.js.
 
@@ -101,7 +133,9 @@ Without the Express framework, developers would have to write similar code for w
 
 For more information on express, check out their [website and documentation](http://expressjs.com/).
 
-#### About MongoDB
+[Back to top.](#top)
+
+### About MongoDB
 
 MongoDB is what's known as a document-store database. Each record within the database is stored in an individual "document." This type of database is also known as a NoSQL database, which stands for Not only SQL (structured-query language).
 
@@ -113,7 +147,9 @@ For more information on MongoDB, please [have a look at their stellar documentat
 
 The MongoDB Node.js driver will allow us to use Node to query the MongoDB database.
 
-### .gitignore
+[Back to top.](#top)
+
+## .gitignore
 
 It is often common to see a file named `.gitignore` in the root directoyr of projects. This file simply tells git (version control software) to ignore particular files. Many times, the content of this file contains the `node_modules` directory. This prevents the directory from being uploaded to GitHub (on large projects, this directory can become quite large).
 
@@ -123,7 +159,9 @@ Example .gitignore file:
 node_modules/
 ```
 
-### Folder Creation
+[Back to top.](#top)
+
+## Folder Creation
 
 Now let's spend a few moments to create the file structure we'll be using.
 
@@ -153,7 +191,9 @@ Now let's spend a few moments to create the file structure we'll be using.
 - **css** - Contains the style sheet for the application
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
 
-### App Architecture Overview
+[Back to top.](#top)
+
+## App Architecture Overview
 
 Before we begin writing actual code, it's helpful to think of the overall picture for the application and how the pieces fit together. We'll be using an MVC (model-view-controller) architecture for this particular app.
 
@@ -161,7 +201,7 @@ This is a common architecture in web development. The model manages the applicat
 
 Here's a diagram of this:
 
-[insert picture here]
+![MVC](/img/mvc.png)
 
 Additionally, for more information on the MVC architectural pattern, check out the [Wikipedia page](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller).
 
@@ -181,13 +221,11 @@ In the context of our application, we will have the following:
 - A client-side view that the user interacts with and sees
 	- This is our HTML page that includes a logo and the buttons for interaction
 
-All together, this looks like:
-
-[insert graphic]
-
 This should provide some general contextthat will be helpful as we proceed with development.
 
-### Simple Node Server
+[Back to top.](#top)
+
+## Simple Node Server
 
 To begin our application, let's start by standing up a simple Node server. This will serve as the foundation of our application, and we'll continue to build on top of this for the remainder of the tutorial.
 
@@ -288,7 +326,9 @@ Let's test the application now to ensure this is working correctly. Again from t
 
 Point the browser to `localhost:3000` and you should again see "Hello world!"
 
-#### Refactoring Routes
+[Back to top.](#top)
+
+### Refactoring Routes
 
 Our next step is going to be refactoring our routes by using another common Express & Node pattern. Web applications have a number of routes (the HTTP requests made to the server), and it's common to store these in separate directories and files. That's our goal for this portion of the tutorial.
 
@@ -363,7 +403,9 @@ Point the browser to `localhost:3000` and you should again see "Hello world!"
 
 Let's move on to giving some more pizazz to our HTML file.
 
-#### Adding Additional Elements to Index.HTML
+[Back to top.](#top)
+
+### Adding Additional Elements to Index.HTML
 
 In this section, we're going to update our HTML file to include more content and get it ready for AngularJS integration. Here's the updated HTML code:
 
@@ -402,7 +444,7 @@ The bottom portion contains text telling us how many times the button has been c
 
 Now let's ensure that everything still works. Test the app by starting up the Node server and checking it in the browser. You should see:
 
-[insert img here]
+![Tutorial Picture 01](/img/clemjstut01.png)
 
 Oh no! Why isn't our image loading? Well, when Node tries to access the `/public/img/` directory, it doesn't have any reference for how to find that file.
 
@@ -418,19 +460,21 @@ Here we will use Express's [`app.use`](http://expressjs.com/4x/api.html#app.use)
 
 Let's check to make sure that this is the case. Start the node server and point the browser to `localhost:3000`.
 
-[insert img here]
+![Tutorial Picture 02](/img/clemjstut02.png)
 
 Ahhh, that's better!
 
 Now let's begin integrating AngularJS into our application.
 
-### AngularJS HTML Integration
+[Back to top.](#top)
+
+## AngularJS HTML Integration
 
 To start our AngularJS integration, we need to update our HTML file to include Angular functionality. For starters, let's add a script tag that points to the Google CDN (Content Delivery Network), so that we can load AngularJS on our page.
 
 To get the URL for this, head to `http://angularjs.org`. Click on the download button in the middle of the page, and copy the CDN URL to your clipboard.
 
-[insert cdn image here]
+![Tutorial Picture 03](/img/clemjstut03.png)
 
 Next, let's include this in our index.HTML file:
 
@@ -491,7 +535,9 @@ This is likely a good time to expand on how Angular interacts with both the view
 
 Now that our HTML view is ready for Angular, let's define our client-side controller.
 
-#### AngularJS $scope Manipulation
+[Back to top.](#top)
+
+### AngularJS Scope Manipulation
 
 Begin this process by creating a new file named `clickController.client.js` in the `/app/controllers` directory. In this file, we'll put all the client-side code to handle events in the browser, like clicking on one of the buttons.
 
@@ -557,7 +603,9 @@ Once that has been completed, fire up the Node server and browse to `localhost:3
 
 However, neither of our buttons work when clicking on them. Hmm, let's fix that, shall we?
 
-### AngularJS Interactivity via the Controller
+[Back to top.](#top)
+
+## AngularJS Interactivity via the Controller
 
 The next step we need to take is to make something happen when one of the buttons is clicked. If you'll remember back to the HTML Angular section, we defined two separate functions for each of the button `ng-click` directives: `addClick()` and `resetClicks()`.
 
@@ -608,7 +656,9 @@ At this point, we have a fully functioning front-end application. However, would
 
 We can fix this by storing our data somewhere -- in a MongoDB database!
 
-### Connecting to MongoDB
+[Back to top.](#top)
+
+## Connecting to MongoDB
 
 In order to pass data values between the database and the client, we'll use an API. In this case, the API will be exposed via the browser, but that doesn't always have to be the case.  We're going to do it this way because it is an illustrative example. Traditionally, this would be done if you want to expose particular app information to the public for others to use in some way.
 
@@ -667,7 +717,9 @@ Here, we are passing the database object to our routes in addition to the Expres
 
 Feel free to test the application at this point. Everything should work as before, and a successful MongoDB connection message should show up in the console when the application is started.
 
-### Setting Up the Server-Side Controller
+[Back to top.](#top)
+
+## Setting Up the Server-Side Controller
 
 Similar to how the app has a client-side controller that is helping with the data between the client (browser) and the API (model), we'll also implement a server-side controller that will handle the information between the database and the API.
 
@@ -880,7 +932,9 @@ app.route('/api/clicks')
 
 That brings us to the end of the server-side controller. Now, we need to hook our API up in Angular.
 
-### Integrating the API into AngularJS
+[Back to top.](#top)
+
+## Integrating the API into AngularJS
 
 To begin intregrating the API with Angular, we need to ensure that we update the Angular module and define `ngResource` as a dependency.
 
@@ -969,7 +1023,9 @@ Let's test these out in the browser! Start node and browse to `localhost:3000`. 
 
 We'll finish up with a little bit of styling to make it look nice.
 
-### Adding CSS Styling
+[Back to top.](#top)
+
+## Adding CSS Styling
 
 The end is nigh! If you've stuck with the tutorial this long -- congratulations! We're almost done. Let's make the application look a bit more modern, and less like something from the 1990's.
 
@@ -1064,15 +1120,19 @@ The first `<link>` is referring to a Google Font CDN. This isn't required, but I
 
 Let's start up the app. Wow! Your app should now look something like:
 
-[insert finished app img here]
+![Tutorial Picture 04](/img/clemjstut04.png)
 
-### Next Steps
+[Back to top.](#top)
+
+## Next Steps
 
 Congratulations on completing your first MEAN stack application! If you're a beginner, my advice is to build upon this knowledge by continuing build things -- a log-in application, a comment application, etc. Building will solidify your understanding of these concepts, and force you to learn new things as well. If you enjoyed this tutorial, please feel free to [let me know on Twitter](https://twitter.com/johnstonbl01)!
 
 If you encounter any issues whatsoever, submit an issue here on GitHub, or let me know via Twitter.
 
-### Additional Resources
+[Back to top.](#top)
+
+## Additional Resources
 
 **MongoDB**
 
@@ -1096,3 +1156,5 @@ If you encounter any issues whatsoever, submit an issue here on GitHub, or let m
 
 - [Free Code Camp](http://www.freecodecamp.com/) - If you're just starting out and want a free resource to help you learn to code, I highly suggest checking out FCC. The community is wonderful and extremely helpul.
 - [JavaScript Is Sexy](http://javascriptissexy.com/) - A wonderful blog with treasure troves of useful explanations regarding some of JavaScript's more difficult subject areas.
+
+[Back to top.](#top)
