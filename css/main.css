@@ -51,7 +51,7 @@ header {
 }
 
 #nav-logo {
-	background: url('/img/clementine_white_nav.png') 0 8px no-repeat;
+	background: url('{{ site.baseurl }}/img/clementine_white_nav.png') 0 8px no-repeat;
 	height: 56px;
 	width: 179px;
 	margin: 0 0 0 16px;
