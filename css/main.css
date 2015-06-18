@@ -6,7 +6,7 @@ body {
 	padding: 0;
 	margin: 0;
 	background-color: #FFF;
-	color: #333;
+	color: #212121;
 }
 
 header {
@@ -47,6 +47,11 @@ header {
 
 .nav-button:hover {
 	text-decoration: none;
+	color: #F7F7F7;
+}
+
+.nav-button:active {
+	background-color: rgba(255,255,255,0.4);
 }
 
 .nav-button:link {
@@ -57,7 +62,7 @@ header {
 	background: url('{{ site.baseurl }}/img/clementine_white_nav.png') 0 8px no-repeat;
 	height: 56px;
 	width: 179px;
-	margin: 0 0 0 16px;
+	margin: 0;
 	padding: 0;
 	float: left;
 }
@@ -127,11 +132,18 @@ footer {
 	text-align: center;
 	padding: 20px 0 5px 0;
 	height: 56px;
+	margin-top: 56px;
+	background-color: #F7F7F7;
+}
+
+footer .container {
+	background-color: #F7F7F7;
+	width: 100%;
 }
 
 footer p {
 	font-size: 12px;
-	padding: 16px 0 0 0;
+	padding: 5px 0 5px 0;
 	margin: 0;
 }
 
@@ -179,4 +191,12 @@ img {
 	font-size: 16px;
 	padding: 5px 0 0 20px;
 	list-style-type: none;
+}
+
+footer a {
+	display: inline-block;
+}
+
+footer img {
+	margin: 0 3px 0 3px;
 }
