@@ -531,7 +531,7 @@ This is likely a good time to expand on how Angular interacts with both the view
 
 [Scope ($scope)](https://docs.angularjs.org/guide/scope) is an Angular object that binds the view to the controller. This object is where functions / methods and variable values (i.e. 'clicks') are stored and passed back and forth between the controller and the view.
 
-[insert scope picture here]
+![Angular Scope](/clementinejs/img/angular_scope.png)
 
 Now that our HTML view is ready for Angular, let's define our client-side controller.
 
