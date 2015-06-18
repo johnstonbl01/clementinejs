@@ -1,14 +1,18 @@
+## Clementine.js MEAN Boilerplate
+
+[Clementine.js Standard Repo](https://github.com/johnstonbl01/clementinejs) | [Clementine.js Bare Repo](https://github.com/johnstonbl01/clementinejs-bare) | [Clementine.js Beginner Repo](https://github.com/johnstonbl01/clementinejs-beginner)
+
 ## Overview
 
 Clementine.js is a lightweight MEAN stack boilerplate intended for beginners and advanced users alike. 
 
 There are 3 versions of Clementine.js:
 
-**Beginner** - The beginner boilerplate contains a very simple application that is intended to show a beginner how the MEAN stack fits together and get started on his or her first web application. [Link to the repo.](https://github.com/johnstonbl01/clementinejs-beginner)
+**Beginner** - The beginner boilerplate contains a very simple application that is intended to show a beginner how the MEAN stack fits together and get started on his or her first web application.
 
 **Standard** - The Standard boilerplate includes a few more bells and whistles to improve workflow, but remains a simple boilerplate without much fluff to get in the way. This version of the boilerplate contains a website that demonstrates the power of the stack, including some examples of how to apply Angular & data-binding using MEAN.
 
-**Bare** - The bare template includes all of the additional libraries, but pared down to only include the necessities. There is a simple web app here (the same as the beginner sample), but using the additional libraries included in the Standard version. [Link to the repo.](https://github.com/johnstonbl01/clementinejs-bare)
+**Bare** - The bare template includes all of the additional libraries, but pared down to only include the necessities. There is a simple web app here (the same as the beginner sample), but using the additional libraries included in the Standard version.
 
 ## Quick Start Guide
 

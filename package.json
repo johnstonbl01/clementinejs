@@ -1,10 +1,9 @@
 {
-  "name": "clementine.js",
-  "version": "0.1.0",
+  "name": "clementinejs",
+  "version": "1.0.1",
   "description": "A light-weight MEAN stack boilerplate.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp"
   },
   "author": "Blake Johnston",
