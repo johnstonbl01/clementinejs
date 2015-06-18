@@ -6,6 +6,21 @@
   "scripts": {
     "start": "gulp"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnstonbl01/clementinejs"
+    },
+  "homepage": "http://johnstonbl01.github.io/clementinejs/",
+  "bugs": "https://github.com/johnstonbl01/clementinejs/issues",
+  "keywords": [
+    "MEAN",
+    "MongoDB",
+    "Express",
+    "Angular",
+    "Node",
+    "javascript"
+    "boilerplate"
+  ],
   "author": "Blake Johnston",
   "license": "MIT",
   "dependencies": {
