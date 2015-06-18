@@ -444,7 +444,7 @@ The bottom portion contains text telling us how many times the button has been c
 
 Now let's ensure that everything still works. Test the app by starting up the Node server and checking it in the browser. You should see:
 
-![Tutorial Picture 01](/img/clemjstut01.png)
+![Tutorial Picture 01](/clementinejs/img/clemjstut01.png)
 
 Oh no! Why isn't our image loading? Well, when Node tries to access the `/public/img/` directory, it doesn't have any reference for how to find that file.
 
@@ -460,7 +460,7 @@ Here we will use Express's [`app.use`](http://expressjs.com/4x/api.html#app.use)
 
 Let's check to make sure that this is the case. Start the node server and point the browser to `localhost:3000`.
 
-![Tutorial Picture 02](/img/clemjstut02.png)
+![Tutorial Picture 02](/clementinejs/img/clemjstut02.png)
 
 Ahhh, that's better!
 
@@ -474,7 +474,7 @@ To start our AngularJS integration, we need to update our HTML file to include A
 
 To get the URL for this, head to `http://angularjs.org`. Click on the download button in the middle of the page, and copy the CDN URL to your clipboard.
 
-![Tutorial Picture 03](/img/clemjstut03.png)
+![Tutorial Picture 03](/clementinejs/img/clemjstut03.png)
 
 Next, let's include this in our index.HTML file:
 
@@ -1120,7 +1120,7 @@ The first `<link>` is referring to a Google Font CDN. This isn't required, but I
 
 Let's start up the app. Wow! Your app should now look something like:
 
-![Tutorial Picture 04](/img/clemjstut04.png)
+![Tutorial Picture 04](/clementinejs/img/clemjstut04.png)
 
 [Back to top.](#top)
 
