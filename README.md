@@ -28,27 +28,31 @@ In order to use Clementine.js, you must have the following installed:
 
 To begin developing with the bare version of Clementine.js, create a project directory and run the following from your terminal:
 
-```
-https://github.com/johnstonbl01/clementinejs-beginner.git .
+```bash
+$ npm install clementinejs-beginner
+$ cd clementinejs-beginner
+$ node server.js
 ```
 
 #### Standard
 
 To begin developing with the bare version of Clementine.js, create a project directory and run the following from your terminal:
 
-```
-https://github.com/johnstonbl01/clementinejs.git .
+```bash
+$ npm install clementinejs
+$ cd clementinejs
+$ gulp
 ```
 
 #### Bare
 
 To begin developing with the bare version of Clementine.js, create a project directory and run the following from your terminal:
 
+```bash
+$ npm install clementinejs-bare
+$ cd clementinejs-bare
+$ gulp
 ```
-https://github.com/johnstonbl01/clementinejs-bare.git .
-```
-
-_Note:_ The period at the end is important. If the period is excluded, git will create a new directory named clementinejs-beginner in your current directory.
 
 ## Documentation
 
