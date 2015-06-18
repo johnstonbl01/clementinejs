@@ -201,7 +201,7 @@ This is a common architecture in web development. The model manages the applicat
 
 Here's a diagram of this:
 
-![MVC]({{ site.baseurl }}/img/mvc.png)
+![MVC](/clementinejs/img/mvc.png)
 
 Additionally, for more information on the MVC architectural pattern, check out the [Wikipedia page](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller).
 
