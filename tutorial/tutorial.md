@@ -59,7 +59,7 @@ _Option 2_ - Install via LinuxBrew
 First, ensure [LinuxBrew](http://brew.sh/linuxbrew/) is installed. Then, enter the below into the Linux terminal:
 
 ```bash
-brew install node
+$ brew install node
 ```
 
 [Back to top.](#top)
