@@ -237,6 +237,7 @@ This version of Clementine.js includes an example of a custom Angular directive.
 The code for this directive borrows heavily from [this repository](https://github.com/nelsoncash/angular-ripple).
 
 At a high level, the strategy for achieving this effect is:
+
 - Create a `<span>` element inside the target element. This `<span>` element is created to be slightly larger than the target element to ensure that the animation extends to the edge of the target element.
 - Find the start position for the animation based on mouse position relative to the target element.
 - Clear any previous animation attributes (in the event that the button is clicked multiple times)
