@@ -151,7 +151,7 @@ The MongoDB Node.js driver will allow us to use Node to query the MongoDB databa
 
 ## .gitignore
 
-It is often common to see a file named `.gitignore` in the root directoyr of projects. This file simply tells git (version control software) to ignore particular files. Many times, the content of this file contains the `node_modules` directory. This prevents the directory from being uploaded to GitHub (on large projects, this directory can become quite large).
+It is often common to see a file named `.gitignore` in the root directory of projects. This file simply tells git (version control software) to ignore particular files. Many times, the content of this file contains the `node_modules` directory. This prevents the directory from being uploaded to GitHub (on large projects, this directory can become quite large).
 
 Example .gitignore file:
 
@@ -342,7 +342,7 @@ app.get('/', function (req, res) {
 });
 ```
 
-The next order of business is to add our new route file as a dependency for the server.js file. At the top of the file:
+The next order of business is to add our new route file as a dependency for the `server.js` file. At the top of the file:
 
 ```js
 var express = require('express'),
@@ -597,7 +597,7 @@ app.use('/public', express.static(path + '/public'));
 app.use('/controllers', express.static(path + '/app/controllers'));
 ```
 
-We've added an additional static path so that when the browser makes a request for the `/controllers' directory, the server can correctly serve the appropriate file.
+We've added an additional static path so that when the browser makes a request for the `/controllers` directory, the server can correctly serve the appropriate file.
 
 Once that has been completed, fire up the Node server and browse to `localhost:3000`. You should now see, "You have clicked the button 1000 times." Congratulations, you've set up your first AngularJS controller!
 
@@ -829,9 +829,9 @@ _index.js_:
 ```js
 'use strict';
 
-var ClickHandler = require('/controllers/clickHandler.server.js');
-
 var path = process.cwd();
+
+var ClickHandler = require(path + '/app/controllers/clickHandler.server.js').clickHandler;
 
 module.exports = function (app, db) {
 
@@ -849,7 +849,7 @@ module.exports = function (app, db) {
 
 Let's take a look at the changes:
 
-- `var ClickHandler...` - Here, we're storing the function object we created from the `clickHanlder.server.js` file in a variable.
+- `var ClickHandler...` - Here, we're storing the function object we created from the `clickHanlder.server.js` file in a variable. It's important to note the `.clickHandler` at the end, which will ensure that the exported `clickHandler` method for the exported function from the `clickHandler.server.js` file.
 - `var clickHandler = new ClickHandler(db)` - On this line, we're instantiating a new instance of the ClickHandler function object, and passing in the MongoDB object as an argument. This is going to allow us to reference the methods we created in the `clickHandler.server.js` in addition to passing in the database information for use in those methods.
 - `app.route('/api/clicks')` - We're defining a new route here for our API
 - `.get(clickHandler.getclicks)` - The `getClicks` function will be executed anytime there is an HTTP GET request on the `/api/clicks` URL. This will tell the Node to execute the controller function we defined previously and get the results from the database.
