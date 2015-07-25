@@ -136,7 +136,7 @@ _Option 2_ - Install via LinuxBrew
 First, ensure [LinuxBrew](http://brew.sh/linuxbrew/) is installed. Then, enter the below into the Linux terminal:
 
 ```bash
-$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+$ brew install node
 ```
 
 [Back to top.](#top)
@@ -149,13 +149,16 @@ MongoDB has great installation instructions for MAC OSX, Windows and Linux. [See
 
 ### Install Clementine.js
 
-To install the boilerplate, first create a new directory for your project and cd into that directory from the terminal. Then type:
+To install the boilerplate, simply type the following in the terminal:
 
 ```bash
-https://github.com/johnstonbl01/clementinejs.git .
+$ npm install clementinejs
+$ cd clementinejs
+$ npm install
+$ bower install
 ```
 
-_Note:_ The period at the end is important. If the period is excluded, git will create a new directory named clementinejs in your current directory.
+Note: `$ npm install` will install all dependencies for the boilerplate. 
 
 [Back to top.](#top)
 

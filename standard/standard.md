@@ -133,7 +133,7 @@ _Option 2_ - Install via LinuxBrew
 First, ensure [LinuxBrew](http://brew.sh/linuxbrew/) is installed. Then, enter the below into the Linux terminal:
 
 ```bash
-$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+$ brew install node
 ```
 
 [Back to top.](#top)
@@ -152,6 +152,7 @@ To install the boilerplate, simply type the following in the terminal:
 $ npm install clementinejs
 $ cd clementinejs
 $ npm install
+$ bower install
 ```
 
 Note: `$ npm install` will install all dependencies for the boilerplate. 
