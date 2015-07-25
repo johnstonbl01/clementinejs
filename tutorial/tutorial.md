@@ -1087,7 +1087,7 @@ angular
 
 Let's test the application. Start the Node server, and browse to `localhost:3000`. Ensure everything loads correctly, and that the text says, "You have clicked the button 0 times."
 
-Right now, the buttons will still work, but the changes aren't being reflected in the database (i.e. the database value isn't currently being incremented y 1 when the 'CLICK ME!' button is clicked). Let's change that by updating the two additional methods in the controller: `addClick` and `resetClicks`.
+Right now, the buttons will still work, but the changes aren't being reflected in the database (i.e. the database value isn't currently being incremented by 1 when the 'CLICK ME!' button is clicked). Let's change that by updating the two additional methods in the controller: `addClick` and `resetClicks`.
 
 ```js
 $scope.addClick = function () {
