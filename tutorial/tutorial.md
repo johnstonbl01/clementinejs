@@ -23,6 +23,8 @@ layout: site
 - [AngularJS Interactivity via the Controller](#angularjs-interactivity-via-the-controller)
 - [Connecting to MongoDB](#connecting-to-mongodb)
 - [Setting Up the Server-Side Controller](#setting-up-the-server-side-controller)
+	- [Testing the API via the Mongo Console](#testing-the-api-via-the-mongo-console)
+	- [Additional Methods and Routing](#additional-methods-and-routing)
 - [Integrating the API into AngularJS](#integrating-the-api-into-angularjs)
 - [Adding CSS Styling](#adding-css-styling)
 - [Next Steps](#next-steps)
@@ -856,6 +858,8 @@ Let's take a look at the changes:
 
 Let's give this a test! If this is your first time through the tutorial, it's likely that you have no documents in your clicks collection. This will be a great test for our insert statement. Fire up the node server and point your browser to `localhost:3000/api/clicks`. When the site loads, you should see: `[{"clicks":0}]`. If that is what you see, then everything has been setup correctly!
 
+### Testing the API via the Mongo Console
+
 If you'd like to test this again, we can manually remove the document from the database with some help from the MongoDB console. Leave Node running and open a new terminal window. Type `$ mongo` in the terminal window to connect to the MongDB console.
 
 If successful, you should see something along the lines of:
@@ -874,7 +878,9 @@ At the prompt, type `use clementinejs`. This tells the MongoDB console which dat
 
 Great! Now let's remove this document so that when we refresh the page again, it should re-create this record. Enter `db.remove({})` into the console. This will remove all documents in the collection. If you go back to the browser and refresh the page, a new document should get inserted in the database. 
 
-We now have a working query that will return the contents of the database. However, we still need to provide routes and logic to tell the application controller what to do when the two HTML buttons are clicked.
+### Additional Methods and Routing
+
+We now have a working query that will return the contents of the database. However, we still need to provide routes and logic to tell the application controller what to do when the two HTML buttons are clicked. Essentially, we're going to add more functionality that will update the database eacah time the appropriate button is clicked.
 
 Let's update our controller with a few more methods.
 
@@ -919,6 +925,77 @@ Lasly, we provide a callback function which will throw an error if one occurs, e
 
 Lastly, we use the [Mongo `update` method](http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#update) for the `resetClicks` method. This will take a query for the first parameter (`{}` will return all documents), and the updated value (`{ 'clicks': 0 }`) for any records found. In this case, the `resetClicks` method will update the `clicks` property of our document to 0. The result of this operation is then passed back to the browser in JSON format.
 
+Here's what the file should look like after all of the above changes:
+
+_clickHandler.server.js_:
+
+```js
+'use strict';
+
+module.exports.clickHandler = function (db) {
+	var clicks = db.collection('clicks');
+
+	this.getClicks = function (req, res) {
+		clicks
+			.findOne(
+				{},
+				{ '_id': false },
+				function (err, result) {
+					if (err) { throw err; }
+
+					var clickResults = [];
+
+					if (result) {
+						clickResults.push(result);
+						res.json(clickResults);
+					} else {
+						clicks.insert({ 'clicks': 0 }, function (err) {
+							if (err) { throw err; }
+
+							clicks.findOne({}, {'_id': false}, function (err, doc) {
+								if (err) { throw err; }
+
+								clickResults.push(doc);
+								res.json(clickResults);
+							});
+
+						});
+
+					}
+				}
+			);
+	};
+
+	this.addClick = function (req, res) {
+		clicks
+			.findAndModify(
+				{},
+				{ '_id': 1 },
+				{ $inc: { 'clicks': 1 } },
+				function (err, result) {
+					if (err) { throw err; }
+
+					res.json(result);
+				}
+			);
+	};
+
+	this.resetClicks = function (req, res) {
+		clicks
+			.update(
+				{},
+				{ 'clicks': 0 },
+				function (err, result) {
+					if (err) { throw err; }
+
+					res.json(result);
+				}
+			);
+	};
+
+};
+```
+
 Finally, let's add routes for the remainder of our new ClickHandler methods.
 
 _index.js_:
@@ -937,6 +1014,8 @@ That brings us to the end of the server-side controller. Now, we need to hook ou
 ## Integrating the API into AngularJS
 
 To begin intregrating the API with Angular, we need to ensure that we update the Angular module and define `ngResource` as a dependency.
+
+_clickController.client.js_:
 
 ```js
 angular
