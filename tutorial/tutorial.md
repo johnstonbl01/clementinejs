@@ -1035,7 +1035,7 @@ Now let's point Angular to where our resource data is - the API that's been set 
 var Click = $resource('/api/clicks');
 ```
 
-This new $resource object allows us to query this API, and will return the results to a field in the browser. However, before doing this, we'll need to create a new method that does this:
+This new $resource object allows us to query this API, and will return the results to a field in the browser. However, before doing this, we'll need to create a new method:
 
 ```js
 $scope.getClicks = function () {
@@ -1047,7 +1047,9 @@ $scope.getClicks = function () {
 
 This code will bind a `getClicks` method to the $scope. The [`Click.query( ... )`](https://docs.angularjs.org/api/ngResource/service/$resource) will query the API and return all of the results. This can then be either manipulated in some way before passing it on to the browser, or (as in our case) just pass it straight in to a variable on the `$scope`. Because the API is an array, we're going to bind the first element's (`[0]`) clicks property to `$scope.clicks`.
 
-This function needs to run whenever the controller is invoked (i.e. when the app is first started), so we should add `$scope.getClicks()` beneath the function definition. At this point, the controller file should look like:
+This function needs to run whenever the controller is invoked (i.e. when the app is first started), so we should add `$scope.getClicks()` beneath the function definition. It's important to note that this function call needs to occur _after_ the function definition. Additionally, we can now remove the `$scope.clicks = 0` since our data should be coming directly from the database.
+
+At this point, the controller file should look like:
 
 _clickController.client.js_:
 
@@ -1070,7 +1072,14 @@ angular
 			};
 
 			$scope.getClicks();
-		
+			
+			$scope.addClick = function () {
+				$scope.clicks += 1;
+			};
+
+			$scope.resetClicks = function () {
+				$scope.clicks = 0;
+			};
 	}]);
 
 })();
@@ -1078,7 +1087,7 @@ angular
 
 Let's test the application. Start the Node server, and browse to `localhost:3000`. Ensure everything loads correctly, and that the text says, "You have clicked the button 0 times."
 
-Now we need to update the two additional methods in the controller: `addClick` and `resetClicks`.
+Right now, the buttons will still work, but the changes aren't being reflected in the database (i.e. the database value isn't currently being incremented y 1 when the 'CLICK ME!' button is clicked). Let's change that by updating the two additional methods in the controller: `addClick` and `resetClicks`.
 
 ```js
 $scope.addClick = function () {
