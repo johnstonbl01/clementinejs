@@ -149,14 +149,14 @@ MongoDB has great installation instructions for MAC OSX, Windows and Linux. [See
 To install the boilerplate, first create a new directory for your project and cd into that directory from the terminal. Then type:
 
 ```bash
-https://github.com/johnstonbl01/clementinejs.git .
+$ npm install clementinejs
 ```
-
-_Note:_ The period at the end is important. If the period is excluded, git will create a new directory named clementinejs in your current directory.
 
 [Back to top.](#top)
 
 ### Starting the App
+
+Note: Prior to starting the application, make sure to `$ npm install` within the directory to have node install dependencies. 
 
 To start the app, make sure you're in the project directory and type `gulp` into the terminal. This will instruct Gulp to start the Node server and watch files in the directory for changes.
 
