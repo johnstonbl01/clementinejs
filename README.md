@@ -31,6 +31,7 @@ To begin developing with the bare version of Clementine.js, create a project dir
 ```bash
 $ npm install clementinejs-beginner
 $ cd clementinejs-beginner
+$ npm install
 $ node server.js
 ```
 
@@ -41,6 +42,8 @@ To begin developing with the bare version of Clementine.js, create a project dir
 ```bash
 $ npm install clementinejs
 $ cd clementinejs
+$ npm install
+$ bower install
 $ gulp
 ```
 
@@ -51,6 +54,8 @@ To begin developing with the bare version of Clementine.js, create a project dir
 ```bash
 $ npm install clementinejs-bare
 $ cd clementinejs-bare
+$ npm install
+$ bower install
 $ gulp
 ```
 
