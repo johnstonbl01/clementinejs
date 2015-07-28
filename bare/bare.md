@@ -368,7 +368,7 @@ gulp.task('minify', function () {
 
 _Note_: The above will also remove the step that minifies CSS.
 
-Next, feel the `/app/css/` directory and all of its contents can be removed. The final step to remove Sass from the boilerplate is to store all styling within a `/public/css/` directory. The `index.jade` file will need to be amended to point to this new, non-minified CSS file.
+Next, the `/app/css/` directory and all of its contents can be removed. The final step to remove Sass from the boilerplate is to store all styling within a `/public/css/` directory. The `index.jade` file will need to be amended to point to this new, non-minified CSS file.
 
 If Gulp is also being removed, use the Gulp removal steps above followed by the Sass removal steps after the `gulpfile.js` update (i.e. beginning with the removal of the `/app/css/` directory).
 
