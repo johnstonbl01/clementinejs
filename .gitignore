@@ -1,3 +1,6 @@
+dist/
 node_modules/
-public/lib/angular*
+public/lib/
+public/css/
+public/scripts/site.js
 .eslintrc
