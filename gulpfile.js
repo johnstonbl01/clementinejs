@@ -38,7 +38,7 @@ gulp.task('minify', function () {
 		.pipe(rename('main.min.css'))
 		.pipe(gulp.dest('./public/css'));
 
-	gulp.src(['./public/scripts/angular.js', './app/directives/materialRipple.js', './app/controllers/linkCtrlr.client.js', './app/controllers/commentCtrlr.client.js'])
+	gulp.src(['./public/scripts/angular.js', './app/directives/**/*.js', './app/controllers/**/*.client.js'])
 		.pipe(concat('site.js'))
 		.pipe(uglify({
 			mangle: false
