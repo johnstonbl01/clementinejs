@@ -6,7 +6,8 @@ var gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	minifyCSS = require('gulp-minify-css'),
 	rename = require('gulp-rename'),
-	concat = require('gulp-concat');
+	concat = require('gulp-concat'),
+	del = require('del');
 
 function restartTime () {
 	function checkTime(i) {
@@ -19,6 +20,10 @@ function restartTime () {
 
 	return hrs + ':' + min + ':' + sec;
 }
+
+gulp.task('clean', function (cb) {
+	del(['dist/**/*', '!dist/{Procfile,.git*}'], cb);
+});
 
 gulp.task('watch', function () {
 	nodemon({ script: 'server.js', ext: 'jade js css' })
@@ -45,5 +50,26 @@ gulp.task('minify', function () {
 		}))
 		.pipe(gulp.dest('./public/scripts'));
 });
+
+gulp.task('dist', ['clean', 'minify'], function () {
+	gulp.src([
+		'public/**/*',
+		'!public/{lib{,/**/*},scripts/angular.js}'
+	], { base: 'public' })
+	  .pipe(gulp.dest('dist/public'));
+
+	gulp.src([
+		'app/**/*',
+		'!app/css{,/**/*}',
+	  '!app/controllers/**/*.client.js',
+		'!app/directives{,/**/*}'
+	], { base: 'app' })
+	  .pipe(gulp.dest('dist/app'));
+
+	gulp.src(['bower.json', 'package.json', 'server.js'])
+	  .pipe(gulp.dest('dist'));
+});
+
+gulp.task('build', ['clean', 'minify', 'dist']);
 
 gulp.task('default', ['watch']);

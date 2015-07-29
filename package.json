@@ -32,6 +32,7 @@
     "mongoose": "^4.0.2"
   },
   "devDependencies": {
+    "del": "^1.2.0",
     "gulp-concat": "^2.5.2",
     "gulp-minify-css": "^1.0.0",
     "gulp-nodemon": "^1.0.5",
