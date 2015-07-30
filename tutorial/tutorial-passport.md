@@ -116,6 +116,96 @@ Let's go ahead and modify the folder structure to include some of the new functi
 - **app/factories** - Directory for Angular factories. Factories are used by Angular to retrieve information from the model (i.e. API) and pass it to the controller for manipulation. This is a common Angular convention.
 - **app/models** - Directory for database models. In this case, this is where the Mongoose schemas will be defined.
 
+The remainder of the folders are the same.
+
+## Mongoose Integration
+
+Before we begin the integrating Passport and authentication, we need to update the current app to work with Mongoose instead of the MongoDB NodeJS driver. This will require a bit of refactoring in our current code.
+
+### Server.js Cleanup
+
+The first step will be to update the current `server.js` file so that it connects to the database using Mongoose instead of the current MongoDB NodeJS driver.
+
+_server.js_:
+```js
+'use strict';
+
+var express = require('express'),
+	routes = require('./app/routes/index.js'),
+	mongoose = require('mongoose');
+
+var app = express();
+
+mongoose.connect('mongodb://localhost:27017/clementinejs');
+
+app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+app.use('/public', express.static(process.cwd() + '/public'));
+
+routes(app);
+
+var port = 3000;
+app.listen(port, function () {
+	console.log('Node.js listening on port ' + port + '...');
+});
+```
+
+There are 3 changes to the code:
+
+1. Remove the `mongo = require(...)` statement and replace it by requiring Mongoose instead.
+2. Remove the `mongo.connect(...)` wrapping function, including the conditional `if` statement. This gets replaced with a Mongoose connection function.
+3. Remove the `db` argument for the routes, as we will no longer need to provide that information since Mongoose will do it for us via the schema. Don't worry if this part doesn't make too much sense, we'll go into more detail once we get to that part.
+
+### Create a Mongoose Model
+
+To start, we need to define a schema for the clicks document in the database. Think back to the previous tutorial. The API looked something like:
+
+```js
+[{ 'clicks': 0 }]
+```
+
+In terms of a schema, we're going to define the properties within the object and its corresponding data type. In this case, the property is `'clicks'` and the data type is `Number`. Defining this will prevent a `String` data type being passed as a value to the `'clicks'` property.
+
+Begin by creating a new file named `clicks.js` in the `/app/models` directory.
+
+_clicks.js_:
+```js
+'use strict';
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var Click = new Schema(
+	{ clicks: Number },
+	{ versionKey: false }
+	);
+
+module.exports = mongoose.model('Click', Click);
+```
+
+First, Mongoose is included in the file with `require('mongoose');`. Next, we're creating a new Schema object with `mongoose.Schema`. Each Mongoose schema corresponds to a MongoDB collection. In turn, each key in the schema defines and casts its corresponding property in the MongoDB document.
+
+The `Click` object is our Mongoose Schema. Predictably, we're defining the `clicks` property and casting its value as a `Number` type. Mongoose automatically adds a property to every schema called `__v`. This property is used for versioning. In this particular case, we've disabled this using `versionKey: false`.
+
+Finally, we must convert our schema to a Mongoose [model](http://mongoosejs.com/docs/models.html). The model is an object [constructor](https://en.wikipedia.org/wiki/Constructor_(object-oriented_programming)) that represents documents within the database. 
+
+The `mongoose.model` method accepts two arguments:
+
+- The first is the _singular_ name of the collection in the database. For example, ours is named 'Click' which corresponds to our 'clicks' collection in the database. It's important to note that Mongoose will automatically search for the plural version of this argument in the database.
+- The second argument is the name of the schema to be converted to the model. In this case, it's our `Click` schema.
+
+This model is exported with [`module.exports`](https://nodejs.org/api/modules.html#modules_module_exports), which is a Node function that exports the function or object for use within another file using the `require` function. This is a common Node pattern.
+
+### Updating the Routes
+
+### Refactor Server-Side Controller
+
+
+- remove db arg
+- remove clicks variable
+	- to be replaced by instantiating new Schema?
+- refactor click functions to be Mongoose syntax.
+- export clickhanlder object
+
 
 - Refactor Current App to Use Mongoose Models
 	- server.js
