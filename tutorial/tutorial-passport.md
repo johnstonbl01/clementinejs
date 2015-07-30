@@ -127,6 +127,7 @@ Before we begin the integrating Passport and authentication, we need to update t
 The first step will be to update the current `server.js` file so that it connects to the database using Mongoose instead of the current MongoDB NodeJS driver.
 
 _server.js_:
+
 ```js
 'use strict';
 
@@ -168,6 +169,7 @@ In terms of a schema, we're going to define the properties within the object and
 Begin by creating a new file named `clicks.js` in the `/app/models` directory.
 
 _clicks.js_:
+
 ```js
 'use strict';
 
@@ -197,21 +199,170 @@ This model is exported with [`module.exports`](https://nodejs.org/api/modules.ht
 
 ### Updating the Routes
 
+Next, let's move on to our route file in the `/app/routes` directory. There are only a few small changes here.
+
+_index.js_:
+
+```js
+'use strict';
+
+var path = process.cwd();
+
+var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+
+module.exports = function (app) {
+
+	var clickHandler = new ClickHandler();
+
+	app.route('/')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/index.html');
+		});
+
+	app.route('/api/clicks')
+		.get(clickHandler.getClicks)
+		.post(clickHandler.addClick)
+		.delete(clickHandler.resetClicks);
+};
+```
+First, we move the `.clickHandler` from the end of the `require` statement. We're doing this because rather than export an anonymous function object from the clickHandler file, we will export the entire object. The `.clickHandler` specification is there because using the `module.exports.clickHandler` syntax creates `clickHandler` as a method on the `module.exports` object. This must specifically be referenced in the `require` statement. As we'll see in just a moment, there is another way to accomplish this without requiring the `.clickHandler` expression.
+
+We've removed the `db` argument from both the `module.exports = function (app) {... }` line and the `new ClickHandler()`. We've done this because the database information itself is inherent in using a Mongoose schema. The model we created earlier gets exported for use within our controllers. We'll see this shortly. For now, these are the only changes required to the route file. Wasn't that easy?
+
 ### Refactor Server-Side Controller
 
+This is where we're going to see the majority of Mongoose changes. In general, these changes are due to Mongoose's similar-but-different query syntax for MongoDB. Additionally, as alluded to in the previous section, we'll now be importing our Mongoose model here for manipulation. Let's walk through the changes one at a time.
 
-- remove db arg
-- remove clicks variable
-	- to be replaced by instantiating new Schema?
-- refactor click functions to be Mongoose syntax.
-- export clickhanlder object
+The first change we'll make is including (importing) our Mongoose model for use within the controller file. In the `/app/controllers` directory.
 
+_clickHandler.server.js_:
 
-- Refactor Current App to Use Mongoose Models
-	- server.js
-	- app/controllers/clickhandler.js
-	- app/models/clicks.js
-	- index.js (remove db args)
+```js
+'use strict';
+
+var Clicks = require('../models/clicks.js');
+
+module.exports.clickHandler = function (db) {...}
+```
+
+We're importing and storing our `mongoose.model` within the `Clicks` variable, so that we can update the clickHandler methods to query this collection. Remember that Mongoose will automatically find the correct collection in the database (it looks for the plural version of the model name we provided in the `mongoose.model(...)` function). Additionally, keep in mind that MongoDB will create the collection if it does not already exist.
+
+Next, we need to remove the `db` argument from the clickHandler function, as well as the `module.exports.clickHandler`. As mentioned above, we're going to export our clickHandler object slightly differently. At this point, we'll simply define the clickHandler as a named function without any arguments.
+
+```js
+function clickHandler () {...}
+```
+
+In addition, we want to remove the `var clicks = db.collection('clicks');` line because that's no longer needed. Our database model is already being stored in the `Clicks` variable. Now we'll move on to modifying each of the methods within this file.
+
+**getClicks Method**
+
+The `getClicks` method will need a number of modifications. Again, these modifications are due to Mongoose syntax, which is a bit easier to read than the default MongoDB NodeJS driver.
+
+_clickHandler.server.js_:
+
+```js
+this.getClicks = function (req, res) {
+	Clicks
+		.findOne({}, { '_id': false })
+		.exec(function (err, result) {
+				if (err) { throw err; }
+
+				var clickResults = [];
+
+				if (result) {
+					clickResults.push(result);
+					res.json(clickResults);
+				} else {
+					var newDoc = new Click({ 'clicks': 0 });
+					newDoc.save(function (err, doc) {
+						if (err) { throw err; }
+
+						clickResults.push(doc);
+						res.json(clickResults);
+					});
+
+				}
+			});
+};
+```
+
+Let's breakdown each of the changes:
+
+- `clicks` replaced with `Click`
+	- this is to accomodate our newly imported Mongoose model.
+- `findOne({}, { '_id': false } function (err, result) {...})` replaced by `findOne({}, { '_id': false }).exec(function (err, result) {...})`
+	- This is simply different syntax that will accomplish the same result. The Mongoose [`.exec()`](http://mongoosejs.com/docs/api.html#query_Query-exec) function simply executes the query when called. 
+	- This is different from the MongoDB driver in that it does not execute the query immediately. Mongoose will execute the function only when the `.exec` method is called.
+- Conditional `else {...}` changes
+	- The biggest change is in the conditional else, where we are inserting data into the database if no results are found. All of the former code is removed, and replaced by new (and much easier to read) Mongoose code.
+	- `var newDoc ...` creates a new document using the parameters defined within the Click model and stores it in the `newDoc` variable
+	- We're then saving the `newDoc` using the Mongoose [`.save()`](http://mongoosejs.com/docs/api.html#model_Model-save) method. This method simply saves the current document to the database. The contents of this function are similar to the old function, except that we're pushing our newly created document to the `clickResults` array.
+
+**addClick Method**
+
+The remaining two methods in our clickHandler function object require fewer changes. For the `addClick` method, we simply change the function from `clicks.findAndModify()` to `Clicks.findOneAndUpdate()`. The [`findOneAndUpdate()`](http://mongoosejs.com/docs/api.html#query_Query-findOneAndUpdate) Mongoose function will find the first result from the query parameter (`{}` in our case will pull back all records). 
+
+Since our collection only has a single document, it will return the appropriate record. Again, we're using the Mongoose `exec()` function to execute the query. And lastly, we remove the `{ '_id': 1 }` projection from the query. Removing the projection here is not required, because by default Mongoose will not return the `_id` field.
+
+_clickHandler.server.js_:
+
+```js
+this.addClick = function (req, res) {
+	Clicks
+		.findOneAndUpdate({}, { $inc: { 'clicks': 1 } })
+		.exec(function (err, result) {
+				if (err) { throw err; }
+
+				res.json(result);
+			}
+		);
+};
+```
+
+**resetClicks Method**
+
+Now, we make similar changes to the `addClick` method.
+
+_clickHandler.server.js_:
+
+```js
+this.resetClicks = function (req, res) {
+	Clicks
+		.findOneAndUpdate({}, { 'clicks': 0 })
+		.exec(function (err, result) {
+				if (err) { throw err; }
+
+				res.json(result);
+			}
+		);
+};
+```
+
+As you'll notice, the above method is nearly identical to the `addClick` method. The only difference is that we're resetting the 'clicks' value in the document to be 0 rather than incrementing it by 1.
+
+Finally, it's time to export our clickHandler function object:
+
+_clickhandler.server.js_:
+
+```js
+'use strict';
+
+var Clicks = require('../models/clicks.js');
+
+function ClickHandler () {
+
+	...
+	...
+
+}
+
+module.exports = ClickHandler;
+```
+
+This syntax should be familiar now. Let's test that the application still works. In the terminal window of the project directory, type `node server`, and then browse to `localhost:3000`. The app should function just as it did before -- adding and resetting clicks!
+
+## Passport Integration
 
 - server.js modifications
 	- require
@@ -246,4 +397,5 @@ This model is exported with [`module.exports`](https://nodejs.org/api/modules.ht
 
 Part 3 - Refactor Current App to use Angular Routes
 Part 4 - Tests
+Part 5 - Integrate Gulp
 Don't forget to rename first tutorial
