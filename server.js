@@ -3,12 +3,13 @@
 //Initialize Dependencies
 var express = require('express'),
 	db = require('mongoose'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	config = require('./config/index');
 
 var	app = express();
 
 //Database connection
-db.connect('mongodb://localhost:27017/clementinejs');
+db.connect(config.mongo.uri);
 
 //Initialize Middleware
 app.use(bodyParser.json());
@@ -26,7 +27,6 @@ app.use('/directives', express.static(__dirname + '/app/directives'));
 require('./app/routes/index.js')(app);
 
 //listen
-var port = 3000;
-app.listen(3000, function (req, res) {
-	console.log('Listening on port ' + port + '...');
+app.listen(config.port, function (req, res) {
+	console.log('Listening on port ' + config.port + '...');
 });

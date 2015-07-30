@@ -11,8 +11,8 @@ var gulp = require('gulp'),
 
 function restartTime () {
 	function checkTime(i) {
-        return (i < 10) ? '0' + i : i;
-    }
+		return (i < 10) ? '0' + i : i;
+	}
 	var today = new Date(),
 		hrs = checkTime(today.getHours()),
 		min = checkTime(today.getMinutes()),
@@ -53,21 +53,26 @@ gulp.task('minify', function () {
 
 gulp.task('dist', ['clean', 'minify'], function () {
 	gulp.src([
+		'config/**/*',
+		'!config/local.env.*'
+	], { base: 'config' })
+		.pipe(gulp.dest('dist/config'));
+	gulp.src([
 		'public/**/*',
 		'!public/{lib{,/**/*},scripts/angular.js}'
 	], { base: 'public' })
-	  .pipe(gulp.dest('dist/public'));
+		.pipe(gulp.dest('dist/public'));
 
 	gulp.src([
 		'app/**/*',
 		'!app/css{,/**/*}',
-	  '!app/controllers/**/*.client.js',
+		'!app/controllers/**/*.client.js',
 		'!app/directives{,/**/*}'
 	], { base: 'app' })
-	  .pipe(gulp.dest('dist/app'));
+		.pipe(gulp.dest('dist/app'));
 
 	gulp.src(['bower.json', 'package.json', 'server.js'])
-	  .pipe(gulp.dest('dist'));
+		.pipe(gulp.dest('dist'));
 });
 
 gulp.task('build', ['clean', 'minify', 'dist']);
