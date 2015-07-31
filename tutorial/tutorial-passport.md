@@ -12,6 +12,8 @@ layout: site
 
 This tutorial assumes that you have a working version of the application built in the [previous tutorial](tutorial.html).
 
+_Note_: This tutorial assumes that you have a Twitter account.
+
 ## Attack of the Auth
 
 Let's assume that we only want people to see our coveted click-counting application who have registered on the site using their Twitter handle. After all, the app is super secret and anonymous users aren't allowed!
@@ -363,6 +365,30 @@ module.exports = ClickHandler;
 This syntax should be familiar now. Let's test that the application still works. In the terminal window of the project directory, type `node server`, and then browse to `localhost:3000`. The app should function just as it did before -- adding and resetting clicks!
 
 ## Passport Integration
+
+### Twitter App Setup
+
+Before getting to the coding portion, we need to register our app with Twitter and obtain an API key. An API key is like a password between your app and Twitter, so they can identify who is using the API and ensure that the program has permission.
+
+Head to `https://apps.twitter.com/` and ensure that you're logged in to Twitter.
+
+1. Click the 'Create New App' button.
+2. Fill out the form.
+	- Name: Whatever you'd like to name your app. Mine says 'Clementinejs', of course. This app name needs to be unique.
+	- Description: A short description of your app.
+	- Website: Since we're using localhost, simply use `http://127.0.0.1:3000/`. `127.0.0.1` is the default IP address for localhost. For some reason, simply entering 'localhost' instead wouldn't work for me.
+	- Callback: `http://127.0.0.1:3000/auth/twitter/callback`. This will be the URL that gets passed in when we're authenticated. We'll add a route for this URL later.
+3. Agree to the Terms of Service.
+4. Click 'Create your Twitter Application'.
+
+Once this is done, it will take you to a page with information about your application. At the top, click on Keys and Access Tokens. Make note of the Consumer Key (API Key) and the Consumer Secret (API Secret). We'll use these later in our app.
+
+[image of keys and access tokens]
+
+The difference between the API Key and the API Secret is that the key is considered _public_, while the secret is known only to the vendor (Twitter in this case) and you.
+
+
+
 
 - server.js modifications
 	- require
