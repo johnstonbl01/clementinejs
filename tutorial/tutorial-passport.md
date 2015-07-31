@@ -122,11 +122,11 @@ The remainder of the folders are the same.
 
 ## Mongoose Integration
 
-Before we begin the integrating Passport and authentication, we need to update the current app to work with Mongoose instead of the MongoDB NodeJS driver. This will require a bit of refactoring in our current code.
+Before we begin the integrating Passport and authentication, we need to update the current app to work with Mongoose instead of the MongoDB Node.js driver. This will require a bit of refactoring in our current code.
 
 ### Server.js Cleanup
 
-The first step will be to update the current `server.js` file so that it connects to the database using Mongoose instead of the current MongoDB NodeJS driver.
+The first step will be to update the current `server.js` file so that it connects to the database using Mongoose instead of the current MongoDB Node.js driver.
 
 _server.js_:
 
@@ -259,7 +259,7 @@ In addition, we want to remove the `var clicks = db.collection('clicks');` line 
 
 **getClicks Method**
 
-The `getClicks` method will need a number of modifications. Again, these modifications are due to Mongoose syntax, which is a bit easier to read than the default MongoDB NodeJS driver.
+The `getClicks` method will need a number of modifications. Again, these modifications are due to Mongoose syntax, which is a bit easier to read than the default MongoDB Node.js driver.
 
 _clickHandler.server.js_:
 
@@ -364,7 +364,7 @@ module.exports = ClickHandler;
 
 This syntax should be familiar now. Let's test that the application still works. In the terminal window of the project directory, type `node server`, and then browse to `localhost:3000`. The app should function just as it did before -- adding and resetting clicks!
 
-## Passport Integration
+## Passport Server-Side Integration
 
 ### Twitter App Setup
 
@@ -387,16 +387,82 @@ Once this is done, it will take you to a page with information about your applic
 
 The difference between the API Key and the API Secret is that the key is considered _public_, while the secret is known only to the vendor (Twitter in this case) and you.
 
+### Create the User Model
 
+To begin, let's work on defining our user model. Create a new file in the `/app/models` directory named `users.js`.
 
+_users.js_:
 
-- server.js modifications
-	- require
-	- session secret
-	- .initialize
-	- .session
-	- pass to routes
-- model
+```js
+'use strict';
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var User = new Schema({
+	twitter: {
+		id: String,
+		token: String,
+		displayName: String,
+		username: String
+	}
+});
+
+module.exports = mongoose.model('User', User);
+```
+
+Most of this code should be familiar from the Click model we defined previously. Inside our Schema, we're defining the fields to be stored in the database after we authenticate with Twitter. These are put in their own object because it's common to have a model with several types of authentication: Facebook, Twitter, etc. Each of these would store their information within different objects of the User model.
+
+The [fields that Twitter provides](http://passportjs.org/docs/profile) are:
+
+- id: The numeric ID associated with your Twitter username
+- token: The Twitter-generated access token for your account.
+- displayName: This corresponds to the real name in your Twitter profile -- aka 'John Doe'.
+- username: Your Twitter username, aka the username that follows the @ symbol (@johndoe_1234).
+
+Next we'll move on to setting up our authorization file.
+
+### Authorization Configuration
+
+We need a way to store our app-specific Twitter authentication information so that Twitter can authenticate that our application can access its API and retrieve user information. Previously, we registered our app on `https://apps.twitter.com` and noted our token and secret.
+
+It's common practice to store this type of authorization information in its own Node.js module. We'll use this information when we contact the Twitter API, so we'll export it and make it available to `require` in other parts of our app. Create a new file named `auth.js` in the `/app/config` directory.
+
+_auth.js_:
+
+```js
+'use strict';
+
+module.exports = {
+	'twitterAuth': {
+		'consumerKey': 'your-key-here',
+		'consumerSecret': 'your-secret-here',
+		'callbackURL': 'http://localhost:3000/auth/twitter/callback'
+	}
+};
+```
+
+The `'callbackURL'` is the URL we entered when registering our app, and this is where Twitter will send information once the user has been authenticated. We'll handle this callback in our routes later. For now, just know that Twitter first authenticates the user, then sends information back to to our application via the `'callbackURL'`.
+
+### Passport Configuration
+
+passport.js
+require TwitterStrategy
+require User model
+require config
+export module - pp arg
+serialize user
+deserialize user
+pp.use twitter strategy
+	key
+	secret
+	callback
+function (token, tokensecret, profile, done)
+	process.nextTick
+		User.findOne
+
+### Update and Create Routes
+
 - routes/index.js
 	- add routes for:
 		- /login
@@ -410,15 +476,32 @@ The difference between the API Key and the API Secret is that the key is conside
 		- /profile
 			- get
 	- logged in function
+
+### Updating the Server File
+
+require passport
+require express-session
+require config file
+app.use factories
+app.use session info
+app.use passport-init
+app.use passport-session
+update routes - incl passport
+
+## Passport Client-Side Integration
+
+### Creating Views
+
 - views
 	- login
 	- register
 	- logout
-- Twitter App Config
-	- app.twitter.com
-		- include screenshot
-		- use 127.0.0.1 as callback
-	- config/passport.js
+
+### Make It Pretty
+
+## Conclusion
+
+
 
 
 Part 3 - Refactor Current App to use Angular Routes
