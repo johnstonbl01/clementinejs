@@ -446,29 +446,235 @@ The `'callbackURL'` is the URL we entered when registering our app, and this is 
 
 ### Passport Configuration
 
-passport.js
-require TwitterStrategy
-require User model
-require config
-export module - pp arg
-serialize user
-deserialize user
-pp.use twitter strategy
-	key
-	secret
-	callback
-function (token, tokensecret, profile, done)
-	process.nextTick
-		User.findOne
+The next step in integrating Passport will be to set up the actual authentication portion of the application. Let's begin by creating a new file named `passport.js` in the `/app/config` directory.
+
+During the setup phase for this project, we installed `passport-twitter` via NPM. This is the module that will install the code necessary to authenticate with Twitter. In Passport, this is referred to as a "strategy" as noted above.
+
+Let's start by requiring the Node modules we'll need:
+
+_passport.js_:
+
+```js
+'use strict';
+
+var TwitterStrategy = require('passport-twitter').Strategy;
+var User = require('../models/users');
+var configAuth = require('./auth');
+```
+
+We're importing the Passport Twitter strategy object, our user model and our authorization configuration (i.e. Twitter API keys). Next, we'll create an exported function object that will take `passport` as an argument, and allow us to use Passport's methods inside our Node module. This will require us to pass in Passport to as an argument when calling this module, but we'll get to that in a bit. For right now, let's just define the function.
+
+```js
+module.exports = function (passport) {
+	
+};
+```
+
+This function will contain all of our Passport code. To begin, we'll serialize and deserialize our users. What's serialization? [Serialization](https://en.wikipedia.org/wiki/Serialization) is the process of taking information and transforming it into a state (a series of bytes) that can be stored in persistant storage and streamed across a network. This information can then be deserialized into a copy of the original object. 
+
+In the case of authentication, we're transforming our user object into a format that can be stored within the session. The bulk of this is done by Passport, but it's important to understand what's happening conceptually. More information on this can be found within the [configure documentation on the Passport site](http://passportjs.org/docs/configure).
+
+_passport.js_:
+
+```js
+module.exports = function (passport) {
+	passport.serializeUser(function (user, done) {
+		done(null, user.id);
+	});
+
+	passport.deserializeUser(function (id, done) {
+		User.findById(id, function (err, user) {
+			done(err, user);
+		});
+	});
+};
+```
+
+In `serializeUser`, we're passing in a callback function with the user object and `done` as arguments. `done` is a function native to Passport, which tells Passport to proceed in the authentication process. When `done(null, user.id)` is called, Passport takes this information and passes it to the authenticate function. The information is stored in the `req.session.passport.user` user object.
+
+When subsequent calls are made, Passport will deserialize this information, and search our `User` model for the deserialized ID. This information is then stored in the `req.user` object. 
+
+Serialization is not an easy subject -- especially in the beginning. For now, it's mostly just important to understand:
+
+- Information sent over the network is compressed into bytes (serialization) and stored within a session (a small amount of persistant storage)
+- The user information submitted via serialization must then be de-compressed
+- Afterward, the database is searched to find the user information that corresponds to the matching user ID and provided back to the browser
+
+Now we need to tell Passport what type of strategy we're going to use for authentication, and define what information we will get back from Twitter's API.
+
+_passport.js_:
+
+```js
+module.exports = function (passport) {
+	...
+	...
+
+	passport.use(new TwitterStrategy({
+		consumerKey: configAuth.twitterAuth.consumerKey,
+		consumerSecret: configAuth.twitterAuth.consumerSecret,
+		callbackURL: configAuth.twitterAuth.callbackURL
+	}));
+};
+```
+
+In the above code, we're instantiating a new [Twitter Strategy](http://passportjs.org/docs/twitter) object, and setting the authorization properties of that object to the configuration file we completed earlier. Passport will use this information to authorize that our application has the privilege of accessing the Twitter API.
+
+Next we need to implement what Passport refers to as the ["verify callback."](http://passportjs.org/docs/configure) This is a callback function required by each type of strategy which will ensure the validity of the credentials and supply Passport with the user information that authenticated.
+
+_passport.js_:
+
+```js
+module.exports = function (passport) {
+	...
+	...
+
+	passport.use(new TwitterStrategy({
+		consumerKey: configAuth.twitterAuth.consumerKey,
+		consumerSecret: configAuth.twitterAuth.consumerSecret,
+		callbackURL: configAuth.twitterAuth.callbackURL
+	},
+	function (token, tokenSecret, profile, done) {
+		process.nextTick(function () {
+			User.findOne({ 'twitter.id': profile.id }, function (err, user) {
+				if (err) {
+					return done(err);
+				}
+
+				if (user) {
+					return done(null, user);
+				}
+			});
+		});
+	}));
+};
+```
+
+The first 3 argumentions for this function (`token`, `tokenSecret`, `profile`) contain objects with information provided back from the Twitter API. Once we receive this information back, it's Passport's job to determine whether or not this user exists in the application database.
+
+Let's take a look at what this function is doing so far:
+
+- [`process.nextTick()`](https://nodejs.org/api/process.html#process_process_nexttick_callback) is Node syntax that makes the code asynchronous. Node will wait until the current "tick" of the [event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) completes before executing the callback function. This essentially makes Node wait until the user information comes back from Twitter before processing the results
+
+- `User.findOne({...})` will search the database for a username where `twitter.id` is equal to the `profile.id` from the arguments passed back from Twitter. This should look really familiar to the queries in the `clickHandler` object we modified earlier.
+
+- `function (err, user) {...}` is a callback function which will execute only when the database query has been completed.
+
+- `if (err) {...}`: if the query returns an error, then pass the `done` argument to Passport with the `err` object.
+
+- `if (user) {...}`: if a user is found, then return that user object to the Passport authentication function.
+
+But what happens if a user is not found? What if the user is new, and he or she isn't in the database yet? Let's add some additional functionality to this to handle such a case.
+
+_passport.js_:
+
+```js
+module.exports = function (passport) {
+	...
+	...
+
+	passport.use(new TwitterStrategy({
+		consumerKey: configAuth.twitterAuth.consumerKey,
+		consumerSecret: configAuth.twitterAuth.consumerSecret,
+		callbackURL: configAuth.twitterAuth.callbackURL
+	},
+	function (token, tokenSecret, profile, done) {
+		process.nextTick(function () {
+			User.findOne({ 'twitter.id': profile.id }, function (err, user) {
+				if (err) {
+					return done(err);
+				}
+
+				if (user) {
+					return done(null, user);
+				} else {
+					var newUser = new User();
+
+					newUser.twitter.id = profile.id;
+					newUser.twitter.token = token;
+					newUser.twitter.username = profile.username;
+					newUser.twitter.displayName = profile.displayName;
+
+					newUser.save(function (err) {
+						if (err) {
+							throw err;
+						}
+
+						return done(null, newUser);
+					});
+				}
+			});
+		});
+	}));
+};
+```
+
+Here, we're creating a new instance of our User model, and then mapping database object properties like `newUser.twitter.id` to the information sent back by the Twitter API (`profile.id`). Finally, we insert this information into the database with `newUser.save(...)`, passing our user information back to Passport with `return done(null, newUser)`.
+
+This is far and away the most complicated part of integrating authentication and authorization. If it's still a bit fuzzy, please reach out to me on Twitter or via Email and we can discuss. Additionally, there are myriad blog posts that likely do a much better job explaining Passport authentication and serialization. Let's move on, shall we?
 
 ### Update and Create Routes
+
+We're introducing a lot of new functionality on our site, and that means we need to update and define additional routes for our users. Let's take a step back to examine the overall strategy for our routes:
+
+- The `/` or `/index.html` route will be the default route, but should only be accessible if a user has been authenticated. After all, we don't want unauthorized users seeing our awesome button-click app!
+- We need to create a `/login` route that will authenticate users with Twitter.
+- Additionally, we'll want a `/profile` page that shows a user's information
+- A user will also want to `/logout`.
+- We'll want to include a few application specific routes to post user information via an API, and define the previously mentioned `/auth/twitter` and `/auth/twitter/callback` routes
+
+Let's start by including passport as an argument for our function. This will allow us to check that a user is authenticated and allowed to view certain routes.
+
+_app/routes/index.js_:
+
+```js
+'use strict';
+
+var path = process.cwd();
+var ClickHandler = require(...);
+
+module.exports = function (app, passport) {
+
+	...
+	...
+
+};
+```
+
+Next, let's create a function that we can use in our routes that will determine if the user is authenticated.
+
+```js
+module.exports = function (app, passport) {
+
+	function isLoggedIn (req, res, next) {
+		if (req.isAuthenticated()) {
+			return next();
+		} else {
+			res.redirect('/login');
+		}
+	}
+
+	...
+	...
+};
+```
+
+This function is what's known as [Express middleware](http://expressjs.com/guide/using-middleware.html). Essentially, Express itself is simply a series of middleware calls (i.e. the routing in Express is considered middleware).
+
+It's going to take the `req` and `res` objects as arguments along with `next`. Next is a common convention used to tell Express to pass control to the next handler (or middleware) in the process. This can be found in the [Express routing docs](http://expressjs.com/guide/routing.html).
+
+So what is this function doing?
+
+`if (req.isAuthenticated()) {...}`: [`req.isAuthenticated()`](https://github.com/jaredhanson/passport/blob/a892b9dc54dce34b7170ad5d73d8ccfba87f4fcf/lib/passport/http/request.js#L74) is a Passport method which will return a `true` or `false` value if the user has been authenticated. 
+
+If this method returns `true`, then we are returning the `next()` function, which returns control to the next middleware. This entire statement is essentialy saying, "if the user has been verified, then carry on."
+
+If the user is _not_ authenticated, then we are redirecting them back to the login page with `res.redirect('/login')`.
+
+
 
 - routes/index.js
 	- add routes for:
 		- /login
-			- get
-			- post
-		- /register
 			- get
 			- post
 		- /logout
@@ -490,21 +696,16 @@ update routes - incl passport
 
 ## Passport Client-Side Integration
 
+### Retrieving User Information
+
 ### Creating Views
 
 - views
 	- login
-	- register
 	- logout
+
+### Passing User Information to the View
 
 ### Make It Pretty
 
 ## Conclusion
-
-
-
-
-Part 3 - Refactor Current App to use Angular Routes
-Part 4 - Tests
-Part 5 - Integrate Gulp
-Don't forget to rename first tutorial
