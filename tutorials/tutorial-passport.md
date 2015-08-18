@@ -622,7 +622,7 @@ We're introducing a lot of new functionality on our site, and that means we need
 - A user will also want to `/logout`.
 - We'll want to include a few application specific routes to post user information via an API, and define the previously mentioned `/auth/twitter` and `/auth/twitter/callback` routes
 
-Let's start by including passport as an argument for our function. This will allow us to check that a user is authenticated and allowed to view certain routes.
+Let's start by including passport as an argument for our function. This will allow us access to Passport's internal methods and functionality within our routes.
 
 _app/routes/index.js_:
 
@@ -668,26 +668,274 @@ So what is this function doing?
 
 If this method returns `true`, then we are returning the `next()` function, which returns control to the next middleware. This entire statement is essentialy saying, "if the user has been verified, then carry on."
 
-If the user is _not_ authenticated, then we are redirecting them back to the login page with `res.redirect('/login')`.
+If the user is _not_ authenticated, then we are redirecting them back to the login page with `res.redirect('/login')`. Now let's add our additional authentication routes.
 
+***/***
+These routes will look very similar to the routes from the previous tutorial, with a small amount of added functionality. Don't worry, we'll break each one down step-by-step.
 
+Before moving onto new routes, we must first make a small edit to our `/` route. Since this is the default route for our application, and users shouldn't see this unless authenticated, we need Express to call the `isLoggedIn` function when a `get` request is made to the server.
 
-- routes/index.js
-	- add routes for:
-		- /login
-			- get
-			- post
-		- /logout
-			- get
-		- /profile
-			- get
-	- logged in function
+_index.js_:
+```js
+...
+
+function isLoggedIn (req, res, next) { ... }
+
+var clickHandler = new clickHandler();
+
+app.route('/')
+	.get(isLoggedIn, function (req, res) {
+		res.sendFile(path + '/public/index.html');
+	});
+
+...
+```
+
+You'll notice that immediately after the get request, we're going to check that a user is authenticated and logged in via the `isLoggedIn` function. Remember that if the user is not authenticated, this function will redirect to the `/login` route. However, if the user _is_ authenticated, then Express passes control back to the app.route middleware and proceeds processing the route.
+
+**/login**
+
+This route will be one of the only routes in our application that does not require a user to be logged in. In essence, this becomes the default URL when a user has not been authenticated.
+
+_index.js_:
+```js
+...
+
+app.route('/')
+	.get(...)
+
+app.route('/login')
+	.get(function (req, res) {
+		res.sendFile(path + '/public/login.html');
+	});
+
+...
+```
+
+This route is fairly straightforward. We don't need to check to see if the user is logged in, since this will be our view which asks the user to authenticate with Twitter.
+
+**/logout**
+
+This is the route that will be used when a user would like to log out of the application. Once logged out, the user will be redirected back to the `/login` page.
+
+_index.js_:
+```js
+...
+
+app.route('/')
+	.get(...)
+
+app.route('/login')
+	.get(...);
+
+app.route('/logout')
+	.get(function (req, res) {
+		req.logout();
+		res.redirect('/login');
+	});
+...
+```
+
+Here, we're introducing a bit of new functionality. When a `get` request is made to the `/logout` route, we are calling the `logout()` function, which [Passport includes](http://passportjs.org/docs/logout) on the `req` object. This function will remove the `req.user` property and clear out any sessions that are present.
+
+Once the session has been cleared and the `req.user` property removed, the app is then redirected to the `/login` route.
+
+**/profile**
+
+This will be a very small profile page that will show the user's Twitter information. Of course, the user must be authenticated in order to see this content.
+
+_index.js_:
+```js
+...
+
+app.route('/')
+	.get(...)
+
+app.route('/login')
+	.get(...);
+
+app.route('/logout')
+	.get(...);
+
+app.route('/profile')
+	.get(isLoggedIn, function (req, res) {
+		res.sendFile(path + '/public/profile.html');
+	});
+
+...
+```
+
+There's not any new functionality here, so this should look really familiar by this point.
+
+**/api/user**
+
+This route will be our user API that will store the user's Twitter information for us to retrieve on the front end.
+
+_index.js_:
+```js
+...
+
+app.route('/')
+	.get(...)
+
+app.route('/login')
+	.get(...);
+
+app.route('/logout')
+	.get(...);
+
+app.route('/profile')
+	.get(...);
+
+app.route('/api/user')
+	.get(isLoggedIn, function (req, res) {
+		res.json(req.user.twitter);
+	});
+
+...
+```
+
+When a `get` request is made to this route, Express should reply with a JSON object that contains the `req.user.twitter` object from Passport. This is the object which contains all the relevant user information, and we will query this from the front end later for the profile page.
+
+**/auth/twitter**
+
+This is the route that will be used when the user clicks the "Login" button and will initiate authentication with Twitter via Passport.
+
+_index.js_:
+```js
+...
+
+app.route('/')
+	.get(...)
+
+app.route('/login')
+	.get(...);
+
+app.route('/logout')
+	.get(...);
+
+app.route('/profile')
+	.get(...);
+
+app.route('/api/user')
+	.get(...);
+
+app.route('/auth/twitter')
+	.get(passport.authenticate('twitter'));
+
+...
+```
+
+Again, this route will call the Passport [`authenticate`](http://passportjs.org/docs/authenticate) function, which will authenticate using the appropriate strategy (in this case, `'twitter'`).
+
+**/auth/twitter/callback**
+
+Remember setting up the Twitter app configuration and specifying a callback URL? Now we're going to specify what should be done when this URL is called by Twitter. This route will only be called after Twitter authentication has completed, and thus we need to be able to handle both success and failure conditions.
+
+_index.js_:
+```js
+...
+
+app.route('/')
+	.get(...)
+
+app.route('/login')
+	.get(...);
+
+app.route('/logout')
+	.get(...);
+
+app.route('/profile')
+	.get(...);
+
+app.route('/api/user')
+	.get(...);
+
+app.route('/auth/twitter')
+	.get(...);
+
+app.route('/auth/twitter/callback')
+	.get(passport.authenticate('twitter', {
+		successRedirect: '/',
+		failureRedirect: '/login'
+	}));
+
+...
+```
+
+In addition to the Passport authentication, we're passing an object that will tell Passport where to redirect to pending both a successful and failed authentication attempt.
+
+In the case of successful authentication, the user should be redirected to our click application (`/`), but should be [redirected](http://passportjs.org/docs/authenticate) back to the login page (`/login`) if the authentication is unsuccessful.
+
+Finally, here's the full `index.js` file:
+
+```js
+'use strict';
+
+var path = process.cwd();
+var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+
+module.exports = function (app, passport) {
+
+	function isLoggedIn (req, res, next) {
+		if (req.isAuthenticated()) {
+			return next();
+		} else {
+			res.redirect('/login');
+		}
+	}
+
+	var clickHandler = new ClickHandler();
+
+	app.route('/')
+		.get(isLoggedIn, function (req, res) {
+			res.sendFile(path + '/public/index.html');
+		});
+
+	app.route('/login')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/login.html');
+		});
+
+	app.route('/logout')
+		.get(function (req, res) {
+			req.logout();
+			res.redirect('/login');
+		});
+
+	app.route('/profile')
+		.get(isLoggedIn, function (req, res) {
+			res.sendFile(path + '/public/profile.html');
+		});
+
+	app.route('/api/user')
+		.get(isLoggedIn, function (req, res) {
+			res.json(req.user.twitter);
+		});
+
+	app.route('/auth/twitter')
+		.get(passport.authenticate('twitter'));
+
+	app.route('/auth/twitter/callback')
+		.get(passport.authenticate('twitter', {
+			successRedirect: '/',
+			failureRedirect: '/login'
+		}));
+
+	app.route('/api/clicks')
+		.get(clickHandler.getClicks)
+		.post(clickHandler.addClick)
+		.delete(clickHandler.resetClicks);
+};
+```
+
+That's all of the routes for our application! Let's move on to modifying our server file and finishing up the backend modifications.
 
 ### Updating the Server File
 
 require passport
 require express-session
-require config file
+require config files
 app.use factories
 app.use session info
 app.use passport-init
