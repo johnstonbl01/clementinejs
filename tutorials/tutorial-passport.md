@@ -970,7 +970,12 @@ _server.js_:
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
 
-app.use(session({ secret: 'secretClementine' }));
+app.use(session({
+	secret: 'secretClementine',
+	resave: false,
+	saveUninitialized: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 ```
@@ -979,6 +984,8 @@ Here we're using the Express [app.use](http://expressjs.com/4x/api.html#app.use)
 
 `secret` is our session secret. This is essentially a "password" that is used to create the session and prevent it from being hijacked. This makes hacking session information harder to hack and helps prevent others from impersonating specific users.
 
+The newest version of Express-Session requires settings for `resave` and `saveUninitialized`. [`resave`](https://github.com/expressjs/session#resave) simply tells Express if you want to re-save the session to storage even when it has not been modified. This value is typically set to `false`, and we're using that setting as well. [`saveUninitialized`](https://github.com/expressjs/session#saveuninitialized) will force a new session (which has not been modified) to be created and stored. The default setting is `true`, so that's what we're using in our app.
+
 [`passport.initialize`](http://passportjs.org/docs/configure) is required by Passport in order to initialize the Passport application. Similar to the Express initialization, this will instantiate the Passport functionality. Additionally, we use the [`passport.session()`](http://passportjs.org/docs/configure) middleware to enable the usage of session storage.
 
 Lastly, we need to pass the Passport object into our routes file as an argument. Remember that we used Passport functionality within our routes, so we need to ensure that we enable the use of the Passport methods by passing it into our routes module.
@@ -986,7 +993,12 @@ Lastly, we need to pass the Passport object into our routes file as an argument.
 _server.js_:
 
 ```js
-app.use(session({ secret: 'secretClementine' }));
+app.use(session({
+	secret: 'secretClementine',
+	resave: false,
+	saveUninitialized: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -1012,7 +1024,12 @@ mongoose.connect('mongodb://localhost:27017/clementinejs');
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
 
-app.use(session({ secret: 'secretClementine' }));
+app.use(session({
+	secret: 'secretClementine',
+	resave: false,
+	saveUninitialized: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
