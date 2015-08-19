@@ -677,6 +677,7 @@ These routes will look very similar to the routes from the previous tutorial, wi
 Before moving onto new routes, we must first make a small edit to our `/` route. Since this is the default route for our application, and users shouldn't see this unless authenticated, we need Express to call the `isLoggedIn` function when a `get` request is made to the server.
 
 _index.js_:
+
 ```js
 ...
 
@@ -699,6 +700,7 @@ You'll notice that immediately after the get request, we're going to check that 
 This route will be one of the only routes in our application that does not require a user to be logged in. In essence, this becomes the default URL when a user has not been authenticated.
 
 _index.js_:
+
 ```js
 ...
 
@@ -720,6 +722,7 @@ This route is fairly straightforward. We don't need to check to see if the user 
 This is the route that will be used when a user would like to log out of the application. Once logged out, the user will be redirected back to the `/login` page.
 
 _index.js_:
+
 ```js
 ...
 
@@ -746,6 +749,7 @@ Once the session has been cleared and the `req.user` property removed, the app i
 This will be a very small profile page that will show the user's Twitter information. Of course, the user must be authenticated in order to see this content.
 
 _index.js_:
+
 ```js
 ...
 
@@ -773,6 +777,7 @@ There's not any new functionality here, so this should look really familiar by t
 This route will be our user API that will store the user's Twitter information for us to retrieve on the front end.
 
 _index.js_:
+
 ```js
 ...
 
@@ -803,6 +808,7 @@ When a `get` request is made to this route, Express should reply with a JSON obj
 This is the route that will be used when the user clicks the "Login" button and will initiate authentication with Twitter via Passport.
 
 _index.js_:
+
 ```js
 ...
 
@@ -834,6 +840,7 @@ Again, this route will call the Passport [`authenticate`](http://passportjs.org/
 Remember setting up the Twitter app configuration and specifying a callback URL? Now we're going to specify what should be done when this URL is called by Twitter. This route will only be called after Twitter authentication has completed, and thus we need to be able to handle both success and failure conditions.
 
 _index.js_:
+
 ```js
 ...
 
@@ -937,6 +944,7 @@ That's all of the routes for our application! Let's move on to modifying our ser
 Now we'll begin making the final server-side modifications. The first step is to include our additional NPM modules (express-session and passport) in the `server.js` file.
 
 _server.js_:
+
 ```js
 var express = require('express'),
 	routes = require('./app/routes/index.js'),
@@ -948,6 +956,7 @@ var express = require('express'),
 Next, we need to pass in this `passport` NPM Module to the Passport configuration file we created earlier (`app/config/passport.js`). Remember that the exported module from that file takes `passport` as an argument, so we're essentially intializing the Passport functionality when the `server.js` file is run by Node.
 
 _server.js_:
+
 ```js
 var app = express();
 require('./app/config/passport')(passport);
@@ -956,6 +965,7 @@ require('./app/config/passport')(passport);
 The next step is to setup the Express session information and initialize Passport and the Passport session.
 
 _server.js_:
+
 ```js
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
@@ -974,6 +984,7 @@ Here we're using the Express [app.use](http://expressjs.com/4x/api.html#app.use)
 Lastly, we need to pass the Passport object into our routes file as an argument. Remember that we used Passport functionality within our routes, so we need to ensure that we enable the use of the Passport methods by passing it into our routes module.
 
 _server.js_:
+
 ```js
 app.use(session({ secret: 'secretClementine' }));
 app.use(passport.initialize());
@@ -983,6 +994,7 @@ routes(app, passport);
 ```
 
 The full `server.js` file:
+
 ```js
 'use strict';
 
