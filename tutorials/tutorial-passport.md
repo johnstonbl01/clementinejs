@@ -670,7 +670,7 @@ If this method returns `true`, then we are returning the `next()` function, whic
 
 If the user is _not_ authenticated, then we are redirecting them back to the login page with `res.redirect('/login')`. Now let's add our additional authentication routes.
 
-**/**
+**/index**
 
 These routes will look very similar to the routes from the previous tutorial, with a small amount of added functionality. Don't worry, we'll break each one down step-by-step.
 
@@ -1041,17 +1041,26 @@ app.listen(port, function () {
 });
 ```
 
+Let's run a quick test. Within the project directory, start the application using `node server`. Then, point a browser to `localhost:3000`. There should be an error message referencing the `/login` route. This means that the app is working as intended at the moment - we tried to access the `/` route, but were redirected to `/login`. Since we've yet to create the view for that page, we get an error.
+
 ## Passport Client-Side Integration
 
-server.js: app.use factories
+To integrate our newly created authentication routines on the client side, we'll take the following approach:
+
+- Create an Angular factor to retrieve the information
+- Create views for each of the routes
+- Pass the user information from the factory to an Angular controller
+- Apply CSS
 
 ### Retrieving User Information
 
+server.js: app.use factories
+
 ### Creating Views
 
-- views
-	- login
-	- logout
+login
+profile
+update index
 
 ### Passing User Information to the View
 
