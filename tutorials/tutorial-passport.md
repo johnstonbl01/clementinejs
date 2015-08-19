@@ -670,7 +670,8 @@ If this method returns `true`, then we are returning the `next()` function, whic
 
 If the user is _not_ authenticated, then we are redirecting them back to the login page with `res.redirect('/login')`. Now let's add our additional authentication routes.
 
-***/***
+**/**
+
 These routes will look very similar to the routes from the previous tutorial, with a small amount of added functionality. Don't worry, we'll break each one down step-by-step.
 
 Before moving onto new routes, we must first make a small edit to our `/` route. Since this is the default route for our application, and users shouldn't see this unless authenticated, we need Express to call the `isLoggedIn` function when a `get` request is made to the server.
@@ -933,16 +934,87 @@ That's all of the routes for our application! Let's move on to modifying our ser
 
 ### Updating the Server File
 
-require passport
-require express-session
-require config files
-app.use factories
-app.use session info
-app.use passport-init
-app.use passport-session
-update routes - incl passport
+Now we'll begin making the final server-side modifications. The first step is to include our additional NPM modules (express-session and passport) in the `server.js` file.
+
+_server.js_:
+```js
+var express = require('express'),
+	routes = require('./app/routes/index.js'),
+	mongoose = require('mongoose'),
+	passport = require('passport'),
+	session = require('express-session');
+```
+
+Next, we need to pass in this `passport` NPM Module to the Passport configuration file we created earlier (`app/config/passport.js`). Remember that the exported module from that file takes `passport` as an argument, so we're essentially intializing the Passport functionality when the `server.js` file is run by Node.
+
+_server.js_:
+```js
+var app = express();
+require('./app/config/passport')(passport);
+```
+
+The next step is to setup the Express session information and initialize Passport and the Passport session.
+
+_server.js_:
+```js
+app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+app.use('/public', express.static(process.cwd() + '/public'));
+
+app.use(session({ secret: 'secretClementine' }));
+app.use(passport.initialize());
+app.use(passport.session());
+```
+
+Here we're using the Express [app.use](http://expressjs.com/4x/api.html#app.use) function to configure the session options.
+
+`secret` is our session secret. This is essentially a "password" that is used to create the session and prevent it from being hijacked. This makes hacking session information harder to hack and helps prevent others from impersonating specific users.
+
+[`passport.initialize`](http://passportjs.org/docs/configure) is required by Passport in order to initialize the Passport application. Similar to the Express initialization, this will instantiate the Passport functionality. Additionally, we use the [`passport.session()`](http://passportjs.org/docs/configure) middleware to enable the usage of session storage.
+
+Lastly, we need to pass the Passport object into our routes file as an argument. Remember that we used Passport functionality within our routes, so we need to ensure that we enable the use of the Passport methods by passing it into our routes module.
+
+_server.js_:
+```js
+app.use(session({ secret: 'secretClementine' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+routes(app, passport);
+```
+
+The full `server.js` file:
+```js
+'use strict';
+
+var express = require('express'),
+	routes = require('./app/routes/index.js'),
+	mongoose = require('mongoose'),
+	passport = require('passport'),
+	session = require('express-session');
+
+var app = express();
+require('./app/config/passport')(passport);
+
+mongoose.connect('mongodb://localhost:27017/clementinejs');
+
+app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+app.use('/public', express.static(process.cwd() + '/public'));
+
+app.use(session({ secret: 'secretClementine' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+routes(app, passport);
+
+var port = 3000;
+app.listen(port, function () {
+	console.log('Node.js listening on port ' + port + '...');
+});
+```
 
 ## Passport Client-Side Integration
+
+server.js: app.use factories
 
 ### Retrieving User Information
 
