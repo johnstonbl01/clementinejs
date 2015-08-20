@@ -1054,7 +1054,66 @@ To integrate our newly created authentication routines on the client side, we'll
 
 ### Retrieving User Information
 
-server.js: app.use factories
+To retrieve our user information from the API and make it available into an object, we're going to use what's known as an Angular factory. Factories are common conventions in Angular to retrieve information and output an object with that information. The object is then made available within other Angular components using dependency injection. This keeps the different components separate, each with its own function, also known as "separation of concerns".
+
+Factories are creating similar to other Angular modules, so the syntax should look relatively familiar. Let's begin by creating a new file in the `factories` folder named `userFactory.js`.
+
+Similar to controllers, we'll start by wrapping the entire module in an [IIFE (immediately-invoked function expression)](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression). Again, this will ensure that any variables defined within the module do not pollute the global namespace.
+
+_userFactory.js_:
+
+```js
+'use strict';
+
+(function () {
+	angular
+		.module('clementineApp')
+		.factory('userFactory', ['$http', function ($http) {
+
+		}]);
+})();
+```
+
+We're creating a factory using the Angular [`.factory()`](https://docs.angularjs.org/guide/providers#factory-recipe) syntax. Within this 'userFactory', we're using the Angular [`$http`](https://docs.angularjs.org/api/ng/service/$http) provider. This service helps facilitate communication with remote URLs. 
+
+In our case, we want to use the $http service to retrieve our user information from the API. We define the `$http` service as a dependency, and then inject it as an argument into the anonymous `function ($http) {...}`.
+
+_userFactory.js_:
+
+```js
+'use strict';
+
+(function () {
+	angular
+		.module('clementineApp')
+		.factory('userFactory', ['$http', function ($http) {
+
+			var userData = {};
+
+			userData.getData = function () {
+				return $http.get('/api/user');
+			};
+
+			return userData;
+		}]);
+})();
+```
+
+Within the function, we first need to define the empty array that our data will be inserted into -- `var userData = {};`. Next, we define a method of the object named `getData` will will make an [HTTP GET request](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods) using the Angular `$http` service. 
+
+This GET Request will occur for our `/api/user` route where the server is going to store the appropriate user information as defined previously. Finally, we return our `userData` object. That's it, you've written an Angular factory! This factory will then get integrated into an Angular controller (we'll get to this soon) as a dependency where we can use this information to interact with the view.
+
+Before moving on, we need to make one final change to the `server.js` file to create a static shortcut for the factories folder that can be used within our HTML files.
+
+_server.js_:
+
+```js
+app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+app.use('/public', express.static(process.cwd() + '/public'));
+app.use('/factories', express.static(process.cwd() + '/app/factories'));
+```
+
+Let's move on to creating some of the new views and begin to further flesh out the front end of the application!
 
 ### Creating Views
 
