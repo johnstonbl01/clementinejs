@@ -28,36 +28,19 @@ In order to use Clementine.js, you must have the following installed:
 
 To begin developing with the bare version of Clementine.js, create a project directory and run the following from your terminal:
 
-```bash
-$ npm install clementinejs-beginner
-$ cd clementinejs-beginner
-$ npm install
-$ node server.js
-```
+TBD
 
 #### Standard
 
 To begin developing with the bare version of Clementine.js, create a project directory and run the following from your terminal:
 
-```bash
-$ npm install clementinejs
-$ cd clementinejs
-$ npm install
-$ bower install
-$ gulp
-```
+TBD
 
 #### Bare
 
 To begin developing with the bare version of Clementine.js, create a project directory and run the following from your terminal:
 
-```bash
-$ npm install clementinejs-bare
-$ cd clementinejs-bare
-$ npm install
-$ bower install
-$ gulp
-```
+TBD
 
 ## Documentation
 
@@ -66,10 +49,3 @@ Complete documentation can be [found here](http://johnstonbl01.github.io/clement
 ## License
 
 MIT License. [Click here for more information.](LICENSE.md)
-
-## Future Updates / Features
-
-The below additions will be made as I have the opportunity, and not necessarily in the order listed.
-
-- [ ] Add tests with Karma / Jasmine
-- [ ] Prod / Dev ENV setup
