@@ -1115,10 +1115,67 @@ app.use('/factories', express.static(process.cwd() + '/app/factories'));
 
 Let's move on to creating some of the new views and begin to further flesh out the front end of the application!
 
-### Creating Views
+### Creating New Views
 
-login
-profile
+#### Login View
+
+Let's begin by creating the view for our login page. Create a new file named `login.html` in the `/public` directory. Next, create the "template" HTML site we've used previously:
+
+_login.html_:
+
+```html
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Clementine.js - A beginner level MEAN stack application</title>
+		
+		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<body>
+		
+	</body>
+
+</html>
+```
+
+I'm not going to go into the specifics of the above snippet since it's been covered previously in the tutorial. We'll use this again for our other HTML pages.
+
+Now, let's create a container `div` in the `body` with the remainder of our functionality.
+
+_login.html_:
+
+```html
+<body>
+	<div class="container">	
+		<div class="login">
+			<img src="/public/img/clementine_150.png" />
+			<br />
+			<p class="clementine-text">Clementine.js</p>
+			<a href="/auth/twitter">
+				<div class="btn" id="login-btn">
+					<img src="/public/img/twitter_logo_32x26.png" alt="twitter logo" />
+					<p>LOGIN WITH TWITTER</p>
+				</div>
+			</a>
+		</div>
+	</div>
+</body>
+```
+
+Ignore the CSS classes, as the stylesheet will be provided for these pages as it was in the previous tutorial. We create a `<div` element for our login components, followed by inserting the Clementine.js logo. Next, the title `Clementine.js` is added in a `<p>` element.
+
+Finally, we're going to create an anchor element (`<a>`) and point the hyperlink to our `/auth/twitter` route. Remember that this is the route that will prompt authentication with Twitter. 
+
+Inside the anchor element, we're including a `<div>` with the Twitter logo and the phrase, "LOGIN WITH TWITTER". After CSS is applied, this anchor element will wrap the `<div>`. We do this so that whenever a user clicks anywhere on the `div`, it will fire the anchor element.
+
+That's it for this login page. We're keeping it extremely simple.
+
+#### Profile View
+
 update index
 
 ### Passing User Information to the View
