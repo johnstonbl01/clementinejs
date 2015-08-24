@@ -1172,9 +1172,105 @@ Finally, we're going to create an anchor element (`<a>`) and point the hyperlink
 
 Inside the anchor element, we're including a `<div>` with the Twitter logo and the phrase, "LOGIN WITH TWITTER". After CSS is applied, this anchor element will wrap the `<div>`. We do this so that whenever a user clicks anywhere on the `div`, it will fire the anchor element.
 
-That's it for this login page. We're keeping it extremely simple.
+That's it for the login page. We're keeping it extremely simple.
+
+//Download Twitter Logo!
 
 #### Profile View
+
+Next, let's create a new view for our Twitter profile information. Again, this page will be extremely simple, but will illustrate how to pull information from the API into our application.
+
+Create a new file named `profile.html` in the `/public` directory. Start with the same beginning template as last time:
+
+_profile.html_:
+
+```html
+<html>
+
+	<head>
+		<title>Clementine.js - A beginner level MEAN stack application</title>
+		
+		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<body>
+		
+	</body>
+
+</html>
+```
+
+Let's make one addition to this template before moving forward. Within the `<html>` tag, add `ng-app="clementineApp"`. This instructs Angular that the page uses the `clementineApp` module. This mirrors the same line in the `index.html` file.
+
+Next, we need to create the "profile card." This will be a simple box with the Twitter logo and the user's Twitter information.
+
+_profile.html_:
+
+```html
+<body>
+	<div class="container" ng-controller="userController">
+		<div class="twitter-profile">
+			<img src="/public/img/twitter_logo_32x26.png" alt="twitter logo" />
+			<p><span>ID: </span>{{ twitterId }}</p>
+			<p><span>Username: </span>@{{ userName }}</p>
+			<p><span>Display Name: </span>{{ displayName }}</p>
+			<a class="menu" href="/">Home</a>
+			<p id="menu-divide">|</p>
+			<a class="menu" href="/logout">Logout</a>
+		</div>
+	</div>
+</body>
+```
+
+We begin by creating a container div and including the Angular directive `ng-controller`, pointing it to a `userController`. We haven't created this new controller yet, but will do so in the next section of the tutorial.
+
+The following `div` element will be the actual profile card (`<div class="twitter-profile">`). The first element within the card will be the same Twitter logo we used inside our login page button. Afterward, we'll add paragraph elements which will contain the name of the field (i.e. `ID:`) followed by an [Angular data binding](https://docs.angularjs.org/guide/databinding) (the part in the double curly-braces: `{{}}`).
+
+The values within curly-braces will directly relate to data that has been bound to the [Angular $scope](https://docs.angularjs.org/guide/scope) object by the `userController`. Binding data to $scope is a subject that was covered in the previous tutorial, so it should feel somewhat familiar.
+
+We'll do this for three different fields of Twitter profile information: ID, Username and Display Name. Lastly, we will add links at the bottom of the menu to return to the Home (`index.html` page or to logout). Notice that when we're using anchor (`<a>`) elements again, and in order for a user to log out, we're simply directing them to our `/logout` route as the `href` attribute value.
+
+Finally, the last step for this view will be to add links to all of our JavaScript files. Note that we only reference the Angular files that we need for this particular page (i.e. the userController and userFactory). We don't need to include any of the files used for other parts of the applicaiton not present in this view. The final file should look like:
+
+_profile.html_:
+
+```js
+<!DOCTYPE html>
+
+<html ng-app="clementineApp">
+
+	<head>
+		<title>Clementine.js - A beginner level MEAN stack application</title>
+		
+		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<body>
+		<div class="container" ng-controller="userController">
+			<div class="twitter-profile">
+				<img src="/public/img/twitter_logo_32x26.png" alt="twitter logo" />
+				<p><span>ID: </span>{{ twitterId }}</p>
+				<p><span>Username: </span>@{{ userName }}</p>
+				<p><span>Display Name: </span>{{ displayName }}</p>
+				<a class="menu" href="/">Home</a>
+				<p id="menu-divide">|</p>
+				<a class="menu" href="/logout">Logout</a>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+		<script type="text/javascript" src="controllers/clickController.client.js"></script>
+		<script type="text/javascript" src="factories/userFactory.js"></script>
+		<script type="text/javascript" src="controllers/userController.client.js"></script>
+	</body>
+
+</html>
+```
+
+#### Updating Index.html
 
 update index
 
