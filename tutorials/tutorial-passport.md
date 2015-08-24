@@ -1144,6 +1144,8 @@ _login.html_:
 
 I'm not going to go into the specifics of the above snippet since it's been covered previously in the tutorial. We'll use this again for our other HTML pages.
 
+Before moving forward, head to [this URL](https://github.com/johnstonbl01/clementinejs-fcc/blob/master/public/img/twitter_logo_32x26.png) and download a copy of the Twitter logo. Save it within the `/public/img` directory.
+
 Now, let's create a container `div` in the `body` with the remainder of our functionality.
 
 _login.html_:
@@ -1173,8 +1175,6 @@ Finally, we're going to create an anchor element (`<a>`) and point the hyperlink
 Inside the anchor element, we're including a `<div>` with the Twitter logo and the phrase, "LOGIN WITH TWITTER". After CSS is applied, this anchor element will wrap the `<div>`. We do this so that whenever a user clicks anywhere on the `div`, it will fire the anchor element.
 
 That's it for the login page. We're keeping it extremely simple.
-
-//Download Twitter Logo!
 
 #### Profile View
 
