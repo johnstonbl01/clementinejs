@@ -1235,7 +1235,7 @@ Finally, the last step for this view will be to add links to all of our JavaScri
 
 _profile.html_:
 
-```js
+```html
 <!DOCTYPE html>
 
 <html ng-app="clementineApp">
@@ -1272,9 +1272,48 @@ _profile.html_:
 
 #### Updating Index.html
 
-update index
+The last step in creating the views is to update our existing `index.html` to include a few new features. We want to display the user's name when they log in, and provide a way for them to visit the profile page and log out. Additionally, we'll need to update the list of scripts to include the relevant Angular user scripts to properly pull in the user information.
+
+Let's put the user information and navigation at the top of the page. We'll want to wrap this within a `<header>` element between the `<head>` and `<body>` sections of the page.
+
+_index.html_:
+
+```html
+<head>
+	...
+</head>
+
+<header ng-controller="userController">
+	<p>Welcome, @{{ userName }}!</p>
+	<a class="menu" href="/profile">Profile</a>
+	<p>|</p>
+	<a class="menu" href="/logout">Logout</a>
+</header>
+
+<body>
+	...
+</body>
+```
+
+As you can see, we're using the Angular directive `ng-controller` again for the header, and assigning the `userController` to this element. Then, we're going to pull in the  `userName` information in the same manner as the profile page. The `userName` property should reflect the user's Twitter handle, so we put an @ symbol before it.
+
+Next, we create another simple, text-based means of navigation for the user to reach the profile page and logout. 
+
+The final change is to add a few additional Angular scripts to the list of scripts. The complete list of scripts should look like:
+
+_index.html_:
+
+```html
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+<script type="text/javascript" src="controllers/clickController.client.js"></script>
+<script type="text/javascript" src="factories/userFactory.js"></script>
+<script type="text/javascript" src="controllers/userController.client.js"></script>
+```
 
 ### Passing User Information to the View
+
+Now let's create the `userController` that was referenced in the views.
 
 ### Make It Pretty
 
