@@ -6,11 +6,11 @@ layout: site
 
 ### [Clementine.js Beginner Tutorial](/clementinejs/tutorials/tutorial-beginner.html)
 
-This step-by-step tutorial is meant for someone with little to no experience with the MEAN stack, but a basic understanding of HTML, CSS and JavaScript. It walks through setting up a simple MEAN application from scratch, with detailed explaination along the way in hopes of providing a higher level of clarity for beginners. 
+This step-by-step tutorial is meant for someone with little to no experience with the MEAN stack, but a basic understanding of HTML, CSS and JavaScript. It walks through setting up a simple MEAN application from scratch, with detailed explaination along the way in hopes of providing a higher level of clarity for beginners. By completing this tutorial, you'll build out the [Beginner version](/clementinejs/beginner/beginner.md) of Clementine.js.
 
 ### [Integrate Authentication Using Passport](/clementinejs/tutorials/tutorial-passport.html)
 
-This tutorial builds on the beginner tutorial above, and was custom made for the [Free Code Camp](http://www.freecodecamp.com) curriculum. It steps through integrating authentication and authorization via [Passport](http://passportjs.org/) into the simple app created in the beginner tutorial. Similar to the previous guide, this tutorial requires only basic understanding of HTML, CSS and JavaScript.
+This tutorial builds on the beginner tutorial above, and was custom made for the [Free Code Camp](http://www.freecodecamp.com) curriculum. It steps through integrating authentication and authorization via [Passport](http://passportjs.org/) into the simple app created in the beginner tutorial. Similar to the previous guide, this tutorial requires only basic understanding of HTML, CSS and JavaScript. By completing this tutorial, you'll build out the [FCC version](/clementinejs/fcc/fcc.md) of Clementine.js.
 
 ## Future Tutorials
 
