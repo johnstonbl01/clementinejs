@@ -1227,6 +1227,8 @@ We begin by creating a container div and including the Angular directive `ng-con
 
 The following `div` element will be the actual profile card (`<div class="twitter-profile">`). The first element within the card will be the same Twitter logo we used inside our login page button. Afterward, we'll add paragraph elements which will contain the name of the field (i.e. `ID:`) followed by an [Angular data binding](https://docs.angularjs.org/guide/databinding) (the part in the double curly-braces: `{{}}`).
 
+The `<span>` elements will be used to emphasize the names of the field names in the profile cards (i.e. making them bold instead of normal font weight).
+
 The values within curly-braces will directly relate to data that has been bound to the [Angular $scope](https://docs.angularjs.org/guide/scope) object by the `userController`. Binding data to $scope is a subject that was covered in the previous tutorial, so it should feel somewhat familiar.
 
 We'll do this for three different fields of Twitter profile information: ID, Username and Display Name. Lastly, we will add links at the bottom of the menu to return to the Home (`index.html` page or to logout). Notice that when we're using anchor (`<a>`) elements again, and in order for a user to log out, we're simply directing them to our `/logout` route as the `href` attribute value.
@@ -1313,8 +1315,312 @@ _index.html_:
 
 ### Passing User Information to the View
 
-Now let's create the `userController` that was referenced in the views.
+Now let's create the `userController` that was referenced in the views. What's our strategy here?
+
+- Create an Angular controller module with `$scope` and the `userFactory` as dependencies
+- Create a function that will retrieve the data from the `userFactory` and bind it to specific `$scope` properties
+- Invoke this newly created function to retrieve and store the user data
+
+That doesn't sound too hard, right? Let's give it a try.
+
+Let's start by creating a new file named `userControler.client.js` in the `app/controllers` directory. Then, as with other controllers, let's begin with an [IIFE](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression).
+
+_userController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+	
+})();
+```
+
+Next, let's go ahead and insert the Angular module & controller code that we've used a few times now. This should look familiar. The only difference is that we're inserting our `userFactory` module as a dependency here. That will give us access to all of its functionality inside the controller.
+
+_userController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+	angular
+		.module('clementineApp')
+		.controller('userController', ['$scope', 'userFactory', function ($scope, userFactory) {
+
+		}]);
+})();
+```
+
+Now we need a function to retrieve the user information from the `userFactory`. Think back to the `userFactory` and the object that is built within that component. We created a method there named `userData.getData()` that will retrieve the user information from the API.
+
+Because we included `userFactory` as a dependency, we have access to this method within the controller.
+
+_userController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+	angular
+		.module('clementineApp')
+		.controller('userController', ['$scope', 'userFactory', function ($scope, userFactory) {
+
+			function getUserData () {
+				userFactory.getData()
+					.then(function (res) {
+						$scope.userName = res.data.username;
+						$scope.displayName = res.data.displayName;
+						$scope.twitterId = res.data.id;
+					});
+			}
+
+		}]);
+})();
+```
+
+The `getUserData()` function will use the `userFactory.getData()` method to trigger the HTTP GET request to the `/api/user` route from the `userFactory`. Because we're calling `userFactory.getData().then()`, we're asking Angular to provide us with a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) object.
+
+Promises are used for asynchronous computations within the code. In other words, we can make the request for the API data and the application can perform other functions while it waits for a response. When it receives the response, it will execute the callback function within the `then(callback-function)` method.
+
+In our case, the callback is an anonymous function (i.e. it's not named), which takes the returned Promise `response` object as an argument (`.then(function (res) {...});`). This Promise object from the Angular `$http service provider` (which we're using in the `userFactory`) has 5 properties. These are detailed within [the documentation](https://docs.angularjs.org/api/ng/service/$http). For our purposes, we're simply concerend with the `data` property, which is an object containing the data retrieved from the API.
+
+Remember that our API object has 3 data fields: `username`, `displayName` and `id`. We then bind those properties to the appropriate `$scope` properties. This will allow Angular access to this data within the application.
+
+The final step in implementing this controller, is to execute this function when the controller is initialized (i.e. the page loads). We do this by adding a single line to invoke the just-defined function.
+
+_userController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+	angular
+		.module('clementineApp')
+		.controller('userController', ['$scope', 'userFactory', function ($scope, userFactory) {
+
+			function getUserData () {
+				userFactory.getData()
+					.then(function (res) {
+						$scope.userName = res.data.username;
+						$scope.displayName = res.data.displayName;
+						$scope.twitterId = res.data.id;
+					});
+			}
+
+			getUserData();
+
+		}]);
+})();
+```
+
+At this point we've setup all the puzzle pieces and can test the application to ensure everything works. Fire up node by entering `node server` from the terminal (note: you must be within your project directory for this to work). Next, point your browser to `http://localhost:3000` and be amazed! You've just integrated authentication in an application!
+
+If you receive an error message, then something has gone wrong. At this point everything should work without error. But golly gee, the app sure is ugly and looks disorganized! It's time to make it pretty...
 
 ### Make It Pretty
+
+As in the previous tutorial, I'm simply going to provide the CSS file in its entirety. If you have specific questions about why something within the file was done in a particular way, feel free to reach out to me!
+
+_public/css/main.css_:
+
+```css
+/****** Main Styling ******/
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	color: #00BCD4;
+	height: 56px;
+	margin: 0 0 30px 0;
+	text-align: center;
+}
+
+p {
+	margin: 8px 0 0 0;
+}
+
+.container p {
+	text-align: center;
+	padding: 0;
+}
+
+/****** Header Styling ******/
+
+header p {
+	margin: 16px 0 5px 0;
+}
+
+.menu {
+	text-decoration: none;
+	padding: 6px;
+	margin: 0;
+	color: #727272;
+}
+
+.menu:visited {
+	color: #727272;
+}
+
+.menu:hover {
+	color: #FFA000;
+}
+
+.menu:active {
+	color: #FF630D;
+}
+
+header a ~ p {
+	margin: 0;
+	padding: 0;
+	display: inline;
+	color: #ECEFF1;
+}
+
+/****** Login Styling ******/
+
+.login {
+	margin: 86px auto 0 auto;
+	text-align: center;
+}
+
+#login-btn {
+	width: 225px;
+}
+
+.btn p {
+	margin: 5px 0 0 0;
+	padding: 0;
+}
+
+.btn > img {
+	float: left;
+	margin-left: 10px
+}
+
+/****** Logo Div Styling ******/
+
+img {
+	margin: 0 auto;
+	display: block;
+}
+
+.clementine-text { /* Styling for the Clementine.js text */
+	padding: 0;
+	margin: -25px 0 0 0;
+	font-weight: 500;
+	font-size: 60px;
+	color: #FFA000;
+}
+
+/****** Click Styling ******/
+
+.btn-container {	/* Styling for the div that contains the buttons */
+	margin: -10px auto 0 auto;
+	text-align: center;
+}
+
+.btn {	/* Styling for buttons */
+	margin: 0 8px;
+	color: white;
+	background-color: #00BCD4;
+	display: inline-block;
+	border: 0;
+	font-size: 14px;
+	border-radius: 3px;
+	padding: 10px 5px;
+	width: 100px;
+	font-weight: 500;
+}
+
+.btn:focus {	/* Remove outline when hovering over button */
+	outline: none;
+}
+
+.btn:active {	/* Scale the button down by 10% when clicking on button */
+	transform: scale(0.9, 0.9);
+	-webkit-transform: scale(0.9, 0.9);
+	-moz-transform: scale(0.9, 0.9);
+}
+
+.btn-delete {	/* Styling for delete button */
+	background-color: #ECEFF1;
+	color: #212121;
+}
+
+/****** Profile Styling ******/
+
+.twitter-profile {
+	width: 350px;
+	height: 160px;
+	border-radius: 3px;
+	margin: 86px auto 0 auto;
+	background-color: #00BCD4;
+	text-align: center;
+	color: #FFFFFF;
+}
+
+.twitter-profile p:first-child {
+	padding-top: 16px;
+}
+
+.twitter-profile p:nth-child(4) {
+	margin-bottom: 16px
+}
+
+.twitter-profile p {
+	margin: 0 0 0 16px;
+	text-align: left;
+}
+
+span {
+	font-weight: 500;
+}
+
+.twitter-profile > img {
+	padding-top: 16px;
+	margin-bottom: 16px;
+}
+
+.twitter-profile .menu {
+	color: #FFFFFF;
+}
+
+.twitter-profile .menu:visited {
+	color: #FFFFFF;
+}
+
+.twitter-profile .menu:hover {
+	color: #FFA000;
+}
+
+.twitter-profile .menu:active {
+	color: #FF630D;
+}
+
+#menu-divide {
+	color: #FFFFFF;
+	display: inline;
+	margin: 0;
+}
+```
+
+You can now re-run the app. It should look much more organized! Here's what each screen of our application should look like:
+
+_/login_:
+
+[login screenshot]
+
+_/index_:
+
+[index screenshot]
+
+_/profile_:
+
+[profile screenshot]
 
 ## Conclusion
