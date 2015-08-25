@@ -1,44 +1,33 @@
 ## Clementine.js MEAN Boilerplate
 
-[Clementine.js Standard Repo](https://github.com/johnstonbl01/clementinejs) | [Clementine.js Bare Repo](https://github.com/johnstonbl01/clementinejs-bare) | [Clementine.js Beginner Repo](https://github.com/johnstonbl01/clementinejs-beginner)
-
 ## Overview
 
-Clementine.js is a lightweight MEAN stack boilerplate intended for beginners and advanced users alike. 
+Clementine.js is a lightweight MEAN stack boilerplate intended for beginners and advanced users alike. The Standard boilerplate includes a few more bells and whistles to improve workflow, but remains a simple boilerplate without much fluff to get in the way. 
 
-There are 3 versions of Clementine.js:
+This version of the boilerplate contains a website that demonstrates the power of the stack, including some examples of how to apply Angular & data-binding using MEAN.
 
-**Beginner** - The beginner boilerplate contains a very simple application that is intended to show a beginner how the MEAN stack fits together and get started on his or her first web application.
+## Versions
 
-**Standard** - The Standard boilerplate includes a few more bells and whistles to improve workflow, but remains a simple boilerplate without much fluff to get in the way. This version of the boilerplate contains a website that demonstrates the power of the stack, including some examples of how to apply Angular & data-binding using MEAN.
-
-**Bare** - The bare template includes all of the additional libraries, but pared down to only include the necessities. There is a simple web app here (the same as the beginner sample), but using the additional libraries included in the Standard version.
+- [Beginner](https://github.com/johnstonbl01/clementinejs-beginner): A simplified version of the boilerplate intended for developers new to JavaScript and the MEAN stack.
+- [Bare](https://github.com/johnstonbl01/clementinejs-bare): A stripped down version of the boilerplate for quick prototyping
+- [FCC](https://github.com/johnstonbl01/clementinejs-fcc): An extension of the beginner version that includes authentication & authorization
 
 ## Quick Start Guide
 
-#### Prerequisites
+### Prerequisites
 
 In order to use Clementine.js, you must have the following installed:
 
 - [Git](https://git-scm.com/)
 - [Node & NPM](https://nodejs.org/)
 - [MongoDB](http://www.mongodb.org/)
+- [Yeoman](http://yeoman.io/)
 
-#### Beginner
-
-To begin developing with the bare version of Clementine.js, create a project directory and run the following from your terminal:
-
-TBD
-
-#### Standard
-
-To begin developing with the bare version of Clementine.js, create a project directory and run the following from your terminal:
+### Installation
 
 TBD
 
-#### Bare
-
-To begin developing with the bare version of Clementine.js, create a project directory and run the following from your terminal:
+## Contributing
 
 TBD
 
