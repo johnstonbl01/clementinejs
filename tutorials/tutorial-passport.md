@@ -1436,7 +1436,7 @@ body {
 header {
 	color: #00BCD4;
 	height: 56px;
-	margin: 0 0 30px 0;
+	margin: 0 0 14px 0;
 	text-align: center;
 }
 
@@ -1624,3 +1624,7 @@ _/profile_:
 [profile screenshot]
 
 ## Conclusion
+
+And that's it! Congratulations, you've just integrated authentication into your application using Passport! You definitely deserve a pat on the back. If you run into any issues or have any questions, feel free to [reach out to me on Twitter](https://twitter.com/johnstonbl01). The source code for this application can be [found on GitHub](https://github.com/johnstonbl01/clementinejs-fcc).
+
+Happy coding!
