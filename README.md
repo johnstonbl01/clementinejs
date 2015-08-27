@@ -1,4 +1,6 @@
-## Clementine.js MEAN Boilerplate
+# Clementine.js MEAN Boilerplate
+
+**Note**: Clementine.js is currently being transitioned to a Yeoman generator and has not yet been published. The installation steps below will not work at this time.
 
 ## Overview
 
@@ -34,6 +36,20 @@ TBD
 ## Documentation
 
 Complete documentation can be [found here](http://johnstonbl01.github.io/clementinejs).
+
+## Features
+
+| Features 				| Beginner 	| Standard 	| Bare 		| FCC 		|
+|:---------				|:--------:	|:--------:	|:---------:|:---------:|
+| Commented Code		| _Yes_ 	| _No_ 		| _No_		| _No_		|
+| Example Controller 	| _Yes_ 	| _Yes_		| _Yes_		| _Yes_		|
+| Example Directive 	| _No_ 		| _Yes_		| _No_		| _No_		|
+| Jade					| _No_ 		| _Yes_ 	| _Yes_	 	| _No_		|
+| Mongoose				| _No_		| _Yes_		| _Yes_		| _Yes_		|
+| Gulp				 	| _No_		| _Yes_		| _Yes_		| _No_		|
+| Sass					| _No_		| _Yes_		| _Yes_		| _No_		|
+| Bower					| _Yes_		| _Yes_		| _Yes_		| _No_		|
+| Authentication		| _No_		| _No_		| _No_		| _Yes_		|
 
 ## License
 
