@@ -197,6 +197,12 @@ img {
 	list-style-type: none;
 }
 
+.container > ul:first-of-type > li > ul > li > ul {
+	font-size: 16px;
+	padding: 5px 0 0 20px;
+	list-style-type: none;
+}
+
 footer a {
 	display: inline-block;
 }
