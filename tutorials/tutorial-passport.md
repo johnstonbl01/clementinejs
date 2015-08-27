@@ -7,6 +7,31 @@ layout: site
 ## Contents
 
 - [Prerequisites](#prerequisites)
+- [Attack of the Auth](#attack-of-the-auth)
+- [Setup](#setup)
+	- [Install NPM Packages](#install-npm-packages)
+	- [Updating the Folder Structure](#updating-the-folder-structure)
+- [Mongoose Integration](#mongoose-integhation)
+	- [Server.js Cleanup](#serverjs-cleanup)
+	- [Create a Mongoose Model](#create-a-mongoose-model)
+	- [Updating the Routes](#updating-the-routes)
+	- [Refactor Server-Side Controller](#refactor-server-side-controller)
+- [Passport Server-Side Integration](#passport-server-side-integration)
+	- [Twitter App Setup](#twitter-app-setup)
+	- [Create the User Model](#create-the-user-model)
+	- [Authorization Configuration](#authorization-configuration)
+	- [Passport Configuration](#passport-configuration)
+	- [Update and Create Routes](#update-and-create-routes)
+	- [Updating the Server File](#updating-the-server-file)
+- [Passport Client-Side Integration](#passport-client-side-integration)
+	- [Retrieving User Information](#retrieving-user-information)
+	- [Creating New Views](#creating-new-views)
+		- [Login View](#login-view)
+		- [Profile View](#profile-view)
+		- [Updating Index.html](#updating-indexhtml)
+	- [Passing User Information to the View](#passing-user-information-to-the-view)
+	- [Make It Pretty](#make-it-pretty)
+- [Conclusion](#conclusion)
 
 ## Prerequisites
 
@@ -28,6 +53,8 @@ Normally, this requires worrying about securing and encrypting passwords, but lu
 OAuth is an open standard for authentication that allows 3rd-party sites (like ours) to use Twitter (Microsoft, Google and Facebook are also included) credentials to log into the 3rd party site. This is great because we don't have to worry about securely storing the passwords or managing any of the encryption.
 
 This advanced tutorial, created specifically for [Free Code Camp](http://www.freecodecamp.com/) students, will walk you through integrating this library with the Clementine.js demo application created during [part 1 of the tutorial](/tutorial-beginner.md).
+
+[Back to top.](#top)
 
 ## Setup
 
@@ -94,6 +121,8 @@ The `package.json` file should now look like:
 }
 ```
 
+[Back to top.](#top)
+
 ### Updating the Folder Structure
 
 Let's go ahead and modify the folder structure to include some of the new functionality we'll be convering. 
@@ -119,6 +148,8 @@ Let's go ahead and modify the folder structure to include some of the new functi
 - **app/models** - Directory for database models. In this case, this is where the Mongoose schemas will be defined.
 
 The remainder of the folders are the same.
+
+[Back to top.](#top)
 
 ## Mongoose Integration
 
@@ -157,6 +188,8 @@ There are 3 changes to the code:
 1. Remove the `mongo = require(...)` statement and replace it by requiring Mongoose instead.
 2. Remove the `mongo.connect(...)` wrapping function, including the conditional `if` statement. This gets replaced with a Mongoose connection function.
 3. Remove the `db` argument for the routes, as we will no longer need to provide that information since Mongoose will do it for us via the schema. Don't worry if this part doesn't make too much sense, we'll go into more detail once we get to that part.
+
+[Back to top.](#top)
 
 ### Create a Mongoose Model
 
@@ -199,6 +232,8 @@ The `mongoose.model` method accepts two arguments:
 
 This model is exported with [`module.exports`](https://nodejs.org/api/modules.html#modules_module_exports), which is a Node function that exports the function or object for use within another file using the `require` function. This is a common Node pattern.
 
+[Back to top.](#top)
+
 ### Updating the Routes
 
 Next, let's move on to our route file in the `/app/routes` directory. There are only a few small changes here.
@@ -230,6 +265,8 @@ module.exports = function (app) {
 First, we move the `.clickHandler` from the end of the `require` statement. We're doing this because rather than export an anonymous function object from the clickHandler file, we will export the entire object. The `.clickHandler` specification is there because using the `module.exports.clickHandler` syntax creates `clickHandler` as a method on the `module.exports` object. This must specifically be referenced in the `require` statement. As we'll see in just a moment, there is another way to accomplish this without requiring the `.clickHandler` expression.
 
 We've removed the `db` argument from both the `module.exports = function (app) {... }` line and the `new ClickHandler()`. We've done this because the database information itself is inherent in using a Mongoose schema. The model we created earlier gets exported for use within our controllers. We'll see this shortly. For now, these are the only changes required to the route file. Wasn't that easy?
+
+[Back to top.](#top)
 
 ### Refactor Server-Side Controller
 
@@ -364,6 +401,8 @@ module.exports = ClickHandler;
 
 This syntax should be familiar now. Let's test that the application still works. In the terminal window of the project directory, type `node server`, and then browse to `localhost:3000`. The app should function just as it did before -- adding and resetting clicks!
 
+[Back to top.](#top)
+
 ## Passport Server-Side Integration
 
 ### Twitter App Setup
@@ -383,9 +422,11 @@ Head to `https://apps.twitter.com/` and ensure that you're logged in to Twitter.
 
 Once this is done, it will take you to a page with information about your application. At the top, click on Keys and Access Tokens. Make note of the Consumer Key (API Key) and the Consumer Secret (API Secret). We'll use these later in our app.
 
-[image of keys and access tokens]
+![Twitter App Setup](/clementinejs/img/passporttut01.png)
 
 The difference between the API Key and the API Secret is that the key is considered _public_, while the secret is known only to the vendor (Twitter in this case) and you.
+
+[Back to top.](#top)
 
 ### Create the User Model
 
@@ -422,6 +463,8 @@ The [fields that Twitter provides](http://passportjs.org/docs/profile) are:
 
 Next we'll move on to setting up our authorization file.
 
+[Back to top.](#top)
+
 ### Authorization Configuration
 
 We need a way to store our app-specific Twitter authentication information so that Twitter can authenticate that our application can access its API and retrieve user information. Previously, we registered our app on `https://apps.twitter.com` and noted our token and secret.
@@ -443,6 +486,8 @@ module.exports = {
 ```
 
 The `'callbackURL'` is the URL we entered when registering our app, and this is where Twitter will send information once the user has been authenticated. We'll handle this callback in our routes later. For now, just know that Twitter first authenticates the user, then sends information back to to our application via the `'callbackURL'`.
+
+[Back to top.](#top)
 
 ### Passport Configuration
 
@@ -610,7 +655,9 @@ module.exports = function (passport) {
 
 Here, we're creating a new instance of our User model, and then mapping database object properties like `newUser.twitter.id` to the information sent back by the Twitter API (`profile.id`). Finally, we insert this information into the database with `newUser.save(...)`, passing our user information back to Passport with `return done(null, newUser)`.
 
-This is far and away the most complicated part of integrating authentication and authorization. If it's still a bit fuzzy, please reach out to me on Twitter or via Email and we can discuss. Additionally, there are myriad blog posts that likely do a much better job explaining Passport authentication and serialization. Let's move on, shall we?
+This is far and away the most complicated part of integrating authentication and authorization. If it's still a bit fuzzy, please reach out to me on Twitter or via Email and we can discuss. Let's move on, shall we?
+
+[Back to top.](#top)
 
 ### Update and Create Routes
 
@@ -939,6 +986,8 @@ module.exports = function (app, passport) {
 
 That's all of the routes for our application! Let's move on to modifying our server file and finishing up the backend modifications.
 
+[Back to top.](#top)
+
 ### Updating the Server File
 
 Now we'll begin making the final server-side modifications. The first step is to include our additional NPM modules (express-session and passport) in the `server.js` file.
@@ -1043,6 +1092,8 @@ app.listen(port, function () {
 
 Let's run a quick test. Within the project directory, start the application using `node server`. Then, point a browser to `localhost:3000`. There should be an error message referencing the `/login` route. This means that the app is working as intended at the moment - we tried to access the `/` route, but were redirected to `/login`. Since we've yet to create the view for that page, we get an error.
 
+[Back to top.](#top)
+
 ## Passport Client-Side Integration
 
 To integrate our newly created authentication routines on the client side, we'll take the following approach:
@@ -1056,7 +1107,9 @@ To integrate our newly created authentication routines on the client side, we'll
 
 To retrieve our user information from the API and make it available into an object, we're going to use what's known as an Angular factory. Factories are common conventions in Angular to retrieve information and output an object with that information. The object is then made available within other Angular components using dependency injection. This keeps the different components separate, each with its own function, also known as "separation of concerns".
 
-Factories are creating similar to other Angular modules, so the syntax should look relatively familiar. Let's begin by creating a new file in the `factories` folder named `userFactory.js`.
+(It should be noted that Angular provides several ways to perform this data retrieval functionality -- services, providers and factories. [Here's a blog post](http://tylermcginnis.com/angularjs-factory-vs-service-vs-provider/) if you're interested in the differences. In general, it's frowned upon to perform this data retrieval from within the controller, since each component should be limited to a single, focused purpose.)
+
+Factories are created similar to other Angular modules, so the syntax should look relatively familiar. Let's begin by creating a new file in the `factories` folder named `userFactory.js`.
 
 Similar to controllers, we'll start by wrapping the entire module in an [IIFE (immediately-invoked function expression)](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression). Again, this will ensure that any variables defined within the module do not pollute the global namespace.
 
@@ -1114,6 +1167,8 @@ app.use('/factories', express.static(process.cwd() + '/app/factories'));
 ```
 
 Let's move on to creating some of the new views and begin to further flesh out the front end of the application!
+
+[Back to top.](#top)
 
 ### Creating New Views
 
@@ -1175,6 +1230,8 @@ Finally, we're going to create an anchor element (`<a>`) and point the hyperlink
 Inside the anchor element, we're including a `<div>` with the Twitter logo and the phrase, "LOGIN WITH TWITTER". After CSS is applied, this anchor element will wrap the `<div>`. We do this so that whenever a user clicks anywhere on the `div`, it will fire the anchor element.
 
 That's it for the login page. We're keeping it extremely simple.
+
+[Back to top.](#top)
 
 #### Profile View
 
@@ -1272,6 +1329,8 @@ _profile.html_:
 </html>
 ```
 
+[Back to top.](#top)
+
 #### Updating Index.html
 
 The last step in creating the views is to update our existing `index.html` to include a few new features. We want to display the user's name when they log in, and provide a way for them to visit the profile page and log out. Additionally, we'll need to update the list of scripts to include the relevant Angular user scripts to properly pull in the user information.
@@ -1312,6 +1371,8 @@ _index.html_:
 <script type="text/javascript" src="factories/userFactory.js"></script>
 <script type="text/javascript" src="controllers/userController.client.js"></script>
 ```
+
+[Back to top.](#top)
 
 ### Passing User Information to the View
 
@@ -1416,6 +1477,8 @@ _userController.client.js_:
 At this point we've setup all the puzzle pieces and can test the application to ensure everything works. Fire up node by entering `node server` from the terminal (note: you must be within your project directory for this to work). Next, point your browser to `http://localhost:3000` and be amazed! You've just integrated authentication in an application!
 
 If you receive an error message, then something has gone wrong. At this point everything should work without error. But golly gee, the app sure is ugly and looks disorganized! It's time to make it pretty...
+
+[Back to top.](#top)
 
 ### Make It Pretty
 
@@ -1613,15 +1676,17 @@ You can now re-run the app. It should look much more organized! Here's what each
 
 _/login_:
 
-[login screenshot]
+![Login Screenshot](/clementinejs/img/passporttut02.png)
 
 _/index_:
 
-[index screenshot]
+![Index Screenshot](/clementinejs/img/passporttut03.png)
 
 _/profile_:
 
-[profile screenshot]
+![Profile Screenshot](/clementinejs/img/passporttut04.png)
+
+[Back to top.](#top)
 
 ## Conclusion
 
