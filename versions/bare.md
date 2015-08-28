@@ -7,21 +7,16 @@ layout: site
 ## Contents
 
 - [About](#about)
-	- [MongoDB](#mongodb)
-	- [Express.js](#express.js)
-	- [AngularJS](#angularjs)
-	- [Node.js](#node.js)
-	- [Jade](#jade)
-	- [Mongoose](#mongoose)
-	- [Gulp](#gulp)
-	- [Bower](#bower)
-	- [Sass](#sass)
 - [Installation](#installation)
-	- [Install Node.js and NPM](#install-node.js-and-npm)
-	- [Install MongoDB](#install-mongodb)
-	- [Install Clementine.js](#install-clementine.js)
+	- [Node.js and NPM](#install-node.js-and-npm)
+	- [MongoDB](#install-mongodb)
+	- [Clementine.js](#install-clementine.js)
+	- [Yeoman](#install-yeoman)
 	- [Starting the App](#starting-the-app)
 - [Folder Structure](#folder-structure)
+- [Gulp Tasks](#gulp-tasks)
+	- [Minify](#minify)
+	- [Watch](#watch)
 - [Removing Components](#removing-components)
 	- [Removing Jade](#removing-jade)
 	- [Removing Mongoose](#removing-mongoose)
@@ -37,71 +32,55 @@ If you're just learning how to code, I suggest checking out the beginner version
 
 If you're looking for a demonstration of these technologies for a simple website, check out the standard version of Clementine.js.
 
-### MongoDB
+#### MongoDB
 
 MongoDB is a document-store (NoSQL) database. Queries are written in JavaScript, and that is the primary reason for its inclusion in the MEAN stack.
 
 For more information on MongoDB, please [have a look at their stellar documentation](http://docs.mongodb.org/manual/). In addition, once you have practiced your Node skills, I highly recommend taking [this free 7-week online course](https://university.mongodb.com/courses/M101JS/about) that MongoDB offers.
 
-[Back to top.](#top)
-
-### Express.js
+#### Express.js
 
 Express is an unopinionated framework for Node.js that creates additional functionality for the creation of web applications. 
 
 For more information on express, check out their [website and documentation](http://expressjs.com/).
 
-[Back to top.](#top)
-
-### Angular.js
+#### Angular.js
 
 AngularJS is a front-end framework developed and backed by Google. Angular is a complete framework, meaning it has a great amount of built-in functionality for building web applications.
 
 For more about AngularJS, have a look at their [website and documentation](https://angularjs.org/). Google has also created a [site that showcases some of the new features coming in Angular 2.0](https://angular.io/).
 
-[Back to top.](#top)
-
-### Node.js
+#### Node.js
 
 Node.js is a platform built on Google's V8 JavaScript run-time, allowing server-side code to be written in JavaScript. 
 
 For more information on Node, [try their site](https://nodejs.org/documentation/). I also recommend having a look at [NodeSchool](http://nodeschool.io/).
 
-[Back to top.](#top)
-
-### Jade
+#### Jade
 
 Jade is a Node templating engine that uses terse syntax to render HTML pages. This syntax is similar to Sass in that it interprets white space and indentation when rendering.
 
 More info can be found on the [Jade website](http://jade-lang.com/).
 
-[Back to top.](#top)
-
-### Mongoose
+#### Mongoose
 
 Mongoose is an object modeling tool for MongoDB that allows for definition of schemas. This helps ensure data consistency in the MongoDB database.
 
 The Mongoose docs can be [found here](http://mongoosejs.com/index.html).
 
-[Back to top.](#top)
-
-### Gulp
+#### Gulp
 
 Gulp is a build system that uses the idea of streams to automate workflow (similar to Grunt). Clementine.js utilizes Gulp to automate watch, refresh and Sass pre-processing.
 
 Here's a link to the [Gulp documentation](http://gulpjs.com/).
 
-[Back to top.](#top)
-
-### Bower
+#### Bower
 
 Bower is a package manager for client-side frameworks, libraries, etc. In the case of Clementine.js, Bower is used to manage installation of the necessary AngularJS files.
 
 Check out the [Bower site](http://bower.io/) for more info.
 
-[Back to top.](#top)
-
-### Sass
+#### Sass
 
 Sass (Syntactically Awesome Style Sheets) is an extension language for CSS. It employs terse syntax (similar to Jade) that encourages the use of white space and indentation to write style sheets. Sass requires a pre-processor to compile it into traditional CSS. Additionally, Sass allows for the use of variables and a few other features that don't exist in traditional CSS.
 
@@ -147,18 +126,29 @@ MongoDB has great installation instructions for MAC OSX, Windows and Linux. [See
 
 [Back to top.](#top)
 
-### Install Clementine.js
+### Install Yeoman
 
-To install the boilerplate, simply type the following in the terminal:
+Yeoman is simple to install:
 
 ```bash
-$ npm install clementinejs
-$ cd clementinejs
-$ npm install
-$ bower install
+$ npm install -g yo
 ```
 
-Note: `$ npm install` will install all dependencies for the boilerplate. 
+Note that it should be installed globally.
+
+[Back to top.](#top)
+
+### Install Clementine.js
+
+Clementine.js is easy to setup in the project directory of your choice! In the terminal:
+
+```bash
+$ mkdir your-project
+$ cd your-project
+$ yo clementinejs:bare
+```
+
+It's that easy!
 
 [Back to top.](#top)
 
@@ -224,6 +214,27 @@ Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up 
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
 - **lib** - Contains Bower-installed dependencies (i.e. AngularJS)
 - **scripts** - This folder contains minified versions of the all the JavaScript files used in the application
+
+[Back to top.](#top)
+
+## Gulp Tasks
+
+The Bare version of Clementine.js includes a few pre-configured Gulp build tasks for use during development.
+
+## Minify
+
+The minify task has two parts:
+
+- Pre-process and compress all Sass files in the `app/css` directory into a single file, minified file named `main.min.css` in the `public/css` directory
+- Compress all `.client.js` files in the `app/controllers` directory into a single JS file named `site.min.js`. This file is located in the `public/scripts` directory
+
+Simply type `gulp minify` in the terminal window of your project to use this task.
+
+## Watch
+
+The default gGulp task will start the server and watch for any updates to Jade or JavaScript files. If any files with extension `.jade` or `.js` are updated, Gulp will restart the server, and output the time restarted in the server console.
+
+Simply type `gulp` in the terminal window to start this task.
 
 [Back to top.](#top)
 

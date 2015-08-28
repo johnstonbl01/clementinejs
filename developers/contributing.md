@@ -6,9 +6,12 @@ layout: site
 
 This project is open source and provides multiple ways to make meaningful contributions. This application couldn't exist without the help of many contributors, and we want you to feel like you can help out and make a difference.
 
+## Contents
+
 ### Ways to Contribute
 
 There are many ways to contribute:
+
 - **Filing an Issue** - if you find a bug or want to request an enhancement, [file an issue](https://github.com/johnstonbl01/generator-clementinejs/issues/new).
 - **Working on Issues** - feel free to pick up [any open issue](https://github.com/johnstonbl01/generator-clementinejs/issues) that you feel you're capable of addressing.
 - **Documentation** - if you enjoy writing and want to contribute to the project, try improving [our documentation](https://github.com/johnstonbl01/clementinejs/tree/gh-pages).

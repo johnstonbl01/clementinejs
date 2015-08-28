@@ -31,7 +31,7 @@ Clementine.js is a lightweight MEAN stack boilerplate. In addition to MongoDB, E
 
 If you're just learning how to code, I suggest checking out the beginner version of Clementine.js. 
 
-If you're looking for a simpler and more stripped down of the boilerplate without the sample application, there's a version for that.
+If you're looking for a simpler and more stripped down of the boilerplate without the sample application, there's a version for that [here](/clementinejs/versions/bare).
 
 ### MongoDB
 

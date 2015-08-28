@@ -145,7 +145,7 @@ Let's go ahead and modify the folder structure to include some of the new functi
 
 - **app/config** - The directory containing configuration files for Passport.
 - **app/factories** - Directory for Angular factories. Factories are used by Angular to retrieve information from the model (i.e. API) and pass it to the controller for manipulation. This is a common Angular convention.
-- **app/models** - Directory for database models. In this case, this is where the Mongoose schemas will be defined.
+- **app/models** - Directory for database models. In this case, this is where the Mongoose schemas will be defined. These models are definitions of desired data structure that will be inserted into the database.
 
 The remainder of the folders are the same.
 
