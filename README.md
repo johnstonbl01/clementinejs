@@ -20,18 +20,26 @@ This version of the boilerplate contains a website that demonstrates the power o
 
 In order to use Clementine.js, you must have the following installed:
 
-- [Git](https://git-scm.com/)
 - [Node & NPM](https://nodejs.org/)
 - [MongoDB](http://www.mongodb.org/)
 - [Yeoman](http://yeoman.io/)
 
-### Installation
+### Installation & Startup
 
-TBD
+Clementine.js is easy to setup in the project directory of your choice! In the terminal:
+
+```bash
+$ mkdir your-project
+$ cd your-project
+$ yo clementinejs
+$ gulp
+```
+
+It's that easy!
 
 ## Contributing
 
-TBD
+This is an open-source project, and contributions are always welcome! To see ways to contribute, please review the [contribution guidelines](http://johnstonbl01.github.io/clementinejs/developers/contributing.html).
 
 ## Documentation
 
