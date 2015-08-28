@@ -11,7 +11,7 @@ body {
 
 header {
 	background-color: #FFA000;
-	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	border-bottom: 1px solid #FF630D;
 }
 
 strong {
@@ -26,7 +26,7 @@ strong {
 	display: block;
 }
 
-#navbar ul{
+#navbar ul {
 	list-style-type: none;
 	float: right;
 	text-align: center;
@@ -54,8 +54,14 @@ strong {
 	color: #F7F7F7;
 }
 
+.nav-button:focus {
+	text-decoration: none;
+	color: #F7F7F7;
+	background-color: rgba(255,255,255,0.2);
+}
+
 .nav-button:active {
-	background-color: rgba(255,255,255,0.4);
+	background-color: rgba(255,255,255,0.2);
 }
 
 .nav-button:link {
@@ -69,6 +75,25 @@ strong {
 	margin: 0;
 	padding: 0;
 	float: left;
+}
+
+.dropdown-menu {
+    background-color: #FFF;
+    float: right;
+    top: 85%;
+    border-radius: 0px;
+}
+
+.dropdown-menu > li {
+	width: 100%;
+	text-align: left;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #4DD0E1;
 }
 
 .container {
