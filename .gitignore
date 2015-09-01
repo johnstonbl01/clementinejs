@@ -1,5 +1,4 @@
 dist/
 node_modules/
 public/lib/
-public/scripts/site.js
 .eslintrc
