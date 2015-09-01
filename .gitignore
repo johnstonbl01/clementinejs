@@ -1,4 +1,5 @@
 dist/
+config/local.env.js
 node_modules/
 public/lib/
 .eslintrc
