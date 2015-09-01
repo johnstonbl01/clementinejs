@@ -1,6 +1,5 @@
 dist/
 node_modules/
 public/lib/
-public/css/
 public/scripts/site.js
 .eslintrc
