@@ -12,9 +12,10 @@ layout: site
 	- [AngularJS](#angularjs)
 	- [Node.js](#node.js)
 - [Installation](#installation)
-	- [Install Node.js and NPM](#install-node.js-and-npm)
-	- [Install MongoDB](#install-mongodb)
-	- [Install Clementine.js](#install-clementine.js)
+	- [Node.js](#install-node.js-and-npm)
+	- [MongoDB](#install-mongodb)
+	- [Yeoman](#install-yeoman)
+	- [Clementine.js](#install-clementine.js)
 	- [Starting the App](#starting-the-app)
 - [Folder Structure](#folder-structure)
 - [Tutorial](#tutorial)
@@ -128,17 +129,29 @@ MongoDB has great installation instructions for MAC OSX, Windows and Linux. [See
 
 [Back to top.](#top)
 
-### Install Clementine.js
+### Install Yeoman
 
-To install the boilerplate, simply type the following in the terminal:
+Yeoman is simple to install:
 
 ```bash
-$ npm install clementinejs
-$ cd clementinejs
-$ npm install
+$ npm install -g yo
 ```
 
-Note: `$ npm install` will install all dependencies for the boilerplate. 
+Note that it should be installed globally.
+
+[Back to top.](#top)
+
+### Install Clementine.js
+
+Clementine.js is easy to setup in the project directory of your choice! In the terminal:
+
+```bash
+$ mkdir your-project
+$ cd your-project
+$ yo clementinejs:fcc
+```
+
+It's that easy!
 
 [Back to top.](#top)
 
@@ -196,6 +209,6 @@ Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up 
 
 ## Tutorial
 
-You can find a complete step-by-step tutorial on how to create this app from the ground up [here]({{ site.baseurl }}/tutorial/tutorial.html).
+You can find a complete step-by-step tutorial on how to create this app from the ground up [here](/clementinejs/tutorials/tutorial-passport.html).
 
 [Back to top.](#top)

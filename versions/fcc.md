@@ -28,13 +28,13 @@ MongoDB is a document-store (NoSQL) database. Queries are written in JavaScript,
 
 For more information on MongoDB, please [have a look at their stellar documentation](http://docs.mongodb.org/manual/). In addition, once you have practiced your Node skills, I highly recommend taking [this free 7-week online course](https://university.mongodb.com/courses/M101JS/about) that MongoDB offers.
 
-#### Express.js
+#### Express
 
 Express is an unopinionated framework for Node.js that creates additional functionality for the creation of web applications. 
 
 For more information on express, check out their [website and documentation](http://expressjs.com/).
 
-#### Angular.js
+#### AngularJS
 
 AngularJS is a front-end framework developed and backed by Google. Angular is a complete framework, meaning it has a great amount of built-in functionality for building web applications.
 
@@ -121,6 +121,8 @@ $ yo clementinejs:fcc
 ```
 
 It's that easy!
+
+[Back to top.](#top)
 
 ### Setup Twitter Authentication
 
