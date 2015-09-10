@@ -1,6 +1,6 @@
 # Clementine.js MEAN Boilerplate
 
-**Note**: Clementine.js is currently being transitioned to a Yeoman generator and has not yet been published. The installation steps below will not work at this time.
+**Note**: Clementine.js is currently undergoing significant changes. As such, over the course of the next few weeks many aspects of both the application and the related repos (i.e. bare, beginner, fcc, etc) will change. If you experience any issues during this time, please reach out to me via Twitter (@johnstonbl01). 
 
 ## Overview
 
