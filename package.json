@@ -22,5 +22,9 @@
     "boilerplate"
   ],
   "author": "Blake Johnston",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongodb": "^2.0.42"
+  }
 }
