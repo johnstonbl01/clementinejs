@@ -10,13 +10,13 @@ This version of the boilerplate contains a website that demonstrates the power o
 
 ## Versions
 
-- [Beginner](https://github.com/johnstonbl01/clementinejs-beginner): A simplified version of the boilerplate intended for developers new to JavaScript and the MEAN stack.
-- [Bare](https://github.com/johnstonbl01/clementinejs-bare): A stripped down version of the boilerplate for quick prototyping
-- [FCC](https://github.com/johnstonbl01/clementinejs-fcc): An extension of the beginner version that includes authentication & authorization
+TBC
 
 ## Quick Start Guide
 
 ### Prerequisites
+
+**TBU**
 
 In order to use Clementine.js, you must have the following installed:
 
@@ -26,17 +26,7 @@ In order to use Clementine.js, you must have the following installed:
 
 ### Installation & Startup
 
-Clementine.js is easy to setup in the project directory of your choice! In the terminal:
-
-```bash
-$ npm install -g generator-clementinejs
-$ mkdir your-project
-$ cd your-project
-$ yo clementinejs
-$ gulp
-```
-
-It's that easy!
+TBC
 
 ## Contributing
 
@@ -48,17 +38,14 @@ Complete documentation can be [found here](http://johnstonbl01.github.io/clement
 
 ## Features
 
-| Features 				| Beginner 	| Standard 	| Bare 		| FCC 		|
-|:---------				|:--------:	|:--------:	|:---------:|:---------:|
-| Commented Code		| _Yes_ 	| _No_ 		| _No_		| _No_		|
-| Example Controller 	| _Yes_ 	| _Yes_		| _Yes_		| _Yes_		|
-| Example Directive 	| _No_ 		| _Yes_		| _No_		| _No_		|
-| Jade					| _No_ 		| _Yes_ 	| _Yes_	 	| _No_		|
-| Mongoose				| _No_		| _Yes_		| _Yes_		| _Yes_		|
-| Gulp				 	| _No_		| _Yes_		| _Yes_		| _No_		|
-| Sass					| _No_		| _Yes_		| _Yes_		| _No_		|
-| Bower					| _Yes_		| _Yes_		| _Yes_		| _No_		|
-| Authentication		| _No_		| _No_		| _No_		| _Yes_		|
+| Features 				| Standard 	| Angular 	| FCC 		|
+|:---------				|:--------:	|:--------:	|:---------:|
+| MongoDB				| _Yes_		| _Yes_ 	| _Yes_	 	|
+| Express				| _Yes_		| _Yes_ 	| _Yes_	 	|
+| AngularJS (1.x)		| _No_ 		| _Yes_ 	| _No_	 	|
+| Node.js				| _Yes_		| _Yes_ 	| _Yes_	 	|
+| Passport				| _No_ 		| _No_	 	| _Yes_	 	|
+| Mongoose				| _No_ 		| _No_	 	| _Yes_	 	|
 
 ## License
 
