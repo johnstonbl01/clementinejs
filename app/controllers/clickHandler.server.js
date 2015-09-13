@@ -12,11 +12,11 @@ function clickHandler (db) {
             throw err;
          }
 
-         var clickResults = [];
+         // var clickResults = [];
 
          if (result) {
-            clickResults.push(result);
-            res.json(clickResults);
+            // clickResults.push(result);
+            res.json(result);
          } else {
             clicks.insert({ 'clicks': 0 }, function (err) {
                if (err) {
@@ -28,8 +28,8 @@ function clickHandler (db) {
                      throw err;
                   }
 
-                  clickResults.push(doc);
-                  res.json(clickResults);
+                  // clickResults.push(doc);
+                  res.json(doc);
                });
             });
          }
@@ -51,7 +51,6 @@ function clickHandler (db) {
          if (err) {
             throw err;
          }
-
          res.json(result);
       });
    };
