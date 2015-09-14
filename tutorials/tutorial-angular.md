@@ -7,29 +7,32 @@ layout: site
 ## Contents
 
 - [Prerequisites](#prerequisites)
-	- [Install Node.js and NPM](#install-node.js-and-npm)
-	- [Install MongoDB](#install-mongodb)
+   - [Install Node.js and NPM](#install-node.js-and-npm)
+   - [Install MongoDB](#install-mongodb)
 - [NPM Package Installation](#npm-package-installation)
-	- [About Express](#about-express)
-	- [About MongoDB](#about-mongodb)
+   - [About Express](#about-express)
+   - [About MongoDB](#about-mongodb)
 - [.gitignore](#.gitignore)
 - [Folder Creation](#folder-creation)
 - [App Architecture Overview](#app-architecture-overview)
 - [Simple Node Server](#simple-node-server)
-	- [Refactoring Routes](#refactoring-routes)
-	- [Adding Additional Elements to Index.HTML](#adding-additional-elements-to-index.html)
+   - [Refactoring Routes](#refactoring-routes)
+   - [Adding Additional Elements to Index.HTML](#adding-additional-elements-to-index.html)
+- [AngularJS HTML Integration](#angularjs-html-integration)
+   - [AngularJS Scope Manipulation](#angularjs-scope-manipulation)
+- [AngularJS Interactivity via the Controller](#angularjs-interactivity-via-the-controller)
 - [Connecting to MongoDB](#connecting-to-mongodb)
 - [Setting Up the Server-Side Controller](#setting-up-the-server-side-controller)
-	- [Testing the API via the Mongo Console](#testing-the-api-via-the-mongo-console)
-	- [Additional Methods and Routing](#additional-methods-and-routing)
-- [Adding Interactivity via the Client-side Controller](#adding-interactivity-via the-client-side-controller)
+   - [Testing the API via the Mongo Console](#testing-the-api-via-the-mongo-console)
+   - [Additional Methods and Routing](#additional-methods-and-routing)
+- [Integrating the API into AngularJS](#integrating-the-api-into-angularjs)
 - [Adding CSS Styling](#adding-css-styling)
 - [Next Steps](#next-steps)
 - [Additional Resources](#additional-resources)
 
 ## Prerequisites
 
-Installation Clementine.js requires two prerequisites: Node.js / NPM and MongoDB. The instructions for these are detailed below, followed by installation instructions for Clementine.js.
+Installation of the boilerplate has two prerequisites: Node.js / NPM and MongoDB. The instructions for these are detailed below, followed by installation instructions for Clementine.js.
 
 _Note:_ An internet connection is required to successfully complete this tutorial. Additionally, this tutorial assumes basic knowledge of HTML, CSS and JavaScript.
 
@@ -71,11 +74,11 @@ MongoDB has great installation instructions for MAC OSX, Windows and Linux. [See
 
 ## NPM Package Installation
 
-Once the prerequisites are installed, the next order of business is to install the necessary Node packages that will be used in the app.
+Once the prerequisites are installed, the next order of business to get install the necessary Node packages that will be used in the app.
 
 The first step is to create a `package.json` file. This is a file that will store all NPM package prerequisites in addition to other information about the application.
 
-In the terminal window and within the project directory, enter `$ npm init`. This will step you through a series of prompted questions and finally create a `package.json` file in the root directory of your project folder. If you don't know the answer to one of the questions prompted by NPM, just hit enter -- we'll be able to manually change these if necessary.
+In the terminal window and within the project directory, enter `$ npm init`. This will step you through a series of prompted questions and finally create a `package.json` file in the root direcotry of your project folder.
 
 Open the file and it should look similar to the below:
 
@@ -89,7 +92,7 @@ Open the file and it should look similar to the below:
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "MIT"
+  "license": "ISC"
 }
 ```
 
@@ -114,7 +117,7 @@ The `--save` command tells NPM to save the dependency in the `package.json` file
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "express": "^4.12.4",
     "mongodb": "^2.0.33"
@@ -165,14 +168,14 @@ node_modules/
 Now let's spend a few moments to create the file structure we'll be using.
 
 ```
-+--	Project Folder
-	+--	app
-	|	\--	controllers
-	|	\--	routes
-	|
-	+-- public
-	|	\--	css
-	|	\-- img
++--   Project Folder
+   +--   app
+   |  \--   controllers
+   |  \--   routes
+   |
+   +-- public
+   |  \--   css
+   |  \-- img
 ```
 
 **Project / Root Folder** - The project directory. This directory contains:
@@ -207,7 +210,7 @@ Additionally, for more information on the MVC architectural pattern, check out t
 In this tutorial, we're going to create a small application that will have the following functionality:
 
 - Count the number of times a button is clicked
-	- Store this count within a database
+   - Store this count within a database
 - Reset the count to 0
 
 In the context of our application, we will have the following:
@@ -215,10 +218,10 @@ In the context of our application, we will have the following:
 - A Node / Express web server that responds to HTTP request and passes files to the browswer
 - A MongoDB database that stores the number of clicks
 - A server-side controller that will add, reset and retrieve the number of clicks from the database
-	- This data will be passed to an API (application program interface)
+   - This data will be passed to an API (application program interface)
 - A client-side controller that handles user input, retrieves and modifies click information via the exposed API
 - A client-side view that the user interacts with and sees
-	- This is our HTML page that includes a logo and the buttons for interaction
+   - This is our HTML page that includes a logo and the buttons for interaction
 
 This should provide some general contextthat will be helpful as we proceed with development.
 
@@ -238,11 +241,11 @@ var express = require('express');
 var app = express();
 
 app.get('/', function (req, res) {
-	res.send('Hello world!');
+   res.send('Hello world!');
 });
 
 app.listen(3000, function () {
-	console.log('Listening on port 3000...');
+   console.log('Listening on port 3000...');
 });
 ```
 
@@ -285,13 +288,13 @@ Within this file:
 
 ```html
 <!DOCTYPE html>
-	<html>
-	<head>
-		<title>First Node App</title>
-	</head>
-	<body>
-		<p>Hello, world!</p>
-	</body>
+   <html>
+   <head>
+      <title>First Node App</title>
+   </head>
+   <body>
+      <p>Hello, world!</p>
+   </body>
 </html>
 ```
 
@@ -303,19 +306,23 @@ _Before:_
 
 ```js
 app.get('/', function (req, res) {
-	res.send('Hello world!');
+   res.send('Hello world!');
 });
 ```
 
 _After:_
 
 ```js
+var path = process.cwd();
+
 app.get('/', function (req, res) {
-	res.sendFile(process.cwd() + '/index.html');
+   res.sendFile(path + '/index.html');
 });
 ```
 
-First, we instruct Express to respond by sending a file to the browser, and specifying the location and name of the file: `res.sendFile(process.cwd() + '/index.html');`. Node's [`process.cwd()`](https://nodejs.org/api/process.html#process_process_cwd) method captures the current working directory (cwd) and allows us to append the location of the file so that it is a complete string. This ensures that Node will correctly locate the file.
+The first order of business is to capture the current directory path in a variable. For this, we use Node's [`process.cwd()`](https://nodejs.org/api/process.html#process_process_cwd) method.
+
+Next, we tell Express to respond by sending a file to the browser, and specifying the location and name of the file: `res.sendFile(path + '/index.html');`.
 
 Let's test the application now to ensure this is working correctly. Again from the project folder, type `$ node server.js` into the terminal.
 
@@ -333,7 +340,7 @@ Remove the following from the `server.js` file:
 
 ```js
 app.get('/', function (req, res) {
-	res.sendFile(process.cwd() + '/index.html');
+   res.sendFile(path + '/index.html');
 });
 ```
 
@@ -341,7 +348,7 @@ The next order of business is to add our new route file as a dependency for the 
 
 ```js
 var express = require('express'),
-	routes = require('./app/routes/index.js');
+   routes = require('./app/routes/index.js');
 ```
 
 Now we need to pass the Express application as an argument to our route function object. Essentially, we will export our routes, and that function object will accept one argument, `app`. This will allow us to use Express functionality within the scope of our new route function. Hang in there if this doesn't make sense right away.
@@ -358,14 +365,16 @@ Your `server.js` file should look like:
 'use strict';
 
 var express = require('express'),
-	routes = require('./app/routes/index.js');
+   routes = require('./app/routes/index.js');
 
 var app = express();
+
+var path = process.cwd();
 
 routes(app);
 
 app.listen(3000, function () {
-	console.log('Listening on port 3000...');
+   console.log('Listening on port 3000...');
 });
 ```
 
@@ -376,11 +385,13 @@ index.js:
 ```js
 'use strict';
 
+var path = process.cwd();
+
 module.exports = function (app) {
-	app.route('/')
-		.get(function (req, res) {
-			res.sendFile(process.cwd() + '/public/index.html');
-		});
+   app.route('/')
+      .get(function (req, res) {
+         res.sendFile(path + '/public/index.html');
+      });
 };
 ```
 
@@ -396,40 +407,42 @@ Let's move on to giving some more pizazz to our HTML file.
 
 [Back to top.](#top)
 
-### Adding Additional Elements to Index.html
+### Adding Additional Elements to Index.HTML
 
-In this section, we're going to update our HTML file to include more content and prepare to add interactivity. Here's the updated HTML code:
+In this section, we're going to update our HTML file to include more content and get it ready for AngularJS integration. Here's the updated HTML code:
 
 ```html
 <head>
-	<title>Clementine.js - The elegant and lightweight full-stack boilerplate.</title>
+   <title>Clementine.js - A beginner level MEAN stack application</title>
 </head>
 
 <body>
 
-	<div class="container">
+   <div class="container">
       <img src="/public/img/clementine_150.png" />
       <br />
       <p class="clementine-text">Clementine.js</p>
    </div>
 
    <div class="container">
-      <p>You have clicked the button <span id="click-nbr"></span> times.</p>   
+
+      <p>You have clicked the button X times.</p>
       <br />
       <div class="btn-container">
-         <button type="submit" class="btn btn-add">CLICK ME!</button>
+         <button type="submit" class="btn">CLICK ME!</button>
          <button class="btn btn-delete">RESET</button>
       </div>
+
    </div>
 
 </body>
 ```
 
-I've added some Clementine features and text to the application, but feel free to modify however you like. If you'd like to include a copy of the Clementine logo, feel free to download a copy (right-click > Save Image As) from the [this GitHub page](https://github.com/johnstonbl01/clementinejs-beginner/blob/master/public/img/clementine_150.png). Make sure to save it within the `/public/img` directory.
+I've added some Clementine features and text to the application, but feel free to modify however you like. If you'd like to include a copy of the clementine logo, feel free to download a copy (right-click > Save Image As) from the [this GitHub page](https://github.com/johnstonbl01/clementinejs-beginner/blob/master/public/img/clementine_150.png). Make sure to save it within the `/public/img` directory.
 
 What did we accomplish with the new HTML? We included two `div` elements that contain a top and bottom portion of our small application. The top portion includes a picture and the name of the application.
 
-The bottom portion contains text telling us how many times the button has been clicked, and the two buttons: one button to add clicks, and one to reset the clicks. In general, our strategy will be to target the `<span>` element and update the content of that element with the number of times the button has been clicked.
+The bottom portion contains text telling us how many times the button has been clicked, and the two buttons: one button to add clicks, and one to reset the clicks.
 
 Now let's ensure that everything still works. Test the app by starting up the Node server and checking it in the browser. You should see:
 
@@ -440,7 +453,9 @@ Oh no! Why isn't our image loading? Well, when Node tries to access the `/public
 This can be solved by adding an additional line to the `server.js` file.
 
 ```js
-app.use('/public', express.static(process.cwd() + '/public'));
+var path = process.cwd();
+
+app.use('/public', express.static(path + '/public'));
 ```
 
 Here we will use Express's [`app.use`](http://expressjs.com/4x/api.html#app.use) and [`express.static`](http://expressjs.com/4x/api.html#express.static) to bind the directory path for `/public` to a shortcut: `/public`. Now when `/public` is referenced within our HTML file, Express and Node should be able to locate the logo and pass it to the browser successfully.
@@ -451,11 +466,205 @@ Let's check to make sure that this is the case. Start the node server and point 
 
 Ahhh, that's better!
 
+Now let's begin integrating AngularJS into our application.
+
+[Back to top.](#top)
+
+## AngularJS HTML Integration
+
+To start our AngularJS integration, we need to update our HTML file to include Angular functionality. For starters, let's add a script tag that points to the Google CDN (Content Delivery Network), so that we can load AngularJS on our page.
+
+To get the URL for this, head to `http://angularjs.org`. Click on the download button in the middle of the page, and copy the CDN URL to your clipboard.
+
+![Tutorial Picture 03](/clementinejs/img/clemjstut03.png)
+
+Next, let's include this in our index.HTML file:
+
+```html
+...
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+</body>
+```
+
+In addition to the traditional AngularJS source file, we need to use the [ngResource module](https://docs.angularjs.org/api/ngResource) as a dependency in our application. This module allows us to interact with an API by providing common data & API related functions.
+
+To do this, return to the AngularJS site and click the download button again. This time, click on the "browse additional modules" link. (Alternatively, you can just click [here](https://code.angularjs.org/1.3.15/).) On this page, you'll need to find the `angular-resource.min.js` file and right-click on it. Choose "Copy link address." Return to the HTML file and we will now paste this location into another `<script>` tag.
+
+```html
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+</body>
+```
+
+AngularJS needs to know what Angular module to run when the website is loaded. This is done through the inclusion of the [`ng-app`](https://docs.angularjs.org/api/ng/directive/ngApp) directive. For small apps like this one, it's common to only use a single Angular module; therefore, we will include the `ng-app` directive in the `<html>` element so that it will encompass the entire page.
+
+Wait - what's an [Angular directive](https://docs.angularjs.org/guide/directive)? Directives are essentially a marker within the HTML that instruct Angular to bind specific functionality to that HTML element. An example of this would be to have a text box that is only visible when certain criteria is met. In that case, the directive would be included in the element tag, and Angular would know to execute the "show" action based on the directive code that was provided to Angular.
+
+In this app, we're only going to use the out-of-the-box Angular directives. However, if you'd like to see a custom directive in action, check out the standard Clementine.js app.
+
+```html
+<html ng-app="clementineApp">
+```
+
+Including this directive will allow us to use other Angular directives on the page. Note that this is a required piece of an Angular application.
+
+Next, let's assign a few more directives to the bottom portion of our site:
+
+```html
+<div class="container" ng-controller="clickController">
+
+   <p>You have clicked the button {{ clicks }} times.</p>
+   <br />
+   <div class="btn-container">
+      <button type="submit" class="btn" ng-click="addClick()">CLICK ME!</button>
+      <button class="btn btn-delete" ng-click="resetClicks()">RESET</button>
+   </div>
+
+</div>
+```
+
+Let's break down the new functionality we've included:
+
+- `ng-controller` - This is another AngularJS directive that will allow us to define which controller to use within the current block of HTML elements. We will get to definiing this controller in detail soon enough.
+- `ng-click` - A directive that allows us to specify the name of the controller function that is executed when the button is clicked. In this case, we have defined separate functions for the two buttons -- `addClick()` and `resetClicks()`.
+- `{{ clicks }}` - This is the Angular syntax that allows us to bind a data value within our HTML code. In this case, the `{{ clicks }}` will be replaced by the clicks value within the scope. This value will first be defined within our controller, and eventually by the database.
+
+This is likely a good time to expand on how Angular interacts with both the view, and how scope fits into the picture.
+
+[Scope ($scope)](https://docs.angularjs.org/guide/scope) is an Angular object that binds the view to the controller. This object is where functions / methods and variable values (i.e. 'clicks') are stored and passed back and forth between the controller and the view.
+
+![Angular Scope](/clementinejs/img/angular_scope.png)
+
+Now that our HTML view is ready for Angular, let's define our client-side controller.
+
+[Back to top.](#top)
+
+### AngularJS Scope Manipulation
+
+Begin this process by creating a new file named `clickController.client.js` in the `/app/controllers` directory. In this file, we'll put all the client-side code to handle events in the browser, like clicking on one of the buttons.
+
+To begin, we're going to include `'use strict';` again at the top of the file. Then, we're going to wrap all of our Angular code in what's called an [immediately invoked function express (IIFE)](http://en.wikipedia.org/wiki/Immediately-invoked_function_expression). Let's start with that:
+
+```js
+'use strict';
+
+(function () {
+
+})();
+```
+
+An IIFE is going to bind all the variables within to the local scope of that function. This means that functions declared within this function will not conflict with other variables within the application that may share the same name or need to be re-used. This is a common practice in Angular code (and JS in general), and a good best practice to use.
+
+Within this, let's first define our Angular module (i.e. the app), and then the controller.
+
+```js
+(function () {
+
+angular
+   .module('clementineApp', [])
+   .controller('clickController', ['$scope', function ($scope) {
+      $scope.clicks = 1000;
+   }]);
+
+})();
+```
+
+First, `angular` is a global variable recognized by AngularJS that allows its built-in methods.
+
+[`angular.module('clementineApp', [])`](https://docs.angularjs.org/api/ng/type/angular.Module) is the syntax used to define an Angular module. Note that the name of the application must match the name specified in the `ng-app` directive of the HTML. The empty array is where we will inject dependencies for this module.
+
+Next, we define the name of our [Angular controller](https://docs.angularjs.org/guide/controller) using the syntax `angular.controller( ... )`. Again, note that the name of the controller defined as the first argument of this expression must match the name specified via the `ng-controller` directive included in the HTML file.
+
+You'll notice that the dependency array isn't empty here. We bind include the `$scope` object as a dependency, and then pass it as the argument for the following call back function. This is what will allow us to access and manipulate information bound to the `$scope` object and make it available within the view of our application.
+
+Lastly, we set the `clicks` variable within the scope to be equal to 1000. I chose an arbitrary number here that we will easily recognize when testing. Keep in mind that the name of the variable on the `$scope` object ('clicks'), must also match the name of the variable we placed inside the brackets on the HTML page ({{ clicks }}).
+
+Before we test this, there are a few additional adjustments we need to make to the `index.html` and `server.js` files.
+
+_index.html_:
+
+```html
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+   <script type="text/javascript" src="/controllers/clickController.client.js"></script>
+</body>
+```
+
+Here, we have added our new JS file to the HTML so that it is included in the page and can be executed when called upon. Take note of the order of the files here -- it does matter. The clickController needs functionality from the ng-resource file, which in turn depends on functionality within the angular script.
+
+_server.js_:
+
+```js
+app.use('/public', express.static(path + '/public'));
+app.use('/controllers', express.static(path + '/app/controllers'));
+```
+
+We've added an additional static path so that when the browser makes a request for the `/controllers` directory, the server can correctly serve the appropriate file.
+
+Once that has been completed, fire up the Node server and browse to `localhost:3000`. You should now see, "You have clicked the button 1000 times." Congratulations, you've set up your first AngularJS controller!
+
+However, neither of our buttons work when clicking on them. Hmm, let's fix that, shall we?
+
+[Back to top.](#top)
+
+## AngularJS Interactivity via the Controller
+
+The next step we need to take is to make something happen when one of the buttons is clicked. If you'll remember back to the HTML Angular section, we defined two separate functions for each of the button `ng-click` directives: `addClick()` and `resetClicks()`.
+
+Let's add those functions to the scope by defining them within the newly created controller.
+
+To start, we'll need to:
+
+- Define the default value of clicks each time the browser is started
+- Define what happens when we click the 'CLICK ME!' button
+
+_clickController.client.js_:
+
+```js
+.controller('clickController', ['$scope', function ($scope) {
+
+      $scope.clicks = 0;
+
+      $scope.addClick = function () {
+         $scope.clicks += 1;
+      };
+
+}]);
+```
+
+Above we have defined the default value of the clicks property on the scope method, and then defined the `addClick()` method. This method will add 1 to the number of clicks every time the button is clicked. Feel free to test this out at this point if you'd like.
+
+Next, let's add the `resetClicks()` method to the same controller.
+
+```js
+.controller('clickController', ['$scope', function ($scope) {
+
+   $scope.clicks = 0;
+
+   $scope.addClick = function () {
+      $scope.clicks += 1;
+   };
+
+   $scope.resetClicks = function () {
+      $scope.clicks = 0;
+   };
+
+}]);
+```
+
+The app should now function as intended. When the 'CLICK ME!' button is clicked, it will add one to the number of times the button was clicked. Additionally, when the 'RESET' button is clicked, the number of clicks should reset iteslf to 0.
+
+At this point, we have a fully functioning front-end application. However, wouldn't it be great if the browser would remember the number of times the button had been clicked? Currently, the number of clicks will reset to 0 every time the page is refreshed. This is happening because the number of clicks is not being stored anywhere. Every time the browser renders the page, it will set the number of clicks to the value we have defined in our controller (0).
+
+We can fix this by storing our data somewhere -- in a MongoDB database!
+
 [Back to top.](#top)
 
 ## Connecting to MongoDB
 
-In order to pass data values between the database and the client, we'll use an API (Application Program Interface). The API will simply be a way for us make our database data available to the front-end of the applicaiton. Using an API in this way adds a little bit of complexity, but it's worth it to be able to see the actual data values being passed around via the API. 
+In order to pass data values between the database and the client, we'll use an API. In this case, the API will be exposed via the browser, but that doesn't always have to be the case.  We're going to do it this way because it is an illustrative example. Traditionally, this would be done if you want to expose particular app information to the public for others to use in some way.
+
+Using an API in this way adds a little bit of complexity, but it's worth it to be able to see the actual data values being passed around via the API. 
 
 To begin, we will need to set up our MongoDB database. This is done within the `server.js` file. We're going to have to do a bit of shuffling around to get everything in the correct place. Here's the way the file should look:
 
@@ -463,27 +672,29 @@ To begin, we will need to set up our MongoDB database. This is done within the `
 'use strict';
 
 var express = require('express'),
-	routes = require('./app/routes/index.js'),
-	mongo = require('mongodb').MongoClient;
+   routes = require('./app/routes/index.js'),
+   mongo = require('mongodb').MongoClient;
 
 var app = express();
 
 mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
 
-	if (err) {
-		throw new Error('Database failed to connect!');
-	} else {
-		console.log('MongoDB successfully connected on port 27017.');
-	}
+   if (err) {
+      throw new Error('Database failed to connect!');
+   } else {
+      console.log('MongoDB successfully connected on port 27017.');
+   }
 
-	app.use('/public', express.static(process.cwd() + '/public'));
-	app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+   var path = process.cwd();
 
-	routes(app, db);
+   app.use('/public', express.static(path + '/public'));
+   app.use('/controllers', express.static(path + '/app/controllers'));
 
-	app.listen(3000, function () {
-		console.log('Listening on port 3000...');
-	});
+   routes(app, db);
+
+   app.listen(3000, function () {
+      console.log('Listening on port 3000...');
+   });
 
 });
 ```
@@ -523,31 +734,31 @@ _clickHandler.server.js_:
 ```js
 'use strict';
 
-function clickHandler (db) {
+module.exports.clickHandler = function (db) {
 
-	var clicks = db.collection('clicks');
+   var clicks = db.collection('clicks');
 
-	this.getClicks = function (req, res) {
-		clicks
-			.findOne(
-				{},
-				{ '_id': false },
-				function (err, result) {
-					if (err) { throw err; }
+   this.getClicks = function (req, res) {
+      clicks
+         .findOne(
+            {},
+            { '_id': false },
+            function (err, result) {
+               if (err) { throw err; }
 
-					var clickResults = [];
+               var clickResults = [];
 
-					clickResults.push(result);
-					res.json(clickResults);
-				}
-			);
-	};
+               clickResults.push(result);
+               res.json(clickResults);
+            }
+         );
+   };
 };
-
-module.exports = clickHandler;
 ```
 
-Again, some of this code will look familiar. We define which [MongoDB collection](http://docs.mongodb.org/manual/reference/glossary/#term-collection) ([`db.collection(...)`](https://mongodb.github.io/node-mongodb-native/api-generated/db.html#collection)) we would like to use within the database. Collections are analagous to tables in the relational database world, and there can be multiple collections for a single database. In this case, MongoDB is smart enough to create the collection for us if it doesn't already exist. Thanks, Mongo.
+Again, some of this code will look familiar. We're [exporting](https://nodejs.org/api/modules.html#modules_module_exports) a function object named `clickHandler` to be used elsewhere in Node. 
+
+Next, we define which [MongoDB collection](http://docs.mongodb.org/manual/reference/glossary/#term-collection) ([`db.collection(...)`](https://mongodb.github.io/node-mongodb-native/api-generated/db.html#collection)) we would like to use within the database. Collections are analagous to tables in the relational database world, and there can be multiple collections for a single database. In this case, MongoDB is smart enough to create the collection for us if it doesn't already exist. Thanks, Mongo.
 
 For this application, our collection is named `clicks`. Afterward, we need to create a method that will retrieve the current number of clicks from the database. This funtionality will be contained within a `getClicks()` method of the `clickHandler` function object.
 
@@ -564,7 +775,7 @@ Let's break down each line of the `getClicks` method:
 - `clickResults.push(result);` - Push the results from the query to the clickResults array.
 - `res.json(clickResults);` - Send a response to the browser with a [JSON](http://www.json.org/) version of the clickResults array.
 
-Whew! That's a lot of new information! Finally, we're [exporting](https://nodejs.org/api/modules.html#modules_module_exports) a function object named `clickHandler` to be used elsewhere in Node.
+Whew! That's a lot of new information!
 
 Our new server-side controller is well on its way, but there's a problem. What happens if there are no documents in our collection? MongoDB is great about creating database and collections for us automatically when needed, but the data must be populated by us. If it's the first time using the application, there will not be any documents in the collection. We should account for this within this controller by inserting a document if one does not already exist.
 
@@ -572,41 +783,41 @@ Let's update the `getClicks()` function:
 
 ```js
 this.getClicks = function (req, res) {
-	clicks
-		.findOne(
-			{},
-			{ '_id': false },
-			function (err, result) {
-				if (err) { throw err; }
+   clicks
+      .findOne(
+         {},
+         { '_id': false },
+         function (err, result) {
+            if (err) { throw err; }
 
-				var clickResults = [];
+            var clickResults = [];
 
-				if (result) {
+            if (result) {
 
-					clickResults.push(result);
-					res.json(clickResults);
+               clickResults.push(result);
+               res.json(clickResults);
 
-				} else {
+            } else {
 
-					clicks.insert({ 'clicks': 0 }, function (err) {
-						if (err) { throw err; }
+               clicks.insert({ 'clicks': 0 }, function (err) {
+                  if (err) { throw err; }
 
-						clicks.findOne(
-							{},
-							{'_id': false},
-							function (err, doc) {
-								if (err) { throw err; }
+                  clicks.findOne(
+                     {},
+                     {'_id': false},
+                     function (err, doc) {
+                        if (err) { throw err; }
 
-								clickResults.push(doc);
-								res.json(clickResults);
-						});
+                        clickResults.push(doc);
+                        res.json(clickResults);
+                  });
 
-					});
+               });
 
-				}
-			}
-		);
-	};
+            }
+         }
+      );
+   };
 ```
 
 The first order of business is to check that the original `findOne()` query actually returns a result. If it does, then we proceed with the same as before by inserting the results into an array and passing that back to Node and the browser. This is done within the `if (result) { ... }` block above.
@@ -620,25 +831,27 @@ _index.js_:
 ```js
 'use strict';
 
-var ClickHandler = require(process.cwd() + '/app/controllers/clickHandler.server.js');
+var path = process.cwd();
+
+var ClickHandler = require(path + '/app/controllers/clickHandler.server.js').clickHandler;
 
 module.exports = function (app, db) {
 
-	var clickHandler = new ClickHandler(db);
+   var clickHandler = new ClickHandler(db);
 
-	app.route('/')
-		.get(function (req, res) {
-			res.sendFile(process.cwd() + '/public/index.html');
-		});
+   app.route('/')
+      .get(function (req, res) {
+         res.sendFile(path + '/public/index.html');
+      });
 
-	app.route('/api/clicks')
-		.get(clickHandler.getClicks);
+   app.route('/api/clicks')
+      .get(clickHandler.getClicks);
 };
 ```
 
 Let's take a look at the changes:
 
-- `var ClickHandler...` - Here, we're storing the function object we created from the `clickHanlder.server.js` file in a variable.
+- `var ClickHandler...` - Here, we're storing the function object we created from the `clickHanlder.server.js` file in a variable. It's important to note the `.clickHandler` at the end, which will ensure that the exported `clickHandler` method for the exported function from the `clickHandler.server.js` file.
 - `var clickHandler = new ClickHandler(db)` - On this line, we're instantiating a new instance of the ClickHandler function object, and passing in the MongoDB object as an argument. This is going to allow us to reference the methods we created in the `clickHandler.server.js` in addition to passing in the database information for use in those methods.
 - `app.route('/api/clicks')` - We're defining a new route here for our API
 - `.get(clickHandler.getclicks)` - The `getClicks` function will be executed anytime there is an HTTP GET request on the `/api/clicks` URL. This will tell the Node to execute the controller function we defined previously and get the results from the database.
@@ -675,30 +888,30 @@ _clickHandler.server.js_:
 
 ```js
 this.addClick = function (req, res) {
-	clicks
-		.findAndModify(
-			{},
-			{ '_id': 1 },
-			{ $inc: { 'clicks': 1 } },
-			function (err, result) {
-				if (err) { throw err; }
+   clicks
+      .findAndModify(
+         {},
+         { '_id': 1 },
+         { $inc: { 'clicks': 1 } },
+         function (err, result) {
+            if (err) { throw err; }
 
-				res.json(result);
-			}
-		);
+            res.json(result);
+         }
+      );
 };
 
 this.resetClicks = function (req, res) {
-	clicks
-		.update(
-			{},
-			{ 'clicks': 0 },
-			function (err, result) {
-				if (err) { throw err; }
+   clicks
+      .update(
+         {},
+         { 'clicks': 0 },
+         function (err, result) {
+            if (err) { throw err; }
 
-				res.json(result);
-			}
-		);
+            res.json(result);
+         }
+      );
 };
 ```
 
@@ -719,70 +932,68 @@ _clickHandler.server.js_:
 ```js
 'use strict';
 
-function clickHandler (db) {
-	var clicks = db.collection('clicks');
+module.exports.clickHandler = function (db) {
+   var clicks = db.collection('clicks');
 
-	this.getClicks = function (req, res) {
-		clicks
-			.findOne(
-				{},
-				{ '_id': false },
-				function (err, result) {
-					if (err) { throw err; }
+   this.getClicks = function (req, res) {
+      clicks
+         .findOne(
+            {},
+            { '_id': false },
+            function (err, result) {
+               if (err) { throw err; }
 
-					var clickResults = [];
+               var clickResults = [];
 
-					if (result) {
-						clickResults.push(result);
-						res.json(clickResults);
-					} else {
-						clicks.insert({ 'clicks': 0 }, function (err) {
-							if (err) { throw err; }
+               if (result) {
+                  clickResults.push(result);
+                  res.json(clickResults);
+               } else {
+                  clicks.insert({ 'clicks': 0 }, function (err) {
+                     if (err) { throw err; }
 
-							clicks.findOne({}, {'_id': false}, function (err, doc) {
-								if (err) { throw err; }
+                     clicks.findOne({}, {'_id': false}, function (err, doc) {
+                        if (err) { throw err; }
 
-								clickResults.push(doc);
-								res.json(clickResults);
-							});
+                        clickResults.push(doc);
+                        res.json(clickResults);
+                     });
 
-						});
+                  });
 
-					}
-				}
-			);
-	};
+               }
+            }
+         );
+   };
 
-	this.addClick = function (req, res) {
-		clicks
-			.findAndModify(
-				{},
-				{ '_id': 1 },
-				{ $inc: { 'clicks': 1 } },
-				function (err, result) {
-					if (err) { throw err; }
+   this.addClick = function (req, res) {
+      clicks
+         .findAndModify(
+            {},
+            { '_id': 1 },
+            { $inc: { 'clicks': 1 } },
+            function (err, result) {
+               if (err) { throw err; }
 
-					res.json(result);
-				}
-			);
-	};
+               res.json(result);
+            }
+         );
+   };
 
-	this.resetClicks = function (req, res) {
-		clicks
-			.update(
-				{},
-				{ 'clicks': 0 },
-				function (err, result) {
-					if (err) { throw err; }
+   this.resetClicks = function (req, res) {
+      clicks
+         .update(
+            {},
+            { 'clicks': 0 },
+            function (err, result) {
+               if (err) { throw err; }
 
-					res.json(result);
-				}
-			);
-	};
+               res.json(result);
+            }
+         );
+   };
 
 };
-
-module.exports = clickHandler;
 ```
 
 Finally, let's add routes for the remainder of our new ClickHandler methods.
@@ -791,26 +1002,114 @@ _index.js_:
 
 ```js
 app.route('/api/clicks')
-		.get(clickHandler.getClicks)
-		.post(clickHandler.addClick)
-		.delete(clickHandler.resetClicks);
+      .get(clickHandler.getClicks)
+      .post(clickHandler.addClick)
+      .delete(clickHandler.resetClicks);
 ```
 
 That brings us to the end of the server-side controller. Now, we need to hook our API up in Angular.
 
 [Back to top.](#top)
 
-## Adding Interactivity via the Client-side Controller
+## Integrating the API into AngularJS
 
-create file
-IIFE
-capture elements inside vars
-create ready function
-create ajax function
-create click count function
-exec ready function
-add click event listener
-add delete event listener
+To begin intregrating the API with Angular, we need to ensure that we update the Angular module and define `ngResource` as a dependency.
+
+_clickController.client.js_:
+
+```js
+angular
+   .module('clementineApp', ['ngResource'])
+```
+
+Next, the `$resource` object needs to be injected into the controller. Similar to the `$scope` object, this will let us access the `$resource` object and some of the built-in `ngResource` methods.
+
+```js
+.controller('clickController',
+   ['$scope', '$resource', function ($scope, $resource) { ... }]
+```
+
+Now let's point Angular to where our resource data is - the API that's been set up at `/api/clicks`.
+
+```js
+var Click = $resource('/api/clicks');
+```
+
+This new $resource object allows us to query this API, and will return the results to a field in the browser. However, before doing this, we'll need to create a new method:
+
+```js
+$scope.getClicks = function () {
+   Click.query(function (results) {
+      $scope.clicks = results[0].clicks;
+   });
+};
+```
+
+This code will bind a `getClicks` method to the $scope. The [`Click.query( ... )`](https://docs.angularjs.org/api/ngResource/service/$resource) will query the API and return all of the results. This can then be either manipulated in some way before passing it on to the browser, or (as in our case) just pass it straight in to a variable on the `$scope`. Because the API is an array, we're going to bind the first element's (`[0]`) clicks property to `$scope.clicks`.
+
+This function needs to run whenever the controller is invoked (i.e. when the app is first started), so we should add `$scope.getClicks()` beneath the function definition. It's important to note that this function call needs to occur _after_ the function definition. Additionally, we can now remove the `$scope.clicks = 0` since our data should be coming directly from the database.
+
+At this point, the controller file should look like:
+
+_clickController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+
+angular
+   .module('clementineApp', ['ngResource'])
+   .controller('clickController',
+      ['$scope', '$resource', function ($scope, $resource) {
+
+         var Click = $resource('/api/clicks');
+
+         $scope.getClicks = function () {
+            Click.query(function (results) {
+               $scope.clicks = results[0].clicks;
+            });
+         };
+
+         $scope.getClicks();
+         
+         $scope.addClick = function () {
+            $scope.clicks += 1;
+         };
+
+         $scope.resetClicks = function () {
+            $scope.clicks = 0;
+         };
+   }]);
+
+})();
+```
+
+Let's test the application. Start the Node server, and browse to `localhost:3000`. Ensure everything loads correctly, and that the text says, "You have clicked the button 0 times."
+
+Right now, the buttons will still work, but the changes aren't being reflected in the database (i.e. the database value isn't currently being incremented by 1 when the 'CLICK ME!' button is clicked). Let's change that by updating the two additional methods in the controller: `addClick` and `resetClicks`.
+
+```js
+$scope.addClick = function () {
+   Click.save(function () {
+      $scope.getClicks();
+   });
+};
+
+$scope.resetClicks = function () {
+   Click.remove(function () {
+      $scope.getClicks();
+   });
+};
+```
+
+We're doing something a bit tricky here. For `addClick`, we're instructing Angular to use [`$resource.save`](https://docs.angularjs.org/api/ngResource/service/$resource), which will prompt an [HTTP POST](http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods) request. This in turn will get routed by our `index.js` file and run the clickHandler.addClick method on the database. Once that action has been performed, we query the API via `$scope.getClicks`, therefore forcing the `$scope.clicks` variable to update and represent the new number of clicks.
+
+Lastly, we perform something similar with the `resetClicks` method. Instead of an HTTP POST method, we use Angular's [`$resource.remove`](https://docs.angularjs.org/api/ngResource/service/$resource) method to prompt an [HTTP DELETE](http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods) request. Again, the `index.js` file will know to route this request using the `clickHandler.resetClicks` method.
+
+Let's test these out in the browser! Start node and browse to `localhost:3000`. Click on all the buttons! Everything should update and reset appropriately. You've so close to finishing your first MEAN application! 
+
+We'll finish up with a little bit of styling to make it look nice.
 
 [Back to top.](#top)
 
@@ -826,67 +1125,67 @@ _main.css_:
 /****** Main Styling ******/
 
 body {
-	font-family: 'Roboto', sans-serif;
-	font-size: 16px;
+   font-family: 'Roboto', sans-serif;
+   font-size: 16px;
 }
 
 p {
-	margin: 8px 0 0 0;
+   margin: 8px 0 0 0;
 }
 
 .container p {
-	text-align: center;
-	padding: 0;
+   text-align: center;
+   padding: 0;
 }
 
 /****** Logo Div Styling ******/
 
 img {
-	margin: 0 auto;
-	display: block;
+   margin: 0 auto;
+   display: block;
 }
 
 .clementine-text { /* Styling for the Clementine.js text */
-	padding: 0;
-	margin: -25px 0 0 0;
-	font-weight: 500;
-	font-size: 60px;
-	color: #FFA000;
+   padding: 0;
+   margin: -25px 0 0 0;
+   font-weight: 500;
+   font-size: 60px;
+   color: #FFA000;
 }
 
 /****** Click Styling ******/
 
-.btn-container {	/* Styling for the div that contains the buttons */
-	margin: -10px auto 0 auto;
-	text-align: center;
+.btn-container {  /* Styling for the div that contains the buttons */
+   margin: -10px auto 0 auto;
+   text-align: center;
 }
 
-.btn {	/* Styling for buttons */
-	margin: 0 8px;
-	color: white;
-	background-color: #00BCD4;
-	display: inline-block;
-	border: 0;
-	font-size: 14px;
-	border-radius: 3px;
-	padding: 10px 5px;
-	width: 100px;
-	font-weight: 500;
+.btn {   /* Styling for buttons */
+   margin: 0 8px;
+   color: white;
+   background-color: #00BCD4;
+   display: inline-block;
+   border: 0;
+   font-size: 14px;
+   border-radius: 3px;
+   padding: 10px 5px;
+   width: 100px;
+   font-weight: 500;
 }
 
-.btn:focus {	/* Remove outline when hovering over button */
-	outline: none;
+.btn:focus {   /* Remove outline when hovering over button */
+   outline: none;
 }
 
-.btn:active {	/* Scale the button down by 10% when clicking on button */
-	transform: scale(0.9, 0.9);
-	-webkit-transform: scale(0.9, 0.9);
-	-moz-transform: scale(0.9, 0.9);
+.btn:active {  /* Scale the button down by 10% when clicking on button */
+   transform: scale(0.9, 0.9);
+   -webkit-transform: scale(0.9, 0.9);
+   -moz-transform: scale(0.9, 0.9);
 }
 
-.btn-delete {	/* Styling for delete button */
-	background-color: #ECEFF1;
-	color: #212121;
+.btn-delete {  /* Styling for delete button */
+   background-color: #ECEFF1;
+   color: #212121;
 }
 ```
 
@@ -897,10 +1196,10 @@ _index.html_:
 ```html
 <head>
 
-	<title>Clementine.js - The elegant and lightweight full-stack boilerplate.</title>
-	
-	<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
-	<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+   <title>Clementine.js - A beginner level MEAN stack application</title>
+   
+   <link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+   <link href="/public/css/main.css" rel="stylesheet" type="text/css">
 
 </head>
 ```
@@ -931,9 +1230,19 @@ If you encounter any issues whatsoever, submit an issue here on GitHub, or let m
 
 - Code School's [Building Blocks of Express.js](https://www.codeschool.com/courses/building-blocks-of-express-js) - Code School's courses are great supplemental material. Make sure to build something alongside the videos and exercises to really ensure you're learning the concepts.
 
+**AngularJS**
+
+- Dan Wahlin's [AngularJS Fundamentals in 60-ish Minutes](https://www.youtube.com/watch?v=i9MHigUZKEM&index=39&list=WL) - A really great video demonstrating slightly more in-depth Angular functionality than this tutorial. Dan does an excellent job of illustrating how Angular works and explainging the building blocks of the framework.
+- [ng-book](https://www.ng-book.com/) - A fantastic read. Make sure to purchase this book from the website to get free updates. If you purchase from another vendor, the free updates aren't included.
+
 **Node.js**
 
 - Node School's [Learn You Node](http://nodeschool.io/#workshoppers) - A really great introdution to Node.
 - Code School's [Real Time Web with Node.js](https://www.codeschool.com/courses/real-time-web-with-node-js) - Similar to the Express course, Code School offers a great primer on Node. Again, make sure you're building something alongside this tutorial for it to really pay off.
+
+**General**
+
+- [Free Code Camp](http://www.freecodecamp.com/) - If you're just starting out and want a free resource to help you learn to code, I highly suggest checking out FCC. The community is wonderful and extremely helpul.
+- [JavaScript Is Sexy](http://javascriptissexy.com/) - A wonderful blog with treasure troves of useful explanations regarding some of JavaScript's more difficult subject areas.
 
 [Back to top.](#top)

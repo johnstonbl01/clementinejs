@@ -6,7 +6,11 @@ layout: site
 
 ### [Clementine.js Beginner Tutorial](/clementinejs/tutorials/tutorial-beginner.html)
 
-This step-by-step tutorial is meant for someone with little to no experience with the MEAN stack, but a basic understanding of HTML, CSS and JavaScript. It walks through setting up a simple MEAN application from scratch, with detailed explaination along the way in hopes of providing a higher level of clarity for beginners. By completing this tutorial, you'll build out the [Beginner version](/clementinejs/beginner/beginner.md) of Clementine.js.
+This step-by-step tutorial is meant for someone with little to no experience with full stack JavaScript. It walks through setting up a simple application from scratch, with detailed explanations along the way to provide a higher level of clarity for beginners. By completing this tutorial, you'll build out the sample application included when installing Clementine.js.
+
+### [Clementine.js Angular tutorial](/clementinejs/tutorials/tutorial-angular.html)
+
+This tutorial provides instruction on integrating the Angular framework into Clementine.js. Following this guide provides ample explanation of how Angular works and fits into a fullstack JavaScript application. The content within assumes completion or familiarity with the application built in the beginner tutorial.
 
 ### [Integrate Authentication Using Passport](/clementinejs/tutorials/tutorial-passport.html)
 
@@ -15,8 +19,7 @@ This tutorial builds on the beginner tutorial above, and was custom made for the
 ## Future Tutorials
 
 - Deploying Your App to Heroku
-- Integrating Passport Local Strategy
-- Add Angular Routes to Clementine.js
-- Building Testing with Mocha
+- Integrating Angular Routing
+- Testing with Mocha
 - Clementine.js Build System with Gulp
 - Using Angular Controller As Syntax
