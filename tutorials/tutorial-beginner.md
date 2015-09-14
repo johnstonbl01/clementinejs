@@ -455,7 +455,7 @@ Ahhh, that's better!
 
 ## Connecting to MongoDB
 
-In order to pass data values between the database and the client, we'll use an API (Application Program Interface). The API will simply be a way for us make our database data available to the front-end of the applicaiton. Using an API in this way adds a little bit of complexity, but it's worth it to be able to see the actual data values being passed around via the API. 
+In order to pass data values between the database and the client, we'll use an API (Application Program Interface). The API will simply be a way for us make our database data available to the front-end of the application.
 
 To begin, we will need to set up our MongoDB database. This is done within the `server.js` file. We're going to have to do a bit of shuffling around to get everything in the correct place. Here's the way the file should look:
 
@@ -796,21 +796,109 @@ app.route('/api/clicks')
 		.delete(clickHandler.resetClicks);
 ```
 
-That brings us to the end of the server-side controller. Now, we need to hook our API up in Angular.
+When there is an HTTP GET request to the `/api/clicks` route, the server will respond by running the `getClicks` method. Similarly, a POST and DELETE request will run the corresponding methods from the server-side controller.
+
+That brings us to the end of the server-side controller. Now, we need to work on the client-side controller.
 
 [Back to top.](#top)
 
 ## Adding Interactivity via the Client-side Controller
 
-create file
-IIFE
-capture elements inside vars
-create ready function
+The client-side controller will be responsible for retrieving information from the API, and making it available within the view. Additionally, it will specify what action should be taken when one of the two buttons are clicked.
+
+More specifically, the strategy will be:
+
+- Load the current 'clicks' value when the page loads
+- When the `CLICK ME` button is clicked, make a POST request to the API and update the data value in the view
+- When the 'RESET' button is clicked, make a DELETE request to the API and update the data value in the view
+
+Remember that the server-side controller will increment the `'clicks'` value in the database every time a POST request is made, and that a DELETE request updates the `'clicks'` value to be 0. Hopefully it's possible to begin seeing how all the pieces fit together.
+
+### Create the Controller
+
+Let's start by creating a new file named `clickController.client.js` in the `/app/controllers` directory. To begin, include `'use strict';` again at the top of the file. Then, we're going to wrap all of our controller code in what's called an [immediately invoked function express (IIFE)](http://en.wikipedia.org/wiki/Immediately-invoked_function_expression). Let's start with that:
+
+_clickController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+
+})();
+```
+
+An IIFE is going to bind all the variables within to the local scope of that function. This means that any variables declared within this function will not conflict with other variables within the application that may share the same name or need to be re-used. 
+
+Next, let's use a bit of JavaScript to store our HTML buttons, the `<span>` element and the API url within their own variables. We'll use each of these within our functions. In order for JavaScript to find and identify the HTML elements in the [DOM (document object model)](https://en.wikipedia.org/wiki/Document_Object_Model), we'll use the [`document.querySelector(cssSelector)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) method.
+
+This function will return the first HTML element in the DOM that matches the value of the CSS selector argument. Let's use this to store the 'CLICK ME' button, the 'RESET' button and the `<span>` element. Lastly, let's also store the URL of the API as a string within its own variable.
+
+_clickController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+   var addButton = document.querySelector('.btn-add');
+   var deleteButton = document.querySelector('.btn-delete');
+   var clickNbr = document.querySelector('#click-nbr');
+   var apiUrl = 'http://localhost:3000/api/clicks';
+})();
+```
+
+The next step will be to create the functions that will be used in the event handlers for the buttons.
+
+### Compose Functions
+
+The first challenge we need to overcome is to retrieve the API data when the page loads, so that the `<span>` element will reflect the current database value. To do this, we'll create a function that will check that the DOM has loaded, and will execute another function once that condition has been met.
+
+_clickController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+   var addButton = document.querySelector('.btn-add');
+   var deleteButton = document.querySelector('.btn-delete');
+   var clickNbr = document.querySelector('#click-nbr');
+   var apiUrl = 'http://localhost:3000/api/clicks';
+
+   function ready (fn) {
+      if (typeof fn !== 'function') {
+         return;
+      }
+
+      if (document.readyState === 'complete') {
+         return fn();
+      }
+
+      document.addEventListener('DOMContentLoaded', fn, false);
+   }
+})();
+```
+
+Let's break down exactly what we've added here. We have a `ready` function that takes a single argument - `fn`. The first conditional `if` statement simply ensures that the argument provided is a function by calling the `typeof` operator. If the type of the `fn` argument is not a function, then the function simply `return`s, thereby not taking any action. This prevents elements like arrays and strings from being provided as arguments.
+
+Then, if the `readyState` property of the document object is equla to `complete`, we're going to execute the function passed as an argument. This is done by adding the `();` after returning the argument.
+
+Lastly, if the document has not yet loaded, we'll add an event listener with [`document.addEventListener(type, listener, useCapture)`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener). This method takes 3 arguments: 
+
+- `type`: a string representing the type of event to listen for. In our case, we're listening for the `DOMContentLoaded' event
+- `listener`: the function that should be executed when the event occurs -- the `fn` arguemtn in this case
+- `userCapture`: a true/false value which specifies if all events of the specified `type` should be executed with the `listener` argument. This defaults to `false`
+
+The next order of business is to create a function that will retrieve the data from the API. To do this, we're going to use an [`XMLHttpRequest`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest). This object will allow us to retrieve information without requiring the entire page to be refreshed. This is also referred to as [AJAX (Asynchronous JavaScript + XML)](https://developer.mozilla.org/en-US/docs/AJAX), and is a common convention of front-end development.
+
+
+### Add Event Listeners
+
 create ajax function
 create click count function
 exec ready function
 add click event listener
 add delete event listener
+add script to index.html
 
 [Back to top.](#top)
 
