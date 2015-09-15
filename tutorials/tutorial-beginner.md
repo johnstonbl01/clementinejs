@@ -849,7 +849,7 @@ _clickController.client.js_:
 
 The next step will be to create the functions that will be used in the event handlers for the buttons.
 
-### Compose Functions
+### Create Controller Functions
 
 The first challenge we need to overcome is to retrieve the API data when the page loads, so that the `<span>` element will reflect the current database value. To do this, we'll create a function that will check that the DOM has loaded, and will execute another function once that condition has been met.
 
@@ -890,8 +890,93 @@ Lastly, if the document has not yet loaded, we'll add an event listener with [`d
 
 The next order of business is to create a function that will retrieve the data from the API. To do this, we're going to use an [`XMLHttpRequest`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest). This object will allow us to retrieve information without requiring the entire page to be refreshed. This is also referred to as [AJAX (Asynchronous JavaScript + XML)](https://developer.mozilla.org/en-US/docs/AJAX), and is a common convention of front-end development.
 
+_clickController.client.js_:
 
-### Add Event Listeners
+```js
+'use strict';
+
+(function () {
+   var addButton = document.querySelector('.btn-add');
+   var deleteButton = document.querySelector('.btn-delete');
+   var clickNbr = document.querySelector('#click-nbr');
+   var apiUrl = 'http://localhost:3000/api/clicks';
+
+   function ready (fn) { ... }
+
+   function ajaxRequest (method, url, callback) {
+      var xmlhttp = new XMLHttpRequest();
+
+      xmlhttp.onreadystatechange = function () {
+         if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+            callback(xmlhttp.response);
+         }
+      };
+
+      xmlhttp.open(method, url, true);
+      xmlhttp.send();
+   }
+})();
+```
+
+Let's break down this new function into manageable bits.
+
+`function ajaxRequest(method, url, callback) { ... }`: our new function will take 3 arguments:
+
+- The HTTP `method` that we would like the request to use (i.e. GET / POST / DELETE)
+- The `url` that the function make the HTTP request to
+- A `callback` function that should be executed once the data has been retrieved.
+
+`var xmlhttp = new XMLHttpRequest();`: here we are creating a new instance of the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object using [constructor notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects#Using_a_constructor_function). Doing this will allow us to access the methods (i.e. functionality) associated with this object. Think of this as essentially creating a "copy" of the XMLHttpRequest object for us to use.
+
+`xmlhttp.onreadystatechange = function () { ... }`: Here we are assigning a callback funciton to the property [`onreadystatechange`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/onreadystatechange). Every time the [`readyState`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#Properties) property of the XMLHttpRequest object changes, it will execute the function that we're defining.
+
+Essentially, this function will execute multiple times as the `readyState` changes during the data retrieval process. There are multiple values for `readyState`, which can be [found here](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#Properties). The one we're concerned about within the `if` statement is where `readyState === 4`. A `readyState` of 4 means that the operation (i.e. data retrieval) has been completed. Additionaly, we want to ensure that the `status` (which is simply an [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)) is equal to `200`, which signals that the request was OK (therefore no errors or issues).
+
+If both of those conditions are met, then we are executing the `callback` function provided as an argument to the function, and also passing the `xmlhttp.response` property as an argument for use in that function. This `response` property is the piece that will contain the data from the AJAX request.
+
+Now we get to the meat of the function. When the function is first called, we want to initiate the request. That's the purpose of the `xmlhttp.open(method, url, async)` method. [This method](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#open()) takes 3 arguments:
+
+- `method`: a string containing the HTTP method to use as part of the request (i.e. 'GET'/'POST'/etc). In this case, we are passing in our `method` argument from the `ajaxRequest` function.
+- `url`: the URL to send the request to (again, in this case we're passing in the `url` argument from the `ajaxRequest` function)
+- `async`: A boolean value which specifies if the request should be made asynchronously. In this case, we do want the request to be asynchronous, so we specify a value of `true`
+
+Lastly, the `xmlhttp.send()` method executes the previously initiated request (from the `open()` method). That's it! You're written your first AJAX function!
+
+Next, let's write a small function that will update the HTML `<span` element. 
+
+_clickController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+   var addButton = document.querySelector('.btn-add');
+   var deleteButton = document.querySelector('.btn-delete');
+   var clickNbr = document.querySelector('#click-nbr');
+   var apiUrl = 'http://localhost:3000/api/clicks';
+
+   function ready (fn) { ... }
+
+   function ajaxRequest (method, url, callback) { ... }
+
+   function updateClickCount (data) {
+      var clicksObject = JSON.parse(data);
+      clickNbr.innerHTML = clicksObject.clicks;
+   }
+})();
+```
+
+This small function will be extremely important for our app. Note that the `data` argument being passed in will actually be the data from the `xmlhttp.response` property mentioned above. The AJAX request will make the appropriate HTTP request, and return a string with the value from the API.
+
+Unfortunately, we'd prefer it if this string were actually an object, so that we can reference the `clicks` property and return its associated value. Remember that our data object from the API looks like: `{ 'clicks': 0 }`. 
+
+We'll convert the string from the `data` argument to an object using the [`JSON.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method. This method merely takes a string as input and converts it to a JSON object. We'll store this newly created object in the `clicksObject` variable.
+
+Next, we'll take the `clickNbr` element (which we defined by using `var clickNbr` earlier) and use the [`.innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property to define the contents of the `<span` element and set it equal to the `clicks` property of our newly-created JSON object. 
+
+Next, let's define what should happen when the page loads and each of our buttons are clicked.
+
+### Listening for Events
 
 create ajax function
 create click count function
