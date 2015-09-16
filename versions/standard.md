@@ -13,7 +13,7 @@ layout: site
 - [Installation](#installation)
 	- [Install Node.js and NPM](#install-node.js-and-npm)
 	- [Install MongoDB](#install-mongodb)
-	- [Install Yeoman (optional)](#install-yeoman-(optional))
+	- [Install Yeoman (optional)](#install-yeoman-optional)
 	- [Install Clementine.js](#install-clementine.js)
 	- [Starting the App](#starting-the-app)
 - [Architecture](#architecture)
@@ -187,8 +187,6 @@ When installed, Clementine.js offers a very simple application demonstrating ful
 
 - **css** - Contains the style sheet for the application
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
-
-```
 
 [Back to top.](#top)
 
