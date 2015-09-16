@@ -33,13 +33,11 @@
    }
 
    function updateClickCount (data) {
-         var clicksObject = JSON.parse(data);
-         clickNbr.innerHTML = clicksObject.clicks;
+      var clicksObject = JSON.parse(data);
+      clickNbr.innerHTML = clicksObject.clicks;
    }
 
-   ready(function () {
-      ajaxRequest('GET', apiUrl, updateClickCount);
-   });
+   ready(ajaxRequest('GET', apiUrl, updateClickCount));
 
    addButton.addEventListener('click', function () {
 
@@ -54,6 +52,7 @@
       ajaxRequest('DELETE', apiUrl, function () {
          ajaxRequest('GET', apiUrl, updateClickCount);
       });
+
    }, false);
 
 })();
