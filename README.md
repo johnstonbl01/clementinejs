@@ -1,4 +1,4 @@
-# Clementine.js Full Stack JavaScript Boilerplate
+# Clementine.js Boilerplate
 
 ## Overview
 
