@@ -22,7 +22,7 @@ layout: site
 - [Setting Up the Server-Side Controller](#setting-up-the-server-side-controller)
 	- [Testing the API via the Mongo Console](#testing-the-api-via-the-mongo-console)
 	- [Additional Methods and Routing](#additional-methods-and-routing)
-- [Adding Interactivity via the Client-side Controller](#adding-interactivity-via the-client-side-controller)
+- [Adding Interactivity via the Client-side Controller](#adding-interactivity-via-the-client-side-controller)
    - [Create the Controller](#create-the-controller)
    - [Create Controller Functions](#create-controller-functions)
    - [Listening for Events](#listening-for-events)
@@ -188,7 +188,7 @@ Now let's spend a few moments to create the file structure we'll be using.
 - **controllers** - Directory for client and server-side controller files. Controllers are used to either manipulate / modify the view or the model (i.e. the database).
 - **routes** - This folder contains route files. Routes give directions on what to do when a particular URL or HTTP request is made from the client (i.e. browser) to the server.
 
-**public** - This directory contains information used to render the view (i.e. css & images). Traditionally, this directory would also include a libary of any vendor code (i.e. AngularJS, jQuery, etc) used in the application. In this instance, we're simply linking directly to the Google CDN (content delivery network) for AngularJS.
+**public** - This directory contains information used to render the view (i.e. css & images). Traditionally, this directory would also include a libary of any vendor code (i.e. AngularJS, jQuery, etc) used in the application. 
 
 - **css** - Contains the style sheet for the application
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
