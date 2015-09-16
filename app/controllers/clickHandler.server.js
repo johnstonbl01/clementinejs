@@ -12,10 +12,7 @@ function clickHandler (db) {
             throw err;
          }
 
-         // var clickResults = [];
-
          if (result) {
-            // clickResults.push(result);
             res.json(result);
          } else {
             clicks.insert({ 'clicks': 0 }, function (err) {
@@ -28,7 +25,6 @@ function clickHandler (db) {
                      throw err;
                   }
 
-                  // clickResults.push(doc);
                   res.json(doc);
                });
             });
