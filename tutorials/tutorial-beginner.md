@@ -23,6 +23,9 @@ layout: site
 	- [Testing the API via the Mongo Console](#testing-the-api-via-the-mongo-console)
 	- [Additional Methods and Routing](#additional-methods-and-routing)
 - [Adding Interactivity via the Client-side Controller](#adding-interactivity-via the-client-side-controller)
+   - [Create the Controller](#create-the-controller)
+   - [Create Controller Functions](#create-controller-functions)
+   - [Listening for Events](#listening-for-events)
 - [Adding CSS Styling](#adding-css-styling)
 - [Next Steps](#next-steps)
 - [Additional Resources](#additional-resources)
@@ -880,7 +883,7 @@ _clickController.client.js_:
 
 Let's break down exactly what we've added here. We have a `ready` function that takes a single argument - `fn`. The first conditional `if` statement simply ensures that the argument provided is a function by calling the `typeof` operator. If the type of the `fn` argument is not a function, then the function simply `return`s, thereby not taking any action. This prevents elements like arrays and strings from being provided as arguments.
 
-Then, if the `readyState` property of the document object is equla to `complete`, we're going to execute the function passed as an argument. This is done by adding the `();` after returning the argument.
+Then, if the `readyState` property of the document object is equal to `complete`, we're going to execute the function passed as an argument. This is done by adding the `();` after returning the argument.
 
 Lastly, if the document has not yet loaded, we'll add an event listener with [`document.addEventListener(type, listener, useCapture)`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener). This method takes 3 arguments: 
 
@@ -976,14 +979,126 @@ Next, we'll take the `clickNbr` element (which we defined by using `var clickNbr
 
 Next, let's define what should happen when the page loads and each of our buttons are clicked.
 
+[Back to top.](#top)
+
 ### Listening for Events
 
-create ajax function
-create click count function
-exec ready function
-add click event listener
-add delete event listener
-add script to index.html
+The first hurdle to overcome is that we need to determine some way to retrieve the current number of clicks when the page loads. To accomplish this, we'll use the `ready` function we set up earlier which bound an event listener to the `'DOMContentLoaded'` event. 
+
+Now we simply need to execute that function with the desired arguments. Remember that the `ready` function took another function (`fn`) as an argument.
+
+_clickController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+   var addButton = document.querySelector('.btn-add');
+   var deleteButton = document.querySelector('.btn-delete');
+   var clickNbr = document.querySelector('#click-nbr');
+   var apiUrl = 'http://localhost:3000/api/clicks';
+
+   function ready (fn) { ... }
+
+   function ajaxRequest (method, url, callback) { ... }
+
+   function updateClickCount (data) { ... }
+
+   ready(ajaxRequest('GET', apiUrl, updateClickCount));
+})();
+```
+
+Now we are executing the `ready` function, but passing in our AJAX function with the relevant arguments. We want to `GET` the information from the `apiUrl`, and `updateClickCount` with the results of the request.
+
+Similarly, we can now define what to do when our buttons are clicked by using the same pattern, and pieces of everything we've done so far! Let's begin by creating an event listener for the 'CLICK ME' button. Remember that the HTML element for the 'CLICK ME' button has been stored in the `addButton` variable.
+
+_clickController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+   var addButton = document.querySelector('.btn-add');
+   var deleteButton = document.querySelector('.btn-delete');
+   var clickNbr = document.querySelector('#click-nbr');
+   var apiUrl = 'http://localhost:3000/api/clicks';
+
+   ...
+   ...
+
+   addButton.addEventListener('click', function () {
+
+      ajaxRequest('POST', apiUrl, function () {
+         ajaxREquest('GET', apiUrl, updateClickCount)
+      });
+
+   }, false);
+})();
+```
+
+The above should begin to look familiar. We're attaching an event listener to the `addButton` element, and listening for the `'click'` event. When that event occurs, we're executing the function. This function first makes a POST AJAX request, which increments the number of clicks. Once that request has completed, a GET request is made to update the 'clicks' value in the browser.
+
+Next, we'll add a similar event listener for the 'RESET' button.
+
+_clickController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+   var addButton = document.querySelector('.btn-add');
+   var deleteButton = document.querySelector('.btn-delete');
+   var clickNbr = document.querySelector('#click-nbr');
+   var apiUrl = 'http://localhost:3000/api/clicks';
+
+   ...
+   ...
+
+   addButton.addEventListener( ... );
+
+   deleteButton.addEventListener('click', function () {
+
+      ajaxRequest('DELETE', apiUrl, function () {
+         ajaxRequest('GET', apiUrl, updateClickCount);
+      });
+
+   }, false);
+})();
+```
+
+Finally, we add a similar event listener to the 'RESET' button. Similar to the event listener for the 'CLICK ME' button, this function will listen for a `'click'` event. Once the event has been fired, the function will make an HTTP `'DELETE'` request to the `apiUrl`. This will reset the number of clicks to 0. Then, we'll update the value of the `<span>` element by making an HTTP GET request.
+
+Lastly, we need to include this new controller in our HTML file so that it is included when the DOM loads.
+
+_index.html_:
+
+```html
+<!DOCTYPE html>
+
+<html>
+
+   <head>
+     ...
+   </head>
+
+   <body>
+      <div class="container">
+         ...
+      </div>
+
+      <div class="container">
+         ...
+      </div>
+
+      <script type="text/javascript" src="/controllers/clickController.client.js"></script>   
+   </body>
+
+</html>
+```
+
+Now, it should be possible to test the application. Type `node server` in the terminal window, and point the browser to `localhost:3000`. Test the buttons to ensure they work.
+
+It's great that our app works now, but it's pretty dull. Let's add some pretty colors!
 
 [Back to top.](#top)
 
