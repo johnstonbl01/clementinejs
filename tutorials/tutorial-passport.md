@@ -762,7 +762,7 @@ The changes for the `resetClicks` method are nearly identical to the changes for
 - Change object property from `clicks` to `nbrClicks.clicks` in the function parameters
 - Update result response to `result.nbrClicks`
 
-That's it for the server-side controller. We won't touch it again, I promise!
+That's it for the server-side controller. We won't touch it again, I promise! 
 
 ### Update and Create Routes
 
@@ -772,7 +772,7 @@ We're introducing a lot of new functionality on our site, and that means we need
 - We need to create a `/login` route that will authenticate users with Twitter.
 - Additionally, we'll want a `/profile` page that shows a user's information
 - A user will also want to `/logout`.
-- We'll want to include a few application specific routes to post user information via an API, and define the previously mentioned `/auth/twitter` and `/auth/twitter/callback` routes
+- We'll want to include a few application specific routes to post user information via an API, and define the previously mentioned `/auth/github` and `/auth/github/callback` routes
 
 Let's start by including passport as an argument for our function. This will allow us access to Passport's internal methods and functionality within our routes.
 
@@ -818,7 +818,7 @@ So what is this function doing?
 
 `if (req.isAuthenticated()) {...}`: [`req.isAuthenticated()`](https://github.com/jaredhanson/passport/blob/a892b9dc54dce34b7170ad5d73d8ccfba87f4fcf/lib/passport/http/request.js#L74) is a Passport method which will return a `true` or `false` value if the user has been authenticated. 
 
-If this method returns `true`, then we are returning the `next()` function, which returns control to the next middleware. This entire statement is essentialy saying, "if the user has been verified, then carry on."
+If this method returns `true`, then we are returning the `next()` function, which returns control to the next middleware. This entire statement is saying, "if the user has been verified, then carry on."
 
 If the user is _not_ authenticated, then we are redirecting them back to the login page with `res.redirect('/login')`. Now let's add our additional authentication routes.
 
@@ -898,7 +898,7 @@ Once the session has been cleared and the `req.user` property removed, the app i
 
 **/profile**
 
-This will be a very small profile page that will show the user's Twitter information. Of course, the user must be authenticated in order to see this content.
+This will be a very small profile page that will show the user's GitHub information. Of course, the user must be authenticated in order to see this content.
 
 _index.js_:
 
@@ -926,7 +926,7 @@ There's not any new functionality here, so this should look really familiar by t
 
 **/api/user**
 
-This route will be our user API that will store the user's Twitter information for us to retrieve on the front end.
+This route will be our user API that will store the user's GitHub information for us to retrieve on the front end.
 
 _index.js_:
 
@@ -945,19 +945,22 @@ app.route('/logout')
 app.route('/profile')
 	.get(...);
 
-app.route('/api/user')
+app.route('/api/:id')
 	.get(isLoggedIn, function (req, res) {
-		res.json(req.user.twitter);
+		res.json(req.user.github);
 	});
 
 ...
 ```
+Here we're introducing some new Express functionality. We've added `:id` to the API route. This is known as a route parameter. When the `/auth/github` route is requested and Passport authenticates successfully with GitHub, Passport creates a `user` property on the Express `req` object. This object contains all of the fields requested from the GitHub API (i.e. username, display name, number of repos, ID, etc.). 
 
-When a `get` request is made to this route, Express should reply with a JSON object that contains the `req.user.twitter` object from Passport. This is the object which contains all the relevant user information, and we will query this from the front end later for the profile page.
+When the route is requested, the ID from this user object is passed as part of the URL (i.e. the URL would look like `/api/1234567`). This makes these requested URLs unique to each user.
 
-**/auth/twitter**
+When a `get` request is made to this route, Express should reply with a JSON object that contains the `req.user.github` object from Passport. This is the object which contains all the relevant user information, and we will query this from the front end later for the profile page.
 
-This is the route that will be used when the user clicks the "Login" button and will initiate authentication with Twitter via Passport.
+**/auth/github**
+
+This is the route that will be used when the user clicks the "Login" button and will initiate authentication with GitHub via Passport.
 
 _index.js_:
 
@@ -976,20 +979,20 @@ app.route('/logout')
 app.route('/profile')
 	.get(...);
 
-app.route('/api/user')
+app.route('/api/:id')
 	.get(...);
 
-app.route('/auth/twitter')
-	.get(passport.authenticate('twitter'));
+app.route('/auth/github')
+	.get(passport.authenticate('github'));
 
 ...
 ```
 
-Again, this route will call the Passport [`authenticate`](http://passportjs.org/docs/authenticate) function, which will authenticate using the appropriate strategy (in this case, `'twitter'`).
+Again, this route will call the Passport [`authenticate`](http://passportjs.org/docs/authenticate) function, which will authenticate using the appropriate strategy (in this case, `'github'`).
 
-**/auth/twitter/callback**
+**/auth/github/callback**
 
-Remember setting up the Twitter app configuration and specifying a callback URL? Now we're going to specify what should be done when this URL is called by Twitter. This route will only be called after Twitter authentication has completed, and thus we need to be able to handle both success and failure conditions.
+Remember setting up the GitHub app configuration and specifying a callback URL? Now we're going to specify what should be done when this URL is called by GitHub. This route will only be called after GitHub authentication has completed, and thus we need to be able to handle both success and failure conditions.
 
 _index.js_:
 
@@ -1008,14 +1011,14 @@ app.route('/logout')
 app.route('/profile')
 	.get(...);
 
-app.route('/api/user')
+app.route('/api/:id')
 	.get(...);
 
-app.route('/auth/twitter')
+app.route('/auth/github')
 	.get(...);
 
-app.route('/auth/twitter/callback')
-	.get(passport.authenticate('twitter', {
+app.route('/auth/github/callback')
+	.get(passport.authenticate('github', {
 		successRedirect: '/',
 		failureRedirect: '/login'
 	}));
@@ -1026,6 +1029,26 @@ app.route('/auth/twitter/callback')
 In addition to the Passport authentication, we're passing an object that will tell Passport where to redirect to pending both a successful and failed authentication attempt.
 
 In the case of successful authentication, the user should be redirected to our click application (`/`), but should be [redirected](http://passportjs.org/docs/authenticate) back to the login page (`/login`) if the authentication is unsuccessful.
+
+Next, let's update the routes that get the click information. We'll be posting the number of user clicks to a separate API. This is done mostly for illustrative purposes, and it's completely fine to simply take the number of clicks from the current user API instead.
+
+_index.js_:
+
+```js
+...
+
+...
+
+app.route('/auth/github/callback')
+	.get(...);
+
+app.route('/api/:id/clicks')
+	.get(isLoggedIn, clickHandler.getClicks)
+	.post(isLoggedIn, clickHandler.addClick)
+	.delete(isLoggedIn, clickHandler.resetClicks);
+```
+
+We're making the clicks API user specific by inserting the `:id` parameter into the API. Additionally, we're ensuring that the user is logged in and authenticated by including our `isLoggedIn` function as part of the route.
 
 Finally, here's the full `index.js` file:
 
@@ -1068,24 +1091,24 @@ module.exports = function (app, passport) {
 			res.sendFile(path + '/public/profile.html');
 		});
 
-	app.route('/api/user')
+	app.route('/api/:id')
 		.get(isLoggedIn, function (req, res) {
-			res.json(req.user.twitter);
+			res.json(req.user.github);
 		});
 
-	app.route('/auth/twitter')
-		.get(passport.authenticate('twitter'));
+	app.route('/auth/github')
+		.get(passport.authenticate('github'));
 
-	app.route('/auth/twitter/callback')
-		.get(passport.authenticate('twitter', {
+	app.route('/auth/github/callback')
+		.get(passport.authenticate('github', {
 			successRedirect: '/',
 			failureRedirect: '/login'
 		}));
 
-	app.route('/api/clicks')
-		.get(clickHandler.getClicks)
-		.post(clickHandler.addClick)
-		.delete(clickHandler.resetClicks);
+	app.route('/api/:id/clicks')
+		.get(isLoggedIn, clickHandler.getClicks)
+		.post(isLoggedIn, clickHandler.addClick)
+		.delete(isLoggedIn, clickHandler.resetClicks);
 };
 ```
 
