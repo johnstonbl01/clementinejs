@@ -1226,10 +1226,15 @@ Let's run a quick test. Within the project directory, start the application usin
 
 To integrate our newly created authentication routines on the client side, we'll take the following approach:
 
-- Create an Angular factor to retrieve the information
+- Refactor our common AJAX controller functions into their own file
+- Update click controller to pull from new user-specific click API
+- Create a user controller to retrieve user information and pass it to the view
 - Create views for each of the routes
-- Pass the user information from the factory to an Angular controller
 - Apply CSS
+
+### Common
+
+- add to HTML
 
 ### Retrieving User Information
 
