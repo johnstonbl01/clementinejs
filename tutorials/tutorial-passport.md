@@ -130,24 +130,24 @@ Let's go ahead and modify the folder structure to include some of the new functi
 ```
 +--	Project Folder
 	+--	app
-	|	\--	config
-	|	\--	controllers
-	|	\--	factories
-	|	\--	models
-	|	\--	routes
+	|	\-- common
+	|	\-- config
+	|	\-- controllers
+	|	\-- models
+	|	\-- routes
 	|
 	+-- public
-	|	\--	css
+	|	\-- css
 	|	\-- img
 ```
 
 **Project / Root Folder** - The project directory. This directory contains:
 
+- **app/common** - This directory will contain common JS functions that will be used across more than one of our controllers.
 - **app/config** - The directory containing configuration files for Passport.
-- **app/factories** - Directory for Angular factories. Factories are used by Angular to retrieve information from the model (i.e. API) and pass it to the controller for manipulation. This is a common Angular convention.
 - **app/models** - Directory for database models. In this case, this is where the Mongoose schemas will be defined. These models are definitions of desired data structure that will be inserted into the database.
 
-The remainder of the folders are the same.
+The remainder of the folders are the same as the previous version of the app.
 
 [Back to top.](#top)
 
@@ -405,30 +405,32 @@ This syntax should be familiar now. Let's test that the application still works.
 
 ## Passport Server-Side Integration
 
-### Twitter App Setup
+### GitHub App Setup
 
-Before getting to the coding portion, we need to register our app with Twitter and obtain an API key. An API key is like a password between your app and Twitter, so they can identify who is using the API and ensure that the program has permission.
+Before getting to the coding portion, we need to register our app with GitHub and obtain an API key. An API key is like a password between your app and GitHub, so they can identify who is using the API and ensure that the program has permission to view/modify information from the site.
 
-Head to `https://apps.twitter.com/` and ensure that you're logged in to Twitter.
+Head to GitHub and log in.
 
-1. Click the 'Create New App' button.
-2. Fill out the form.
-	- Name: Whatever you'd like to name your app. Mine says 'Clementinejs', of course. This app name needs to be unique.
+1. Click your profile picture in the top right corner and choose the 'Settings' option.
+2. On the left-hand side, click on 'Applications'.
+3. At the top of the page, click on 'Developer applications'.
+4. Click the 'Register new application' button.
+5. Fill out the form:
+	- Name: Whatever you'd like to name your app. Mine says 'clementinejs-fcc', of course. This app name needs to be unique.
+	- Homepage URL: Since we're using localhost, simply use `http://127.0.0.1:3000/`. `127.0.0.1` is the default IP address for localhost. For some reason, simply entering 'localhost' instead wouldn't work for me.
 	- Description: A short description of your app.
-	- Website: Since we're using localhost, simply use `http://127.0.0.1:3000/`. `127.0.0.1` is the default IP address for localhost. For some reason, simply entering 'localhost' instead wouldn't work for me.
-	- Callback: `http://127.0.0.1:3000/auth/twitter/callback`. This will be the URL that gets passed in when we're authenticated. We'll add a route for this URL later.
-3. Agree to the Terms of Service.
-4. Click 'Create your Twitter Application'.
+	- Authorization callback URL: `http://127.0.0.1:3000/auth/github/callback`. This will be the URL that gets passed in when we're authenticated. We'll add a route for this URL later.
+4. Click 'Register application'.
 
-Once this is done, it will take you to a page with information about your application. At the top, click on Keys and Access Tokens. Make note of the Consumer Key (API Key) and the Consumer Secret (API Secret). We'll use these later in our app.
+Once this is done, it will take you to a page with information about your application. On the top right, there will be codes for Client ID (API Key) and the Client Secret (API Secret). We'll use these later in our app.
 
-![Twitter App Setup](/clementinejs/img/passporttut01.png)
-
-The difference between the API Key and the API Secret is that the key is considered _public_, while the secret is known only to the vendor (Twitter in this case) and you.
+The difference between the API Key and the API Secret is that the key is considered _public_, while the secret is known only to the vendor (GitHub in this case) and you.
 
 [Back to top.](#top)
 
 ### Create the User Model
+
+One new feature of our application will be to store the number of clicks for each user instead of inside a global document within MongoDB. This means that each user will have their own number of clicks, and will also allow us to show of some of Express' parameter routing (more on this later).
 
 To begin, let's work on defining our user model. Create a new file in the `/app/models` directory named `users.js`.
 
@@ -441,25 +443,28 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var User = new Schema({
-	twitter: {
+	github: {
 		id: String,
-		token: String,
 		displayName: String,
-		username: String
-	}
+		username: String,
+      publicRepos: Number
+	},
+   nbrClicks: {
+      clicks: Number
+   }
 });
 
 module.exports = mongoose.model('User', User);
 ```
 
-Most of this code should be familiar from the Click model we defined previously. Inside our Schema, we're defining the fields to be stored in the database after we authenticate with Twitter. These are put in their own object because it's common to have a model with several types of authentication: Facebook, Twitter, etc. Each of these would store their information within different objects of the User model.
+Most of this code should be familiar from the Click model we defined previously. Inside our Schema, we're defining the fields to be stored in the database after we authenticate with GitHub. These are put in their own object because it's common to have a model with several types of authentication: Facebook, Twitter, etc. Each of these would store their information within different objects of the User model.
 
-The [fields that Twitter provides](http://passportjs.org/docs/profile) are:
+The GitHub API allows us to view quite a bit of information. You can see the full specification here, but we'll just be focusing on these fields:
 
-- id: The numeric ID associated with your Twitter username
-- token: The Twitter-generated access token for your account.
-- displayName: This corresponds to the real name in your Twitter profile -- aka 'John Doe'.
-- username: Your Twitter username, aka the username that follows the @ symbol (@johndoe_1234).
+- id: The numeric ID associated with the GitHub account.
+- displayName: The full name (i.e. first and last) for the GitHub account.
+- username: The GitHub username for the account
+- public_repos: The number of public repositories associated with the GitHub account
 
 Next we'll move on to setting up our authorization file.
 
