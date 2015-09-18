@@ -307,18 +307,14 @@ this.getClicks = function (req, res) {
 		.exec(function (err, result) {
 				if (err) { throw err; }
 
-				var clickResults = [];
-
 				if (result) {
-					clickResults.push(result);
-					res.json(clickResults);
+					res.json(result);
 				} else {
 					var newDoc = new Click({ 'clicks': 0 });
 					newDoc.save(function (err, doc) {
 						if (err) { throw err; }
 
-						clickResults.push(doc);
-						res.json(clickResults);
+						res.json(doc);
 					});
 
 				}
@@ -336,7 +332,7 @@ Let's breakdown each of the changes:
 - Conditional `else {...}` changes
 	- The biggest change is in the conditional else, where we are inserting data into the database if no results are found. All of the former code is removed, and replaced by new (and much easier to read) Mongoose code.
 	- `var newDoc ...` creates a new document using the parameters defined within the Click model and stores it in the `newDoc` variable
-	- We're then saving the `newDoc` using the Mongoose [`.save()`](http://mongoosejs.com/docs/api.html#model_Model-save) method. This method simply saves the current document to the database. The contents of this function are similar to the old function, except that we're pushing our newly created document to the `clickResults` array.
+	- We're then saving the `newDoc` using the Mongoose [`.save()`](http://mongoosejs.com/docs/api.html#model_Model-save) method. This method simply saves the current document to the database.
 
 **addClick Method**
 
@@ -459,7 +455,7 @@ module.exports = mongoose.model('User', User);
 
 Most of this code should be familiar from the Click model we defined previously. Inside our Schema, we're defining the fields to be stored in the database after we authenticate with GitHub. These are put in their own object because it's common to have a model with several types of authentication: Facebook, Twitter, etc. Each of these would store their information within different objects of the User model.
 
-The GitHub API allows us to view quite a bit of information. You can see the full specification here, but we'll just be focusing on these fields:
+The GitHub API allows us to view quite a bit of information. You can see the [full specification here](https://developer.github.com/v3/users/), but we'll just be focusing on these fields:
 
 - id: The numeric ID associated with the GitHub account.
 - displayName: The full name (i.e. first and last) for the GitHub account.
@@ -472,9 +468,9 @@ Next we'll move on to setting up our authorization file.
 
 ### Authorization Configuration
 
-We need a way to store our app-specific Twitter authentication information so that Twitter can authenticate that our application can access its API and retrieve user information. Previously, we registered our app on `https://apps.twitter.com` and noted our token and secret.
+We need a way to store our app-specific GitHub authentication information so that GitHub can authenticate that our application has permission to access its API and retrieve user information. Previously, we registered our app with GitHub and were provided a Client ID and Client Secret. We'll need to embed this information somewhere in our app for when it attempts to communicate with GitHub.
 
-It's common practice to store this type of authorization information in its own Node.js module. We'll use this information when we contact the Twitter API, so we'll export it and make it available to `require` in other parts of our app. Create a new file named `auth.js` in the `/app/config` directory.
+It's common practice to store this type of authorization information in its own Node.js module. We'll use this information when we contact the GitHub API, so we'll export it and make it available to `require` in other parts of our app. Create a new file named `auth.js` in the `/app/config` directory.
 
 _auth.js_:
 
@@ -482,15 +478,17 @@ _auth.js_:
 'use strict';
 
 module.exports = {
-	'twitterAuth': {
-		'consumerKey': 'your-key-here',
-		'consumerSecret': 'your-secret-here',
-		'callbackURL': 'http://localhost:3000/auth/twitter/callback'
+	'gitHubAuth': {
+		'clientID': 'your-id-here',
+		'clientSecret': 'your-secret-here',
+		'callbackURL': 'http://localhost:3000/auth/github/callback'
 	}
 };
 ```
 
-The `'callbackURL'` is the URL we entered when registering our app, and this is where Twitter will send information once the user has been authenticated. We'll handle this callback in our routes later. For now, just know that Twitter first authenticates the user, then sends information back to to our application via the `'callbackURL'`.
+The `'callbackURL'` is the URL we entered when registering our app, and this is where GitHub will send information once the user has been authenticated. We'll handle this callback in our routes later. For now, just know that GitHub first authenticates the user, then sends information back to to our application via the `'callbackURL'`.
+
+_Note_: If you push your application to a GitHub repository, be sure to remove your Client ID and Client Secret before doing so! If you do not, then others will be able to use your information to access the GitHub API. These fields should be kept confidential and not share publicly.
 
 [Back to top.](#top)
 
@@ -498,7 +496,7 @@ The `'callbackURL'` is the URL we entered when registering our app, and this is 
 
 The next step in integrating Passport will be to set up the actual authentication portion of the application. Let's begin by creating a new file named `passport.js` in the `/app/config` directory.
 
-During the setup phase for this project, we installed `passport-twitter` via NPM. This is the module that will install the code necessary to authenticate with Twitter. In Passport, this is referred to as a "strategy" as noted above.
+During the setup phase for this project, we installed `passport-github` via NPM. This is the module that will install the code necessary to authenticate with GitHub. In Passport, this is referred to as a "strategy" as noted above.
 
 Let's start by requiring the Node modules we'll need:
 
@@ -507,12 +505,12 @@ _passport.js_:
 ```js
 'use strict';
 
-var TwitterStrategy = require('passport-twitter').Strategy;
+var GitHubStrategy = require('passport-github').Strategy;
 var User = require('../models/users');
 var configAuth = require('./auth');
 ```
 
-We're importing the Passport Twitter strategy object, our user model and our authorization configuration (i.e. Twitter API keys). Next, we'll create an exported function object that will take `passport` as an argument, and allow us to use Passport's methods inside our Node module. This will require us to pass in Passport to as an argument when calling this module, but we'll get to that in a bit. For right now, let's just define the function.
+We're importing the Passport GitHub strategy object, our user model and our authorization configuration (i.e. GitHub API keys). Next, we'll create an exported function object that will take `passport` as an argument, and allow us to use Passport's methods inside our Node module. This will require us to pass in Passport to as an argument when calling this module, but we'll get to that in a bit. For right now, let's just define the function.
 
 ```js
 module.exports = function (passport) {
@@ -559,15 +557,15 @@ module.exports = function (passport) {
 	...
 	...
 
-	passport.use(new TwitterStrategy({
-		consumerKey: configAuth.twitterAuth.consumerKey,
-		consumerSecret: configAuth.twitterAuth.consumerSecret,
-		callbackURL: configAuth.twitterAuth.callbackURL
+	passport.use(new GitHubStrategy({
+		clientID: configAuth.githubAuth.clientID,
+		clientSecret: configAuth.githubAuth.clientSecret,
+		callbackURL: configAuth.githubAuth.callbackURL
 	}));
 };
 ```
 
-In the above code, we're instantiating a new [Twitter Strategy](http://passportjs.org/docs/twitter) object, and setting the authorization properties of that object to the configuration file we completed earlier. Passport will use this information to authorize that our application has the privilege of accessing the Twitter API.
+In the above code, we're instantiating a new [GitHub Strategy](https://github.com/jaredhanson/passport-github) object, and setting the authorization properties of that object to the configuration file we completed earlier. Passport will use this information to authorize that our application has the privilege of accessing the Twitter API.
 
 Next we need to implement what Passport refers to as the ["verify callback."](http://passportjs.org/docs/configure) This is a callback function required by each type of strategy which will ensure the validity of the credentials and supply Passport with the user information that authenticated.
 
@@ -578,14 +576,14 @@ module.exports = function (passport) {
 	...
 	...
 
-	passport.use(new TwitterStrategy({
-		consumerKey: configAuth.twitterAuth.consumerKey,
-		consumerSecret: configAuth.twitterAuth.consumerSecret,
-		callbackURL: configAuth.twitterAuth.callbackURL
+	passport.use(new GitHubStrategy({
+		clientID: configAuth.githubAuth.clientID,
+		clientSecret: configAuth.githubAuth.clientSecret,
+		callbackURL: configAuth.githubAuth.callbackURL
 	},
-	function (token, tokenSecret, profile, done) {
+	function (token, refreshToken, profile, done) {
 		process.nextTick(function () {
-			User.findOne({ 'twitter.id': profile.id }, function (err, user) {
+			User.findOne({ 'github.id': profile.id }, function (err, user) {
 				if (err) {
 					return done(err);
 				}
@@ -599,7 +597,7 @@ module.exports = function (passport) {
 };
 ```
 
-The first 3 argumentions for this function (`token`, `tokenSecret`, `profile`) contain objects with information provided back from the Twitter API. Once we receive this information back, it's Passport's job to determine whether or not this user exists in the application database.
+The first 3 argumentions for this function (`token`, `refreshToken`, `profile`) contain objects with information provided back from the GitHub API. Once we receive this information back, it's Passport's job to determine whether or not this user exists in the application database.
 
 Let's take a look at what this function is doing so far:
 
@@ -622,14 +620,14 @@ module.exports = function (passport) {
 	...
 	...
 
-	passport.use(new TwitterStrategy({
-		consumerKey: configAuth.twitterAuth.consumerKey,
-		consumerSecret: configAuth.twitterAuth.consumerSecret,
-		callbackURL: configAuth.twitterAuth.callbackURL
+	passport.use(new GitHubStrategy({
+		clientID: configAuth.githubAuth.clientID,
+		clientSecret: configAuth.githubAuth.clientSecret,
+		callbackURL: configAuth.githubAuth.callbackURL
 	},
-	function (token, tokenSecret, profile, done) {
+	function (token, refreshToken, profile, done) {
 		process.nextTick(function () {
-			User.findOne({ 'twitter.id': profile.id }, function (err, user) {
+			User.findOne({ 'github.id': profile.id }, function (err, user) {
 				if (err) {
 					return done(err);
 				}
@@ -639,10 +637,11 @@ module.exports = function (passport) {
 				} else {
 					var newUser = new User();
 
-					newUser.twitter.id = profile.id;
-					newUser.twitter.token = token;
-					newUser.twitter.username = profile.username;
-					newUser.twitter.displayName = profile.displayName;
+					newUser.github.id = profile.id;
+					newUser.github.username = profile.username;
+					newUser.github.displayName = profile.displayName;
+					newUser.github.publicRepos = profile._json.public_repos;
+					newUser.nbrClicks.clicks = 0;
 
 					newUser.save(function (err) {
 						if (err) {
@@ -658,11 +657,112 @@ module.exports = function (passport) {
 };
 ```
 
-Here, we're creating a new instance of our User model, and then mapping database object properties like `newUser.twitter.id` to the information sent back by the Twitter API (`profile.id`). Finally, we insert this information into the database with `newUser.save(...)`, passing our user information back to Passport with `return done(null, newUser)`.
+Here, we're creating a new instance of our User model, and then mapping database object properties like `newUser.github.id` to the information sent back by the GitHub API (`profile.id`). Note that we are setting the `nbrClicks.clicks` value to `0` so that every new user begins with the 0 clicks property. Finally, we insert this information into the database with `newUser.save(...)`, passing our user information back to Passport with `return done(null, newUser)`.
 
 This is far and away the most complicated part of integrating authentication and authorization. If it's still a bit fuzzy, please reach out to me on Twitter or via Email and we can discuss. Let's move on, shall we?
 
 [Back to top.](#top)
+
+### Further Server-Side Controller Modifications
+
+There are a few additional changes that we need to make to the server-side controller. These changes are primarily due to the fact that in our new application, the number of clicks will be coming from the user model instead of the old Clicks model.
+
+Begin by deleting the `clicks.js` file from `/app/models`. We'll no longer need this Mongoose model, as it has been replaced with `users.js`.
+
+Now let's take care of the changes in the `clickHandler.server.js` file:
+
+_clickHandler.server.js_:
+
+```js
+'use strict';
+
+var Users = require('../models/users.js');
+
+...
+```
+
+Here we have simply replaced the `Clicks` variable with `Users`. Because we are now looking for a specific user when we are updating the click count, we must provide a query condition for Mongo to find the appropriate user in the database. In this case, we'll be searching by the GitHub ID for the account (these IDs are numeric and unique to each account).
+
+_clickHandler.server.js_:
+
+```js
+'use strict';
+
+var Users = require('../models/users.js');
+
+function ClickHandler () {
+	var query = { 'github.id': req.user.github.id };
+
+	this.getClicks = function (req, res) {
+		Users
+			.findOne(query, { '_id': false })
+			.exec(function (err, result) {
+				if (err) { throw err; }
+
+				res.json(result.nbrClicks);
+			});
+	};
+
+}
+```
+
+We've created a varible to store the query string with `query = { ... }`. We store this information in a variable so that we don't have to type it repeatedly -- it will be used in all of our methods.
+
+Next, we update the `this.getClicks()` method by changing `Clicks` to the new `Users` variable we just defined. This will execute queries using the `Users` model rather than the old `Clicks` model. Additionally, the `.findOne()` method arguments are updated to include the newly added `query` variable.
+
+Previously, this was simply set to `{}`, which will return all results in the database. That was a fine solution when we only had one document in the database. Now that we potentially have multiple users in the database, we have to ensure that the `findOne` query will return the appropriate record. As mentioned above, we want to match the record where the `'github.id'` field in the database matches the `req.user.github.id` object property from the request object. The properties and values of this request object are populated by passport once the authentication has completed.
+
+Also note that we have completely removed the conditional `if` statement that checks for a result from the query and inserts a new document if none exists. Remember that this functionality has now been added to our `passport.js` file, and is no longer needed as part of this method.
+
+Lastly, we updated the response query to _only_ return the `nbrClicks` object for the user. next, let's perform some these updates for the two other methods.
+
+_clickHandler.server.js_:
+
+```js
+'use strict';
+
+var Users = require('../models/users.js');
+
+function ClickHandler () {
+	var query = { 'github.id': req.user.github.id };
+
+	this.getClicks = function (req, res) { ... };
+
+	this.addClick = function (req, res) {
+		Users
+			.findOneAndUpdate(query, { $inc: { 'nbrClicks.clicks': 1 } })
+			.exec(function (err, result) {
+					if (err) { throw err; }
+
+					res.json(result.nbrClicks);
+				}
+			);
+	};
+
+	this.resetClicks = function (req, res) {
+		Users
+			.findOneAndUpdate(query, { 'nbrClicks.clicks': 0 })
+			.exec(function (err, result) {
+					if (err) { throw err; }
+
+					res.json(result.nbrClicks);
+				}
+			);
+	};
+
+}
+```
+
+The changes for these two additional methods are nearly identical to the changes for the `getClicks` method. For `addClick`, we've updated `Clicks` to `Users` and added the same `query` variable as a condition of the `.findOneAndUpdate()` method. Additionally, we've update the field to increment each time this method is called from simply `clicks` to `nbrClicks.clicks`. Again, this change is becaues the `clicks` object is now embedded within the user object. And lastly, we change the respones to send `result.nbrClicks` -- just like the `getClicks` method.
+
+The changes for the `resetClicks` method are nearly identical to the changes for `addClick`:
+
+- Change `Clicks` to `Users`
+- Add `query` parameter to the Mongoose method
+- Change object property from `clicks` to `nbrClicks.clicks` in the function parameters
+- Update result response to `result.nbrClicks`
+
+That's it for the server-side controller. We won't touch it again, I promise!
 
 ### Update and Create Routes
 
