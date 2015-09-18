@@ -35,13 +35,13 @@ layout: site
 
 ## Prerequisites
 
-This tutorial assumes that you have a working version of the application built in the [previous tutorial](tutorial.html).
+This tutorial assumes that you have a working version of the application built in the [previous tutorial](/tutorial-beginner.html).
 
-_Note_: This tutorial assumes that you have a Twitter account.
+_Note_: This tutorial assumes that you have a GitHub account.
 
 ## Attack of the Auth
 
-Let's assume that we only want people to see our coveted click-counting application who have registered on the site using their Twitter handle. After all, the app is super secret and anonymous users aren't allowed!
+Let's assume that we only want people to see our coveted click-counting application who have registered on the site using their GitHub Account. After all, the app is super secret and anonymous users aren't allowed!
 
 In order to accomplish this, we'll need to integrate some sort of authorization and authentication system into our application. Additionally, we'll want to give users the option to sign up for the site if they haven't already. It's important to understand that although authorization and authentication sound similar, they have very different meanings:
 
@@ -69,10 +69,10 @@ $ npm install passport --save
 Passport is the authentication and authorization library that will be used to validate users.
 
 ```bash
-$ npm install passport-twitter --save
+$ npm install passport-github --save
 ```
 
-This will install the Twitter "Strategy" for Passport. Strategies are Passport's term for different methods of authentication. As an example, there's a Facebook Strategy and a Google Strategy as well.
+This will install the GitHub "Strategy" for Passport. Strategies are Passport's term for different methods of authentication. As an example, there's a Facebook Strategy and a Google Strategy as well.
 
 ```bash
 $ npm install express-session --save
@@ -110,13 +110,13 @@ The `package.json` file should now look like:
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.12.4",
     "express-session": "^1.11.3",
     "mongoose": "^4.1.0",
     "passport": "^0.2.2",
-    "passport-twitter": "^1.0.3"
+    "passport-github": "^1.0.0"
   }
 }
 ```

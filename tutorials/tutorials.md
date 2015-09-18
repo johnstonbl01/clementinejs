@@ -10,7 +10,7 @@ This step-by-step tutorial is meant for someone with little to no experience wit
 
 ### [Clementine.js Angular tutorial](/clementinejs/tutorials/tutorial-angular.html)
 
-This tutorial provides instruction on integrating the Angular framework into Clementine.js. Following this guide provides ample explanation of how Angular works and fits into a fullstack JavaScript application. The content within assumes completion or familiarity with the application built in the beginner tutorial.
+This tutorial provides instruction on integrating the Angular framework into Clementine.js. Following this guide provides ample explanation of how Angular works and fits into a fullstack JavaScript application. The content within assumes completion or familiarity with the application built in the beginner tutorial. This tutorial produces a working version of the [Clementine.js-Angular boilerplate](https://github.com/johnstonbl01/clementinejs-angular).
 
 ### [Integrate Authentication Using Passport](/clementinejs/tutorials/tutorial-passport.html)
 
