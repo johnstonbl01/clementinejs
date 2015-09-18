@@ -1232,74 +1232,165 @@ To integrate our newly created authentication routines on the client side, we'll
 - Create views for each of the routes
 - Apply CSS
 
-### Common
+### Refactor Common AJAX Functions
 
-- add to HTML
+Since we'll have multiple controllers in our application making AJAX requests, we'll be reusing a bit of functionality. It's best to follow the DRY (don't repeat yourself) principle as much as possible when coding. In this case, let's take these common functions make them available across each of our controllers without having to type them out more than once.
 
-### Retrieving User Information
+Let's start by creating a new file in `/app/common` named `ajax-functions.js`. Begin by creating a new object named `ajaxFunctions`:
 
-To retrieve our user information from the API and make it available into an object, we're going to use what's known as an Angular factory. Factories are common conventions in Angular to retrieve information and output an object with that information. The object is then made available within other Angular components using dependency injection. This keeps the different components separate, each with its own function, also known as "separation of concerns".
+_ajax-functions.js_:
 
-(It should be noted that Angular provides several ways to perform this data retrieval functionality -- services, providers and factories. [Here's a blog post](http://tylermcginnis.com/angularjs-factory-vs-service-vs-provider/) if you're interested in the differences. In general, it's frowned upon to perform this data retrieval from within the controller, since each component should be limited to a single, focused purpose.)
+```js
+var ajaxFunctions = {};
+```
 
-Factories are created similar to other Angular modules, so the syntax should look relatively familiar. Let's begin by creating a new file in the `factories` folder named `userFactory.js`.
+Let's now expand upon this object by adding our functions as methods! We'll extract these functions from the `clickController.client.js` file.
 
-Similar to controllers, we'll start by wrapping the entire module in an [IIFE (immediately-invoked function expression)](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression). Again, this will ensure that any variables defined within the module do not pollute the global namespace.
+_ajax-functions.js_:
 
-_userFactory.js_:
+```js
+var ajaxFunctions = {
+   ready: function ready (fn) {
+      if (typeof fn !== 'function') {
+         return;
+      }
+
+      if (document.readyState === 'complete') {
+         return fn();
+      }
+
+      document.addEventListener('DOMContentLoaded', fn, false);
+   },
+   ajaxRequest: function ajaxRequest (method, url, callback) {
+      var xmlhttp = new XMLHttpRequest();
+
+      xmlhttp.onreadystatechange = function () {
+         if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+            callback(xmlhttp.response);
+         }
+      };
+
+      xmlhttp.open(method, url, true);
+      xmlhttp.send();
+   }
+};
+```
+
+The functions themselves should be familiar from the previous tutorial. We can now remove these functions from our `clickController.client.js` file, which should now look like:
+
+_clickController.client.js_:
 
 ```js
 'use strict';
 
 (function () {
-	angular
-		.module('clementineApp')
-		.factory('userFactory', ['$http', function ($http) {
 
-		}]);
+   var addButton = document.querySelector('.btn-add');
+   var deleteButton = document.querySelector('.btn-delete');
+   var clickNbr = document.querySelector('#click-nbr');
+   var apiUrl = 'http://localhost:3000/api/clicks';
+
+   function updateClickCount (data) {
+      var clicksObject = JSON.parse(data);
+      clickNbr.innerHTML = clicksObject.clicks;
+   }
+
+   ready(ajaxRequest('GET', apiUrl, updateClickCount));
+
+   addButton.addEventListener('click', function () {
+
+      ajaxRequest('POST', apiUrl, function () {
+         ajaxRequest('GET', apiUrl, updateClickCount);
+      });
+
+   }, false);
+
+   deleteButton.addEventListener('click', function () {
+
+      ajaxRequest('DELETE', apiUrl, function () {
+         ajaxRequest('GET', apiUrl, updateClickCount);
+      });
+
+   }, false);
+
 })();
 ```
 
-We're creating a factory using the Angular [`.factory()`](https://docs.angularjs.org/guide/providers#factory-recipe) syntax. Within this 'userFactory', we're using the Angular [`$http`](https://docs.angularjs.org/api/ng/service/$http) provider. This service helps facilitate communication with remote URLs. 
+We'll come back to this file momentarily to make a few additional modifications. First, let's ensure that the new common functions are included in the `index.html` file. It's important that the common function file comes _before_ the other controller files.
 
-In our case, we want to use the $http service to retrieve our user information from the API. We define the `$http` service as a dependency, and then inject it as an argument into the anonymous `function ($http) {...}`.
+_index.html_:
 
-_userFactory.js_:
+```html
+		...
+		<script type="text/javascript" src="common/ajax-functions.js"></script>
+		<script type="text/javascript" src="controllers/clickController.client.js"></script>
+	</body>
+```
+
+### Updating the Click Controller
+
+Since we moved the location of our `clicks` property to be within the user object, we need to make a few additional small modifications to the current `clickController`.
+
+The first modification should be to update the `apiURL` variable. We've moved the location of our clicks API to `/api/:id/clicks`, so this variable should reflect that.
+
+_clickController.client.js_:
 
 ```js
 'use strict';
 
 (function () {
-	angular
-		.module('clementineApp')
-		.factory('userFactory', ['$http', function ($http) {
+...
+var apiUrl = 'http://localhost:3000/api/:id/clicks';
 
-			var userData = {};
-
-			userData.getData = function () {
-				return $http.get('/api/user');
-			};
-
-			return userData;
-		}]);
+...
 })();
 ```
 
-Within the function, we first need to define the empty array that our data will be inserted into -- `var userData = {};`. Next, we define a method of the object named `getData` will will make an [HTTP GET request](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods) using the Angular `$http` service. 
+next, we need to update where we're calling our AJAX functions from, since they've been moved to their own object. This can be done by using [dot notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_Accessors#Dot_notation) for the function calls using the syntax `objectname.method()`. As an example, we'll update the `ready(...)` function call to be `ajaxFunctions.read(...)`. This needs to be done any time a method is invoked. Here's what the revised file should look like:
 
-This GET Request will occur for our `/api/user` route where the server is going to store the appropriate user information as defined previously. Finally, we return our `userData` object. That's it, you've written an Angular factory! This factory will then get integrated into an Angular controller (we'll get to this soon) as a dependency where we can use this information to interact with the view.
-
-Before moving on, we need to make one final change to the `server.js` file to create a static shortcut for the factories folder that can be used within our HTML files.
-
-_server.js_:
+_clickController.client.js_:
 
 ```js
-app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/factories', express.static(process.cwd() + '/app/factories'));
+'use strict';
+
+(function () {
+
+   var addButton = document.querySelector('.btn-add');
+   var deleteButton = document.querySelector('.btn-delete');
+   var clickNbr = document.querySelector('#click-nbr');
+   var apiUrl = 'http://localhost:3000/api/:id/clicks';
+
+   function updateClickCount (data) {
+      var clicksObject = JSON.parse(data);
+      clickNbr.innerHTML = clicksObject.clicks;
+   }
+
+   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount));
+
+   addButton.addEventListener('click', function () {
+
+      ajaxFunctions.ajaxRequest('POST', apiUrl, function () {
+         ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount);
+      });
+
+   }, false);
+
+   deleteButton.addEventListener('click', function () {
+
+      ajaxFunctions.ajaxRequest('DELETE', apiUrl, function () {
+         ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount);
+      });
+
+   }, false);
+
+})();
 ```
 
-Let's move on to creating some of the new views and begin to further flesh out the front end of the application!
+That's the last of the click controller modifications. Let's build our user controller!
+
+### Create the User Controller
+
+
 
 [Back to top.](#top)
 
@@ -1504,112 +1595,6 @@ _index.html_:
 <script type="text/javascript" src="factories/userFactory.js"></script>
 <script type="text/javascript" src="controllers/userController.client.js"></script>
 ```
-
-[Back to top.](#top)
-
-### Passing User Information to the View
-
-Now let's create the `userController` that was referenced in the views. What's our strategy here?
-
-- Create an Angular controller module with `$scope` and the `userFactory` as dependencies
-- Create a function that will retrieve the data from the `userFactory` and bind it to specific `$scope` properties
-- Invoke this newly created function to retrieve and store the user data
-
-That doesn't sound too hard, right? Let's give it a try.
-
-Let's start by creating a new file named `userControler.client.js` in the `app/controllers` directory. Then, as with other controllers, let's begin with an [IIFE](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression).
-
-_userController.client.js_:
-
-```js
-'use strict';
-
-(function () {
-	
-})();
-```
-
-Next, let's go ahead and insert the Angular module & controller code that we've used a few times now. This should look familiar. The only difference is that we're inserting our `userFactory` module as a dependency here. That will give us access to all of its functionality inside the controller.
-
-_userController.client.js_:
-
-```js
-'use strict';
-
-(function () {
-	angular
-		.module('clementineApp')
-		.controller('userController', ['$scope', 'userFactory', function ($scope, userFactory) {
-
-		}]);
-})();
-```
-
-Now we need a function to retrieve the user information from the `userFactory`. Think back to the `userFactory` and the object that is built within that component. We created a method there named `userData.getData()` that will retrieve the user information from the API.
-
-Because we included `userFactory` as a dependency, we have access to this method within the controller.
-
-_userController.client.js_:
-
-```js
-'use strict';
-
-(function () {
-	angular
-		.module('clementineApp')
-		.controller('userController', ['$scope', 'userFactory', function ($scope, userFactory) {
-
-			function getUserData () {
-				userFactory.getData()
-					.then(function (res) {
-						$scope.userName = res.data.username;
-						$scope.displayName = res.data.displayName;
-						$scope.twitterId = res.data.id;
-					});
-			}
-
-		}]);
-})();
-```
-
-The `getUserData()` function will use the `userFactory.getData()` method to trigger the HTTP GET request to the `/api/user` route from the `userFactory`. Because we're calling `userFactory.getData().then()`, we're asking Angular to provide us with a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) object.
-
-Promises are used for asynchronous computations within the code. In other words, we can make the request for the API data and the application can perform other functions while it waits for a response. When it receives the response, it will execute the callback function within the `then(callback-function)` method.
-
-In our case, the callback is an anonymous function (i.e. it's not named), which takes the returned Promise `response` object as an argument (`.then(function (res) {...});`). This Promise object from the Angular `$http service provider` (which we're using in the `userFactory`) has 5 properties. These are detailed within [the documentation](https://docs.angularjs.org/api/ng/service/$http). For our purposes, we're simply concerend with the `data` property, which is an object containing the data retrieved from the API.
-
-Remember that our API object has 3 data fields: `username`, `displayName` and `id`. We then bind those properties to the appropriate `$scope` properties. This will allow Angular access to this data within the application.
-
-The final step in implementing this controller, is to execute this function when the controller is initialized (i.e. the page loads). We do this by adding a single line to invoke the just-defined function.
-
-_userController.client.js_:
-
-```js
-'use strict';
-
-(function () {
-	angular
-		.module('clementineApp')
-		.controller('userController', ['$scope', 'userFactory', function ($scope, userFactory) {
-
-			function getUserData () {
-				userFactory.getData()
-					.then(function (res) {
-						$scope.userName = res.data.username;
-						$scope.displayName = res.data.displayName;
-						$scope.twitterId = res.data.id;
-					});
-			}
-
-			getUserData();
-
-		}]);
-})();
-```
-
-At this point we've setup all the puzzle pieces and can test the application to ensure everything works. Fire up node by entering `node server` from the terminal (note: you must be within your project directory for this to work). Next, point your browser to `http://localhost:3000` and be amazed! You've just integrated authentication in an application!
-
-If you receive an error message, then something has gone wrong. At this point everything should work without error. But golly gee, the app sure is ugly and looks disorganized! It's time to make it pretty...
 
 [Back to top.](#top)
 
