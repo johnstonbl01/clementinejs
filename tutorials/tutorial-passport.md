@@ -548,7 +548,7 @@ Serialization is not an easy subject -- especially in the beginning. For now, it
 - The user information submitted via serialization must then be de-compressed
 - Afterward, the database is searched to find the user information that corresponds to the matching user ID and provided back to the browser
 
-Now we need to tell Passport what type of strategy we're going to use for authentication, and define what information we will get back from Twitter's API.
+Now we need to tell Passport what type of strategy we're going to use for authentication, and define what information we will get back from GitHub's API.
 
 _passport.js_:
 
@@ -565,7 +565,7 @@ module.exports = function (passport) {
 };
 ```
 
-In the above code, we're instantiating a new [GitHub Strategy](https://github.com/jaredhanson/passport-github) object, and setting the authorization properties of that object to the configuration file we completed earlier. Passport will use this information to authorize that our application has the privilege of accessing the Twitter API.
+In the above code, we're instantiating a new [GitHub Strategy](https://github.com/jaredhanson/passport-github) object, and setting the authorization properties of that object to the configuration file we completed earlier. Passport will use this information to authorize that our application has the privilege of accessing the GitHub API.
 
 Next we need to implement what Passport refers to as the ["verify callback."](http://passportjs.org/docs/configure) This is a callback function required by each type of strategy which will ensure the validity of the credentials and supply Passport with the user information that authenticated.
 
@@ -601,9 +601,9 @@ The first 3 argumentions for this function (`token`, `refreshToken`, `profile`) 
 
 Let's take a look at what this function is doing so far:
 
-- [`process.nextTick()`](https://nodejs.org/api/process.html#process_process_nexttick_callback) is Node syntax that makes the code asynchronous. Node will wait until the current "tick" of the [event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) completes before executing the callback function. This essentially makes Node wait until the user information comes back from Twitter before processing the results
+- [`process.nextTick()`](https://nodejs.org/api/process.html#process_process_nexttick_callback) is Node syntax that makes the code asynchronous. Node will wait until the current "tick" of the [event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) completes before executing the callback function. This essentially makes Node wait until the user information comes back from GitHub before processing the results
 
-- `User.findOne({...})` will search the database for a username where `twitter.id` is equal to the `profile.id` from the arguments passed back from Twitter. This should look really familiar to the queries in the `clickHandler` object we modified earlier.
+- `User.findOne({...})` will search the database for a username where `github.id` is equal to the `profile.id` from the arguments passed back from GitHub. This should look really familiar to the queries in the `clickHandler` object we modified earlier.
 
 - `function (err, user) {...}` is a callback function which will execute only when the database query has been completed.
 
@@ -769,7 +769,7 @@ That's it for the server-side controller. We won't touch it again, I promise!
 We're introducing a lot of new functionality on our site, and that means we need to update and define additional routes for our users. Let's take a step back to examine the overall strategy for our routes:
 
 - The `/` or `/index.html` route will be the default route, but should only be accessible if a user has been authenticated. After all, we don't want unauthorized users seeing our awesome button-click app!
-- We need to create a `/login` route that will authenticate users with Twitter.
+- We need to create a `/login` route that will authenticate users with GitHub.
 - Additionally, we'll want a `/profile` page that shows a user's information
 - A user will also want to `/logout`.
 - We'll want to include a few application specific routes to post user information via an API, and define the previously mentioned `/auth/github` and `/auth/github/callback` routes
@@ -867,7 +867,7 @@ app.route('/login')
 ...
 ```
 
-This route is fairly straightforward. We don't need to check to see if the user is logged in, since this will be our view which asks the user to authenticate with Twitter.
+This route is fairly straightforward. We don't need to check to see if the user is logged in, since this will be our view which asks the user to authenticate with GitHub.
 
 **/logout**
 
@@ -1390,7 +1390,7 @@ That's the last of the click controller modifications. Let's build our user cont
 
 ### Create the User Controller
 
-
+TBC
 
 [Back to top.](#top)
 
@@ -1408,7 +1408,7 @@ _login.html_:
 <html>
 
 	<head>
-		<title>Clementine.js - A beginner level MEAN stack application</title>
+		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
 		
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
@@ -1423,7 +1423,7 @@ _login.html_:
 
 I'm not going to go into the specifics of the above snippet since it's been covered previously in the tutorial. We'll use this again for our other HTML pages.
 
-Before moving forward, head to [this URL](https://github.com/johnstonbl01/clementinejs-fcc/blob/master/public/img/twitter_logo_32x26.png) and download a copy of the Twitter logo. Save it within the `/public/img` directory.
+Before moving forward, head to [this URL](https://github.com/johnstonbl01/clementinejs-fcc/blob/master/public/img/github_32px.png) and download a copy of the GitHub logo. Save it within the `/public/img` directory.
 
 Now, let's create a container `div` in the `body` with the remainder of our functionality.
 
@@ -1436,10 +1436,10 @@ _login.html_:
 			<img src="/public/img/clementine_150.png" />
 			<br />
 			<p class="clementine-text">Clementine.js</p>
-			<a href="/auth/twitter">
+			<a href="/auth/github">
 				<div class="btn" id="login-btn">
-					<img src="/public/img/twitter_logo_32x26.png" alt="twitter logo" />
-					<p>LOGIN WITH TWITTER</p>
+					<img src="/public/img/github_32px.png" alt="github logo" />
+					<p>LOGIN WITH GITHUB</p>
 				</div>
 			</a>
 		</div>
@@ -1447,11 +1447,11 @@ _login.html_:
 </body>
 ```
 
-Ignore the CSS classes, as the stylesheet will be provided for these pages as it was in the previous tutorial. We create a `<div` element for our login components, followed by inserting the Clementine.js logo. Next, the title `Clementine.js` is added in a `<p>` element.
+Ignore the CSS classes, as the stylesheet will be provided for these pages as it was in the previous tutorial. We create a `<div>` element for our login components, followed by inserting the Clementine.js logo. Next, the title `Clementine.js` is added in a `<p>` element.
 
-Finally, we're going to create an anchor element (`<a>`) and point the hyperlink to our `/auth/twitter` route. Remember that this is the route that will prompt authentication with Twitter. 
+Finally, we're going to create an anchor element (`<a>`) and point the hyperlink to our `/auth/github` route. Remember that this is the route that will prompt authentication with GitHub. 
 
-Inside the anchor element, we're including a `<div>` with the Twitter logo and the phrase, "LOGIN WITH TWITTER". After CSS is applied, this anchor element will wrap the `<div>`. We do this so that whenever a user clicks anywhere on the `div`, it will fire the anchor element.
+Inside the anchor element, we're including a `<div>` with the GitHub logo and the phrase, "LOGIN WITH GITHUB". After CSS is applied, this anchor element will wrap the `<div>`. We do this so that whenever a user clicks anywhere on the `div`, it will fire the anchor element.
 
 That's it for the login page. We're keeping it extremely simple.
 
@@ -1459,7 +1459,7 @@ That's it for the login page. We're keeping it extremely simple.
 
 #### Profile View
 
-Next, let's create a new view for our Twitter profile information. Again, this page will be extremely simple, but will illustrate how to pull information from the API into our application.
+Next, let's create a new view for our GitHub profile information. Again, this page will be extremely simple, but will illustrate how to pull information from the API into our application.
 
 Create a new file named `profile.html` in the `/public` directory. Start with the same beginning template as last time:
 
@@ -1469,7 +1469,7 @@ _profile.html_:
 <html>
 
 	<head>
-		<title>Clementine.js - A beginner level MEAN stack application</title>
+		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
 		
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
@@ -1482,20 +1482,19 @@ _profile.html_:
 </html>
 ```
 
-Let's make one addition to this template before moving forward. Within the `<html>` tag, add `ng-app="clementineApp"`. This instructs Angular that the page uses the `clementineApp` module. This mirrors the same line in the `index.html` file.
-
-Next, we need to create the "profile card." This will be a simple box with the Twitter logo and the user's Twitter information.
+Next, we need to create the "profile card." This will be a simple box with the GitHub logo and the user's GitHub profile information. Again, head to [this link](https://github.com/johnstonbl01/clementinejs-fcc/blob/master/public/img/gh-mark-32px.png) to download the GitHub logo (this one is black instead of white). Save it in the `/public/img/` directory.
 
 _profile.html_:
 
 ```html
 <body>
-	<div class="container" ng-controller="userController">
-		<div class="twitter-profile">
-			<img src="/public/img/twitter_logo_32x26.png" alt="twitter logo" />
-			<p><span>ID: </span>{{ twitterId }}</p>
-			<p><span>Username: </span>@{{ userName }}</p>
-			<p><span>Display Name: </span>{{ displayName }}</p>
+	<div class="container">
+		<div class="github-profile">
+			<img src="/public/img/gh-mark-32px.png" alt="github logo" />
+			<p><span>ID: </span><span id="profile-id" class="profile-value"></span></p>
+			<p><span>Username: </span><span id="profile-username" class="profile-value"></span></p>
+			<p><span>Display Name: </span><span id="display-name" class="profile-value"></span></p>
+			<p><span>Repositories: </span><span id="profile-repos" class="profile-value"></span></p>
 			<a class="menu" href="/">Home</a>
 			<p id="menu-divide">|</p>
 			<a class="menu" href="/logout">Logout</a>
@@ -1504,49 +1503,41 @@ _profile.html_:
 </body>
 ```
 
-We begin by creating a container div and including the Angular directive `ng-controller`, pointing it to a `userController`. We haven't created this new controller yet, but will do so in the next section of the tutorial.
+We begin by creating a container div for the profile. The following `div` element will be the actual profile card (`<div class="github-profile">`). The first element within the card will be the black GitHub logo we used inside our login page button. Afterward, we'll add paragraph elements which will contain the name of the field (i.e. `ID:`) followed by a `<span>` element that will be used to emphasize the names of the field names in the profile cards (i.e. making them bold instead of normal font weight).
 
-The following `div` element will be the actual profile card (`<div class="twitter-profile">`). The first element within the card will be the same Twitter logo we used inside our login page button. Afterward, we'll add paragraph elements which will contain the name of the field (i.e. `ID:`) followed by an [Angular data binding](https://docs.angularjs.org/guide/databinding) (the part in the double curly-braces: `{{}}`).
+The next `<span>` element that we will target with our AJAX calls to fill with the profile information (i.e. `<span id="profile-username" class="profile-value">`). Lastly, we will add links at the bottom of the menu to return to the Home (`index.html` page or to logout). Notice that when we're using anchor (`<a>`) elements again, and in order for a user to log out, we're simply directing them to our `/logout` route as the `href` attribute value.
 
-The `<span>` elements will be used to emphasize the names of the field names in the profile cards (i.e. making them bold instead of normal font weight).
-
-The values within curly-braces will directly relate to data that has been bound to the [Angular $scope](https://docs.angularjs.org/guide/scope) object by the `userController`. Binding data to $scope is a subject that was covered in the previous tutorial, so it should feel somewhat familiar.
-
-We'll do this for three different fields of Twitter profile information: ID, Username and Display Name. Lastly, we will add links at the bottom of the menu to return to the Home (`index.html` page or to logout). Notice that when we're using anchor (`<a>`) elements again, and in order for a user to log out, we're simply directing them to our `/logout` route as the `href` attribute value.
-
-Finally, the last step for this view will be to add links to all of our JavaScript files. Note that we only reference the Angular files that we need for this particular page (i.e. the userController and userFactory). We don't need to include any of the files used for other parts of the applicaiton not present in this view. The final file should look like:
+Finally, the last step for this view will be to add links to all of our JavaScript files.
 
 _profile.html_:
 
 ```html
 <!DOCTYPE html>
 
-<html ng-app="clementineApp">
+<html>
 
 	<head>
-		<title>Clementine.js - A beginner level MEAN stack application</title>
+		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
 		
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<body>
-		<div class="container" ng-controller="userController">
-			<div class="twitter-profile">
-				<img src="/public/img/twitter_logo_32x26.png" alt="twitter logo" />
-				<p><span>ID: </span>{{ twitterId }}</p>
-				<p><span>Username: </span>@{{ userName }}</p>
-				<p><span>Display Name: </span>{{ displayName }}</p>
+		<div class="container">
+			<div class="github-profile">
+				<img src="/public/img/gh-mark-32px.png" alt="github logo" />
+				<p><span>ID: </span><span id="profile-id" class="profile-value"></span></p>
+				<p><span>Username: </span><span id="profile-username" class="profile-value"></span></p>
+				<p><span>Display Name: </span><span id="display-name" class="profile-value"></span></p>
+				<p><span>Repositories: </span><span id="profile-repos" class="profile-value"></span></p>
 				<a class="menu" href="/">Home</a>
 				<p id="menu-divide">|</p>
 				<a class="menu" href="/logout">Logout</a>
 			</div>
 		</div>
 		
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
-		<script type="text/javascript" src="controllers/clickController.client.js"></script>
-		<script type="text/javascript" src="factories/userFactory.js"></script>
+		<script type="text/javascript" src="common/ajax-functions.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
 	</body>
 
@@ -1557,7 +1548,7 @@ _profile.html_:
 
 #### Updating Index.html
 
-The last step in creating the views is to update our existing `index.html` to include a few new features. We want to display the user's name when they log in, and provide a way for them to visit the profile page and log out. Additionally, we'll need to update the list of scripts to include the relevant Angular user scripts to properly pull in the user information.
+The last step in creating the views is to update our existing `index.html` to include a few new features. We want to display the user's name when they log in, and provide a way for them to visit the profile page and log out.
 
 Let's put the user information and navigation at the top of the page. We'll want to wrap this within a `<header>` element between the `<head>` and `<body>` sections of the page.
 
@@ -1568,8 +1559,8 @@ _index.html_:
 	...
 </head>
 
-<header ng-controller="userController">
-	<p>Welcome, @{{ userName }}!</p>
+<header>
+	<p>Welcome, <span id="display-name"></span>!</p>
 	<a class="menu" href="/profile">Profile</a>
 	<p>|</p>
 	<a class="menu" href="/logout">Logout</a>
@@ -1580,20 +1571,51 @@ _index.html_:
 </body>
 ```
 
-As you can see, we're using the Angular directive `ng-controller` again for the header, and assigning the `userController` to this element. Then, we're going to pull in the  `userName` information in the same manner as the profile page. The `userName` property should reflect the user's Twitter handle, so we put an @ symbol before it.
-
-Next, we create another simple, text-based means of navigation for the user to reach the profile page and logout. 
-
-The final change is to add a few additional Angular scripts to the list of scripts. The complete list of scripts should look like:
+We're creating a paragraph element with another `<span>` element that we'll use to target with AJAX from the user controller. Next, we create another simple, text-based means of navigation for the user to reach the profile page and logout.
 
 _index.html_:
 
 ```html
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
-<script type="text/javascript" src="controllers/clickController.client.js"></script>
-<script type="text/javascript" src="factories/userFactory.js"></script>
-<script type="text/javascript" src="controllers/userController.client.js"></script>
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
+		
+		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<header>
+		<p>Welcome, <span id="display-name"></span>!</p>
+		<a class="menu" href="/profile">Profile</a>
+		<p>|</p>
+		<a class="menu" href="/logout">Logout</a>
+	</header>
+
+	<body>
+		<div class="container">
+			<img src="/public/img/clementine_150.png" />
+			<br />
+			<p class="clementine-text">Clementine.js</p>
+		</div>
+	
+		<div class="container">
+			<p>You have clicked the button <span id="click-nbr"></span> times.</p>
+			<br />
+			<div class="btn-container">
+				<button type="submit" class="btn btn-add">CLICK ME!</button>
+				<button class="btn btn-delete">RESET</button>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="common/ajax-functions.js"></script>
+		<script type="text/javascript" src="controllers/clickController.client.js"></script>
+		<script type="text/javascript" src="controllers/userController.client.js"></script>
+	</body>
+
+</html>
 ```
 
 [Back to top.](#top)
@@ -1662,6 +1684,10 @@ header a ~ p {
 	color: #ECEFF1;
 }
 
+#display-name {
+	font-weight: 400;
+}
+
 /****** Login Styling ******/
 
 .login {
@@ -1671,10 +1697,11 @@ header a ~ p {
 
 #login-btn {
 	width: 225px;
+	padding: 7px 5px;
 }
 
 .btn p {
-	margin: 5px 0 0 0;
+	margin: 8px 0 0 0;
 	padding: 0;
 }
 
@@ -1733,53 +1760,53 @@ img {
 	color: #212121;
 }
 
-/****** Profile Styling ******/
-
-.twitter-profile {
-	width: 350px;
-	height: 160px;
-	border-radius: 3px;
-	margin: 86px auto 0 auto;
-	background-color: #00BCD4;
-	text-align: center;
-	color: #FFFFFF;
+#click-nbr {
+	font-weight: 400;
 }
 
-.twitter-profile p:first-child {
+/****** Profile Styling ******/
+
+.github-profile {
+	width: 350px;
+	height: 200px;
+	border-radius: 3px;
+	margin: 86px auto 0 auto;
+	background-color: #EEE;
+	text-align: center;
+	color: #000;
+}
+
+.github-profile p:first-child {
 	padding-top: 16px;
 }
 
-.twitter-profile p:nth-child(4) {
+.github-profile p:nth-child(5) {
 	margin-bottom: 16px
 }
 
-.twitter-profile p {
+.github-profile p {
 	margin: 0 0 0 16px;
 	text-align: left;
+}
+
+.profile-value {
+	font-weight: 400;
 }
 
 span {
 	font-weight: 500;
 }
 
-.twitter-profile > img {
+.github-profile > img {
 	padding-top: 16px;
 	margin-bottom: 16px;
 }
 
-.twitter-profile .menu {
-	color: #FFFFFF;
-}
-
-.twitter-profile .menu:visited {
-	color: #FFFFFF;
-}
-
-.twitter-profile .menu:hover {
+.github-profile .menu:hover {
 	color: #FFA000;
 }
 
-.twitter-profile .menu:active {
+.github-profile .menu:active {
 	color: #FF630D;
 }
 
