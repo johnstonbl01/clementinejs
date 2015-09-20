@@ -1386,13 +1386,7 @@ _clickController.client.js_:
 })();
 ```
 
-That's the last of the click controller modifications. Let's build our user controller!
-
-### Create the User Controller
-
-TBC
-
-[Back to top.](#top)
+That's the last of the click controller modifications. Let's work on the views next.
 
 ### Creating New Views
 
@@ -1507,7 +1501,7 @@ We begin by creating a container div for the profile. The following `div` elemen
 
 The next `<span>` element that we will target with our AJAX calls to fill with the profile information (i.e. `<span id="profile-username" class="profile-value">`). Lastly, we will add links at the bottom of the menu to return to the Home (`index.html` page or to logout). Notice that when we're using anchor (`<a>`) elements again, and in order for a user to log out, we're simply directing them to our `/logout` route as the `href` attribute value.
 
-Finally, the last step for this view will be to add links to all of our JavaScript files.
+Finally, the last step for this view will be to add links to all of our JavaScript files (we'll create the user controller shortly).
 
 _profile.html_:
 
@@ -1617,6 +1611,131 @@ _index.html_:
 
 </html>
 ```
+
+[Back to top.](#top)
+
+### Create the User Controller
+
+The next problem we need to solve is to write a controller which will retrieve the user information from the API and update the appropriate values in the view. This controller is slightly different in that we want to be able to use this controller for both the `index.html` and `profile.html` views. 
+
+The profile page will have fields that we don't want to show on the `index.html` page, so we have to think about how to write the code so that it is dynamic enough to not produce errors a page is missing certain HTML elements. We'll work through this problem shortly.
+
+Fist, create a new file in the `/app/controllers/` directory named `userController.client.js`. Then, let's begin simlar to the click controller, by specifing strict mode with `'use strict';` and creating an [IIFE](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression).
+
+_userController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+	
+})();
+```
+
+Next, let's store our HTML elements and API URL within variables for use within the AJAX functions.
+
+_userController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+   var profileId = document.querySelector('#profile-id') || null;
+   var profileUsername = document.querySelector('#profile-username') || null;
+   var profileRepos = document.querySelector('#profile-repos') || null;
+   var displayName = document.querySelector('#display-name');
+   var apiUrl = 'http://localhost:3000/api/:id';
+})();
+```
+
+Notice that for the `profileId`, `profileUsername` and `profileRepos`, we're adding the `|| null` condition at the end of the statement. What is this doing? JavaScript will interpret this [logical OR](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_OR) expression in the following way:
+
+- If what's left of the `||` evaluates to `true`, then that value is returned
+- If what's left of the `||` evaluates to `false` and the expression to the right evaluates to true, then the value on the right is returned.
+- If both expressions are true, then the left value is returned.
+- If both expressions are false, then neither value is returned.
+
+Our `var` statements will set the variable value equal to the HTML element if it exists, and if not it will set it equal to [`null`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null). We don't do this for the `displayName` variable because it will be used in both the `profile` and `index` views. We'll take advantage of this HTML element or null value within our AJAX function.
+
+Before doing that, let's create the function that will be called as the callback for the AJAX functions. This function will need to update the HTML elements, but also be flexible enough so that we can re-use it without writing a new function for every element.
+
+_userController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+   ...
+
+   function updateHtmlElement (data, element, userProperty) {
+   	element.innerHTML = data[userProperty];
+   }
+})();
+```
+
+This new function will take 3 arguments:
+
+- `data` will be the object containing the user information from the API
+- `element` will be the variable of the HTML element we want to update
+- `userProperty` will be a string representing the property on the user object
+
+Then we're setting the [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) value of the element passed in as an argument to the value of the `userProperty` arguement on the `data` object. We have to use [bracket notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_Accessors#Bracket_notation) because we are passing in a string as the property name. It's not possible to use dot notation with a string as the property name.
+
+Next we'll create the AJAX function to query the API and return the user information. This will be very similar to the AJAX function within the click controller.
+
+_userController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+   ...
+
+   function updateHtmlElement (data, element, userProperty) { ... }
+
+   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
+
+   })
+})();
+```
+
+This should look familiar so far. The only difference is that rather than passing a named callback function, we're passing in an anonymous function (`function (data) {...}`). We're doing this so that we can make multiple changes to the DOM with this one request since it contains all the information we need.
+
+We'll start by parsing the AJAX data and storing the object in a variable that we can pass into subsequent functions. We'll then update the value of the `displayName` elements, and then move to making conditional statements for our other HTML elements. 
+
+These are the elements that may or may not exist depending on the page. We'll create `if` blocks that will test if the variable is equal to `null`. If it's not, then we'll update the HTML element. If the variable is equal to `null`, then no action will be taken.
+
+_userController.client.js_:
+
+```js
+'use strict';
+
+(function () {
+   ...
+
+   function updateHtmlElement (data, element, userProperty) { ... }
+
+   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
+		var userObject = JSON.parse(data);
+
+      updateHtmlElement(userObject, displayName, 'displayName');
+
+      if (profileId !== null) {
+         updateHtmlElement(userObject, profileId, 'id');   
+      }
+
+      if (profileUsername !== null) {
+         updateHtmlElement(userObject, profileUsername, 'username');   
+      }
+
+      if (profileRepos !== null) {
+         updateHtmlElement(userObject, profileRepos, 'publicRepos');   
+      }
+   })
+})();
+```
+
+And that's it for user controller. All we have left to do is make it pretty!
 
 [Back to top.](#top)
 
