@@ -9,16 +9,17 @@ layout: site
 - [About](#about)
 	- [MongoDB](#mongodb)
 	- [Express](#express)
-	- [Node.js](#node.js)
+	- [Node.js](#nodejs)
 - [Installation](#installation)
-	- [Install Node.js and NPM](#install-node.js-and-npm)
-	- [Install MongoDB](#install-mongodb)
-	- [Install Yeoman (optional)](#install-yeoman-optional)
-	- [Install Clementine.js](#install-clementine.js)
+	- [Node.js and NPM](#install-node.js-and-npm)
+	- [MongoDB](#install-mongodb)
+	- [Git](#install-git)
+	- [Yeoman (optional)](#install-yeoman-optional)
+	- [Clementine.js](#install-clementinejs)
 	- [Starting the App](#starting-the-app)
 - [Architecture](#architecture)
 	- [Folder Structure](#folder-structure)
-	- [Ports and MongoDB](#ports-and-mongodb)
+	- [Ports and MongoDB Collection](#ports-and-mongodb-collection)
 	- [Seeding Data](#seeding-data)
 	- [Clicks API](#clicks-api)
 
@@ -59,6 +60,7 @@ Prerequisites for Clementine.js:
 - Node.js
 - NPM
 - MongoDB
+- Git
 - Yeoman (optional)
 
 ### Install Node.js and NPM
@@ -95,9 +97,15 @@ MongoDB has great installation instructions for MAC OSX, Windows and Linux. [See
 
 [Back to top.](#top)
 
+### Install Git
+
+Follow the [directions here to install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for the appropriate environment.
+
+[Back to top.](#top)
+
 ### Install Yeoman (optional)
 
-Yeoman is offered as an optional method of installation. If the Yeoman generator isn't desired, then feel free to skip this section.
+Yeoman is offered as an optional method of installation. If installation via the Yeoman generator isn't desired, then feel free to skip this section.
 
 ```bash
 $ npm install -g yeoman
@@ -160,12 +168,12 @@ When installed, Clementine.js offers a very simple application demonstrating ful
 
 ```
 +--	Project Folder
-	+--	app
-	|	\--	controllers
-	|	\--	routes
+	+-- app
+	|	\-- controllers
+	|	\-- routes
 	|
 	+-- public
-	|	\--	css
+	|	\-- css
 	|	\-- img
 ```
 
@@ -190,7 +198,7 @@ When installed, Clementine.js offers a very simple application demonstrating ful
 
 [Back to top.](#top)
 
-### Ports and MongoDB
+### Ports and MongoDB Collection
 
 Clementine.js uses port 3000 for the application and the default MongoDB port of 27017. These can both be changed within the `server.js` file.
 
