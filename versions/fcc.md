@@ -59,10 +59,10 @@ For more information on Node, [try their site](https://nodejs.org/documentation/
 
 Prerequisites for Clementine.js:
 
-- Node.js
-- NPM
-- MongoDB
-- Git
+- [Node.js](https://nodejs.org/)
+- [NPM](https://nodejs.org/)
+- [MongoDB](http://www.mongodb.org/)
+- [Git](https://git-scm.com/)
 
 [Back to top.](#top)
 
