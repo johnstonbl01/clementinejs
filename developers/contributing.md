@@ -12,13 +12,13 @@ This project is open source and provides multiple ways to make meaningful contri
 
 There are many ways to contribute:
 
-- **Filing an Issue** - if you find a bug or want to request an enhancement, [file an issue](https://github.com/johnstonbl01/generator-clementinejs/issues/new).
-- **Working on Issues** - feel free to pick up [any open issue](https://github.com/johnstonbl01/generator-clementinejs/issues) that you feel you're capable of addressing.
+- **Filing an Issue** - if you find a bug or want to request an enhancement, [file an issue](https://github.com/johnstonbl01/clementinejs/issues/new).
+- **Working on Issues** - feel free to pick up [any open issue](https://github.com/johnstonbl01/clementinejs/issues) that you feel you're capable of addressing.
 - **Documentation** - if you enjoy writing and want to contribute to the project, try improving [our documentation](https://github.com/johnstonbl01/clementinejs/tree/gh-pages).
 
 #### Filing an Issue
 
-[Issues should be filed](https://github.com/johnstonbl01/generator-clementinejs/issues/new) directly inside of the GitHub repository. File an issue if:
+[Issues should be filed](https://github.com/johnstonbl01/clementinejs/issues/new) directly inside of the GitHub repository. File an issue if:
 
 - You've identified a bug in the application. This means that you believe something is working incorreclty and should be fixed.
 - You want to request a new feature for the application. This means that you believe something is missing and should be included.
@@ -40,7 +40,7 @@ Please include as much detail as possible to help the team address your issue. I
 
 #### Working on Issues
 
-Please feel free to begin working on any open issue in the [issue list](https://github.com/johnstonbl01/generator-clementinejs/issues) of the GitHub repository. If the issue is still open, that means that the team plans on eventually addressing it, and any help is appreciated. Please consider:
+Please feel free to begin working on any open issue in the [issue list](https://github.com/johnstonbl01/clementinejs/issues) of the GitHub repository. If the issue is still open, that means that the team plans on eventually addressing it, and any help is appreciated. Please consider:
 
 - **Beginner issues** - If you've never contributed to the project, you may want to try one of the issues tagged with `beginner`. These issues are small and self-contained and provide good experience for new contributors.
 - **Accepted issues** - Issues tagged with `accepted` will eventually be addressed by the team. Please only submit requests for accepted issues.
