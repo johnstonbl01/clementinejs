@@ -17,20 +17,21 @@ layout: site
 	- [Updating the Routes](#updating-the-routes)
 	- [Refactor Server-Side Controller](#refactor-server-side-controller)
 - [Passport Server-Side Integration](#passport-server-side-integration)
-	- [Twitter App Setup](#twitter-app-setup)
+	- [GitHub App Setup](#github-app-setup)
 	- [Create the User Model](#create-the-user-model)
 	- [Authorization Configuration](#authorization-configuration)
 	- [Passport Configuration](#passport-configuration)
 	- [Update and Create Routes](#update-and-create-routes)
 	- [Updating the Server File](#updating-the-server-file)
 - [Passport Client-Side Integration](#passport-client-side-integration)
-	- [Retrieving User Information](#retrieving-user-information)
+	- [Refactor Common AJAX Functions](#refactor-common-ajax-functions)
+	- [Updating the Click Controller](#updating-the-click-controller)
 	- [Creating New Views](#creating-new-views)
 		- [Login View](#login-view)
 		- [Profile View](#profile-view)
 		- [Updating Index.html](#updating-indexhtml)
-	- [Passing User Information to the View](#passing-user-information-to-the-view)
-	- [Make It Pretty](#make-it-pretty)
+	- [Create the User Controller](#create-the-user-controller)
+- [Make It Pretty](#make-it-pretty)
 - [Conclusion](#conclusion)
 
 ## Prerequisites
@@ -1739,7 +1740,7 @@ And that's it for user controller. All we have left to do is make it pretty!
 
 [Back to top.](#top)
 
-### Make It Pretty
+## Make It Pretty
 
 As in the previous tutorial, I'm simply going to provide the CSS file in its entirety. If you have specific questions about why something within the file was done in a particular way, feel free to reach out to me!
 
