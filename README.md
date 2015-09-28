@@ -53,6 +53,8 @@ $ yo clementinejs
 
 Note: `generator-clementinejs` must be installed globally.
 
+to start the application, browse to the project directory and type: `$ node server` into the terminal window. Point a browser to `localhost:3000` and you're up and running!
+
 ## Contributing
 
 This is an open-source project, and contributions are always welcome! To see ways to contribute, please review the [contribution guidelines](http://johnstonbl01.github.io/clementinejs/developers/contributing.html).
