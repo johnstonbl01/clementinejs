@@ -1,0 +1,23 @@
+{% include top.html %}
+<body>
+	<div id="top" class="page">
+		{% include header.html %}
+		<div class="container">
+         <div class="row">
+            <div class="col-md-9">
+			      {{ page.content | markdownify }}
+            </div>
+            <div class="col-md-3">
+               <div id="toc"></div>
+            </div>
+         </div>
+		</div>
+	</div>
+	{% include footer.html %}
+	<script src="{{ site.baseurl }}/js/vendor/jquery-1.11.3.min.js"></script>
+   <script src="{{ site.baseurl }}/js/vendor/jquery-ui.min.js"></script>
+   <script src="{{ site.baseurl }}/js/vendor/jquery.tocify.min.js"></script>
+	<script src="{{ site.baseurl }}/js/vendor/bootstrap.min.js"></script>
+   <script src="{{ site.baseurl }}/js/toc.js"></script>
+</body>
+</html>

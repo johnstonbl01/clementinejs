@@ -1,34 +1,8 @@
 ---
-layout: site
+layout: docs
 ---
 
 # Clementine.js Beginner Tutorial
-
-## Contents
-
-- [Prerequisites](#prerequisites)
-	- [Install Node.js and NPM](#install-node.js-and-npm)
-	- [Install MongoDB](#install-mongodb)
-- [NPM Package Installation](#npm-package-installation)
-	- [About Express](#about-express)
-	- [About MongoDB](#about-mongodb)
-- [.gitignore](#.gitignore)
-- [Folder Creation](#folder-creation)
-- [App Architecture Overview](#app-architecture-overview)
-- [Simple Node Server](#simple-node-server)
-	- [Refactoring Routes](#refactoring-routes)
-	- [Adding Additional Elements to Index.HTML](#adding-additional-elements-to-index.html)
-- [Connecting to MongoDB](#connecting-to-mongodb)
-- [Setting Up the Server-Side Controller](#setting-up-the-server-side-controller)
-	- [Testing the API via the Mongo Console](#testing-the-api-via-the-mongo-console)
-	- [Additional Methods and Routing](#additional-methods-and-routing)
-- [Adding Interactivity via the Client-side Controller](#adding-interactivity-via-the-client-side-controller)
-   - [Create the Controller](#create-the-controller)
-   - [Create Controller Functions](#create-controller-functions)
-   - [Listening for Events](#listening-for-events)
-- [Adding CSS Styling](#adding-css-styling)
-- [Next Steps](#next-steps)
-- [Additional Resources](#additional-resources)
 
 ## Prerequisites
 

@@ -1,34 +1,8 @@
 ---
-layout: site
+layout: docs
 ---
 
-# Clementine.js Beginner Tutorial
-
-## Contents
-
-- [Prerequisites](#prerequisites)
-   - [Install Node.js and NPM](#install-node.js-and-npm)
-   - [Install MongoDB](#install-mongodb)
-- [NPM Package Installation](#npm-package-installation)
-   - [About Express](#about-express)
-   - [About MongoDB](#about-mongodb)
-- [.gitignore](#.gitignore)
-- [Folder Creation](#folder-creation)
-- [App Architecture Overview](#app-architecture-overview)
-- [Simple Node Server](#simple-node-server)
-   - [Refactoring Routes](#refactoring-routes)
-   - [Adding Additional Elements to Index.HTML](#adding-additional-elements-to-index.html)
-- [AngularJS HTML Integration](#angularjs-html-integration)
-   - [AngularJS Scope Manipulation](#angularjs-scope-manipulation)
-- [AngularJS Interactivity via the Controller](#angularjs-interactivity-via-the-controller)
-- [Connecting to MongoDB](#connecting-to-mongodb)
-- [Setting Up the Server-Side Controller](#setting-up-the-server-side-controller)
-   - [Testing the API via the Mongo Console](#testing-the-api-via-the-mongo-console)
-   - [Additional Methods and Routing](#additional-methods-and-routing)
-- [Integrating the API into AngularJS](#integrating-the-api-into-angularjs)
-- [Adding CSS Styling](#adding-css-styling)
-- [Next Steps](#next-steps)
-- [Additional Resources](#additional-resources)
+# Clementine.js Angular Tutorial
 
 ## Prerequisites
 

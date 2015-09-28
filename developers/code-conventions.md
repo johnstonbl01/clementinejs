@@ -1,5 +1,5 @@
 ---
-layout: site
+layout: docs
 ---
 
 TBD

@@ -1,237 +1,157 @@
----
----
-
 body {
-	font-family: 'Roboto', sans-serif;
-	padding: 0;
-	margin: 0;
-	background-color: #FFF;
-	color: #212121;
-}
-
-header {
-	background-color: #FFA000;
-	border-bottom: 1px solid #FF630D;
-}
-
-strong {
-	font-weight: 500;
-}
-
-#navbar {
-	color: white;
-	height: 56px;
-	font-weight: 500;
-	font-size: 18px;
-	display: block;
-}
-
-#navbar ul {
-	list-style-type: none;
-	float: right;
-	text-align: center;
-	margin: 0;
-	padding: 0;
-}
-
-#navbar li {
-	float: left;
-}
-
-.nav-button {
-	display: inline-block;
-	text-decoration: none;
-	line-height: 56px;
-	padding: 0 16px;
-}
-
-.nav-button:visited {
-	color: #FFFFFF;
-}
-
-.nav-button:hover {
-	text-decoration: none;
-	color: #F7F7F7;
-}
-
-.nav-button:focus {
-	text-decoration: none;
-	color: #F7F7F7;
-	background-color: rgba(255,255,255,0.2);
-}
-
-.nav-button:active {
-	background-color: rgba(255,255,255,0.2);
-}
-
-.nav-button:link {
-	color: #FFFFFF;
-}
-
-#nav-logo {
-	background: url('{{ site.baseurl }}/img/clementine_white_nav.png') 0 8px no-repeat;
-	height: 56px;
-	width: 179px;
-	margin: 0;
-	padding: 0;
-	float: left;
-}
-
-.dropdown-menu {
-    background-color: #FFF;
-    float: right;
-    top: 85%;
-    border-radius: 0px;
-}
-
-.dropdown-menu > li {
-	width: 100%;
-	text-align: left;
-}
-
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
-    text-decoration: none;
-    color: #ffffff;
-    background-color: #4DD0E1;
-}
-
-.container {
-	width: 900px;
-	margin: 0 auto;
-}
-
-p {
-	margin-bottom: 12px;
-	font-size: 16px;
-}
-
-h1 {
-	font-size: 44px;
-}
-
-h2 {
-	font-size: 32px;
-}
-
-h3 {
-	font-size: 23px;
+   font-size: 17px;
+   font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+   line-height: 1.428571429;
 }
 
 h1, h2, h3 {
-	margin-top: 24px;
-	margin-bottom: 12px;
-	font-weight: 400;
-	line-height: 1.1;
+   margin-top: 24px;
+   margin-bottom: 12px;
 }
 
-a {
-	text-decoration: none;
-	color: #0093A6;
+h2 {
+   font-size: 36px;
 }
 
-a:hover {
-	text-decoration: underline;
-	color: #0093A6;
+h3 {
+   font-size: 29px;
+   font-weight: 400;
 }
 
-a:active a:hover {
-	outline: 0;
+hr {
+   margin-top: 24px;
+   margin-bottom: 3px;
 }
 
-p code {
-	padding: 2px 4px;
-	font-size: 90%;
-	color: #0093A6;
-	background-color: #F7F7F7;
-	white-space: nowrap;
-	border-radius: 4px
+.navbar {
+   min-height: 76px;
+   margin-bottom: 0;
 }
 
-ul code {
-	padding: 2px 4px;
-	font-size: 90%;
-	color: #0093A6;
-	background-color: #F7F7F7;
-	white-space: nowrap;
-	border-radius: 4px
+.navbar-brand {
+   padding-top: 24px;
+   font-size: 36px;
+   line-height: 24px;
+   letter-spacing: -0.05em;
+}
+
+.navbar-default .navbar-brand {
+   color: #666;
+}
+
+.navbar-brand img {
+   display: block;
+   padding: 0;
+   float: left;
+   width: 51px;
+   height: 50px;
+   margin-top: -12px;
+   margin-right: 5px;
+}
+
+@media (min-width: 768px) {
+   .navbar-nav>li>a {
+       padding-top: 26px;
+       padding-bottom: 26px;
+   }
+}
+
+.jumbotron {
+   background-color: #FFA000;
+   color: #FFF;
+   height: 325px;
+}
+
+.section-intro {
+   background: url("/img/clementine_bg2.svg") no-repeat scroll right bottom;
+   background-color: #FFAA00;
+}
+
+.section-intro h1 {
+   margin-top: 32px;
+   font-size: 68px;
+   letter-spacing: -0.05em;
+   line-height: 47px;
+}
+
+.section-intro h2 {
+   font-weight: 300;
+}
+
+.lead {
+   font-weight: 200;
+   line-height: 1.4;
+   font-size: 25.5px;
+   margin-bottom: 0px;
 }
 
 footer {
-	text-align: center;
-	padding: 20px 0 5px 0;
-	height: 56px;
-	margin-top: 56px;
-	background-color: #F7F7F7;
+   width: 100%;
+   text-align: center;
+   padding: 20px 0 5px 0;
+   background-color: #F7F7F7;
+   overflow: visible;
+   margin-top: 16px;
 }
 
 footer .container {
-	background-color: #F7F7F7;
-	width: 100%;
+   background-color: #F7F7F7;
+   width: 100%;
 }
 
 footer p {
-	font-size: 12px;
-	padding: 5px 0 5px 0;
-	margin: 0;
+   font-size: 12px;
+   padding: 5px 0 5px 0;
+   margin: 0;
 }
 
-table {
-	margin: 0 auto;
-	border-collapse: collapse;
+.pre-footer {
+   width: 100%;
+   padding-left: 0;
+   padding-right: 0;
 }
 
-tr:nth-child(odd) {
-	background-color: #F7F7F7;
+.btn-primary {
+   background-color: #FFAA00;
+   border-color: #FF9700;
+   font-size: 17px;
+   font-weight: 400;
 }
 
-th {
-	padding: 10px;
-	border-bottom: 2px solid #212121;
-	font-size: 20px;
-	width: 140px;
-	font-weight: 400;
-	background-color: #FFF;
-	color: #0093A6;
+.btn-primary:hover {
+   background-color: #FF9700;
+   border-color: #FF9700;
 }
 
-td {
-	padding: 5px;
+code {
+   color: #0093A6;
+   background-color: #F7F7F7;
 }
 
-img {
-	margin: 0 auto;
-	display: block;
+.tocify {
+   font-size: 14px;
+   margin-top: 24px;
+   border: none;
 }
 
-.container > ul:first-of-type {
-	font-size: 18px;
-	list-style-type: none;
-	padding: 10px 0 10px 20px;
-	border-radius: 4px;
-	background-color: #F7F7F7;
+.tocify ul, .tocify li {
+   line-height: 1.42857143;
 }
 
-.container > ul:first-of-type li {
-	padding: 3px;
+.nav-list > li > a {
+   padding-top: 4px;
+   padding-bottom: 4px;
+   color: #767676;
+   border-left: 1px solid #FFFFFF;
 }
 
-.container > ul:first-of-type > li > ul {
-	font-size: 16px;
-	padding: 5px 0 0 20px;
-	list-style-type: none;
+.nav-list > li > a:hover {
+   border-left: 1px solid #FFAA00;
+   background-color: #FFFFFF;
+   padding-left: 5px;
 }
 
-.container > ul:first-of-type > li > ul > li > ul {
-	font-size: 16px;
-	padding: 5px 0 0 20px;
-	list-style-type: none;
-}
-
-footer a {
-	display: inline-block;
-}
-
-footer img {
-	margin: 0 3px 0 3px;
+.nav-list > .active > a {
+   border-left: 2px solid #FFAA00;
+   padding-left: 4px;
 }

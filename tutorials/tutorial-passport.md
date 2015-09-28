@@ -1,38 +1,8 @@
 ---
-layout: site
+layout: docs
 ---
 
-# Clementine.js Beginner Tutorial - Passport Integration
-
-## Contents
-
-- [Prerequisites](#prerequisites)
-- [Attack of the Auth](#attack-of-the-auth)
-- [Setup](#setup)
-	- [Install NPM Packages](#install-npm-packages)
-	- [Updating the Folder Structure](#updating-the-folder-structure)
-- [Mongoose Integration](#mongoose-integration)
-	- [Server.js Cleanup](#serverjs-cleanup)
-	- [Create a Mongoose Model](#create-a-mongoose-model)
-	- [Updating the Routes](#updating-the-routes)
-	- [Refactor Server-Side Controller](#refactor-server-side-controller)
-- [Passport Server-Side Integration](#passport-server-side-integration)
-	- [GitHub App Setup](#github-app-setup)
-	- [Create the User Model](#create-the-user-model)
-	- [Authorization Configuration](#authorization-configuration)
-	- [Passport Configuration](#passport-configuration)
-	- [Update and Create Routes](#update-and-create-routes)
-	- [Updating the Server File](#updating-the-server-file)
-- [Passport Client-Side Integration](#passport-client-side-integration)
-	- [Refactor Common AJAX Functions](#refactor-common-ajax-functions)
-	- [Updating the Click Controller](#updating-the-click-controller)
-	- [Creating New Views](#creating-new-views)
-		- [Login View](#login-view)
-		- [Profile View](#profile-view)
-		- [Updating Index.html](#updating-indexhtml)
-	- [Create the User Controller](#create-the-user-controller)
-- [Make It Pretty](#make-it-pretty)
-- [Conclusion](#conclusion)
+# Clementine.js Passport Authentication Tutorial
 
 ## Prerequisites
 

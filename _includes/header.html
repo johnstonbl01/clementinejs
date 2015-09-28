@@ -1,25 +1,35 @@
-<header>
-	
+<header class="navbar navbar-default">
 	<div class="container">
-		<nav id="navbar">
-			<a id="nav-logo" href="{{ site.baseurl }}/index.html"></a>
-			<ul class="navbar">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle Navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="{{ site.baseurl }}/index.html" class="navbar-brand">
+				<img src="{{ site.baseurl }}/img/clementine_nav.png" alt="Clementine.js" itemprop="image">
+				Clementine.js
+			</a>
+		</div>
+		<nav class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
-					<a class="nav-button" href="#" role="button" data-toggle="dropdown">VERSIONS<span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="{{ site.baseurl }}/versions/generator.html">Generator</a></li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Versions <span class="caret"></span></a>
+					<ul class="dropdown-menu">
 						<li><a href="{{ site.baseurl }}/versions/standard.html">Standard</a></li>
 						<li><a href="{{ site.baseurl }}/versions/fcc.html">Free Code Camp</a></li>
 					</ul>
 				</li>
 				<li class="dropdown">
-					<a class="nav-button" href="#" role="button" data-toggle="dropdown">DEVELOPERS<span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Developers <span class="caret"></span></a>
+					<ul class="dropdown-menu">
 						<li><a href="{{ site.baseurl }}/developers/contributing.html">Contributing</a></li>
 						<li><a href="{{ site.baseurl }}/developers/code-conventions.html">Code Conventions</a></li>
 					</ul>
 				</li>
-				<li><a class="nav-button" href="{{ site.baseurl }}/tutorials/tutorials.html">TUTORIALS</a></li>
+				<li><a href="{{ site.baseurl }}/tutorials/tutorials.html">Tutorials</a></li>
+				<li><a href="#">About</a></li>
 			</ul>
 		</nav>
 	</div>

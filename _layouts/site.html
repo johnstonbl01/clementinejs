@@ -1,13 +1,13 @@
 {% include top.html %}
 <body>
-	<div id="top" class="page">
-		{% include header.html %}
-		<div class="container">
-			{{ page.content | markdownify }}
-		</div>
-	</div>
-	{% include footer.html %}
-	<script src="{{ site.baseurl }}/js/vendor/jquery-1.11.3.min.js"></script>
-	<script src="{{ site.baseurl }}/js/vendor/bootstrap.min.js"></script>
+   {% include header.html %}
+   {% include jumbotron.html %}
+   <div class="container">
+      {{ page.content }}
+      {% include versions.html %}
+   </div>
+   {% include footer.html %}
+   <script src="{{ site.baseurl }}/js/vendor/jquery-1.11.3.min.js"></script>
+   <script src="{{ site.baseurl }}/js/vendor/bootstrap.min.js"></script>
 </body>
 </html>

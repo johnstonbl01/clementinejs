@@ -1,29 +1,8 @@
 ---
-layout: site
+layout: docs
 ---
 
 # The Free Code Camp Boilerplate
-
-## Contents
-
-- [About](#about)
-	- [MongoDB](#mongodb)
-	- [Express](#express)
-	- [Node.js](#nodejs)
-	- [Passport](#passport)
-- [Installation](#installation)
-	- [Node.js and NPM](#install-nodejs-and-npm)
-	- [MongoDB](#install-mongodb)
-	- [Git](#install-git)
-	- [Clementine.js](#install-clementinejs)
-	- [GitHub App Registration](#setup-github-authentication)
-	- [Starting the App](#starting-the-app)
-- [Architecture](#architecture)
-	- [Folder Structure](#folder-structure)
-	- [Ports and MongoDB Collection](#ports-and-mongodb-collection)
-	- [User Model](#user-model)
-	- [Clicks API](#clicks-api)
-	- [Passport Configuration](#passport-configuration)
 
 ## About
 

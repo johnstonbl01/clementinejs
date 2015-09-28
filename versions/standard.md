@@ -1,27 +1,8 @@
 ---
-layout: site
+layout: docs
 ---
 
 # The Standard Boilerplate
-
-## Contents
-
-- [About](#about)
-	- [MongoDB](#mongodb)
-	- [Express](#express)
-	- [Node.js](#nodejs)
-- [Installation](#installation)
-	- [Node.js and NPM](#install-node.js-and-npm)
-	- [MongoDB](#install-mongodb)
-	- [Git](#install-git)
-	- [Yeoman (optional)](#install-yeoman-optional)
-	- [Clementine.js](#install-clementinejs)
-	- [Starting the App](#starting-the-app)
-- [Architecture](#architecture)
-	- [Folder Structure](#folder-structure)
-	- [Ports and MongoDB Collection](#ports-and-mongodb-collection)
-	- [Seeding Data](#seeding-data)
-	- [Clicks API](#clicks-api)
 
 ## About
 
