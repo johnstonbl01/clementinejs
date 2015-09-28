@@ -368,6 +368,9 @@ Head to GitHub and log in.
 2. On the left-hand side, click on 'Applications'.
 3. At the top of the page, click on 'Developer applications'.
 4. Click the 'Register new application' button.
+
+![GitHub Settings](/clementinejs/img/passporttut01.png)
+
 5. Fill out the form:
 	- Name: Whatever you'd like to name your app. Mine says 'clementinejs-fcc', of course. This app name needs to be unique.
 	- Homepage URL: Since we're using localhost, simply use `http://127.0.0.1:3000/`. `127.0.0.1` is the default IP address for localhost. For some reason, simply entering 'localhost' instead wouldn't work for me.
@@ -375,7 +378,11 @@ Head to GitHub and log in.
 	- Authorization callback URL: `http://127.0.0.1:3000/auth/github/callback`. This will be the URL that gets passed in when we're authenticated. We'll add a route for this URL later.
 4. Click 'Register application'.
 
+![GitHub App Registration](/clementinejs/img/passporttut02.png)
+
 Once this is done, it will take you to a page with information about your application. On the top right, there will be codes for Client ID (API Key) and the Client Secret (API Secret). We'll use these later in our app.
+
+![GitHub API Keys](/clementinejs/img/passporttut03.png)
 
 The difference between the API Key and the API Secret is that the key is considered _public_, while the secret is known only to the vendor (GitHub in this case) and you.
 
@@ -1877,15 +1884,15 @@ You can now re-run the app. It should look much more organized! Here's what each
 
 _/login_:
 
-![Login Screenshot](/clementinejs/img/passporttut02.png)
+![Login Screenshot](/clementinejs/img/passporttut04.png)
 
 _/index_:
 
-![Index Screenshot](/clementinejs/img/passporttut03.png)
+![Index Screenshot](/clementinejs/img/passporttut05.png)
 
 _/profile_:
 
-![Profile Screenshot](/clementinejs/img/passporttut04.png)
+![Profile Screenshot](/clementinejs/img/passporttut06.png)
 
 ## Conclusion
 

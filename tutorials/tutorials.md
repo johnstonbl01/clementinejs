@@ -12,7 +12,7 @@ This tutorial provides instruction on integrating the Angular framework into Cle
 
 ### [Integrate Authentication Using Passport](/clementinejs/tutorials/tutorial-passport.html)
 
-This tutorial builds on the beginner tutorial above, and was custom made for the [Free Code Camp](http://www.freecodecamp.com) curriculum. It steps through integrating authentication and authorization via [Passport](http://passportjs.org/) into the simple app created in the beginner tutorial. Similar to the previous guide, this tutorial requires only basic understanding of HTML, CSS and JavaScript. By completing this tutorial, you'll build out the [FCC version](/clementinejs/fcc/fcc.md) of Clementine.js.
+This tutorial builds on the beginner tutorial above, and was custom made for the [Free Code Camp](http://www.freecodecamp.com) curriculum. It steps through integrating authentication and authorization via [Passport](http://passportjs.org/) into the simple app created in the beginner tutorial. Similar to the previous guide, this tutorial requires only basic understanding of HTML, CSS and JavaScript. By completing this tutorial, you'll build out the [FCC version](/clementinejs/versions/fcc.md) of Clementine.js.
 
 ## Future Tutorials
 

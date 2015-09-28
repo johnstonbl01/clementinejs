@@ -1139,7 +1139,7 @@ The first `<link>` is referring to a Google Font CDN. This isn't required, but I
 
 Let's start up the app. Wow! Your app should now look something like:
 
-![Tutorial Picture 04](/clementinejs/img/clemjstut04.png)
+![Tutorial Picture 03](/clementinejs/img/clemjstut03.png)
 
 ## Next Steps
 

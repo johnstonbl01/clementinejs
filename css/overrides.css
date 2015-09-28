@@ -167,3 +167,7 @@ code {
 .page {
    margin-bottom: 36px;
 }
+
+p > img {
+   margin: 0 auto;
+}
