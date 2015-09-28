@@ -53,7 +53,7 @@ $ yo clementinejs
 
 Note: `generator-clementinejs` must be installed globally.
 
-to start the application, browse to the project directory and type: `$ node server` into the terminal window. Point a browser to `localhost:3000` and you're up and running!
+To start the application, browse to the project directory and type: `$ node server` into the terminal window. Point a browser to `localhost:3000` and you're up and running!
 
 ## Contributing
 
