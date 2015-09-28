@@ -10,8 +10,6 @@ Installation Clementine.js requires two prerequisites: Node.js / NPM and MongoDB
 
 _Note:_ An internet connection is required to successfully complete this tutorial. Additionally, this tutorial assumes basic knowledge of HTML, CSS and JavaScript.
 
-[Back to top.](#top)
-
 ### Install Node.js and NPM
 
 _Note:_ The Node insallation installs both Node & NPM.
@@ -38,13 +36,9 @@ First, ensure [LinuxBrew](http://brew.sh/linuxbrew/) is installed. Then, enter t
 $ brew install node
 ```
 
-[Back to top.](#top)
-
 ### Install MongoDB
 
 MongoDB has great installation instructions for MAC OSX, Windows and Linux. [See this page.](http://docs.mongodb.org/manual/installation/)
-
-[Back to top.](#top)
 
 ## NPM Package Installation
 
@@ -99,8 +93,6 @@ The `--save` command tells NPM to save the dependency in the `package.json` file
 }
 ```
 
-[Back to top.](#top)
-
 ### About Express
 
 Express is a framework for Node.js that creates additional functionality for the creation of web application. A framework simply means that it is written based on another technology, and provides additional functionality through abstraction. Essentially, Express provides a number of very useful functions written for Node.js.
@@ -108,8 +100,6 @@ Express is a framework for Node.js that creates additional functionality for the
 Without the Express framework, developers would have to write similar code for web applications every time they started a new project. Additionally, Express is unopinionated. This means that it isn't strict about how the functionality it provides is implemented. For an example of an opinionated framework, check out Ember.js.
 
 For more information on express, check out their [website and documentation](http://expressjs.com/).
-
-[Back to top.](#top)
 
 ### About MongoDB
 
@@ -123,8 +113,6 @@ For more information on MongoDB, please [have a look at their stellar documentat
 
 The MongoDB Node.js driver will allow us to use Node to query the MongoDB database.
 
-[Back to top.](#top)
-
 ## .gitignore
 
 It is often common to see a file named `.gitignore` in the root directory of projects. This file simply tells git (version control software) to ignore particular files. Many times, the content of this file contains the `node_modules` directory. This prevents the directory from being uploaded to GitHub (on large projects, this directory can become quite large).
@@ -134,8 +122,6 @@ Example .gitignore file:
 ```
 node_modules/
 ```
-
-[Back to top.](#top)
 
 ## Folder Creation
 
@@ -167,8 +153,6 @@ Now let's spend a few moments to create the file structure we'll be using.
 - **css** - Contains the style sheet for the application
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
 
-[Back to top.](#top)
-
 ## App Architecture Overview
 
 Before we begin writing actual code, it's helpful to think of the overall picture for the application and how the pieces fit together. We'll be using an MVC (model-view-controller) architecture for this particular app.
@@ -198,8 +182,6 @@ In the context of our application, we will have the following:
 	- This is our HTML page that includes a logo and the buttons for interaction
 
 This should provide some general contextthat will be helpful as we proceed with development.
-
-[Back to top.](#top)
 
 ## Simple Node Server
 
@@ -298,8 +280,6 @@ Let's test the application now to ensure this is working correctly. Again from t
 
 Point the browser to `localhost:3000` and you should again see "Hello world!"
 
-[Back to top.](#top)
-
 ### Refactoring Routes
 
 Our next step is going to be refactoring our routes by using another common Express & Node pattern. Web applications have a number of routes (the HTTP requests made to the server), and it's common to store these in separate directories and files. That's our goal for this portion of the tutorial.
@@ -371,8 +351,6 @@ Point the browser to `localhost:3000` and you should again see "Hello world!"
 
 Let's move on to giving some more pizazz to our HTML file.
 
-[Back to top.](#top)
-
 ### Adding Additional Elements to Index.html
 
 In this section, we're going to update our HTML file to include more content and prepare to add interactivity. Here's the updated HTML code:
@@ -428,8 +406,6 @@ Let's check to make sure that this is the case. Start the node server and point 
 
 Ahhh, that's better!
 
-[Back to top.](#top)
-
 ## Connecting to MongoDB
 
 In order to pass data values between the database and the client, we'll use an API (Application Program Interface). The API will simply be a way for us make our database data available to the front-end of the application.
@@ -484,8 +460,6 @@ routes(app, db);
 Here, we are passing the database object to our routes in addition to the Express `app` object. We're going to use this to to help pass data between the database on the client-side of our application.
 
 Feel free to test the application at this point. Everything should work as before, and a successful MongoDB connection message should show up in the console when the application is started.
-
-[Back to top.](#top)
 
 ## Setting Up the Server-Side Controller
 
@@ -777,8 +751,6 @@ When there is an HTTP GET request to the `/api/clicks` route, the server will re
 
 That brings us to the end of the server-side controller. Now, we need to work on the client-side controller.
 
-[Back to top.](#top)
-
 ## Adding Interactivity via the Client-side Controller
 
 The client-side controller will be responsible for retrieving information from the API, and making it available within the view. Additionally, it will specify what action should be taken when one of the two buttons are clicked.
@@ -953,8 +925,6 @@ Next, we'll take the `clickNbr` element (which we defined by using `var clickNbr
 
 Next, let's define what should happen when the page loads and each of our buttons are clicked.
 
-[Back to top.](#top)
-
 ### Listening for Events
 
 The first hurdle to overcome is that we need to determine some way to retrieve the current number of clicks when the page loads. To accomplish this, we'll use the `ready` function we set up earlier which bound an event listener to the `'DOMContentLoaded'` event. 
@@ -1074,8 +1044,6 @@ Now, it should be possible to test the application. Type `node server` in the te
 
 It's great that our app works now, but it's pretty dull. Let's add some pretty colors!
 
-[Back to top.](#top)
-
 ## Adding CSS Styling
 
 The end is nigh! If you've stuck with the tutorial this long -- congratulations! We're almost done. Let's make the application look a bit more modern, and less like something from the 1990's.
@@ -1104,7 +1072,7 @@ p {
 /****** Logo Div Styling ******/
 
 img {
-	margin: 0 auto;
+	margin: 20px auto 0 auto;
 	display: block;
 }
 
@@ -1173,15 +1141,11 @@ Let's start up the app. Wow! Your app should now look something like:
 
 ![Tutorial Picture 04](/clementinejs/img/clemjstut04.png)
 
-[Back to top.](#top)
-
 ## Next Steps
 
 Congratulations on completing your first MEAN stack application! If you're a beginner, my advice is to build upon this knowledge by continuing build things -- a log-in application, a comment application, etc. Building will solidify your understanding of these concepts, and force you to learn new things as well. If you enjoyed this tutorial, please feel free to [let me know on Twitter](https://twitter.com/johnstonbl01)!
 
 If you encounter any issues whatsoever, submit an issue here on GitHub, or let me know via Twitter.
-
-[Back to top.](#top)
 
 ## Additional Resources
 
@@ -1197,5 +1161,3 @@ If you encounter any issues whatsoever, submit an issue here on GitHub, or let m
 
 - Node School's [Learn You Node](http://nodeschool.io/#workshoppers) - A really great introdution to Node.
 - Code School's [Real Time Web with Node.js](https://www.codeschool.com/courses/real-time-web-with-node-js) - Similar to the Express course, Code School offers a great primer on Node. Again, make sure you're building something alongside this tutorial for it to really pay off.
-
-[Back to top.](#top)

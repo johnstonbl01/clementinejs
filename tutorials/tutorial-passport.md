@@ -25,8 +25,6 @@ OAuth is an open standard for authentication that allows 3rd-party sites (like o
 
 This advanced tutorial, created specifically for [Free Code Camp](http://www.freecodecamp.com/) students, will walk you through integrating this library with the Clementine.js demo application created during [part 1 of the tutorial](/tutorial-beginner.md).
 
-[Back to top.](#top)
-
 ## Setup
 
 ### Install NPM Packages
@@ -92,8 +90,6 @@ The `package.json` file should now look like:
 }
 ```
 
-[Back to top.](#top)
-
 ### Updating the Folder Structure
 
 Let's go ahead and modify the folder structure to include some of the new functionality we'll be convering. 
@@ -119,8 +115,6 @@ Let's go ahead and modify the folder structure to include some of the new functi
 - **app/models** - Directory for database models. In this case, this is where the Mongoose schemas will be defined. These models are definitions of desired data structure that will be inserted into the database.
 
 The remainder of the folders are the same as the previous version of the app.
-
-[Back to top.](#top)
 
 ## Mongoose Integration
 
@@ -159,8 +153,6 @@ There are 3 changes to the code:
 1. Remove the `mongo = require(...)` statement and replace it by requiring Mongoose instead.
 2. Remove the `mongo.connect(...)` wrapping function, including the conditional `if` statement. This gets replaced with a Mongoose connection function.
 3. Remove the `db` argument for the routes, as we will no longer need to provide that information since Mongoose will do it for us via the schema. Don't worry if this part doesn't make too much sense, we'll go into more detail once we get to that part.
-
-[Back to top.](#top)
 
 ### Create a Mongoose Model
 
@@ -203,8 +195,6 @@ The `mongoose.model` method accepts two arguments:
 
 This model is exported with [`module.exports`](https://nodejs.org/api/modules.html#modules_module_exports), which is a Node function that exports the function or object for use within another file using the `require` function. This is a common Node pattern.
 
-[Back to top.](#top)
-
 ### Updating the Routes
 
 Next, let's move on to our route file in the `/app/routes` directory. There are only a few small changes here.
@@ -236,8 +226,6 @@ module.exports = function (app) {
 First, we move the `.clickHandler` from the end of the `require` statement. We're doing this because rather than export an anonymous function object from the clickHandler file, we will export the entire object. The `.clickHandler` specification is there because using the `module.exports.clickHandler` syntax creates `clickHandler` as a method on the `module.exports` object. This must specifically be referenced in the `require` statement. As we'll see in just a moment, there is another way to accomplish this without requiring the `.clickHandler` expression.
 
 We've removed the `db` argument from both the `module.exports = function (app) {... }` line and the `new ClickHandler()`. We've done this because the database information itself is inherent in using a Mongoose schema. The model we created earlier gets exported for use within our controllers. We'll see this shortly. For now, these are the only changes required to the route file. Wasn't that easy?
-
-[Back to top.](#top)
 
 ### Refactor Server-Side Controller
 
@@ -366,9 +354,7 @@ function ClickHandler () {
 module.exports = ClickHandler;
 ```
 
-This syntax should be familiar now. Let's test that the application still works. In the terminal window of the project directory, type `node server`, and then browse to `localhost:3000`. The app should function just as it did before -- adding and resetting clicks!
-
-[Back to top.](#top)
+This syntax should be familiar now. Let's test that the application still works. In the terminal window of the project directory, type `node server`, and then browse to `localhost:8080`. The app should function just as it did before -- adding and resetting clicks!
 
 ## Passport Server-Side Integration
 
@@ -392,8 +378,6 @@ Head to GitHub and log in.
 Once this is done, it will take you to a page with information about your application. On the top right, there will be codes for Client ID (API Key) and the Client Secret (API Secret). We'll use these later in our app.
 
 The difference between the API Key and the API Secret is that the key is considered _public_, while the secret is known only to the vendor (GitHub in this case) and you.
-
-[Back to top.](#top)
 
 ### Create the User Model
 
@@ -435,8 +419,6 @@ The GitHub API allows us to view quite a bit of information. You can see the [fu
 
 Next we'll move on to setting up our authorization file.
 
-[Back to top.](#top)
-
 ### Authorization Configuration
 
 We need a way to store our app-specific GitHub authentication information so that GitHub can authenticate that our application has permission to access its API and retrieve user information. Previously, we registered our app with GitHub and were provided a Client ID and Client Secret. We'll need to embed this information somewhere in our app for when it attempts to communicate with GitHub.
@@ -452,7 +434,7 @@ module.exports = {
 	'gitHubAuth': {
 		'clientID': 'your-id-here',
 		'clientSecret': 'your-secret-here',
-		'callbackURL': 'http://localhost:3000/auth/github/callback'
+		'callbackURL': 'http://localhost:8080/auth/github/callback'
 	}
 };
 ```
@@ -460,8 +442,6 @@ module.exports = {
 The `'callbackURL'` is the URL we entered when registering our app, and this is where GitHub will send information once the user has been authenticated. We'll handle this callback in our routes later. For now, just know that GitHub first authenticates the user, then sends information back to to our application via the `'callbackURL'`.
 
 _Note_: If you push your application to a GitHub repository, be sure to remove your Client ID and Client Secret before doing so! If you do not, then others will be able to use your information to access the GitHub API. These fields should be kept confidential and not share publicly.
-
-[Back to top.](#top)
 
 ### Passport Configuration
 
@@ -631,8 +611,6 @@ module.exports = function (passport) {
 Here, we're creating a new instance of our User model, and then mapping database object properties like `newUser.github.id` to the information sent back by the GitHub API (`profile.id`). Note that we are setting the `nbrClicks.clicks` value to `0` so that every new user begins with the 0 clicks property. Finally, we insert this information into the database with `newUser.save(...)`, passing our user information back to Passport with `return done(null, newUser)`.
 
 This is far and away the most complicated part of integrating authentication and authorization. If it's still a bit fuzzy, please reach out to me on Twitter or via Email and we can discuss. Let's move on, shall we?
-
-[Back to top.](#top)
 
 ### Further Server-Side Controller Modifications
 
@@ -1085,8 +1063,6 @@ module.exports = function (app, passport) {
 
 That's all of the routes for our application! Let's move on to modifying our server file and finishing up the backend modifications.
 
-[Back to top.](#top)
-
 ### Updating the Server File
 
 Now we'll begin making the final server-side modifications. The first step is to include our additional NPM modules (express-session and passport) in the `server.js` file.
@@ -1189,9 +1165,7 @@ app.listen(port, function () {
 });
 ```
 
-Let's run a quick test. Within the project directory, start the application using `node server`. Then, point a browser to `localhost:3000`. There should be an error message referencing the `/login` route. This means that the app is working as intended at the moment - we tried to access the `/` route, but were redirected to `/login`. Since we've yet to create the view for that page, we get an error.
-
-[Back to top.](#top)
+Let's run a quick test. Within the project directory, start the application using `node server`. Then, point a browser to `localhost:8080`. There should be an error message referencing the `/login` route. This means that the app is working as intended at the moment - we tried to access the `/` route, but were redirected to `/login`. Since we've yet to create the view for that page, we get an error.
 
 ## Passport Client-Side Integration
 
@@ -1259,7 +1233,7 @@ _clickController.client.js_:
    var addButton = document.querySelector('.btn-add');
    var deleteButton = document.querySelector('.btn-delete');
    var clickNbr = document.querySelector('#click-nbr');
-   var apiUrl = 'http://localhost:3000/api/clicks';
+   var apiUrl = 'http://localhost:8080/api/clicks';
 
    function updateClickCount (data) {
       var clicksObject = JSON.parse(data);
@@ -1311,7 +1285,7 @@ _clickController.client.js_:
 
 (function () {
 ...
-var apiUrl = 'http://localhost:3000/api/:id/clicks';
+var apiUrl = 'http://localhost:8080/api/:id/clicks';
 
 ...
 })();
@@ -1329,7 +1303,7 @@ _clickController.client.js_:
    var addButton = document.querySelector('.btn-add');
    var deleteButton = document.querySelector('.btn-delete');
    var clickNbr = document.querySelector('#click-nbr');
-   var apiUrl = 'http://localhost:3000/api/:id/clicks';
+   var apiUrl = 'http://localhost:8080/api/:id/clicks';
 
    function updateClickCount (data) {
       var clicksObject = JSON.parse(data);
@@ -1420,8 +1394,6 @@ Inside the anchor element, we're including a `<div>` with the GitHub logo and th
 
 That's it for the login page. We're keeping it extremely simple.
 
-[Back to top.](#top)
-
 #### Profile View
 
 Next, let's create a new view for our GitHub profile information. Again, this page will be extremely simple, but will illustrate how to pull information from the API into our application.
@@ -1509,8 +1481,6 @@ _profile.html_:
 </html>
 ```
 
-[Back to top.](#top)
-
 #### Updating Index.html
 
 The last step in creating the views is to update our existing `index.html` to include a few new features. We want to display the user's name when they log in, and provide a way for them to visit the profile page and log out.
@@ -1583,8 +1553,6 @@ _index.html_:
 </html>
 ```
 
-[Back to top.](#top)
-
 ### Create the User Controller
 
 The next problem we need to solve is to write a controller which will retrieve the user information from the API and update the appropriate values in the view. This controller is slightly different in that we want to be able to use this controller for both the `index.html` and `profile.html` views. 
@@ -1615,7 +1583,7 @@ _userController.client.js_:
    var profileUsername = document.querySelector('#profile-username') || null;
    var profileRepos = document.querySelector('#profile-repos') || null;
    var displayName = document.querySelector('#display-name');
-   var apiUrl = 'http://localhost:3000/api/:id';
+   var apiUrl = 'http://localhost:8080/api/:id';
 })();
 ```
 
@@ -1707,8 +1675,6 @@ _userController.client.js_:
 ```
 
 And that's it for user controller. All we have left to do is make it pretty!
-
-[Back to top.](#top)
 
 ## Make It Pretty
 
@@ -1920,8 +1886,6 @@ _/index_:
 _/profile_:
 
 ![Profile Screenshot](/clementinejs/img/passporttut04.png)
-
-[Back to top.](#top)
 
 ## Conclusion
 

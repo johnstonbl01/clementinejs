@@ -1,7 +1,13 @@
+html {
+   position: relative;
+   min-height: 100%;
+}
+
 body {
    font-size: 17px;
    font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
    line-height: 1.428571429;
+   margin-bottom: 92px;
 }
 
 h1, h2, h3 {
@@ -86,12 +92,14 @@ hr {
 }
 
 footer {
+   position: absolute;
+   height: 92px;
+   bottom: 0;
    width: 100%;
    text-align: center;
    padding: 20px 0 5px 0;
    background-color: #F7F7F7;
    overflow: visible;
-   margin-top: 16px;
 }
 
 footer .container {
@@ -154,4 +162,8 @@ code {
 .nav-list > .active > a {
    border-left: 2px solid #FFAA00;
    padding-left: 4px;
+}
+
+.page {
+   margin-bottom: 36px;
 }

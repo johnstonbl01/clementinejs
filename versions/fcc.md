@@ -32,8 +32,6 @@ For more information on Node, [try their site](https://nodejs.org/documentation/
 
 [Passport](http://passportjs.org/) is middleware for Node.js / Express that enables easy integration of authentication and authorization. It includes extensions for the popular oAuth options, and is used for GitHub authentication in this version of the boilerplate.
 
-[Back to top.](#top)
-
 ## Installation
 
 Prerequisites for Clementine.js:
@@ -42,8 +40,6 @@ Prerequisites for Clementine.js:
 - [NPM](https://nodejs.org/)
 - [MongoDB](http://www.mongodb.org/)
 - [Git](https://git-scm.com/)
-
-[Back to top.](#top)
 
 ### Install Node.js and NPM
 
@@ -71,19 +67,13 @@ First, ensure [LinuxBrew](http://brew.sh/linuxbrew/) is installed. Then, enter t
 $ brew install node
 ```
 
-[Back to top.](#top)
-
 ### Install MongoDB
 
 MongoDB has great installation instructutions for MAC OSX, Windows and Linux. [See this page.](http://docs.mongodb.org/manual/installation/)
 
-[Back to top.](#top)
-
 ### Install Git
 
 Follow the [directions here to install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for the appropriate environment.
-
-[Back to top.](#top)
 
 ### Install Clementine.js
 
@@ -95,13 +85,9 @@ $ git clone https://github.com/johnstonbl01/clementinejs-fcc.git your-project
 
 It's that easy!
 
-[Back to top.](#top)
-
 ### Setup GitHub Authentication
 
 Please follow [this guide](/clementinejs/tutorials/tutorial-passport.html#github-app-setup) to register the application with GitHub and get API keys / secrets. This API information will also need to be added to the `app/config/auth.js` file.
-
-[Back to top.](#top)
 
 ### Starting the App
 
@@ -176,8 +162,6 @@ When installed, Clementine.js offers a very simple application demonstrating ful
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
 - _index.html_ - This file contains all HTML code to render the view for this single-page application.
 
-[Back to top.](#top)
-
 ### Ports and MongoDB Collection
 
 Clementine.js uses port 3000 for the application and the default MongoDB port of 27017. These can both be changed within the `server.js` file.
@@ -210,8 +194,6 @@ The User model is located within the `/app/models/users.js` file, and follows co
 - `nbrclicks`: An object containing information for the click part of the application
 	- `clicks`: The number of times the button has been clicked. This value will be set to `0` when the user is first created.
 
-[Back to top.](#top)
-
 ### Clicks API
 
 The clicks API is located at `/api/:id/clicks`, and has the following functionality:
@@ -219,8 +201,6 @@ The clicks API is located at `/api/:id/clicks`, and has the following functional
 - An HTTP GET request will query the database and return a JSON object mirroring the current document within the Mongo collection
 - An HTTP POST request will increment the value of the `clicks` property in the database by one and return a JSON object with the updated value
 - An HTTP DELETE request will update the current value of the `clicks` property, setting it equal to `0`.
-
-[Back to top.](#top)
 
 ### Passport Configuration
 
@@ -235,5 +215,3 @@ The application must be registered with GitHub to work properly. GitHub API info
 ```
 
 Refer to [this section](#setup-github-authentication) for instructions on how to register your app with GitHub.
-
-[Back to top.](#top)

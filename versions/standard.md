@@ -16,23 +16,17 @@ MongoDB is a document-store (NoSQL) database. Queries are written in JavaScript,
 
 For more information on MongoDB, please [have a look at their stellar documentation](http://docs.mongodb.org/manual/). In addition, once you have practiced your Node skills, I highly recommend taking [this free 7-week online course](https://university.mongodb.com/courses/M101JS/about) that MongoDB offers.
 
-[Back to top.](#top)
-
 ### Express
 
 Express is an unopinionated framework for Node.js that creates additional functionality for the creation of web applications. 
 
 For more information on express, check out their [website and documentation](http://expressjs.com/).
 
-[Back to top.](#top)
-
 ### Node.js
 
 Node.js is a platform built on Google's V8 JavaScript run-time, allowing server-side code to be written in JavaScript. 
 
 For more information on Node, [try their site](https://nodejs.org/documentation/). I also recommend having a look at [NodeSchool](http://nodeschool.io/).
-
-[Back to top.](#top)
 
 ## Installation
 
@@ -70,19 +64,13 @@ First, ensure [LinuxBrew](http://brew.sh/linuxbrew/) is installed. Then, enter t
 $ brew install node
 ```
 
-[Back to top.](#top)
-
 ### Install MongoDB
 
 MongoDB has great installation instructions for MAC OSX, Windows and Linux. [See this page.](http://docs.mongodb.org/manual/installation/)
 
-[Back to top.](#top)
-
 ### Install Git
 
 Follow the [directions here to install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for the appropriate environment.
-
-[Back to top.](#top)
 
 ### Install Yeoman (optional)
 
@@ -122,15 +110,11 @@ $ yo clementinejs
 
 Note: `generator-clementinejs` must be installed globally.
 
-[Back to top.](#top)
-
 ### Starting the App
 
 To start the app, make sure you're in the project directory and install the required NPM dependencies using `$ npm install`. Then, type `$ node server` into the terminal.
 
 Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up and running!
-
-[Back to top.](#top)
 
 ## Architecture
 
@@ -177,8 +161,6 @@ When installed, Clementine.js offers a very simple application demonstrating ful
 - **css** - Contains the style sheet for the application
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
 
-[Back to top.](#top)
-
 ### Ports and MongoDB Collection
 
 Clementine.js uses port 3000 for the application and the default MongoDB port of 27017. These can both be changed within the `server.js` file.
@@ -196,5 +178,3 @@ The clicks API is located at `/api/clicks`, and has the following functionality:
 - An HTTP GET request will query the database and return a JSON object mirroring the current document within the Mongo collection
 - An HTTP POST request will increment the value of the `clicks` property in the database by one and return a JSON object with the updated value
 - An HTTP DELETE request will update the current value of the `clicks` property, setting it equal to `0`.
-
-[Back to top.](#top)
