@@ -10,6 +10,8 @@ This tutorial assumes that you have a working version of the application built i
 
 _Note_: This tutorial assumes that you have a GitHub account.
 
+_Additional Note_: The previous tutorial used port `3000`, but in this tutorial, that has bene switched to port `8080`. This change was made to align this tutorial with the Free Code Camp version of Clementine.js. Port `8080` makes setup a bit easier when using c9.io.
+
 ## Attack of the Auth
 
 Let's assume that we only want people to see our coveted click-counting application who have registered on the site using their GitHub Account. After all, the app is super secret and anonymous users aren't allowed!

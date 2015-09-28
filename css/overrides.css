@@ -170,4 +170,5 @@ code {
 
 p > img {
    margin: 0 auto;
+   display: block;
 }
