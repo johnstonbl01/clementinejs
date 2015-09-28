@@ -110,10 +110,10 @@ To start the app, make sure you're in the project directory and type `node serve
 You should the following messages within the terminal window:
 
 ```
-Node.js listening on port 3000...
+Node.js listening on port 8080...
 ```
 
-Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up and running!
+Next, open your browser and enter `http://localhost:8080/`. Congrats, you're up and running!
 
 ## Architecture
 
