@@ -171,6 +171,40 @@ var fruit   =  'clementine',
 
 ## Naming
 
+Please follow the below rules when naming:
+
+- Be descriptive
+- Avoid single letter names
+- Use camelCase when naming objects, functions and variables
+- Use PascalCase when naming constructors
+
+```js
+// good
+function query () {
+  doSomething();
+}
+
+// bad
+function q () {
+  doSomething();
+}
+
+// good
+var clementineFruit = {};
+
+// bad
+var ClementineFruit = {};
+var clementine_fruit = {};
+var clementine-fruit = {};
+var c = {};
+
+// good
+var clementine = new Fruit();
+
+// bad
+var clementine = new fruit();
+```
+
 ## Strict Mode
 
 Always declare `'use strict';` within a module.
@@ -185,10 +219,160 @@ Always declare `'use strict';` within a module.
 
 ## Equality
 
+Always use `===` and `!==` instead of `==` and `!=`. This avoids issues with type coercion.
+
+```js
+// good
+var result = (1 === '1');
+
+// bad
+var result = (1 == '1');
+```
+
 ## if Statement
+
+If statements should always use the below form:
+
+```js
+// example 1
+if (test) {
+  statements
+}
+
+// example 2
+if (test) {
+  statements
+} else {
+  statements
+}
+
+// example 3
+
+if (test) {
+  statements
+} else if (test) {
+  statements
+} else {
+  statements
+}
+```
+
+Curly braces should never be ommitted.
+
+```js
+// good
+if (test) {
+  eatFruit();
+}
+
+// bad
+if (test)
+  doSomething();
+
+// bad
+if (test) { doSomething(); }
+```
 
 ## for Statement
 
+For statements should use the following format:
+
+```js
+// example 1
+for (initialize; condition; update) {
+  statements
+}
+
+// example 2
+for (property in object) {
+  statements
+}
+```
+
+Variables should be declared within the initialize section of the `for` loop.
+
+```js
+// good
+for (var i = 0; i < 3; i++) {
+  doSomething();
+}
+
+// bad
+var i;
+for (i = 0; i < 3; i++) {
+  doSomething();
+}
+```
+
 ## White Space
 
+Place one space before the leading brace:
+
+```js
+// good
+function clementineFruit (color) {
+  doSomething();
+}
+
+// bad
+function clementineFruit (color){
+  doSomething();
+}
+```
+
+Use one space before the opening parentheses in control statements.
+
+```js
+// good
+if (test) {
+  doSomething();
+}
+
+// bad
+if(test) {
+  doSomething();
+}
+```
+
+When defining functions, place a space between the function name and the arguments. When calling the function, do not use a space between the function name and the parentheses.
+
+```js
+// good
+function test (argument) {
+  doSomething();
+}
+
+// bad
+function test(argument) {
+  doSomething();
+}
+
+// good
+eatFruit(type);
+
+// bad
+eatFruit (type);
+```
+
+use a blank line after blocks before the next statement.
+
+```js
+// good
+if (test) {
+  doSomething();
+}
+
+eatFruit();
+
+// bad
+if (test) {
+  doSomething();
+}
+eatFruit();
+```
+
 ## Do Not Use
+
+- Never use the primitive wrapper types, such as `String`, to create new objects.
+- Never use `eval()`.
+- Never use the `with` statement.

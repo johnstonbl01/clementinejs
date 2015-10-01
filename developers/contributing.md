@@ -2,13 +2,11 @@
 layout: docs
 ---
 
-## Contribution Guidelines
+# Contribution Guidelines
 
 This project is open source and provides multiple ways to make meaningful contributions. This application couldn't exist without the help of many contributors, and we want you to feel like you can help out and make a difference.
 
-## Contents
-
-### Ways to Contribute
+## Ways to Contribute
 
 There are many ways to contribute:
 
@@ -16,7 +14,7 @@ There are many ways to contribute:
 - **Working on Issues** - feel free to pick up [any open issue](https://github.com/johnstonbl01/clementinejs/issues) that you feel you're capable of addressing.
 - **Documentation** - if you enjoy writing and want to contribute to the project, try improving [our documentation](https://github.com/johnstonbl01/clementinejs/tree/gh-pages).
 
-#### Filing an Issue
+### Filing an Issue
 
 [Issues should be filed](https://github.com/johnstonbl01/clementinejs/issues/new) directly inside of the GitHub repository. File an issue if:
 
@@ -38,7 +36,7 @@ For feature requests, please include:
 
 Please include as much detail as possible to help the team address your issue. If you have a question, please feel free to reach out to any of the [team members](#current-team).
 
-#### Working on Issues
+### Working on Issues
 
 Please feel free to begin working on any open issue in the [issue list](https://github.com/johnstonbl01/clementinejs/issues) of the GitHub repository. If the issue is still open, that means that the team plans on eventually addressing it, and any help is appreciated. Please consider:
 
@@ -57,7 +55,7 @@ If someone has already committed to work on an issue, please do not work on it. 
 
 If the issue significantly changes an existing feature / function of the application, it's required that documentation is also updated.
 
-#### Documentation
+### Documentation
 
 There are several ways to help with documentation, including:
 
@@ -65,7 +63,7 @@ There are several ways to help with documentation, including:
 - Improving the existing documentation (i.e. making it more clear or concise)
 - Add new documentation for features that were missed or overlooked.
 
-### Pull Requests
+## Pull Requests
 
 If you would like to contribute to the repo, please use a GitHub pull request. Any contributions made in any other way (i.e. code snippets in issues) will not be considered. This is the quickest way to allow us to evaluate the code.
 
@@ -79,4 +77,4 @@ Please follow these guidelines when submitting your pull request:
 - Be sure to make small, purposeful pull requests. Large pull requests with multiple changes may be closed without merging.
 - All changes must have accompanying tests.
 - All changes must have any impacted documentation updated.
-- Follow the code conventions.
+- Follow the [code conventions](/clementinejs/developers/code-conventions.html).
