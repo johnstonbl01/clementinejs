@@ -1,10 +1,12 @@
 {% include top.html %}
 <body>
-   {% include header.html %}
-   {% include jumbotron.html %}
-   <div class="container">
-      {{ page.content }}
-      {% include versions.html %}
+   <div id="top" class="page">
+      {% include header.html %}
+      {% include jumbotron.html %}
+      <div class="container">
+         {{ page.content }}
+         {% include versions.html %}
+      </div>
    </div>
    {% include footer.html %}
    <script src="{{ site.baseurl }}/js/vendor/jquery-1.11.3.min.js"></script>
