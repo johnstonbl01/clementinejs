@@ -172,3 +172,11 @@ p > img {
    margin: 0 auto;
    display: block;
 }
+
+.container > .navbar-header {
+   height: 76px;
+}
+
+.navbar-toggle {
+   margin-top: 20px;
+}
