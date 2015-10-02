@@ -34,7 +34,7 @@ For feature requests, please include:
 - Your opinion on the best solution for this problem.
 - If you have any interest in addressing the issue yourself.
 
-Please include as much detail as possible to help the team address your issue. If you have a question, please feel free to reach out to any of the [team members](#current-team).
+Please include as much detail as possible to help the team address your issue.
 
 ### Working on Issues
 
