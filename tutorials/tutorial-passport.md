@@ -69,26 +69,33 @@ $ npm uninstall mongodb --save
 
 This will uninstall the MongoDB Node driver used in the last tutorial, since we'll be using Mongoose in its place.
 
+```bash
+$ npm install dotenv --save
+```
+
+The [dotenv](https://www.npmjs.com/package/dotenv) package will allow us to store our private GitHub API information without it being exposed when uploading to a remote repository.
+
 The `package.json` file should now look like:
 
 ```json
 {
-  "name": "beginner-app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
+   "name": "beginner-app",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.12.4",
-    "express-session": "^1.11.3",
-    "mongoose": "^4.1.0",
-    "passport": "^0.2.2",
-    "passport-github": "^1.0.0"
-  }
+   },
+   "author": "",
+   "license": "MIT",
+   "dependencies": {
+      "dotenv": "^1.2.0",
+      "express": "^4.12.4",
+      "express-session": "^1.11.3",
+      "mongoose": "^4.1.0",
+      "passport": "^0.2.2",
+      "passport-github": "^1.0.0"
+   }
 }
 ```
 
@@ -388,6 +395,38 @@ Once this is done, it will take you to a page with information about your applic
 
 The difference between the API Key and the API Secret is that the key is considered _public_, while the secret is known only to the vendor (GitHub in this case) and you.
 
+### Create Environmental Variables
+
+Now let's take advantage of the dotenv module we installed earlier. Begin by creating a new file named `.env` in the root project directory. Within this file, we will define variables which will be kept private. When the dotenv module is initialized (we'll get to this shortly), it stores these values on Node's `process.env` object. Each value in the `.env` file will create a new property on the object.
+
+In our case, we need to store 3 variables for GitHub authentication:
+
+1. The GitHub API Client ID
+2. The GitHub API Client Secret
+3. The URL for our app
+
+The URL isn't private information, but is used by Passport to determine the callback URL for authentication.
+
+In the `.env` file:
+
+```
+GITHUB_KEY=your-client-id-here
+GITHUB_SECRET=your-client-secret-here
+APP_URL=http://localhost:8080/
+```
+
+You'll simply need to paste the keys GitHub provides as part of the app registration into this file.
+
+next, we need to include this `.env` file as part of our `.gitignore` file so that this file does not get tracked by Git. This is an important step to ensure that these private keys remain private.
+
+_.gitignore_
+
+```
+node_modules/
+.eslintrc
+.env
+```
+
 ### Create the User Model
 
 One new feature of our application will be to store the number of clicks for each user instead of inside a global document within MongoDB. This means that each user will have their own number of clicks, and will also allow us to show of some of Express' parameter routing (more on this later).
@@ -430,9 +469,9 @@ Next we'll move on to setting up our authorization file.
 
 ### Authorization Configuration
 
-We need a way to store our app-specific GitHub authentication information so that GitHub can authenticate that our application has permission to access its API and retrieve user information. Previously, we registered our app with GitHub and were provided a Client ID and Client Secret. We'll need to embed this information somewhere in our app for when it attempts to communicate with GitHub.
+We need a way to reference the app-specific GitHub authentication information so that GitHub can confirm the application has permission to access its API and retrieve user information. Previously, we created a `.env` file and stored our private keys within. We'll need to reference the Node `process.env` object somewhere in our to retrieve this information.
 
-It's common practice to store this type of authorization information in its own Node.js module. We'll use this information when we contact the GitHub API, so we'll export it and make it available to `require` in other parts of our app. Create a new file named `auth.js` in the `/app/config` directory.
+We'll use this information when we contact the GitHub API with Passport, so we'll export it and make it available to `require` in other parts of our app. Create a new file named `auth.js` in the `/app/config` directory.
 
 _auth.js_:
 
@@ -441,16 +480,18 @@ _auth.js_:
 
 module.exports = {
 	'gitHubAuth': {
-		'clientID': 'your-id-here',
-		'clientSecret': 'your-secret-here',
-		'callbackURL': 'http://localhost:8080/auth/github/callback'
+		'clientID': process.env.GITHUB_KEY,
+		'clientSecret': process.env.GITHUB_SECRET,
+		'callbackURL': process.env.APP_URL + 'auth/github/callback'
 	}
 };
 ```
 
 The `'callbackURL'` is the URL we entered when registering our app, and this is where GitHub will send information once the user has been authenticated. We'll handle this callback in our routes later. For now, just know that GitHub first authenticates the user, then sends information back to to our application via the `'callbackURL'`.
 
-_Note_: If you push your application to a GitHub repository, be sure to remove your Client ID and Client Secret before doing so! If you do not, then others will be able to use your information to access the GitHub API. These fields should be kept confidential and not share publicly.
+For the other two properties, we simply reference the values provided by dotenv and the `.env` file. Again, these are created as object properties and values on the Node `process.env` object, so it's in that manner that we reference those values.
+
+While this file is uploaded when committed to a remote Git repository, the actual values associated with these fields are hidden in a private `.env` file that is not tracked by Git. This keeps our information safe.
 
 ### Passport Configuration
 
@@ -1088,10 +1129,13 @@ var express = require('express'),
 
 Next, we need to pass in this `passport` NPM Module to the Passport configuration file we created earlier (`app/config/passport.js`). Remember that the exported module from that file takes `passport` as an argument, so we're essentially intializing the Passport functionality when the `server.js` file is run by Node.
 
+In addition, here me initialize the dotenv Node module, which will add our GitHub API information from `.env` to the Node `process.env` object.
+
 _server.js_:
 
 ```js
 var app = express();
+require('dotenv').load();
 require('./app/config/passport')(passport);
 ```
 
@@ -1100,6 +1144,8 @@ The next step is to setup the Express session information and initialize Passpor
 _server.js_:
 
 ```js
+...
+
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
 
@@ -1111,6 +1157,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+...
 ```
 
 Here we're using the Express [app.use](http://expressjs.com/4x/api.html#app.use) function to configure the session options.
@@ -1126,6 +1174,8 @@ Lastly, we need to pass the Passport object into our routes file as an argument.
 _server.js_:
 
 ```js
+...
+
 app.use(session({
 	secret: 'secretClementine',
 	resave: false,
@@ -1136,6 +1186,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 routes(app, passport);
+
+...
 ```
 
 The full `server.js` file:
@@ -1150,6 +1202,7 @@ var express = require('express'),
 	session = require('express-session');
 
 var app = express();
+require('dotenv').load();
 require('./app/config/passport')(passport);
 
 mongoose.connect('mongodb://localhost:27017/clementinejs');
@@ -1190,13 +1243,16 @@ To integrate our newly created authentication routines on the client side, we'll
 
 Since we'll have multiple controllers in our application making AJAX requests, we'll be reusing a bit of functionality. It's best to follow the DRY (don't repeat yourself) principle as much as possible when coding. In this case, let's take these common functions make them available across each of our controllers without having to type them out more than once.
 
-Let's start by creating a new file in `/app/common` named `ajax-functions.js`. Begin by creating a new object named `ajaxFunctions`:
+Let's start by creating a new file in `/app/common` named `ajax-functions.js`. Begin by creating a new variable with our app URL and anobject named `ajaxFunctions`:
 
 _ajax-functions.js_:
 
 ```js
+var appUrl = 'http://localhost:8080/';
 var ajaxFunctions = {};
 ```
+
+The `appUrl` will prevent us from having to type out the information multiple times and allow us to simply concatenate this string value with API information in our client-side controllers. 
 
 Let's now expand upon this object by adding our functions as methods! We'll extract these functions from the `clickController.client.js` file.
 
@@ -1285,7 +1341,7 @@ _index.html_:
 
 Since we moved the location of our `clicks` property to be within the user object, we need to make a few additional small modifications to the current `clickController`.
 
-The first modification should be to update the `apiURL` variable. We've moved the location of our clicks API to `/api/:id/clicks`, so this variable should reflect that.
+The first modification should be to update the `apiURL` variable. We created a global variable named `appurl` with the base URL of our app. Here we'll use that and concatentate it with the API information to create the entire API URL. Additionally, we've moved the location of our clicks API to `/api/:id/clicks`, so this variable should reflect that.
 
 _clickController.client.js_:
 
@@ -1294,13 +1350,13 @@ _clickController.client.js_:
 
 (function () {
 ...
-var apiUrl = 'http://localhost:8080/api/:id/clicks';
+var apiUrl = appUrl + 'api/:id/clicks';
 
 ...
 })();
 ```
 
-next, we need to update where we're calling our AJAX functions from, since they've been moved to their own object. This can be done by using [dot notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_Accessors#Dot_notation) for the function calls using the syntax `objectname.method()`. As an example, we'll update the `ready(...)` function call to be `ajaxFunctions.read(...)`. This needs to be done any time a method is invoked. Here's what the revised file should look like:
+Next, we need to update where we're calling our AJAX functions from, since they've been moved to their own object. This can be done by using [dot notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_Accessors#Dot_notation) for the function calls using the syntax `objectname.method()`. As an example, we'll update the `ready(...)` function call to be `ajaxFunctions.read(...)`. This needs to be done any time a method is invoked. Here's what the revised file should look like:
 
 _clickController.client.js_:
 
@@ -1312,7 +1368,7 @@ _clickController.client.js_:
    var addButton = document.querySelector('.btn-add');
    var deleteButton = document.querySelector('.btn-delete');
    var clickNbr = document.querySelector('#click-nbr');
-   var apiUrl = 'http://localhost:8080/api/:id/clicks';
+   var apiUrl = appUrl + 'api/:id/clicks';
 
    function updateClickCount (data) {
       var clicksObject = JSON.parse(data);
@@ -1592,7 +1648,7 @@ _userController.client.js_:
    var profileUsername = document.querySelector('#profile-username') || null;
    var profileRepos = document.querySelector('#profile-repos') || null;
    var displayName = document.querySelector('#display-name');
-   var apiUrl = 'http://localhost:8080/api/:id';
+   var apiUrl = appUrl + 'api/:id';
 })();
 ```
 
@@ -1605,7 +1661,10 @@ Notice that for the `profileId`, `profileUsername` and `profileRepos`, we're add
 
 Our `var` statements will set the variable value equal to the HTML element if it exists, and if not it will set it equal to [`null`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null). We don't do this for the `displayName` variable because it will be used in both the `profile` and `index` views. We'll take advantage of this HTML element or null value within our AJAX function.
 
-Before doing that, let's create the function that will be called as the callback for the AJAX functions. This function will need to update the HTML elements, but also be flexible enough so that we can re-use it without writing a new function for every element.
+Before doing that, we have also created the `apiUrl` similar to the `clickController`, which references the API for our user information as defined in the routes file (`index.js`). Again, we're referencing the global variable created in `ajax-functions.js` to prevent us form typing the URL multiple times.
+
+
+Now, let's create the function that will be called as the callback for the AJAX functions. This function will need to update the HTML elements, but also be flexible enough so that we can re-use it without writing a new function for every element.
 
 _userController.client.js_:
 
