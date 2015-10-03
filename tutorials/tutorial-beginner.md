@@ -6,9 +6,13 @@ layout: docs
 
 ## Prerequisites
 
-Installation Clementine.js requires two prerequisites: Node.js / NPM and MongoDB. The instructions for these are detailed below, followed by installation instructions for Clementine.js.
+This tutorial requires the following pre-requisites:
 
-_Note:_ An internet connection is required to successfully complete this tutorial. Additionally, this tutorial assumes basic knowledge of HTML, CSS and JavaScript.
+- [Node.js](https://nodejs.org/)
+- [NPM](https://nodejs.org/)
+- [MongoDB](http://www.mongodb.org/)
+
+An internet connection is required to successfully complete this tutorial. Additionally, this tutorial assumes basic knowledge of HTML, CSS and JavaScript.
 
 ### Install Node.js and NPM
 
@@ -1143,7 +1147,7 @@ Let's start up the app. Wow! Your app should now look something like:
 
 ## Next Steps
 
-Congratulations on completing your first MEAN stack application! If you're a beginner, my advice is to build upon this knowledge by continuing build things -- a log-in application, a comment application, etc. Building will solidify your understanding of these concepts, and force you to learn new things as well. If you enjoyed this tutorial, please feel free to [let me know on Twitter](https://twitter.com/johnstonbl01)!
+Congratulations on completing your first full stack JavaScript application! If you're a beginner, my advice is to build upon this knowledge by continuing build things -- a log-in application, a comment application, etc. Building will solidify your understanding of these concepts, and force you to learn new things as well. If you enjoyed this tutorial, please feel free to [let me know on Twitter](https://twitter.com/johnstonbl01)!
 
 If you encounter any issues whatsoever, submit an issue here on GitHub, or let me know via Twitter.
 
