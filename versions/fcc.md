@@ -87,7 +87,17 @@ It's that easy!
 
 ### Setup GitHub Authentication
 
-Please follow [this guide](/clementinejs/tutorials/tutorial-passport.html#github-app-setup) to register the application with GitHub and get API keys / secrets. This API information will also need to be added to the `app/config/auth.js` file.
+Please follow [this guide](/clementinejs/tutorials/tutorial-passport.html#github-app-setup) to register the application with GitHub and get API keys / secrets.
+
+### Local Environment Variables
+
+Create a file named `.env` in the root directory. This file should contain:
+
+```
+GITHUB_KEY=your-client-id-here
+GITHUB_SECRET=your-client-secret-here
+APP_URL=http://localhost:8080/
+```
 
 ### Starting the App
 
@@ -134,6 +144,7 @@ When installed, Clementine.js offers a very simple application demonstrating ful
 
 **Project / Root Folder** - The project directory. This directory contains:
 
+- _.env_ - An environment configuration file that contains GitHub API information. This file must be [manually created](#local-environment-variables) and is not present when cloning the repository. This file is included in the `.gitignore` file and will not be tracked by Git.
 - _.gitignore_ - A file specifying which directories git should ignore when pushing to the master
 - _LICENSE.md_ - Text file containing license information
 - _README.md_ - Readme file for GitHub
@@ -204,13 +215,21 @@ The clicks API is located at `/api/:id/clicks`, and has the following functional
 
 ### Passport Configuration
 
-The application must be registered with GitHub to work properly. GitHub API information is stored within `/app/config/auth.js`:
+The application must be registered with GitHub to work properly. GitHub API information is stored within the `.env` file ([must be created](#local-environment-variables) and is not present when cloning the repo):
+
+```
+GITHUB_KEY=your-client-id-here
+GITHUB_SECRET=your-client-secret-here
+APP_URL=http://localhost:8080/
+```
+
+These values are then referenced within the `/config/auth.js` file for Passport:
 
 ```js
 'githubAuth': {
-	'clientID': 'your-id-here',
-	'clientSecret': 'your-secret-here',
-	'callbackURL': 'http://localhost:3000/auth/github/callback'
+	'clientID': process.env.GITHUB_KEY,
+	'clientSecret': process.env.GITHUB_SECRET,
+	'callbackURL': process.env.APP_URL + 'auth/github/callback'
 }
 ```
 
