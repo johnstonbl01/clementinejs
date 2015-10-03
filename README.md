@@ -63,6 +63,10 @@ This is an open-source project, and contributions are always welcome! To see way
 
 Complete documentation can be [found here](http://johnstonbl01.github.io/clementinejs).
 
+### Tutorial
+
+You can find a complete step-by-step tutorial on how to create this app from the ground up [here](http://johnstonbl01.github.io/clementinejs/tutorials/tutorial-beginner.html).
+
 ## Features
 
 | Features           | Standard  | Angular   | FCC       |
