@@ -2,11 +2,11 @@
 layout: docs
 ---
 
-# The Standard Boilerplate
+# The Angular Boilerplate
 
 ## About
 
-Clementine.js is a lightweight boilerplate for fullstack JavaScript development which utilizes MongoDB, Express and Node.js. Coming in at just under 32 KB, Clementine.js is a perfect alternative to more feature-dense boilerplates.
+Clementine.js is a lightweight boilerplate for fullstack JavaScript development which utilizes MongoDB, Express and Node.js. Clementine.js errs on the side of transparency and simplicity as an alternative to more complex boilerplates.
 
 The Angular boilerplate is a slightly modified version of the standard boilerplate which integrates Angular functionality.
 
@@ -21,6 +21,12 @@ For more information on MongoDB, please [have a look at their stellar documentat
 Express is an unopinionated framework for Node.js that creates additional functionality for the creation of web applications. 
 
 For more information on express, check out their [website and documentation](http://expressjs.com/).
+
+### AngularJS
+
+AngularJS is a front-end framework developed and backed by Google. It is one of two current front-end frameworks that are very popular (React/Flux being the other). Angular is a full MVC (model-view-controller) framework, meaning that it contains a lot of functionality out of the box. 
+
+For more about AngularJS, have a look at their [website and documentation](https://angularjs.org/).
 
 ### Node.js
 
