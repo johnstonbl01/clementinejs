@@ -6,7 +6,7 @@ layout: docs
 
 ## Prerequisites
 
-This tutorial assumes that you have a working version of the application built in the [previous tutorial](/tutorial-beginner.html).
+This tutorial assumes that you have a working version of the application built in the [previous tutorial](/clementinejs/tutorials/tutorial-beginner.html).
 
 _Note_: This tutorial assumes that you have a GitHub account.
 
