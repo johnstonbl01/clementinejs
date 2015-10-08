@@ -483,19 +483,13 @@ function clickHandler (db) {
 	var clicks = db.collection('clicks');
 
 	this.getClicks = function (req, res) {
-		clicks
-			.findOne(
-				{},
-				{ '_id': false },
-				function (err, result) {
-					if (err) { throw err; }
+		clicks.findOne({}, clickProjection, function (err, result) {
+      if (err) {
+        throw err;
+      }
 
-					var clickResults = [];
-
-					clickResults.push(result);
-					res.json(clickResults);
-				}
-			);
+      res.json(result);
+    })
 	};
 };
 
@@ -510,14 +504,13 @@ Let's break down each line of the `getClicks` method:
 
 - `function (req, res)` - A request and response are arguments for this particular function. This is similar to other functions previously defined in this application.
 - `clicks` - the name of our database collection, which we have stored in a variable thanks to `var clicks = ...`
+- `var clickProjection ...` - Every document in MongoDB is [automatically assigned an '_id'](http://docs.mongodb.org/manual/reference/object-id/) when inserted into a collection, unless otherwise specified. It's possible to specify a value or field as the '_id', but in our case we're going to leave it as is. This argument is known as the projection, which allows us to manipulate & exclude fields from the query results before they're passed on. In this case, we don't want the '_id' field to show up in our results since it's not needed. Due to that, the value has been set to `false` for this field.
 - [`.findOne`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#find-first-occurence-with-findone) - This is a MongoDB query that will find the first document (analgous to record or row in relational databases) that meet the query criteria. It's possible to also use the [`find()`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#making-queries-with-find) method, but our collection will only have one document, so that's not necessary.
 - `{},` - This is the query argument for the `findOne()` method. If we had multiple documents in our collection, we could specify certain criteria within this object to filter down the results. `{}` will return all documents (in our case, this is just 1).
-- `{ '_id': false }` - Every document in MongoDB is [automatically assigned an '_id'](http://docs.mongodb.org/manual/reference/object-id/) when inserted into a collection, unless otherwise specified. It's possible to specify a value or field as the '_id', but in our case we're going to leave it as is. This argument is known as the projection, which allows us to manipulate & exclude fields from the query results before they're passed on. In this case, we don't want the '_id' field to show up in our results since it's not needed. Due to that, the value has been set to `false` for this field.
+- `clickProjection` - The projection that we defined previously.
 - `function (err, result) {` - This is the callback argument for the findOne method. This callback function will define what Node should do with the results once the query has finished.
 - `if (err) { throw err; }` - If an error is passed to the callback, then it will interrupt the application and throw an error message.
-- `var clickResults = []` - The Angular ngResource query parameters require that the API data is within an array. This can be changed, but for the sake of this example, we will simply create an array and push the results to that array.
-- `clickResults.push(result);` - Push the results from the query to the clickResults array.
-- `res.json(clickResults);` - Send a response to the browser with a [JSON](http://www.json.org/) version of the clickResults array.
+- `res.json(results);` - Send a response to the browser with a [JSON](http://www.json.org/) version of the results array.
 
 Whew! That's a lot of new information! Finally, we're [exporting](https://nodejs.org/api/modules.html#modules_module_exports) a function object named `clickHandler` to be used elsewhere in Node.
 
@@ -527,41 +520,33 @@ Let's update the `getClicks()` function:
 
 ```js
 this.getClicks = function (req, res) {
-	clicks
-		.findOne(
-			{},
-			{ '_id': false },
-			function (err, result) {
-				if (err) { throw err; }
 
-				var clickResults = [];
+  var clickProjection = { '_id': false };
 
-				if (result) {
+  clicks.findOne({}, clickProjection, function (err, result) {
+     if (err) {
+        throw err;
+     }
 
-					clickResults.push(result);
-					res.json(clickResults);
+     if (result) {
+        res.json(result);
+     } else {
+        clicks.insert({ 'clicks': 0 }, function (err) {
+           if (err) {
+              throw err;
+           }
 
-				} else {
+           clicks.findOne({}, clickProjection, function (err, doc) {
+              if (err) {
+                 throw err;
+              }
 
-					clicks.insert({ 'clicks': 0 }, function (err) {
-						if (err) { throw err; }
-
-						clicks.findOne(
-							{},
-							{'_id': false},
-							function (err, doc) {
-								if (err) { throw err; }
-
-								clickResults.push(doc);
-								res.json(clickResults);
-						});
-
-					});
-
-				}
-			}
-		);
-	};
+              res.json(doc);
+           });
+        });
+     }
+  });
+};
 ```
 
 The first order of business is to check that the original `findOne()` query actually returns a result. If it does, then we proceed with the same as before by inserting the results into an array and passing that back to Node and the browser. This is done within the `if (result) { ... }` block above.
@@ -675,67 +660,56 @@ _clickHandler.server.js_:
 'use strict';
 
 function clickHandler (db) {
-	var clicks = db.collection('clicks');
+   var clicks = db.collection('clicks');
 
-	this.getClicks = function (req, res) {
-		clicks
-			.findOne(
-				{},
-				{ '_id': false },
-				function (err, result) {
-					if (err) { throw err; }
+   this.getClicks = function (req, res) {
 
-					var clickResults = [];
+      var clickProjection = { '_id': false };
 
-					if (result) {
-						clickResults.push(result);
-						res.json(clickResults);
-					} else {
-						clicks.insert({ 'clicks': 0 }, function (err) {
-							if (err) { throw err; }
+      clicks.findOne({}, clickProjection, function (err, result) {
+         if (err) {
+            throw err;
+         }
 
-							clicks.findOne({}, {'_id': false}, function (err, doc) {
-								if (err) { throw err; }
+         if (result) {
+            res.json(result);
+         } else {
+            clicks.insert({ 'clicks': 0 }, function (err) {
+               if (err) {
+                  throw err;
+               }
 
-								clickResults.push(doc);
-								res.json(clickResults);
-							});
+               clicks.findOne({}, clickProjection, function (err, doc) {
+                  if (err) {
+                     throw err;
+                  }
 
-						});
+                  res.json(doc);
+               });
+            });
+         }
+      });
+   };
 
-					}
-				}
-			);
-	};
+   this.addClick = function (req, res) {
+      clicks.findAndModify({}, { '_id': 1 }, { $inc: { 'clicks': 1 }}, function (err, result) {
+         if (err) {
+            throw err;
+         }
 
-	this.addClick = function (req, res) {
-		clicks
-			.findAndModify(
-				{},
-				{ '_id': 1 },
-				{ $inc: { 'clicks': 1 } },
-				function (err, result) {
-					if (err) { throw err; }
+         res.json(result);
+      });
+   };
 
-					res.json(result);
-				}
-			);
-	};
-
-	this.resetClicks = function (req, res) {
-		clicks
-			.update(
-				{},
-				{ 'clicks': 0 },
-				function (err, result) {
-					if (err) { throw err; }
-
-					res.json(result);
-				}
-			);
-	};
-
-};
+   this.resetClicks = function (req, res) {
+      clicks.update({}, { 'clicks': 0 }, function (err, result) {
+         if (err) {
+            throw err;
+         }
+         res.json(result);
+      });
+   };
+}
 
 module.exports = clickHandler;
 ```
