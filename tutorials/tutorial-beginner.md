@@ -481,15 +481,17 @@ _clickHandler.server.js_:
 function clickHandler (db) {
 
 	var clicks = db.collection('clicks');
-
+	
 	this.getClicks = function (req, res) {
+	
+		var clickProjection = { '_id': false };
 		clicks.findOne({}, clickProjection, function (err, result) {
-      if (err) {
-        throw err;
-      }
-
-      res.json(result);
-    })
+			if (err) {
+			throw err;
+			}
+			
+			res.json(result);
+		})
 	};
 };
 
@@ -504,12 +506,8 @@ Let's break down each line of the `getClicks` method:
 
 - `function (req, res)` - A request and response are arguments for this particular function. This is similar to other functions previously defined in this application.
 - `clicks` - the name of our database collection, which we have stored in a variable thanks to `var clicks = ...`
-<<<<<<< HEAD
 - `var clickProjection ...` - Every document in MongoDB is [automatically assigned an '_id'](http://docs.mongodb.org/manual/reference/object-id/) when inserted into a collection, unless otherwise specified. It's possible to specify a value or field as the '_id', but in our case we're going to leave it as is. This argument is known as the projection, which allows us to manipulate & exclude fields from the query results before they're passed on. In this case, we don't want the '_id' field to show up in our results since it's not needed. Due to that, the value has been set to `false` for this field.
 - [`.findOne`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#find-first-occurence-with-findone) - This is a MongoDB query that will find the first document (analgous to record or row in relational databases) that meet the query criteria. It's possible to also use the [`find()`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#making-queries-with-find) method, but our collection will only have one document, so that's not necessary.
-=======
-- [`.findOne`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#find-first-occurence-with-findone) - This is a MongoDB query that will find the first document (analogous to record or row in relational databases) that meet the query criteria. It's possible to also use the [`find()`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#making-queries-with-find) method, but our collection will only have one document, so that's not necessary.
->>>>>>> f0d51f12867a421ad0e2a9a34963f3e87780db23
 - `{},` - This is the query argument for the `findOne()` method. If we had multiple documents in our collection, we could specify certain criteria within this object to filter down the results. `{}` will return all documents (in our case, this is just 1).
 - `clickProjection` - The projection that we defined previously.
 - `function (err, result) {` - This is the callback argument for the findOne method. This callback function will define what Node should do with the results once the query has finished.
