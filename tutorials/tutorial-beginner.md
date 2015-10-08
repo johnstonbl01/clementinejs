@@ -6,7 +6,7 @@ layout: docs
 
 ## Prerequisites
 
-This tutorial requires the following pre-requisites:
+This tutorial requires the following prerequisites:
 
 - [Node.js](https://nodejs.org/)
 - [NPM](https://nodejs.org/)
@@ -16,7 +16,7 @@ An internet connection is required to successfully complete this tutorial. Addit
 
 ### Install Node.js and NPM
 
-_Note:_ The Node insallation installs both Node & NPM.
+_Note:_ The Node installation installs both Node & NPM.
 
 **MAC OSX & Windows**
 
@@ -75,7 +75,7 @@ Now that we've initialized NPM in our project directory and checked out the `pac
 In the terminal window:
 `$ npm install express mongodb --save`
 
-This command will install Express and the MongoDB Node.js driver. In addition, you'll notice a new directory named `node_modules`. This is the directory where Node installes the packages locally. 
+This command will install Express and the MongoDB Node.js driver. In addition, you'll notice a new directory named `node_modules`. This is the directory where Node installs the packages locally. 
 
 The `--save` command tells NPM to save the dependency in the `package.json` file. If you open that file, it's now possible to see these dependencies.
 
@@ -152,7 +152,7 @@ Now let's spend a few moments to create the file structure we'll be using.
 - **controllers** - Directory for client and server-side controller files. Controllers are used to either manipulate / modify the view or the model (i.e. the database).
 - **routes** - This folder contains route files. Routes give directions on what to do when a particular URL or HTTP request is made from the client (i.e. browser) to the server.
 
-**public** - This directory contains information used to render the view (i.e. css & images). Traditionally, this directory would also include a libary of any vendor code (i.e. AngularJS, jQuery, etc) used in the application. 
+**public** - This directory contains information used to render the view (i.e. css & images). Traditionally, this directory would also include a library of any vendor code (i.e. AngularJS, jQuery, etc) used in the application. 
 
 - **css** - Contains the style sheet for the application
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
@@ -177,7 +177,7 @@ In this tutorial, we're going to create a small application that will have the f
 
 In the context of our application, we will have the following:
 
-- A Node / Express web server that responds to HTTP request and passes files to the browswer
+- A Node / Express web server that responds to HTTP request and passes files to the browser
 - A MongoDB database that stores the number of clicks
 - A server-side controller that will add, reset and retrieve the number of clicks from the database
 	- This data will be passed to an API (application program interface)
@@ -185,7 +185,7 @@ In the context of our application, we will have the following:
 - A client-side view that the user interacts with and sees
 	- This is our HTML page that includes a logo and the buttons for interaction
 
-This should provide some general contextthat will be helpful as we proceed with development.
+This should provide some general context that will be helpful as we proceed with development.
 
 ## Simple Node Server
 
@@ -213,7 +213,7 @@ Let's discuss what the above code is doing:
 
 **`'use strict'`**
 
-This command enables ["strict mode"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode), which is a way to opt in to a more strict version of JavaScript. This is best practice because it enforces more secure syntax and best practices through sticter syntax constraints. The documentation above provides some great examples of this behavior and how strict mode enforces them.
+This command enables ["strict mode"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode), which is a way to opt in to a more strict version of JavaScript. This is best practice because it enforces more secure syntax and best practices through stricter syntax constraints. The documentation above provides some great examples of this behavior and how strict mode enforces them.
 
 **`var express = require('express');`**
 
@@ -231,7 +231,7 @@ This line initializes Express and allows us to access all of its great web appli
 
 Lastly, [app.listen](http://expressjs.com/4x/api.html#app.listen) is going to tell Node which port to listen on (3000). In this case, we're also providing a callback function (a function that gets called once the app.listen function has finished) that will tell us when Node is ready and the server has been started.
 
-Let's test the applicaton now, by typing `$ node server.js` in the terminal window (make sure you're within the project directory). You should see the following:
+Let's test the application now, by typing `$ node server.js` in the terminal window (make sure you're within the project directory). You should see the following:
 
 ```bash
 $ node server.js
@@ -502,15 +502,15 @@ function clickHandler (db) {
 module.exports = clickHandler;
 ```
 
-Again, some of this code will look familiar. We define which [MongoDB collection](http://docs.mongodb.org/manual/reference/glossary/#term-collection) ([`db.collection(...)`](https://mongodb.github.io/node-mongodb-native/api-generated/db.html#collection)) we would like to use within the database. Collections are analagous to tables in the relational database world, and there can be multiple collections for a single database. In this case, MongoDB is smart enough to create the collection for us if it doesn't already exist. Thanks, Mongo.
+Again, some of this code will look familiar. We define which [MongoDB collection](http://docs.mongodb.org/manual/reference/glossary/#term-collection) ([`db.collection(...)`](https://mongodb.github.io/node-mongodb-native/api-generated/db.html#collection)) we would like to use within the database. Collections are analogous to tables in the relational database world, and there can be multiple collections for a single database. In this case, MongoDB is smart enough to create the collection for us if it doesn't already exist. Thanks, Mongo.
 
-For this application, our collection is named `clicks`. Afterward, we need to create a method that will retrieve the current number of clicks from the database. This funtionality will be contained within a `getClicks()` method of the `clickHandler` function object.
+For this application, our collection is named `clicks`. Afterward, we need to create a method that will retrieve the current number of clicks from the database. This functionality will be contained within a `getClicks()` method of the `clickHandler` function object.
 
 Let's break down each line of the `getClicks` method:
 
 - `function (req, res)` - A request and response are arguments for this particular function. This is similar to other functions previously defined in this application.
 - `clicks` - the name of our database collection, which we have stored in a variable thanks to `var clicks = ...`
-- [`.findOne`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#find-first-occurence-with-findone) - This is a MongoDB query that will find the first document (analgous to record or row in relational databases) that meet the query criteria. It's possible to also use the [`find()`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#making-queries-with-find) method, but our collection will only have one document, so that's not necessary.
+- [`.findOne`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#find-first-occurence-with-findone) - This is a MongoDB query that will find the first document (analogous to record or row in relational databases) that meet the query criteria. It's possible to also use the [`find()`](http://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#making-queries-with-find) method, but our collection will only have one document, so that's not necessary.
 - `{},` - This is the query argument for the `findOne()` method. If we had multiple documents in our collection, we could specify certain criteria within this object to filter down the results. `{}` will return all documents (in our case, this is just 1).
 - `{ '_id': false }` - Every document in MongoDB is [automatically assigned an '_id'](http://docs.mongodb.org/manual/reference/object-id/) when inserted into a collection, unless otherwise specified. It's possible to specify a value or field as the '_id', but in our case we're going to leave it as is. This argument is known as the projection, which allows us to manipulate & exclude fields from the query results before they're passed on. In this case, we don't want the '_id' field to show up in our results since it's not needed. Due to that, the value has been set to `false` for this field.
 - `function (err, result) {` - This is the callback argument for the findOne method. This callback function will define what Node should do with the results once the query has finished.
@@ -566,7 +566,7 @@ this.getClicks = function (req, res) {
 
 The first order of business is to check that the original `findOne()` query actually returns a result. If it does, then we proceed with the same as before by inserting the results into an array and passing that back to Node and the browser. This is done within the `if (result) { ... }` block above.
 
-However, if no result is returned, then we need to insert a document into the database using the [`insert()`](http://mongodb.github.io/node-mongodb-native/api-generated/collection.html#insert) method. This method takes two arguments, the document to insert (`{ 'clicks': 0 }`) and a callback function. The callback function will tell Node what do with the results. If there is an error, we throw the error. Once the new document is inserted, we query the DB to find the newly inserted document and return it to the browswer in JSON format.
+However, if no result is returned, then we need to insert a document into the database using the [`insert()`](http://mongodb.github.io/node-mongodb-native/api-generated/collection.html#insert) method. This method takes two arguments, the document to insert (`{ 'clicks': 0 }`) and a callback function. The callback function will tell Node what do with the results. If there is an error, we throw the error. Once the new document is inserted, we query the DB to find the newly inserted document and return it to the browser in JSON format.
 
 Before we test this out, we will want to change our routes a little bit.
 
@@ -593,7 +593,7 @@ module.exports = function (app, db) {
 
 Let's take a look at the changes:
 
-- `var ClickHandler...` - Here, we're storing the function object we created from the `clickHanlder.server.js` file in a variable.
+- `var ClickHandler...` - Here, we're storing the function object we created from the `clickHandler.server.js` file in a variable.
 - `var clickHandler = new ClickHandler(db)` - On this line, we're instantiating a new instance of the ClickHandler function object, and passing in the MongoDB object as an argument. This is going to allow us to reference the methods we created in the `clickHandler.server.js` in addition to passing in the database information for use in those methods.
 - `app.route('/api/clicks')` - We're defining a new route here for our API
 - `.get(clickHandler.getclicks)` - The `getClicks` function will be executed anytime there is an HTTP GET request on the `/api/clicks` URL. This will tell the Node to execute the controller function we defined previously and get the results from the database.
@@ -602,7 +602,7 @@ Let's give this a test! If this is your first time through the tutorial, it's li
 
 ### Testing the API via the Mongo Console
 
-If you'd like to test this again, we can manually remove the document from the database with some help from the MongoDB console. Leave Node running and open a new terminal window. Type `$ mongo` in the terminal window to connect to the MongDB console.
+If you'd like to test this again, we can manually remove the document from the database with some help from the MongoDB console. Leave Node running and open a new terminal window. Type `$ mongo` in the terminal window to connect to the MongoDB console.
 
 If successful, you should see something along the lines of:
 
@@ -622,7 +622,7 @@ Great! Now let's remove this document so that when we refresh the page again, it
 
 ### Additional Methods and Routing
 
-We now have a working query that will return the contents of the database. However, we still need to provide routes and logic to tell the application controller what to do when the two HTML buttons are clicked. Essentially, we're going to add more functionality that will update the database eacah time the appropriate button is clicked.
+We now have a working query that will return the contents of the database. However, we still need to provide routes and logic to tell the application controller what to do when the two HTML buttons are clicked. Essentially, we're going to add more functionality that will update the database each time the appropriate button is clicked.
 
 Let's update our controller with a few more methods.
 
@@ -659,11 +659,11 @@ this.resetClicks = function (req, res) {
 
 These two new methods, `addClick` and `resetClicks` are very similar to our original `getClicks` method. However, each of them uses a different MongoDB method.
 
-`addClick` uses the [`findAndModify`](http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findAndModify) method. The first two arguments are simlar to the `findOne` method: first identify what you want to find (`{}` - returns all documents) and then provide the sort order in which you'd like the documents returned (in our case, sort in ascending order by the id field with `'_id': 1` -- this parameter doesn't matter much since we only have a single document). Then, we tell Node & MongoDB how we'd like to update the record(s) that were found.
+`addClick` uses the [`findAndModify`](http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findAndModify) method. The first two arguments are similar to the `findOne` method: first identify what you want to find (`{}` - returns all documents) and then provide the sort order in which you'd like the documents returned (in our case, sort in ascending order by the id field with `'_id': 1` -- this parameter doesn't matter much since we only have a single document). Then, we tell Node & MongoDB how we'd like to update the record(s) that were found.
 
 In this particular case, we've opted to use `{ $inc: { 'clicks': 1 } }`. This uses the [Mongo `$inc` method](http://docs.mongodb.org/manual/reference/operator/update/inc/). The `$inc` method takes the property we want to modify (`clicks`) and provides the number by which we want to increment (1). So every time the `addClick` function is run, the number of clicks will increment by 1.
 
-Lasly, we provide a callback function which will throw an error if one occurs, else the results are updated and sent back to the browser in JSON format.
+We then provide a callback function which will throw an error if one occurs, else the results are updated and sent back to the browser in JSON format.
 
 Lastly, we use the [Mongo `update` method](http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#update) for the `resetClicks` method. This will take a query for the first parameter (`{}` will return all documents), and the updated value (`{ 'clicks': 0 }`) for any records found. In this case, the `resetClicks` method will update the `clicks` property of our document to 0. The result of this operation is then passed back to the browser in JSON format.
 
@@ -838,7 +838,7 @@ Then, if the `readyState` property of the document object is equal to `complete`
 Lastly, if the document has not yet loaded, we'll add an event listener with [`document.addEventListener(type, listener, useCapture)`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener). This method takes 3 arguments: 
 
 - `type`: a string representing the type of event to listen for. In our case, we're listening for the `DOMContentLoaded' event
-- `listener`: the function that should be executed when the event occurs -- the `fn` arguemtn in this case
+- `listener`: the function that should be executed when the event occurs -- the `fn` argument in this case
 - `userCapture`: a true/false value which specifies if all events of the specified `type` should be executed with the `listener` argument. This defaults to `false`
 
 The next order of business is to create a function that will retrieve the data from the API. To do this, we're going to use an [`XMLHttpRequest`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest). This object will allow us to retrieve information without requiring the entire page to be refreshed. This is also referred to as [AJAX (Asynchronous JavaScript + XML)](https://developer.mozilla.org/en-US/docs/AJAX), and is a common convention of front-end development.
@@ -893,7 +893,7 @@ Now we get to the meat of the function. When the function is first called, we wa
 - `url`: the URL to send the request to (again, in this case we're passing in the `url` argument from the `ajaxRequest` function)
 - `async`: A boolean value which specifies if the request should be made asynchronously. In this case, we do want the request to be asynchronous, so we specify a value of `true`
 
-Lastly, the `xmlhttp.send()` method executes the previously initiated request (from the `open()` method). That's it! You're written your first AJAX function!
+Lastly, the `xmlhttp.send()` method executes the previously initiated request (from the `open()` method). That's it! You've written your first AJAX function!
 
 Next, let's write a small function that will update the HTML `<span` element. 
 
@@ -977,7 +977,7 @@ _clickController.client.js_:
    addButton.addEventListener('click', function () {
 
       ajaxRequest('POST', apiUrl, function () {
-         ajaxREquest('GET', apiUrl, updateClickCount)
+         ajaxRequest('GET', apiUrl, updateClickCount)
       });
 
    }, false);
@@ -1147,7 +1147,7 @@ Let's start up the app. Wow! Your app should now look something like:
 
 ## Next Steps
 
-Congratulations on completing your first full stack JavaScript application! If you're a beginner, my advice is to build upon this knowledge by continuing build things -- a log-in application, a comment application, etc. Building will solidify your understanding of these concepts, and force you to learn new things as well. If you enjoyed this tutorial, please feel free to [let me know on Twitter](https://twitter.com/johnstonbl01)!
+Congratulations on completing your first full stack JavaScript application! If you're a beginner, my advice is to build upon this knowledge by continuing build things -- a login application, a comment application, etc. Building will solidify your understanding of these concepts, and force you to learn new things as well. If you enjoyed this tutorial, please feel free to [let me know on Twitter](https://twitter.com/johnstonbl01)!
 
 If you encounter any issues whatsoever, submit an issue here on GitHub, or let me know via Twitter.
 
