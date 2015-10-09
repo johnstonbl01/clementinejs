@@ -232,7 +232,6 @@ module.exports = function (app) {
 		.delete(clickHandler.resetClicks);
 };
 ```
-First, we move the `.clickHandler` from the end of the `require` statement. We're doing this because rather than export an anonymous function object from the clickHandler file, we will export the entire object. The `.clickHandler` specification is there because using the `module.exports.clickHandler` syntax creates `clickHandler` as a method on the `module.exports` object. This must specifically be referenced in the `require` statement. As we'll see in just a moment, there is another way to accomplish this without requiring the `.clickHandler` expression.
 
 We've removed the `db` argument from both the `module.exports = function (app) {... }` line and the `new ClickHandler()`. We've done this because the database information itself is inherent in using a Mongoose schema. The model we created earlier gets exported for use within our controllers. We'll see this shortly. For now, these are the only changes required to the route file. Wasn't that easy?
 
@@ -249,17 +248,12 @@ _clickHandler.server.js_:
 
 var Clicks = require('../models/clicks.js');
 
-module.exports.clickHandler = function (db) {...}
+function clickHandler (db) {...}
 ```
 
 We're importing and storing our `mongoose.model` within the `Clicks` variable, so that we can update the clickHandler methods to query this collection. Remember that Mongoose will automatically find the correct collection in the database (it looks for the plural version of the model name we provided in the `mongoose.model(...)` function). Additionally, keep in mind that MongoDB will create the collection if it does not already exist.
 
-Next, we need to remove the `db` argument from the clickHandler function, as well as the `module.exports.clickHandler`. As mentioned above, we're going to export our clickHandler object slightly differently. At this point, we'll simply define the clickHandler as a named function without any arguments.
-
-```js
-function clickHandler () {...}
-```
-
+Next, we need to remove the `db` argument from the clickHandler function. 
 In addition, we want to remove the `var clicks = db.collection('clicks');` line because that's no longer needed. Our database model is already being stored in the `Clicks` variable. Now we'll move on to modifying each of the methods within this file.
 
 **getClicks Method**
@@ -292,6 +286,7 @@ this.getClicks = function (req, res) {
 
 Let's breakdown each of the changes:
 
+- Remove `var clickProjection = { ... };`. Removal of the `_id` field is inherent in the Mongoose schema, so it will no longer be needed.
 - `clicks` replaced with `Click`
 	- this is to accomodate our newly imported Mongoose model.
 - `findOne({}, { '_id': false } function (err, result) {...})` replaced by `findOne({}, { '_id': false }).exec(function (err, result) {...})`

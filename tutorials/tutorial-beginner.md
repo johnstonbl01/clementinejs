@@ -485,6 +485,7 @@ function clickHandler (db) {
 	this.getClicks = function (req, res) {
 	
 		var clickProjection = { '_id': false };
+    
 		clicks.findOne({}, clickProjection, function (err, result) {
 			if (err) {
 			throw err;
@@ -605,7 +606,7 @@ At the prompt, type `use clementinejs`. This tells the MongoDB console which dat
 { "_id": ObjectId(randomNumber), "clicks": 0 }
 ```
 
-Great! Now let's remove this document so that when we refresh the page again, it should re-create this record. Enter `db.remove({})` into the console. This will remove all documents in the collection. If you go back to the browser and refresh the page, a new document should get inserted in the database. 
+Great! Now let's remove this document so that when we refresh the page again, it should re-create this record. Enter `db.clicks.remove({})` into the console. This will remove all documents in the collection. If you go back to the browser and refresh the page, a new document should get inserted in the database. 
 
 ### Additional Methods and Routing
 
