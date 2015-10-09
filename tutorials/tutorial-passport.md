@@ -10,7 +10,7 @@ This tutorial assumes that you have a working version of the application built i
 
 _Note_: This tutorial assumes that you have a GitHub account.
 
-_Additional Note_: The previous tutorial used port `3000`, but in this tutorial, that has bene switched to port `8080`. This change was made to align this tutorial with the Free Code Camp version of Clementine.js. Port `8080` makes setup a bit easier when using c9.io.
+_Additional Note_: The previous tutorial used port `3000`, but this tutorial will use port `8080` instead. This change was made to align this tutorial with the Free Code Camp version of Clementine.js. Port `8080` makes setup a bit easier when using c9.io.
 
 ## Attack of the Auth
 
@@ -151,7 +151,7 @@ app.use('/public', express.static(process.cwd() + '/public'));
 
 routes(app);
 
-var port = 3000;
+var port = 8080;
 app.listen(port, function () {
 	console.log('Node.js listening on port ' + port + '...');
 });
@@ -377,9 +377,9 @@ Head to GitHub and log in.
 
 5. Fill out the form:
 	- Name: Whatever you'd like to name your app. Mine says 'clementinejs-fcc', of course. This app name needs to be unique.
-	- Homepage URL: Since we're using localhost, simply use `http://127.0.0.1:3000/`. `127.0.0.1` is the default IP address for localhost. For some reason, simply entering 'localhost' instead wouldn't work for me.
+	- Homepage URL: Since we're using localhost, simply use `http://127.0.0.1:8080/`. `127.0.0.1` is the default IP address for localhost. For some reason, simply entering 'localhost' instead wouldn't work for me.
 	- Description: A short description of your app.
-	- Authorization callback URL: `http://127.0.0.1:3000/auth/github/callback`. This will be the URL that gets passed in when we're authenticated. We'll add a route for this URL later.
+	- Authorization callback URL: `http://127.0.0.1:8080/auth/github/callback`. This will be the URL that gets passed in when we're authenticated. We'll add a route for this URL later.
 4. Click 'Register application'.
 
 ![GitHub App Registration](/clementinejs/img/passporttut02.png)
@@ -474,7 +474,7 @@ _auth.js_:
 'use strict';
 
 module.exports = {
-	'gitHubAuth': {
+	'githubAuth': {
 		'clientID': process.env.GITHUB_KEY,
 		'clientSecret': process.env.GITHUB_SECRET,
 		'callbackURL': process.env.APP_URL + 'auth/github/callback'
@@ -685,11 +685,10 @@ _clickHandler.server.js_:
 var Users = require('../models/users.js');
 
 function ClickHandler () {
-	var query = { 'github.id': req.user.github.id };
 
 	this.getClicks = function (req, res) {
 		Users
-			.findOne(query, { '_id': false })
+			.findOne({ 'github.id': req.user.github.id }, { '_id': false })
 			.exec(function (err, result) {
 				if (err) { throw err; }
 
@@ -700,9 +699,7 @@ function ClickHandler () {
 }
 ```
 
-We've created a varible to store the query string with `query = { ... }`. We store this information in a variable so that we don't have to type it repeatedly -- it will be used in all of our methods.
-
-Next, we update the `this.getClicks()` method by changing `Clicks` to the new `Users` variable we just defined. This will execute queries using the `Users` model rather than the old `Clicks` model. Additionally, the `.findOne()` method arguments are updated to include the newly added `query` variable.
+Now we update the `this.getClicks()` method by changing `Clicks` to the new `Users` variable we just defined. This will execute queries using the `Users` model rather than the old `Clicks` model. Additionally, the `.findOne()` method arguments are updated to include the `{ 'github.id': req.user.github.id }` query parameter.
 
 Previously, this was simply set to `{}`, which will return all results in the database. That was a fine solution when we only had one document in the database. Now that we potentially have multiple users in the database, we have to ensure that the `findOne` query will return the appropriate record. As mentioned above, we want to match the record where the `'github.id'` field in the database matches the `req.user.github.id` object property from the request object. The properties and values of this request object are populated by passport once the authentication has completed.
 
@@ -718,13 +715,12 @@ _clickHandler.server.js_:
 var Users = require('../models/users.js');
 
 function ClickHandler () {
-	var query = { 'github.id': req.user.github.id };
 
 	this.getClicks = function (req, res) { ... };
 
 	this.addClick = function (req, res) {
 		Users
-			.findOneAndUpdate(query, { $inc: { 'nbrClicks.clicks': 1 } })
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $inc: { 'nbrClicks.clicks': 1 } })
 			.exec(function (err, result) {
 					if (err) { throw err; }
 
@@ -735,7 +731,7 @@ function ClickHandler () {
 
 	this.resetClicks = function (req, res) {
 		Users
-			.findOneAndUpdate(query, { 'nbrClicks.clicks': 0 })
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, { 'nbrClicks.clicks': 0 })
 			.exec(function (err, result) {
 					if (err) { throw err; }
 
@@ -747,12 +743,12 @@ function ClickHandler () {
 }
 ```
 
-The changes for these two additional methods are nearly identical to the changes for the `getClicks` method. For `addClick`, we've updated `Clicks` to `Users` and added the same `query` variable as a condition of the `.findOneAndUpdate()` method. Additionally, we've update the field to increment each time this method is called from simply `clicks` to `nbrClicks.clicks`. Again, this change is becaues the `clicks` object is now embedded within the user object. And lastly, we change the respones to send `result.nbrClicks` -- just like the `getClicks` method.
+The changes for these two additional methods are nearly identical to the changes for the `getClicks` method. For `addClick`, we've updated `Clicks` to `Users` and added the same query parameter as a condition of the `.findOneAndUpdate()` method. Additionally, we've update the field to increment each time this method is called from simply `clicks` to `nbrClicks.clicks`. Again, this change is becaues the `clicks` object is now embedded within the user object. And lastly, we change the respones to send `result.nbrClicks` -- just like the `getClicks` method.
 
-The changes for the `resetClicks` method are nearly identical to the changes for `addClick`:
+The changes for the `resetClicks` method are similar to the changes for `addClick`:
 
 - Change `Clicks` to `Users`
-- Add `query` parameter to the Mongoose method
+- Add `{ 'github.id': req.user.github.id }` as the query parameter to the Mongoose method
 - Change object property from `clicks` to `nbrClicks.clicks` in the function parameters
 - Update result response to `result.nbrClicks`
 
@@ -1216,7 +1212,7 @@ app.use(passport.session());
 
 routes(app, passport);
 
-var port = 3000;
+var port = 8080;
 app.listen(port, function () {
 	console.log('Node.js listening on port ' + port + '...');
 });
