@@ -286,7 +286,7 @@ this.getClicks = function (req, res) {
 
 Let's breakdown each of the changes:
 
-- Remove `var clickProjection = { ... };`. Removal of the `_id` field is inherent in the Mongoose schema, so it will no longer be needed.
+- Remove `var clickProjection = { ... };`. Removal of the `_id` field is inherent in the Mongoose schema, so this statement is no longer needed.
 - `clicks` replaced with `Click`
 	- this is to accomodate our newly imported Mongoose model.
 - `findOne({}, { '_id': false } function (err, result) {...})` replaced by `findOne({}, { '_id': false }).exec(function (err, result) {...})`
