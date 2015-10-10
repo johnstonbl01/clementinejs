@@ -131,9 +131,9 @@ Setup for the remote dev environment [c9.io](http://www.c9.io) differs from the 
 
 ![c9 Setup Image 02](/clementinejs/img/docs_c9_clemjs_setup02.png)
 
-Click on the application URL and choose `Copy`. This the URL for the application. Most often, this follows the pattern `https://projectname-username.c9.io/`.
+- Click on the application URL and choose `Copy`. This the URL for the application. Most often, this follows the pattern `https://projectname-username.c9.io/`.
 
-Note: make sure you copy the `/` at the end of the URL.
+_Note_: make sure you copy the `/` at the end of the URL.
 
 ![c9 Setup Image 03](/clementinejs/img/docs_c9_clemjs_setup03.png)
 
@@ -153,6 +153,8 @@ Note: make sure you copy the `/` at the end of the URL.
 7. In this new terminal window, type `$ npm install` to install the Node dependencies. This will add a `node_modules` directory to your project.
 8. Once the installation has completed, type `$ node server` in the same terminal window.
 9. Finally, in a new browser tab or window, point it to the project url (`https://projectname-username.c9.io`). The app should be running in this window now.
+
+![c9 Setup Image 05](/clementinejs/img/clemjstut03.png)
 
 ## Architecture
 
