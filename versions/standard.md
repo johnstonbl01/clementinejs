@@ -120,14 +120,14 @@ Next, open your browser and enter `http://localhost:3000/`. Congrats, you're up 
 
 Setup for the remote dev environment [c9.io](http://www.c9.io) differs from the traditional local environment setup. This section provides step-by-step instructions for setup in the c9 IDE.
 
-1. Create a workspace on c9.io
+- Create a workspace on c9.io
 	- **Workspace Name**: The name of the project
 	- **Description**: A description of the project
 	- **Clone from Git Workspace**: Enter the Git URL for the Clementine.js repo. 
 
 ![c9 Setup Image 01](/clementinejs/img/docs_c9_clemjs_setup01.png)
 
-2. Next, open the `Window` menu and choose `Share...`.
+- Next, open the `Window` menu and choose `Share...`.
 
 ![c9 Setup Image 02](/clementinejs/img/docs_c9_clemjs_setup02.png)
 
@@ -137,22 +137,22 @@ _Note_: make sure you copy the `/` at the end of the URL.
 
 ![c9 Setup Image 03](/clementinejs/img/docs_c9_clemjs_setup03.png)
 
-3. Open the `clickController.client.js` file in the `/app/controllers` directory.
+- Open the `clickController.client.js` file in the `/app/controllers` directory.
 	- Replace `http://localhost:3000/` with the URL for the c9 workspace. It should now look like:
 
 	```js
 	 var apiUrl = 'https://projectname-username.c9.io/api/clicks';
 	 ```
 
-4. Next, update the port number in `server.js` from `3000` to `8080`.
-5. In the terminal window at the bottom of the browser window, type `$ mongod --smallfiles`. This runs the `mongod` service required by MongoDB to run successfully.
-6. Open a new terminal window by clicking on the plus sign above the terminal window.
+- Next, update the port number in `server.js` from `3000` to `8080`.
+- In the terminal window at the bottom of the browser window, type `$ mongod --smallfiles`. This runs the `mongod` service required by MongoDB to run successfully.
+- Open a new terminal window by clicking on the plus sign above the terminal window.
 
 ![c9 Setup Image 04](/clementinejs/img/docs_c9_clemjs_setup03.png)
 
-7. In this new terminal window, type `$ npm install` to install the Node dependencies. This will add a `node_modules` directory to your project.
-8. Once the installation has completed, type `$ node server` in the same terminal window.
-9. Finally, in a new browser tab or window, point it to the project url (`https://projectname-username.c9.io`). The app should be running in this window now.
+- In this new terminal window, type `$ npm install` to install the Node dependencies. This will add a `node_modules` directory to your project.
+- Once the installation has completed, type `$ node server` in the same terminal window.
+- Finally, in a new browser tab or window, point it to the project url (`https://projectname-username.c9.io`). The app should be running in this window now.
 
 ![c9 Setup Image 05](/clementinejs/img/clemjstut03.png)
 
