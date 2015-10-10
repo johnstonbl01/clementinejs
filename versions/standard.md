@@ -131,9 +131,9 @@ Setup for the remote dev environment [c9.io](http://www.c9.io) differs from the 
 
 ![c9 Setup Image 02](/clementinejs/img/docs_c9_clemjs_setup02.png)
 
-	Copy the Application URL. This the URL for the application. Most often, this follows the pattern `https://projectname-username.c9.io/`.
+Click on the application URL and choose `Copy`. This the URL for the application. Most often, this follows the pattern `https://projectname-username.c9.io/`.
 
-	Note: make sure you copy the `/` at the end of the URL.
+Note: make sure you copy the `/` at the end of the URL.
 
 ![c9 Setup Image 03](/clementinejs/img/docs_c9_clemjs_setup03.png)
 
