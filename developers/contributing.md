@@ -77,4 +77,4 @@ Please follow these guidelines when submitting your pull request:
 - Be sure to make small, purposeful pull requests. Large pull requests with multiple changes may be closed without merging.
 - All changes must have accompanying tests.
 - All changes must have any impacted documentation updated.
-- Follow the [code conventions](/clementinejs/developers/code-conventions.html).
+- Follow the [code conventions](/developers/code-conventions.html).

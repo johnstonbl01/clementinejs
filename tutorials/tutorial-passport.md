@@ -6,7 +6,7 @@ layout: docs
 
 ## Prerequisites
 
-This tutorial assumes that you have a working version of the application built in the [previous tutorial](/clementinejs/tutorials/tutorial-beginner.html).
+This tutorial assumes that you have a working version of the application built in the [previous tutorial](/tutorials/tutorial-beginner.html).
 
 _Note_: This tutorial assumes that you have a GitHub account.
 
@@ -373,7 +373,7 @@ Head to GitHub and log in.
 3. At the top of the page, click on 'Developer applications'.
 4. Click the 'Register new application' button.
 
-![GitHub Settings](/clementinejs/img/passporttut01.png)
+![GitHub Settings](/img/passporttut01.png)
 
 5. Fill out the form:
 	- Name: Whatever you'd like to name your app. Mine says 'clementinejs-fcc', of course. This app name needs to be unique.
@@ -382,11 +382,11 @@ Head to GitHub and log in.
 	- Authorization callback URL: `http://127.0.0.1:8080/auth/github/callback`. This will be the URL that gets passed in when we're authenticated. We'll add a route for this URL later.
 4. Click 'Register application'.
 
-![GitHub App Registration](/clementinejs/img/passporttut02.png)
+![GitHub App Registration](/img/passporttut02.png)
 
 Once this is done, it will take you to a page with information about your application. On the top right, there will be codes for Client ID (API Key) and the Client Secret (API Secret). We'll use these later in our app.
 
-![GitHub API Keys](/clementinejs/img/passporttut03.png)
+![GitHub API Keys](/img/passporttut03.png)
 
 The difference between the API Key and the API Secret is that the key is considered _public_, while the secret is known only to the vendor (GitHub in this case) and you.
 
@@ -1951,15 +1951,15 @@ You can now re-run the app. It should look much more organized! Here's what each
 
 _/login_:
 
-![Login Screenshot](/clementinejs/img/passporttut04.png)
+![Login Screenshot](/img/passporttut04.png)
 
 _/index_:
 
-![Index Screenshot](/clementinejs/img/passporttut05.png)
+![Index Screenshot](/img/passporttut05.png)
 
 _/profile_:
 
-![Profile Screenshot](/clementinejs/img/passporttut06.png)
+![Profile Screenshot](/img/passporttut06.png)
 
 ## Conclusion
 

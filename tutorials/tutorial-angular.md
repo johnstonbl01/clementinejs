@@ -6,11 +6,11 @@ layout: docs
 
 ## Prerequisites
 
-This tutorial assumes that you have a working version of the application built in the [previous tutorial](/clementinejs/tutorials/tutorial-beginner.html).
+This tutorial assumes that you have a working version of the application built in the [previous tutorial](/tutorials/tutorial-beginner.html).
 
 ## The Strategy
 
-AngularJS is a powerful front-end framework developed and backed by Google. Angular is a complete framework in that it has a vast amount of built-in features and an opinionated development ideology. Development for Angular is a highly sought-after skill, and admittedly the learning curve is pretty steep. This tutorial will demonstrate how to integrate AngularJS functionality and conventions into the app created as part of the [previous tutorial](/clementinejs/tutorials/tutorial-beginner.html).
+AngularJS is a powerful front-end framework developed and backed by Google. Angular is a complete framework in that it has a vast amount of built-in features and an opinionated development ideology. Development for Angular is a highly sought-after skill, and admittedly the learning curve is pretty steep. This tutorial will demonstrate how to integrate AngularJS functionality and conventions into the app created as part of the [previous tutorial](/tutorials/tutorial-beginner.html).
 
 For more about AngularJS, check out their [website and documentation](https://angularjs.org).
 
@@ -22,7 +22,7 @@ To start our AngularJS integration, we need to update our HTML file to include A
 
 To get the URL for this, head to `http://angularjs.org`. Click on the download button in the middle of the page, and copy the CDN URL to your clipboard.
 
-![Tutorial Picture 03](/clementinejs/img/angtut01.png)
+![Tutorial Picture 03](/img/angtut01.png)
 
 Next, let's include this in our `index.html` file:
 
@@ -85,7 +85,7 @@ This is likely a good time to expand on how Angular interacts with both the view
 
 [Scope ($scope)](https://docs.angularjs.org/guide/scope) is an Angular object that binds the view to the controller. This object is where functions / methods and variable values (i.e. 'clicks') are stored and passed back and forth between the controller and the view.
 
-![Angular Scope](/clementinejs/img/angtut02.png)
+![Angular Scope](/img/angtut02.png)
 
 Now that our HTML view is ready for Angular, let's modify our client-side controller.
 
