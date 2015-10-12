@@ -9,6 +9,11 @@
       </div>
    </div>
    {% include footer.html %}
+   <script>
+      if (window.location.href.indexOf('http://johnstonbl01.github.com') === 0) {
+         window.location.href = 'http://www.clementinejs.com';
+      }
+   </script>
    <script src="{{ site.baseurl }}js/vendor/jquery-1.11.3.min.js"></script>
    <script src="{{ site.baseurl }}js/vendor/bootstrap.min.js"></script>
 </body>
