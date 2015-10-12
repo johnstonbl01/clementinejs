@@ -27,3 +27,7 @@ The project:
 - Believes in retaining a small footprint
 - Is beginner-friendly and approachable
 - Is framework agnostic
+
+# Design
+
+The design of this site was heavily inspired by the docs for [ESLint](http://eslint.org/). It's a great tool that I use myself and highly recommend.

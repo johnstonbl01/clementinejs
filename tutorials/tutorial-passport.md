@@ -1317,7 +1317,7 @@ _clickController.client.js_:
 })();
 ```
 
-We'll come back to this file momentarily to make a few additional modifications. First, let's ensure that the new common functions are included in the `index.html` file. It's important that the common function file comes _before_ the other controller files.
+We'll come back to this file momentarily to make a few additional modifications. First, let's ensure that the new common functions are included in the `index.html` file and we provide a static path to file in the `server.js` file. It's important that the common function file comes _before_ the other controller files.
 
 _index.html_:
 
@@ -1327,6 +1327,21 @@ _index.html_:
 		<script type="text/javascript" src="controllers/clickController.client.js"></script>
 	</body>
 ```
+
+_server.js_:
+
+```js
+...
+...
+
+app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+app.use('/public', express.static(process.cwd() + '/public'));
+app.use('/common', express.static(process.cwd() + '/app/common'));
+
+...
+````
+
+In `server.js`, we've added an additional static path for the `/app/common` folder.
 
 ### Updating the Click Controller
 
