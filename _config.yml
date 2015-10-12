@@ -1,4 +1,4 @@
-baseurl: /clementinejs
+baseurl: /
 highlighter: pygments
 markdown: redcarpet
 redcarpet:
