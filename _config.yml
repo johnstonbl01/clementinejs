@@ -1,4 +1,6 @@
-baseurl: /
+name: "Clementine.js"
+description: "The elegant and lightweight boilerplate for full stack JavaScript."
+url: http://www.clementinejs.com
 highlighter: pygments
 markdown: redcarpet
 redcarpet:
