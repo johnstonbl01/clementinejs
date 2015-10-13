@@ -59,7 +59,7 @@ Open the file and it should look similar to the below:
   "name": "beginner-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
