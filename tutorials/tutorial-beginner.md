@@ -248,7 +248,7 @@ Within this file:
 
 ```html
 <!DOCTYPE html>
-	<html>
+<html>
 	<head>
 		<title>First Node App</title>
 	</head>
