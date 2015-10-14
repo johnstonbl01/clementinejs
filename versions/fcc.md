@@ -98,6 +98,8 @@ Create a file named `.env` in the root directory. This file should contain:
 ```
 GITHUB_KEY=your-client-id-here
 GITHUB_SECRET=your-client-secret-here
+MONGO_URI=mongodb://localhost:27017/clementinejs
+PORT=8080
 APP_URL=http://localhost:8080/
 ```
 
@@ -183,6 +185,7 @@ Clementine.js employs a very simple application architecture to promote transpar
 - Node.js server file
 - Route file
 - CSS file
+- Fonts
 
 When installed, Clementine.js offers a very simple application demonstrating full stack JavaScript. This application follow the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) design pattern. 
 
@@ -199,6 +202,7 @@ When installed, Clementine.js offers a very simple application demonstrating ful
 	|
 	+-- public
 	|	\-- css
+	|	\-- fonts
 	|	\-- img
 ```
 
@@ -230,14 +234,15 @@ When installed, Clementine.js offers a very simple application demonstrating ful
 **public** - This directory contains information used to render the view (i.e. css & images).
 
 - **css** - Contains the style sheet for the application
+- **fonts** - Contains custom fonts for the application
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
 - _index.html_ - This file contains all HTML code to render the view for this single-page application.
 
 ### Ports and MongoDB Collection
 
-Clementine.js uses port 3000 for the application and the default MongoDB port of 27017. These can both be changed within the `server.js` file.
+This version of Clementine.js uses port `8080` for the application and the default MongoDB port of 27017. These can both be changed within the `.env` file that [should be created](#local-environment-variables).
 
-MongoDB will use the database `clementinejs` and the `users` collection. These can be amended in the `server.js` and `/app/models/users.js` files respectively.
+MongoDB will use the database `clementinejs` and the `users` collection. These can be amended in the `.env` and `/app/models/users.js` files respectively.
 
 ### User Model
 
@@ -280,6 +285,8 @@ The application must be registered with GitHub to work properly. GitHub API info
 ```
 GITHUB_KEY=your-client-id-here
 GITHUB_SECRET=your-client-secret-here
+MONGO_URI=mongodb://localhost:27017/clementinejs
+PORT=8080
 APP_URL=http://localhost:8080/
 ```
 
