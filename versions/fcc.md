@@ -151,16 +151,11 @@ Setup for the remote dev environment [c9.io](http://www.c9.io) differs from the 
 ```
 GITHUB_KEY=your-client-id-here
 GITHUB_SECRET=your-client-secret-here
+MONGO_URI=mongodb://localhost:27017/clementinejs
+PORT=8080
 APP_URL=https://projectname-username.c9.io/
 ```
 	_Note_: Don't forget the `/` at the end of the project URL.
-
-- Open the `ajax-functions.js` file in the `/app/common` directory.
-	- Replace `http://localhost:8080/` with the URL for the c9 workspace. It should now look like:
-
-	```js
-	 var appUrl = 'https://projectname-username.c9.io/';
-	 ```
 
 - In the terminal window at the bottom of the browser window, type `$ mongod --smallfiles`. This runs the `mongod` service required by MongoDB to run successfully.
 - Open a new terminal window by clicking on the plus sign above the terminal window.
