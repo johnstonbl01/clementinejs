@@ -155,7 +155,7 @@ MONGO_URI=mongodb://localhost:27017/clementinejs
 PORT=8080
 APP_URL=https://projectname-username.c9.io/
 ```
-	_Note_: Don't forget the `/` at the end of the project URL.
+_Note_: Don't forget the `/` at the end of the project URL.
 
 - In the terminal window at the bottom of the browser window, type `$ mongod --smallfiles`. This runs the `mongod` service required by MongoDB to run successfully.
 - Open a new terminal window by clicking on the plus sign above the terminal window.
