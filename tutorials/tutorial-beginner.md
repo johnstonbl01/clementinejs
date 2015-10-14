@@ -282,7 +282,7 @@ First, we instruct Express to respond by sending a file to the browser, and spec
 
 Let's test the application now to ensure this is working correctly. Again from the project folder, type `$ node server.js` into the terminal.
 
-Point the browser to `localhost:3000` and you should again see "Hello world!"
+Point the browser to `localhost:3000` and you should see "Hello, world!"
 
 ### Refactoring Routes
 
@@ -305,7 +305,7 @@ var express = require('express'),
 	routes = require('./app/routes/index.js');
 ```
 
-Now we need to pass the Express application as an argument to our route function object. Essentially, we will export our routes, and that function object will accept one argument, `app`. This will allow us to use Express functionality within the scope of our new route function. Hang in there if this doesn't make sense right away.
+Now we need to pass the Express application as an argument to our `routes` function object. Essentially, we will export our routes, and that function object will accept one argument, `app`. This will allow us to use Express functionality within the scope of our new `routes` function. Hang in there if this doesn't make sense right away.
 
 Include the following code where our former route code was within the file:
 
@@ -345,13 +345,13 @@ module.exports = function (app) {
 };
 ```
 
-Some of this will look familiar, but it's important to note that we're using a different routing method from Express: [`app.route`](http://expressjs.com/4x/api.html#app.route). This is an alternative to app.get, and let's us bundle together several types of routes for a single page request (this will become apparently later in the tutorial). The remainder of this code is exactly the same as our former `app.get` route.
+Some of this will look familiar, but it's important to note that we're using a different routing method from Express: [`app.route`](http://expressjs.com/4x/api.html#app.route). This is an alternative to app.get, and let's us bundle together several types of routes for a single page request (this will become apparent later in the tutorial). The remainder of this code is exactly the same as our former `app.get` route.
 
 Next, move the index.html file into the `/public` directory. This will be the permanent home of this file.
 
 Let's test this update to ensure everything has been setup correctly. From the project folder, type `$ node server.js` into the terminal.
 
-Point the browser to `localhost:3000` and you should again see "Hello world!"
+Point the browser to `localhost:3000` and you should again see "Hello, world!"
 
 Let's move on to giving some more pizazz to our HTML file.
 
