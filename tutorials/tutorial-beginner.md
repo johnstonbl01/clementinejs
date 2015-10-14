@@ -119,7 +119,9 @@ The MongoDB Node.js driver will allow us to use Node to query the MongoDB databa
 
 ## .gitignore
 
-It is often common to see a file named `.gitignore` in the root directory of projects. This file simply tells git (version control software) to ignore particular files. Many times, the content of this file contains the `node_modules` directory. This prevents the directory from being uploaded to GitHub (on large projects, this directory can become quite large).
+It is often common to see a file named `.gitignore` in the root directory of projects. This file simply tells git (version control software) to ignore particular files. If you do not have a file named `.gitignore`, you can create one with the following command: `$ touch .gitignore`. The `touch` command is designed to update the access/modification date of a file or directory but it also has the side-effect of creating a new, blank file if the file you are "touching" does not already exist.
+
+Many times, the content of this file contains the `node_modules` directory. This prevents the directory from being uploaded to GitHub (on large projects, this directory can become quite large).
 
 Example .gitignore file:
 
