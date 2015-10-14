@@ -82,7 +82,7 @@ The `package.json` file should now look like:
    "name": "beginner-app",
    "version": "1.0.0",
    "description": "",
-   "main": "index.js",
+   "main": "server.js",
    "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
    },
@@ -114,6 +114,7 @@ Let's go ahead and modify the folder structure to include some of the new functi
 	|
 	+-- public
 	|	\-- css
+   |  \-- fonts
 	|	\-- img
 ```
 
@@ -394,25 +395,31 @@ The difference between the API Key and the API Secret is that the key is conside
 
 Now let's take advantage of the dotenv module we installed earlier. Begin by creating a new file named `.env` in the root project directory. Within this file, we will define variables which will be kept private. When the dotenv module is initialized (we'll get to this shortly), it stores these values on Node's `process.env` object. Each value in the `.env` file will create a new property on the object.
 
-In our case, we need to store 3 variables for GitHub authentication:
+In our case, we need to store 5 variables for GitHub authentication:
 
 1. The GitHub API Client ID
 2. The GitHub API Client Secret
-3. The URL for our app
+3. The MongoDB URI
+4. The Port number
+5. The URL for our app
 
-The URL isn't private information, but is used by Passport to determine the callback URL for authentication.
+The URL, MONGO_URI and PORT aren't private information, but are used at various points within the application. Indeed, these are typically stored in a file such as this.
 
 In the `.env` file:
 
 ```
 GITHUB_KEY=your-client-id-here
 GITHUB_SECRET=your-client-secret-here
+MONGO_URI=mongodb://localhost:27017/clementinejs
+PORT=8080
 APP_URL=http://localhost:8080/
 ```
 
 You'll simply need to paste the keys GitHub provides as part of the app registration into this file.
 
-next, we need to include this `.env` file as part of our `.gitignore` file so that this file does not get tracked by Git. This is an important step to ensure that these private keys remain private.
+`MONGO_URI` is the same as the URI we're passing to to the `mongoose.connect()` method in the `server.js` file. Hang on... What's a URI? URIs are [Uniform Resource Identifiers](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) and are strings of characters which identify the name of a resource. In our case, the resource is the MongoDB database and its port (`27017` and subsequent database (`clementinejs`). 
+
+Next, we need to include this `.env` file as part of our `.gitignore` file so that this file does not get tracked by Git. This is an important step to ensure that these private keys remain private.
 
 _.gitignore_
 
@@ -655,7 +662,7 @@ module.exports = function (passport) {
 
 Here, we're creating a new instance of our User model, and then mapping database object properties like `newUser.github.id` to the information sent back by the GitHub API (`profile.id`). Note that we are setting the `nbrClicks.clicks` value to `0` so that every new user begins with the 0 clicks property. Finally, we insert this information into the database with `newUser.save(...)`, passing our user information back to Passport with `return done(null, newUser)`.
 
-This is far and away the most complicated part of integrating authentication and authorization. If it's still a bit fuzzy, please reach out to me on Twitter or via Email and we can discuss. Let's move on, shall we?
+This is far and away the most complicated part of integrating authentication and authorization. If it's still a bit fuzzy, please reach out to me on Twitter and we can discuss. Let's move on, shall we?
 
 ### Further Server-Side Controller Modifications
 
@@ -1160,7 +1167,7 @@ The newest version of Express-Session requires settings for `resave` and `saveUn
 
 [`passport.initialize`](http://passportjs.org/docs/configure) is required by Passport in order to initialize the Passport application. Similar to the Express initialization, this will instantiate the Passport functionality. Additionally, we use the [`passport.session()`](http://passportjs.org/docs/configure) middleware to enable the usage of session storage.
 
-Lastly, we need to pass the Passport object into our routes file as an argument. Remember that we used Passport functionality within our routes, so we need to ensure that we enable the use of the Passport methods by passing it into our routes module.
+Next, we need to pass the Passport object into our routes file as an argument. Remember that we used Passport functionality within our routes, so we need to ensure that we enable the use of the Passport methods by passing it into our routes module.
 
 _server.js_:
 
@@ -1181,6 +1188,34 @@ routes(app, passport);
 ...
 ```
 
+Remember when we defined the `MONGO_URI` and `PORT` variables in the `.env` file in an [earlier section](#create-environmental-variables)? Let's remove the repetitive references and update them to point to the new variables in the `.env` file.
+
+_server.js_:
+
+```js
+
+...
+
+var app = express();
+require('dotenv').load();
+require('./app/config/passport')(passport);
+
+mongoose.connect(process.env.MONGO_URI);
+
+...
+...
+
+var port = process.env.PORT || 8080;
+app.listen(port, function () {
+   console.log('Node.js listening on port ' + port + '...');
+});
+
+```
+
+In the above, we've changed the argument for the `mongoose.connect()` method to reference the property in the `process.env` object. Additionally, we've incluced `var port = process.env.PORT || 8080;` This statement uses the JavaScript [OR operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_OR_()) (`||`). 
+
+If what's left of the `||` evaluates to `true`, then that is the value that is used. However, if the value left of `||` evaluates to `false`, then JS will check the value on the right. If that value evaluates as `true`, then it is used. We're saying "if there is a `process.env.PORT` variable, use it -- else use the port `8080`."
+
 The full `server.js` file:
 
 ```js
@@ -1196,7 +1231,7 @@ var app = express();
 require('dotenv').load();
 require('./app/config/passport')(passport);
 
-mongoose.connect('mongodb://localhost:27017/clementinejs');
+mongoose.connect(process.env.MONGO_URI);
 
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
@@ -1212,7 +1247,7 @@ app.use(passport.session());
 
 routes(app, passport);
 
-var port = 8080;
+var port = process.env.PORT || 8080;
 app.listen(port, function () {
 	console.log('Node.js listening on port ' + port + '...');
 });
@@ -1239,11 +1274,11 @@ Let's start by creating a new file in `/app/common` named `ajax-functions.js`. B
 _ajax-functions.js_:
 
 ```js
-var appUrl = 'http://localhost:8080/';
+var appUrl = window.location.origin;
 var ajaxFunctions = {};
 ```
 
-The `appUrl` will prevent us from having to type out the information multiple times and allow us to simply concatenate this string value with API information in our client-side controllers. 
+The `appUrl` will prevent us from having to type out the information multiple times and allow us to simply concatenate the value of [`window.location.origin` property](https://developer.mozilla.org/en-US/docs/Web/API/URLUtils/origin) with API information in our client-side controllers. This property will return the root URL of the current browser window (i.e. it should always reference `http://localhost:8080/`).
 
 Let's now expand upon this object by adding our functions as methods! We'll extract these functions from the `clickController.client.js` file.
 
@@ -1356,7 +1391,7 @@ _clickController.client.js_:
 
 (function () {
 ...
-var apiUrl = appUrl + 'api/:id/clicks';
+var apiUrl = appUrl + '/api/:id/clicks';
 
 ...
 })();
@@ -1374,7 +1409,7 @@ _clickController.client.js_:
    var addButton = document.querySelector('.btn-add');
    var deleteButton = document.querySelector('.btn-delete');
    var clickNbr = document.querySelector('#click-nbr');
-   var apiUrl = appUrl + 'api/:id/clicks';
+   var apiUrl = appUrl + '/api/:id/clicks';
 
    function updateClickCount (data) {
       var clicksObject = JSON.parse(data);
@@ -1654,7 +1689,7 @@ _userController.client.js_:
    var profileUsername = document.querySelector('#profile-username') || null;
    var profileRepos = document.querySelector('#profile-repos') || null;
    var displayName = document.querySelector('#display-name');
-   var apiUrl = appUrl + 'api/:id';
+   var apiUrl = appUrl + '/api/:id';
 })();
 ```
 
