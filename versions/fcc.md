@@ -134,7 +134,7 @@ Setup for the remote dev environment [c9.io](http://www.c9.io) differs from the 
 
 ![c9 Setup Image 03](/img/docs_c9_clemjsfcc_setup02.png)
 
-- Setup your GitHub Application. Refer to [this guide](tutorials/tutorial-passport.html#github-app-setup).
+- Setup your GitHub Application. Refer to [this guide](/tutorials/tutorial-passport.html#github-app-setup).
 	- **Homepage URL**: The URL previously copied for the project (i.e. `https://projectname-username.c9.io/`).
 	- **Authorization callback URL**: The project URL + `auth/github/callback` appended to the end (i.e. `https://projectname-username.c9.io/auth/github/callback`).
 
@@ -163,7 +163,7 @@ APP_URL=https://projectname-username.c9.io/
 - In the terminal window at the bottom of the browser window, type `$ mongod --smallfiles`. This runs the `mongod` service required by MongoDB to run successfully.
 - Open a new terminal window by clicking on the plus sign above the terminal window.
 
-![c9 Setup Image 06](/img/docs_c9_clemjs_setup03.png)
+![c9 Setup Image 06](/img/docs_c9_clemjs_setup04.png)
 
 - In this new terminal window, type `$ npm install` to install the Node dependencies. This will add a `node_modules` directory to your project.
 - Once the installation has completed, type `$ node server` in the same terminal window.
