@@ -73,7 +73,7 @@ Please follow these guidelines when submitting your pull request:
 	- Not applicable for documentation about existing functionality.
 - The pull request must have a description. This should include what was done and how you addressed the issue.
 - Please make your pull request on the development branch.
-- The commit message should say "(fixes#1234)" at the end of the description if it takes care of an existing issue (1234 should be replaced with the issue number)
+- The commit message should say "(fixes #1234)" at the end of the description if it takes care of an existing issue (1234 should be replaced with the issue number)
 - Be sure to make small, purposeful pull requests. Large pull requests with multiple changes may be closed without merging.
 - All changes must have accompanying tests.
 - All changes must have any impacted documentation updated.
