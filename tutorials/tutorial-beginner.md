@@ -14,6 +14,20 @@ This tutorial requires the following prerequisites:
 
 An internet connection is required to successfully complete this tutorial. Additionally, this tutorial assumes basic knowledge of HTML, CSS and JavaScript.
 
+### A Note to c9 Users
+
+If you're using the remote [IDE (Integrated Development Environment)](https://en.wikipedia.org/wiki/Integrated_development_environment) c9, then you'll not need to install Node or MongoDB. c9 has those pre-installed. However, you'll want to type the following into the terminal window at the bottom of the screen:
+
+`$ mongod --smallfiles`
+
+This starts the `mongod` service that listens for connections to the MongoDB. The `--smallfiles` parameter instructs MongoDB to use a smaller default file size. This is important for remote IDEs with limited space.
+
+![c9 New Terminal Window Image](/img/docs_c9_clemjs_setup04.png)
+
+Next, click the `+` sign above the terminal window and choose "New Terminal." Any console commands mentioned throughout the tutorial will need to be entered in this new window while `mongod` continues to run in the background. Note that this will need to be done for c9 every time you close the IDE and re-open it.
+
+Lastly, whereas the majority of this tutorial will reference `localhost:3000` as the development URL, c9 provides a specific URL for each of your workspaces. This URL follows the format of `https://projectname-username.c9.io/` and should be used in place of the `http://localhost:3000/` URL. The c9 port should be `8080` instead of `3000` and **not** included in the URL.
+
 ### Install Node.js and NPM
 
 _Note:_ The Node installation installs both Node & NPM.

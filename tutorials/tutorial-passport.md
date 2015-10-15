@@ -114,7 +114,6 @@ Let's go ahead and modify the folder structure to include some of the new functi
 	|
 	+-- public
 	|	\-- css
-   |  \-- fonts
 	|	\-- img
 ```
 
