@@ -34,7 +34,7 @@ _Note:_ The Node installation installs both Node & NPM.
 
 **MAC OSX & Windows**
 
-Head to the [Node.js install page](https://nodejs.org/download/). Download the appropriate file follow the installation instructions.
+Head to the [Node.js install page](https://nodejs.org/en/download/). Download the appropriate file follow the installation instructions.
 
 **Linux**
 
