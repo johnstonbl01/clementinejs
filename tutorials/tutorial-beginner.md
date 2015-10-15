@@ -258,6 +258,8 @@ Great!
 
 Now, open a browser and point it to `localhost:3000`. Within the browser window you should see the "Hello world!" message.
 
+For now, we'll need to stop and restart the Node server each time we make a change. To stop the server when it's running, use `Ctrl+C` in the terminal window. We can restart the Node server by simply typing `$ node server` in the terminal window again.
+
 Let's take this one step further and serve the browser an actual HTML file. Within the project folder, create an `index.html` file.
 
 Within this file:
