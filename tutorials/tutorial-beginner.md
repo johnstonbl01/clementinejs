@@ -314,11 +314,20 @@ app.get('/', function (req, res) {
 });
 ```
 
-The next order of business is to add our new route file as a dependency for the `server.js` file. At the top of the file:
+The next order of business is to add our new route file as a dependency for the `server.js` file.
+
+_server.js_:
 
 ```js
+'use strict';
+
 var express = require('express'),
 	routes = require('./app/routes/index.js');
+
+var app = express();
+
+...
+...
 ```
 
 Now we need to pass the Express application as an argument to our `routes` function object. Essentially, we will export our routes, and that function object will accept one argument, `app`. This will allow us to use Express functionality within the scope of our new `routes` function. Hang in there if this doesn't make sense right away.
