@@ -880,12 +880,12 @@ Let's break down this new function into manageable bits.
 `function ajaxRequest(method, url, callback) { ... }`: our new function will take 3 arguments:
 
 - The HTTP `method` that we would like the request to use (i.e. GET / POST / DELETE)
-- The `url` that the function make the HTTP request to
+- The `url` that the function makes the HTTP request to
 - A `callback` function that should be executed once the data has been retrieved.
 
 `var xmlhttp = new XMLHttpRequest();`: here we are creating a new instance of the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object using [constructor notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects#Using_a_constructor_function). Doing this will allow us to access the methods (i.e. functionality) associated with this object. Think of this as essentially creating a "copy" of the XMLHttpRequest object for us to use.
 
-`xmlhttp.onreadystatechange = function () { ... }`: Here we are assigning a callback funciton to the property [`onreadystatechange`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/onreadystatechange). Every time the [`readyState`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#Properties) property of the XMLHttpRequest object changes, it will execute the function that we're defining.
+`xmlhttp.onreadystatechange = function () { ... }`: Here we are assigning a callback function to the property [`onreadystatechange`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/onreadystatechange). Every time the [`readyState`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#Properties) property of the XMLHttpRequest object changes, it will execute the function that we're defining.
 
 Essentially, this function will execute multiple times as the `readyState` changes during the data retrieval process. There are multiple values for `readyState`, which can be [found here](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#Properties). The one we're concerned about within the `if` statement is where `readyState === 4`. A `readyState` of 4 means that the operation (i.e. data retrieval) has been completed. Additionaly, we want to ensure that the `status` (which is simply an [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)) is equal to `200`, which signals that the request was OK (therefore no errors or issues).
 
@@ -899,7 +899,7 @@ Now we get to the meat of the function. When the function is first called, we wa
 
 Lastly, the `xmlhttp.send()` method executes the previously initiated request (from the `open()` method). That's it! You've written your first AJAX function!
 
-Next, let's write a small function that will update the HTML `<span` element. 
+Next, let's write a small function that will update the HTML `<span>` element. 
 
 _clickController.client.js_:
 
@@ -929,7 +929,7 @@ Unfortunately, we'd prefer it if this string were actually an object, so that we
 
 We'll convert the string from the `data` argument to an object using the [`JSON.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method. This method merely takes a string as input and converts it to a JSON object. We'll store this newly created object in the `clicksObject` variable.
 
-Next, we'll take the `clickNbr` element (which we defined by using `var clickNbr` earlier) and use the [`.innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property to define the contents of the `<span` element and set it equal to the `clicks` property of our newly-created JSON object. 
+Next, we'll take the `clickNbr` element (which we defined by using `var clickNbr` earlier) and use the [`.innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property to define the contents of the `<span>` element and set it equal to the `clicks` property of our newly-created JSON object. 
 
 Next, let's define what should happen when the page loads and each of our buttons are clicked.
 
