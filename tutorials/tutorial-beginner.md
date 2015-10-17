@@ -362,28 +362,31 @@ Let's move on to giving some more pizazz to our HTML file.
 In this section, we're going to update our HTML file to include more content and prepare to add interactivity. Here's the updated HTML code:
 
 ```html
-<head>
-	<title>Clementine.js - The elegant and lightweight full-stack boilerplate.</title>
-</head>
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Clementine.js - The elegant and lightweight full-stack boilerplate.</title>
+   </head>
 
-<body>
+   <body>
 
-	<div class="container">
-      <img src="/public/img/clementine_150.png" />
-      <br />
-      <p class="clementine-text">Clementine.js</p>
-   </div>
-
-   <div class="container">
-      <p>You have clicked the button <span id="click-nbr"></span> times.</p>   
-      <br />
-      <div class="btn-container">
-         <button type="submit" class="btn btn-add">CLICK ME!</button>
-         <button class="btn btn-delete">RESET</button>
+    <div class="container">
+         <img src="/public/img/clementine_150.png" />
+         <br />
+         <p class="clementine-text">Clementine.js</p>
       </div>
-   </div>
 
-</body>
+      <div class="container">
+         <p>You have clicked the button <span id="click-nbr"></span> times.</p>   
+         <br />
+         <div class="btn-container">
+            <button type="submit" class="btn btn-add">CLICK ME!</button>
+            <button class="btn btn-delete">RESET</button>
+         </div>
+      </div>
+
+   </body>
+</html>
 ```
 
 I've added some Clementine features and text to the application, but feel free to modify however you like. If you'd like to include a copy of the Clementine logo, feel free to download a copy (right-click > Save Image As) from the [this GitHub page](https://github.com/johnstonbl01/clementinejs-beginner/blob/master/public/img/clementine_150.png). Make sure to save it within the `/public/img` directory.
