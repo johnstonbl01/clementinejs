@@ -442,7 +442,7 @@ Ahhh, that's better!
 
 ## Connecting to MongoDB
 
-In order to pass data values between the database and the client, we'll use an API (Application Program Interface). The API will simply be a way for us make our database data available to the front-end of the application.
+In order to pass data values between the database and the client, we'll use an API (Application Program Interface). The API will simply be a way for us to make our database data available to the front-end of the application.
 
 To begin, we will need to set up our MongoDB database. This is done within the `server.js` file. We're going to have to do a bit of shuffling around to get everything in the correct place. Here's the way the file should look:
 
@@ -481,7 +481,7 @@ Additionally, it's important to initialize Express _before_ connecting to the da
 
 Next, we connect to the MongoDB database using the [`connect`](https://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html#connect) method of the MongoClient object. The first argument is the connection string. Port 27017 is the default port that MongoDB uses, but this can be easily changed if needed. `clementinejs` is the actual name of the database within MongoDB that we would like to use. If this database does not exist, MongoDB is smart enough to create it for us.
 
-The second argument of the `connect` method is a callback function. This function takes an err as the first argument, and the database object as the second argument.
+The second argument of the `connect` method is a callback function. This function takes an error as the first argument, and the database object as the second argument.
 
 The first order of business within this function is to tell Node.js what to do if there is an error when trying to connect to the database. Here, we have opted to throw a custom error message if there is an issue with connection using [`throw new Error( ... )`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error).
 
