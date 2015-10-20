@@ -442,9 +442,9 @@ Ahhh, that's better!
 
 ## Connecting to MongoDB
 
-In order to pass data values between the database and the client, we'll use an API (Application Program Interface). The API will simply be a way for us make our database data available to the front-end of the application.
+In order to pass data values between the database and the client, we'll use an API (Application Program Interface). The API will simply be a way for us to make our database data available to the front-end of the application.
 
-To begin, we will need to set up our MongoDB database. This is done within the `server.js` file. We're going to have to do a bit of shuffling around to get everything in the correct place. Here's the way the file should look:
+To begin with, we will need to set up our MongoDB database. This is done within the `server.js` file. We're going to have to do a bit of shuffling around to get everything in the correct place. Here's the way the file should look:
 
 ```js
 'use strict';
@@ -475,23 +475,23 @@ mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
 });
 ```
 
-There are a few changes here. Most notably, many lines of our previous `server.js` code have been wrapped inside a MongoDB connectivity function. It's important to note that we had to begin by requiring the MongoDB Node.js driver with `require('mongodb').MongoClient`. [`MongoClient()`](https://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html) is an object that allows use to use functionality like `connect`. 
+There are a few changes here. Most notably, many lines of our previous `server.js` code have been wrapped inside a MongoDB connectivity function. It's important to note that we had to begin by requiring the MongoDB Node.js driver with `require('mongodb').MongoClient`. [`MongoClient()`](https://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html) is an object that allows us to use functionality like `connect`.
 
-Additionally, it's important to initialize Express _before_ connecting to the database. In this case, we want to ensure that Express is ready to go when we call upon its functionality within the connect function.
+Additionally, it's important to initialize Express _before_ connecting to the database. In this case, we want to ensure that Express is ready to go when we call upon it's functionality within the connect function.
 
-Next, we connect to the MongoDB database using the [`connect`](https://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html#connect) method of the MongoClient object. The first argument is the connection string. Port 27017 is the default port that MongoDB uses, but this can be easily changed if needed. `clementinejs` is the actual name of the database within MongoDB that we would like to use. If this database does not exist, MongoDB is smart enough to create it for us.
+Next, we connect to the MongoDB database using the [`connect`](https://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html#connect) method of the MongoClient object. The first argument is the connection string. MongoDB uses port 27017 as the default port, but this can be easily changed if needed. `clementinejs` is the actual name of the database within MongoDB that we would like to use. If this database does not exist, MongoDB is smart enough to create it for us.
 
-The second argument of the `connect` method is a callback function. This function takes an err as the first argument, and the database object as the second argument.
+The second argument of the `connect` method is a callback function. This function takes an error as the first argument, and the database object as the second argument.
 
 The first order of business within this function is to tell Node.js what to do if there is an error when trying to connect to the database. Here, we have opted to throw a custom error message if there is an issue with connection using [`throw new Error( ... )`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error).
 
-If there is no error, then 'MongoDB successfully connected on Port 27017.' is logged to the console. The remainder of the code within this function is the same as before except for one line:
+If there is no error, then 'MongoDB successfully connected on Port 27017.' is logged to the console. The remainder of the code within this function is same as before except for one line:
 
 ```js
 routes(app, db);
 ```
 
-Here, we are passing the database object to our routes in addition to the Express `app` object. We're going to use this to to help pass data between the database on the client-side of our application.
+Here, we are passing the database object to our routes in addition to the Express `app` object. We're going to use this to to help pass data between the databases on the client-side of our application.
 
 Feel free to test the application at this point. Everything should work as before, and a successful MongoDB connection message should show up in the console when the application is started.
 
