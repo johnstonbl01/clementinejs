@@ -430,18 +430,18 @@ This can be solved by adding an additional line to the `server.js` file.
 
 ```js
 'use strict';
-	.
-	.
-	.
+
+	...
+
 		console.log('Successfully connected to MongoDB on port 27017.');
 	}
 	
 	app.use('/public', express.static(process.cwd() + '/public'));
 	
 	app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-	.
-	.
-	.
+
+	...
+
 });
 ```
 
