@@ -53,10 +53,6 @@ This package is [middleware](https://en.wikipedia.org/wiki/Middleware) for the E
 
 Sessions are essentially server-side storage where information like a user ID are stored and persist through interaction with a website. This essentially means that the site "remembers" your user ID and that you've been authenticated. In the case of this app, it will allow us to interact with the website without having to constantly re-authenticate.
 
-```bash
-$ npm install mongoose --save
-```
-
 [Mongoose](http://mongoosejs.com/) is an object modeling tool for MongoDB. It sits on top of the database and provides additional querying and validaiton support for the database. Most importantly, it allows for the definition of [database schemas](https://en.wikipedia.org/wiki/Database_schema).
 
 Think of a database schema as a set of rules that determine the type of data that can be inserted into the database. As an example, we could set up a schema so that a username in the database will always be a string, and that it is a required field. If someone were to try and insert a number or any other data type, an error would be thrown.
@@ -66,8 +62,11 @@ It's extremely common to see Mongoose paired with Passport, and even more common
 ```bash
 $ npm uninstall mongodb --save
 ```
+This will uninstall the MongoDB Node driver used in the last tutorial, since we'll be using Mongoose in its place with this next step.
 
-This will uninstall the MongoDB Node driver used in the last tutorial, since we'll be using Mongoose in its place.
+```bash
+$ npm install mongoose --save
+```
 
 ```bash
 $ npm install dotenv --save
