@@ -89,7 +89,7 @@ Now that we've initialized NPM in our project directory and checked out the `pac
 In the terminal window:
 `$ npm install express mongodb --save`
 
-This command will install Express and the MongoDB Node.js driver. In addition, you'll notice a new directory named `node_modules`. This is the directory where Node installs the packages locally. 
+This command will install Express and the MongoDB Node.js driver. In addition, you'll notice a new directory named `node_modules`. This is the directory where Node installs the packages locally.
 
 The `--save` command tells NPM to save the dependency in the `package.json` file. If you open that file, it's now possible to see these dependencies.
 
@@ -168,7 +168,7 @@ Now let's spend a few moments to create the file structure we'll be using.
 - **controllers** - Directory for client and server-side controller files. Controllers are used to either manipulate / modify the view or the model (i.e. the database).
 - **routes** - This folder contains route files. Routes give directions on what to do when a particular URL or HTTP request is made from the client (i.e. browser) to the server.
 
-**public** - This directory contains information used to render the view (i.e. css & images). Traditionally, this directory would also include a library of any vendor code (i.e. AngularJS, jQuery, etc) used in the application. 
+**public** - This directory contains information used to render the view (i.e. css & images). Traditionally, this directory would also include a library of any vendor code (i.e. AngularJS, jQuery, etc) used in the application.
 
 - **css** - Contains the style sheet for the application
 - **img** - Contains any images used in the view (i.e. the Clementine.js logo)
@@ -387,31 +387,34 @@ Let's move on to giving some more pizazz to our HTML file.
 In this section, we're going to update our HTML file to include more content and prepare to add interactivity. Here's the updated HTML code:
 
 ```html
-<head>
-	<title>Clementine.js - The elegant and lightweight full-stack boilerplate.</title>
-</head>
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Clementine.js - The elegant and lightweight full-stack boilerplate.</title>
+   </head>
 
-<body>
+   <body>
 
-	<div class="container">
-      <img src="/public/img/clementine_150.png" />
-      <br />
-      <p class="clementine-text">Clementine.js</p>
-   </div>
-
-   <div class="container">
-      <p>You have clicked the button <span id="click-nbr"></span> times.</p>   
-      <br />
-      <div class="btn-container">
-         <button type="submit" class="btn btn-add">CLICK ME!</button>
-         <button class="btn btn-delete">RESET</button>
+    <div class="container">
+         <img src="/public/img/clementine_150.png" />
+         <br />
+         <p class="clementine-text">Clementine.js</p>
       </div>
-   </div>
 
-</body>
+      <div class="container">
+         <p>You have clicked the button <span id="click-nbr"></span> times.</p>
+         <br />
+         <div class="btn-container">
+            <button type="submit" class="btn btn-add">CLICK ME!</button>
+            <button class="btn btn-delete">RESET</button>
+         </div>
+      </div>
+
+   </body>
+</html>
 ```
 
-I've added some Clementine features and text to the application, but feel free to modify however you like. If you'd like to include a copy of the Clementine logo, feel free to download a copy (right-click > Save Image As) from the [this GitHub page](https://github.com/johnstonbl01/clementinejs-beginner/blob/master/public/img/clementine_150.png). Make sure to save it within the `/public/img` directory.
+I've added some Clementine features and text to the application, but feel free to modify however you like. If you'd like to include a copy of the Clementine logo, feel free to download a copy (right-click > Save Image As) from the [this GitHub page](https://raw.githubusercontent.com/johnstonbl01/clementinejs-angular/master/public/img/clementine_150.png). Make sure to save it within the `/public/img` directory.
 
 What did we accomplish with the new HTML? We included two `div` elements that contain a top and bottom portion of our small application. The top portion includes a picture and the name of the application.
 
@@ -439,7 +442,7 @@ Ahhh, that's better!
 
 ## Connecting to MongoDB
 
-In order to pass data values between the database and the client, we'll use an API (Application Program Interface). The API will simply be a way for us make our database data available to the front-end of the application.
+In order to pass data values between the database and the client, we'll use an API (Application Program Interface). The API will simply be a way for us to make our database data available to the front-end of the application.
 
 To begin, we will need to set up our MongoDB database. This is done within the `server.js` file. We're going to have to do a bit of shuffling around to get everything in the correct place. Here's the way the file should look:
 
@@ -472,13 +475,13 @@ mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
 });
 ```
 
-There are a few changes here. Most notably, many lines of our previous `server.js` code have been wrapped inside a MongoDB connectivity function. It's important to note that we had to begin by requiring the MongoDB Node.js driver with `require('mongodb').MongoClient`. [`MongoClient()`](https://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html) is an object that allows use to use functionality like `connect`. 
+There are a few changes here. Most notably, many lines of our previous `server.js` code have been wrapped inside a MongoDB connectivity function. It's important to note that we had to begin by requiring the MongoDB Node.js driver with `require('mongodb').MongoClient`. [`MongoClient()`](https://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html) is an object that allows use to use functionality like `connect`.
 
 Additionally, it's important to initialize Express _before_ connecting to the database. In this case, we want to ensure that Express is ready to go when we call upon its functionality within the connect function.
 
 Next, we connect to the MongoDB database using the [`connect`](https://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html#connect) method of the MongoClient object. The first argument is the connection string. Port 27017 is the default port that MongoDB uses, but this can be easily changed if needed. `clementinejs` is the actual name of the database within MongoDB that we would like to use. If this database does not exist, MongoDB is smart enough to create it for us.
 
-The second argument of the `connect` method is a callback function. This function takes an err as the first argument, and the database object as the second argument.
+The second argument of the `connect` method is a callback function. This function takes an error as the first argument, and the database object as the second argument.
 
 The first order of business within this function is to tell Node.js what to do if there is an error when trying to connect to the database. Here, we have opted to throw a custom error message if there is an issue with connection using [`throw new Error( ... )`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error).
 
@@ -508,16 +511,16 @@ _clickHandler.server.js_:
 function clickHandler (db) {
 
 	var clicks = db.collection('clicks');
-	
+
 	this.getClicks = function (req, res) {
-	
+
 		var clickProjection = { '_id': false };
-    
+
 		clicks.findOne({}, clickProjection, function (err, result) {
 			if (err) {
 			throw err;
 			}
-			
+
 			res.json(result);
 		})
 	};
@@ -633,7 +636,7 @@ At the prompt, type `use clementinejs`. This tells the MongoDB console which dat
 { "_id": ObjectId(randomNumber), "clicks": 0 }
 ```
 
-Great! Now let's remove this document so that when we refresh the page again, it should re-create this record. Enter `db.clicks.remove({})` into the console. This will remove all documents in the collection. If you go back to the browser and refresh the page, a new document should get inserted in the database. 
+Great! Now let's remove this document so that when we refresh the page again, it should re-create this record. Enter `db.clicks.remove({})` into the console. This will remove all documents in the collection. If you go back to the browser and refresh the page, a new document should get inserted in the database.
 
 ### Additional Methods and Routing
 
@@ -785,7 +788,7 @@ _clickController.client.js_:
 })();
 ```
 
-An IIFE is going to bind all the variables within to the local scope of that function. This means that any variables declared within this function will not conflict with other variables within the application that may share the same name or need to be re-used. 
+An IIFE is going to bind all the variables within to the local scope of that function. This means that any variables declared within this function will not conflict with other variables within the application that may share the same name or need to be re-used.
 
 Next, let's use a bit of JavaScript to store our HTML buttons, the `<span>` element and the API url within their own variables. We'll use each of these within our functions. In order for JavaScript to find and identify the HTML elements in the [DOM (document object model)](https://en.wikipedia.org/wiki/Document_Object_Model), we'll use the [`document.querySelector(cssSelector)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) method.
 
@@ -839,7 +842,7 @@ Let's break down exactly what we've added here. We have a `ready` function that 
 
 Then, if the `readyState` property of the document object is equal to `complete`, we're going to execute the function passed as an argument. This is done by adding the `();` after returning the argument.
 
-Lastly, if the document has not yet loaded, we'll add an event listener with [`document.addEventListener(type, listener, useCapture)`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener). This method takes 3 arguments: 
+Lastly, if the document has not yet loaded, we'll add an event listener with [`document.addEventListener(type, listener, useCapture)`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener). This method takes 3 arguments:
 
 - `type`: a string representing the type of event to listen for. In our case, we're listening for the `DOMContentLoaded' event
 - `listener`: the function that should be executed when the event occurs -- the `fn` argument in this case
@@ -880,12 +883,12 @@ Let's break down this new function into manageable bits.
 `function ajaxRequest(method, url, callback) { ... }`: our new function will take 3 arguments:
 
 - The HTTP `method` that we would like the request to use (i.e. GET / POST / DELETE)
-- The `url` that the function make the HTTP request to
+- The `url` that the function makes the HTTP request to
 - A `callback` function that should be executed once the data has been retrieved.
 
 `var xmlhttp = new XMLHttpRequest();`: here we are creating a new instance of the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object using [constructor notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects#Using_a_constructor_function). Doing this will allow us to access the methods (i.e. functionality) associated with this object. Think of this as essentially creating a "copy" of the XMLHttpRequest object for us to use.
 
-`xmlhttp.onreadystatechange = function () { ... }`: Here we are assigning a callback funciton to the property [`onreadystatechange`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/onreadystatechange). Every time the [`readyState`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#Properties) property of the XMLHttpRequest object changes, it will execute the function that we're defining.
+`xmlhttp.onreadystatechange = function () { ... }`: Here we are assigning a callback function to the property [`onreadystatechange`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/onreadystatechange). Every time the [`readyState`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#Properties) property of the XMLHttpRequest object changes, it will execute the function that we're defining.
 
 Essentially, this function will execute multiple times as the `readyState` changes during the data retrieval process. There are multiple values for `readyState`, which can be [found here](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#Properties). The one we're concerned about within the `if` statement is where `readyState === 4`. A `readyState` of 4 means that the operation (i.e. data retrieval) has been completed. Additionaly, we want to ensure that the `status` (which is simply an [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)) is equal to `200`, which signals that the request was OK (therefore no errors or issues).
 
@@ -899,7 +902,7 @@ Now we get to the meat of the function. When the function is first called, we wa
 
 Lastly, the `xmlhttp.send()` method executes the previously initiated request (from the `open()` method). That's it! You've written your first AJAX function!
 
-Next, let's write a small function that will update the HTML `<span` element. 
+Next, let's write a small function that will update the HTML `<span>` element.
 
 _clickController.client.js_:
 
@@ -925,17 +928,17 @@ _clickController.client.js_:
 
 This small function will be extremely important for our app. Note that the `data` argument being passed in will actually be the data from the `xmlhttp.response` property mentioned above. The AJAX request will make the appropriate HTTP request, and return a string with the value from the API.
 
-Unfortunately, we'd prefer it if this string were actually an object, so that we can reference the `clicks` property and return its associated value. Remember that our data object from the API looks like: `{ 'clicks': 0 }`. 
+Unfortunately, we'd prefer it if this string were actually an object, so that we can reference the `clicks` property and return its associated value. Remember that our data object from the API looks like: `{ 'clicks': 0 }`.
 
 We'll convert the string from the `data` argument to an object using the [`JSON.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method. This method merely takes a string as input and converts it to a JSON object. We'll store this newly created object in the `clicksObject` variable.
 
-Next, we'll take the `clickNbr` element (which we defined by using `var clickNbr` earlier) and use the [`.innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property to define the contents of the `<span` element and set it equal to the `clicks` property of our newly-created JSON object. 
+Next, we'll take the `clickNbr` element (which we defined by using `var clickNbr` earlier) and use the [`.innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property to define the contents of the `<span>` element and set it equal to the `clicks` property of our newly-created JSON object.
 
 Next, let's define what should happen when the page loads and each of our buttons are clicked.
 
 ### Listening for Events
 
-The first hurdle to overcome is that we need to determine some way to retrieve the current number of clicks when the page loads. To accomplish this, we'll use the `ready` function we set up earlier which bound an event listener to the `'DOMContentLoaded'` event. 
+The first hurdle to overcome is that we need to determine some way to retrieve the current number of clicks when the page loads. To accomplish this, we'll use the `ready` function we set up earlier which bound an event listener to the `'DOMContentLoaded'` event.
 
 Now we simply need to execute that function with the desired arguments. Remember that the `ready` function took another function (`fn`) as an argument.
 
@@ -1042,7 +1045,7 @@ _index.html_:
          ...
       </div>
 
-      <script type="text/javascript" src="/controllers/clickController.client.js"></script>   
+      <script type="text/javascript" src="/controllers/clickController.client.js"></script>
    </body>
 
 </html>
@@ -1136,7 +1139,7 @@ _index.html_:
 <head>
 
 	<title>Clementine.js - The elegant and lightweight full-stack boilerplate.</title>
-	
+
 	<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
 	<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 
