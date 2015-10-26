@@ -531,13 +531,13 @@ function clickHandler (db) {
 
 		clicks.findOne({}, clickProjection, function (err, result) {
 			if (err) {
-			throw err;
+				throw err;
 			}
 
 			res.json(result);
-		})
+		});
 	};
-};
+}
 
 module.exports = clickHandler;
 ```
@@ -556,7 +556,7 @@ Let's break down each line of the `getClicks` method:
 - `clickProjection` - The projection that we defined previously.
 - `function (err, result) {` - This is the callback argument for the findOne method. This callback function will define what Node should do with the results once the query has finished.
 - `if (err) { throw err; }` - If an error is passed to the callback, then it will interrupt the application and throw an error message.
-- `res.json(results);` - Send a response to the browser with a [JSON](http://www.json.org/) version of the results array.
+- `res.json(result);` - Send a response to the browser with a [JSON](http://www.json.org/) version of the result array.
 
 Whew! That's a lot of new information! Finally, we're [exporting](https://nodejs.org/api/modules.html#modules_module_exports) a function object named `clickHandler` to be used elsewhere in Node.
 
