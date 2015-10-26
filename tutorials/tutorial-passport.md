@@ -54,6 +54,12 @@ This package is [middleware](https://en.wikipedia.org/wiki/Middleware) for the E
 Sessions are essentially server-side storage where information like a user ID are stored and persist through interaction with a website. This essentially means that the site "remembers" your user ID and that you've been authenticated. In the case of this app, it will allow us to interact with the website without having to constantly re-authenticate.
 
 ```bash
+$ npm uninstall mongodb --save
+```
+
+This will uninstall the MongoDB Node driver used in the last tutorial, since we'll be using Mongoose in its place.
+
+```bash
 $ npm install mongoose --save
 ```
 
@@ -62,12 +68,6 @@ $ npm install mongoose --save
 Think of a database schema as a set of rules that determine the type of data that can be inserted into the database. As an example, we could set up a schema so that a username in the database will always be a string, and that it is a required field. If someone were to try and insert a number or any other data type, an error would be thrown.
 
 It's extremely common to see Mongoose paired with Passport, and even more common to see Mongoose used in place of the default MongoDB Node.js driver. This, in part is due to the schemas mentioned above, but also due to the enhanced syntax. We'll see some of that a bit later.
-
-```bash
-$ npm uninstall mongodb --save
-```
-
-This will uninstall the MongoDB Node driver used in the last tutorial, since we'll be using Mongoose in its place.
 
 ```bash
 $ npm install dotenv --save
