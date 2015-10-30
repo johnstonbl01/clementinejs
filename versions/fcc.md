@@ -87,7 +87,7 @@ It's that easy!
 
 ### Setup GitHub Authentication
 
-Please follow [this guide](tutorials/tutorial-passport.html#github-app-setup) to register the application with GitHub and get API keys / secrets.
+Please follow [this guide](/tutorials/tutorial-passport.html#github-app-setup) to register the application with GitHub and get API keys / secrets.
 
 _Note_: If you're using c9, then the application URL and callback URL should be your c9 workspace URL (i.e. `https://projectname-username.c9.io/`). See the [c9 installation](#c9.ioSetup) section for more information.
 
