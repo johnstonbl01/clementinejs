@@ -51,7 +51,7 @@ Manualfork is a tool that does 1:1 mirrors of Github repos. Click on the button 
 
 [![manualfork this repo](http://manualfork.therebelrobot.com/badge-large.svg)](http://manualfork.therebelrobot.com/?source=johnstonbl01/clementinejs)
 
-Alernatively, you can use the [manualfork cli tool](https://github.com/therebelrobot/node-manualfork) to clone it from the command line:
+Alternatively, you can use the [manualfork cli tool](https://github.com/therebelrobot/node-manualfork) to clone it from the command line:
 
 ```bash
 npm install -g manualfork
