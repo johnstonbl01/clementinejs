@@ -272,7 +272,7 @@ this.getClicks = function (req, res) {
 				if (result) {
 					res.json(result);
 				} else {
-					var newDoc = new Click({ 'clicks': 0 });
+					var newDoc = new Clicks({ 'clicks': 0 });
 					newDoc.save(function (err, doc) {
 						if (err) { throw err; }
 
