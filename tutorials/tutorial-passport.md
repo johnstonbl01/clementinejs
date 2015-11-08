@@ -1778,7 +1778,7 @@ _userController.client.js_:
       if (profileRepos !== null) {
          updateHtmlElement(userObject, profileRepos, 'publicRepos');   
       }
-   })
+   }))
 })();
 ```
 
