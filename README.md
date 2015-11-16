@@ -51,10 +51,10 @@ This will install the Clementine.js components into the `your-project` directory
 
 [![mirror this repo](http://mirror.therebelrobot.com/badge-large.svg)](http://mirror.therebelrobot.com/?source=johnstonbl01/clementinejs)
 
-Alternatively, you can use the [mirror cli tool](https://github.com/therebelrobot/mirror-repo) to clone it from the command line:
+Alternatively, you can use the [mirror cli tool](https://github.com/therebelrobot/mirror-cli) to clone it from the command line:
 
 ```bash
-npm install -g mirror-repo
+npm install -g mirror-cli
 mirror johnstonbl01/clementinejs to USER/REPO -u USERNAME -t ACCESS_TOKEN
 ```
 
