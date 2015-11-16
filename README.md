@@ -32,7 +32,7 @@ In order to use Clementine.js, you must have the following installed:
 There are 3 ways to install Clementine.js:
 
 - Clone the GitHub Repository
-- Clone using Manualfork
+- Clone using Mirror
 - Install via Yeoman Generator
 
 Both options are similar, and a matter of preference.
@@ -45,17 +45,17 @@ $ git clone https://github.com/johnstonbl01/clementinejs.git your-project
 
 This will install the Clementine.js components into the `your-project` directory.
 
-**Option 2 - Clone using Manualfork**
+**Option 2 - Clone using Mirror**
 
-Manualfork is a tool that does 1:1 mirrors of Github repos. Click on the button below to begin cloning this repo.
+**Mirror** is a tool that does 1:1 clones of Github repos. Click on the button below to mirror this repo.
 
-[![manualfork this repo](http://manualfork.therebelrobot.com/badge-large.svg)](http://manualfork.therebelrobot.com/?source=johnstonbl01/clementinejs)
+[![mirror this repo](http://mirror.therebelrobot.com/badge-large.svg)](http://mirror.therebelrobot.com/?source=johnstonbl01/clementinejs)
 
-Alternatively, you can use the [manualfork cli tool](https://github.com/therebelrobot/node-manualfork) to clone it from the command line:
+Alternatively, you can use the [mirror cli tool](https://github.com/therebelrobot/mirror-cli) to clone it from the command line:
 
 ```bash
-npm install -g manualfork
-manualfork johnstonbl01/clementinejs to USER/REPO -u USERNAME -t ACCESS_TOKEN
+npm install -g mirror-cli
+mirror johnstonbl01/clementinejs to USER/REPO -u USERNAME -t ACCESS_TOKEN
 ```
 
 **Option 3 - Yeoman Generator**
