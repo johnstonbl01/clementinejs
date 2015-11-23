@@ -8,7 +8,7 @@ This FAQ covers some general questions that might appear when you first approach
 
 ### WHAT IS AN MVC?
 
-An MVC provides a means ("design pattern") to effeciently organize your code. MVC stands for *Model*,  *View*, *Controller*. The notion of using an MVC suggests that when writing code, the developer separate the code into different categories based on the code's purpose. Let's take a look at each category:
+An [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) provides [design pattern](https://en.wikipedia.org/wiki/Software_design_pattern) to efficiently organize your code. MVC stands for *Model*,  *View*, *Controller*. The notion of using an MVC suggests that when writing code, the developer separates the code into different categories based on the code's purpose (also known as [separation of concern's](https://en.wikipedia.org/wiki/Separation_of_concerns). Let's take a look at each category:
 
 Paraphrased from [developer.google](https://developer.chrome.com/apps/app_frameworks):
 
@@ -24,50 +24,48 @@ If that doesn't quite make sense, consider a *To-Do* list as an example.  Let's 
 
 *View:* The view shows you your task list. You can type in new tasks, drag tasks around and assign due-dates. Neat.
 
-*Controller:* You just finished a task - "Mop Up Spilt Milk" it's time to check it off. When you click the checkbox, the Controller modiefies the model to indicate that the task is now complete. Next the controller will update the view based on the status of the data in the model.
+*Controller:* You just finished a task - "Mop Up Spilt Milk" it's time to check it off. When you click the checkbox, the Controller modifies the model to indicate that the task is now complete. Next the controller will update the view based on the status of the data in the model.
 
 ### The Controllers of Clementine.js
 
 - Clementine.js has a client controller and a server controller.
-	- The *client controller* is used as an interface between the API and the DOM; it controls the visible data immmediately available to the client (the person looking at the data!)
-	- The *server controller* is used for querying the database. Keeping this separate is important for keeping private / sensitive information away from your HTML file.
+	- The *client controller* is used as an interface between the API and the DOM; it controls the visible data available in the client (the browser).
+	- The *server controller* is used for querying the database for the API. Keeping this separate is important for keeping private / sensitive information away from your HTML file.
 
 ### What is MongoClient?
 
-MongoClient is the NodeJS driver written by MongoDB. It is the simplest and closest to the actual MongoDB console. As an example, when you want to find one document in a collection, you use .findOne(), which is the same sytanx you can use to query the database directly from the MongoDB console.
+MongoClient is the NodeJS driver written by MongoDB. It is the simplest and closest to the actual MongoDB console. As an example, when you want to find one document in a collection, you use .findOne(), which is the same syntax you can use to query the database directly from the MongoDB console.
 
 ### What is Mongoose?
 
-note: Mongoose is only included in the FCC version of Clementine.js.
+**Note**: Mongoose is only included in the FCC version of Clementine.js.
 
 From the [Mongoose site](http://mongoosejs.com/)
 
 > Mongoose provides a straight-forward, schema-based solution to model your application data. It includes built-in type casting, validation, query building, business logic hooks and more, out of the box.
 
-In the case of Clementine.js, mongoose makes things like authentication easier as it enforces resetrictions on what's being inserted into the database.
+In the case of Clementine.js, mongoose makes things like authentication easier as it enforces restrictions on what's being inserted into the database.
 
 ### What is an API Endpoint?
 
-The URL in which a server sends data to the URL that a client (you, the user) uses to retrieve it. Essentially, it is a URL in which a user can access data from.
+The URL in which a server sends data to the URL that the client (typically a browser) uses to retrieve it. Essentially, it is a URL that an application can retrieve data from.
 
 ### What is CRUD?/ A CRUD App?
 
-CRUD is an acronym for Create, Read, Update, Delete. CRUD refers to all the major functions of working with a database.
+[CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) is an acronym for Create, Read, Update, Delete. CRUD refers to all the major functions of working with a database.
 
 ### What is Middleware?
 
-You can think of middleware as an "add-on" or "plugin" that will allow additional functionality for a tool. Clementin's use of express is extended with the middleware `session` : `npm install express-session --save`
+You can think of middleware as an "add-on" or "plugin" that will allow additional functionality for a tool. Clementine's use of Express is extended with the middleware `session` : `npm install express-session --save`. Read more about [Middleware and Express](http://expressjs.com/guide/using-middleware.html).
 
 ### What is `require?`
 
-`require` is used to retrieve modules that are defined either in a library or manually in your code. This is similar to having file's dependencies.
+`require` is used to retrieve modules that are defined either in a library or manually in your code. 
 
 ### What are Routes?
 
-A route is any method that tells the server which view to feed to the browser. `get` and `put` are routes -- they are routes to somewhere in the directory ( such as `'/home.html`).
-
-Essentially, a route is any method that carries out a function based on a URL it recieves from the browser.
+A route is a part of the application which specifies what action should be taken by the server when a particular type of HTTP request is made to a specific URL (i.e. a GET request to /api/books). This typically returns a file or the result of a function call. It can also be used to send server-side generated files using a template engine (like Jade).
 
 ### What are Modules?
 
-Modules are very common in Node. Modules provides a means to breakdown code into sizeable and understandeable chunks (similar to how SASS files can be imported into a "master / main" sass stylesheet) that can then be later imported into a master document (in the case of Clementine.js - server.js).
+Modules are very common in Node. Modules provide a means to breakdown code into sizeable and understandeable chunks that can then be later imported into a master document (in the case of Clementine.js - `server.js`).
