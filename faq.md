@@ -8,7 +8,7 @@ This FAQ covers some general questions that might appear when you first approach
 
 ### WHAT IS AN MVC?
 
-An [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) is a [design pattern](https://en.wikipedia.org/wiki/Software_design_pattern) to efficiently organize your code. MVC stands for *Model*,  *View*, *Controller*. The notion of using an MVC suggests that when writing code, the developer separates the code into different categories based on the code's purpose (also known as [separation of concern's](https://en.wikipedia.org/wiki/Separation_of_concerns). Let's take a look at each category:
+An [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) is a [design pattern](https://en.wikipedia.org/wiki/Software_design_pattern) that can be used to efficiently organize your code. MVC stands for *Model*,  *View*, *Controller*. The notion of using an MVC suggests that when writing code, the developer separates the code into different categories based on the code's purpose (also known as [separation of concern's](https://en.wikipedia.org/wiki/Separation_of_concerns). Let's take a look at each category:
 
 Paraphrased from [developer.google](https://developer.chrome.com/apps/app_frameworks):
 
