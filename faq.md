@@ -4,7 +4,15 @@ layout: static
 
 # FAQ
 
+Learning how to approach full stack development in JavaScript can be quite difficult and intimidating for beginners. If you have never worked with a "back end" (databases and servers) you will have to learn a new syntax for navigating this new world of code. 
+
+There are plenty of templates, generators, and frameworks around the web that can be used to get you started in developing full stack JavaScript. The volume of options can make starting off intimidating. When starting from scratch, it might be a good idea to avoid "opinionated" frameworks -- these are templates that have a strong idea of how you should structure, write, debug, and deploy code. 
+
+Clementine is a bare-bones boilerplate (as opposed to a framework). The tutorials on this site aim to explain how the boilerplate was built, using the example of building a simple full-stack application. Clementine is very unopinionated and works to help beginners to the back-end understand how an MVC approach to coding can work.
+
 This FAQ covers some general questions that might appear when you first approach full-stack development. Some questions/answers cover broad topics while others will be more specific to using Clementine.js.
+
+This FAQ is a work in progress. If you see an error, or want to contribute, please consider [contributing](http://www.clementinejs.com/developers/contributing.html).
 
 ### WHAT IS AN MVC?
 
