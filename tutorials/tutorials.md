@@ -17,7 +17,5 @@ This tutorial builds on the beginner tutorial above, and was custom made for the
 ## Future Tutorials
 
 - Deploying Your App to Heroku
-- Integrating Angular Routing
 - Testing with Mocha
-- Clementine.js Build System with Gulp
-- Using Angular Controller As Syntax
+- Building Clementine.js with React
