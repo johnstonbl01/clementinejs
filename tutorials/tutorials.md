@@ -14,8 +14,11 @@ This tutorial provides instruction on integrating the Angular framework into Cle
 
 This tutorial builds on the beginner tutorial above, and was custom made for the [Free Code Camp](http://www.freecodecamp.com) curriculum. It steps through integrating authentication and authorization via [Passport](http://passportjs.org/) into the simple app created in the beginner tutorial. Similar to the previous guide, this tutorial requires only basic understanding of HTML, CSS and JavaScript. By completing this tutorial, you'll build out the [FCC version](/versions/fcc.md) of Clementine.js.
 
+### [Deploying Your App to Heroku](/tutorials/tutorial-heroku.html)
+
+This tutorial shows a quick and easy way to deploy your Clementine.js app to Heroku. Currently this has been tested with the Standard and Free Code Camp versions.
+
 ## Future Tutorials
 
-- Deploying Your App to Heroku
 - Testing with Mocha
 - Building Clementine.js with React
