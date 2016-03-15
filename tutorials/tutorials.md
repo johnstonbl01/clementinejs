@@ -16,7 +16,7 @@ This tutorial builds on the beginner tutorial above, and was custom made for the
 
 ### [Deploying Your App to Heroku](/tutorials/tutorial-heroku.html)
 
-This tutorial shows a quick and easy way to deploy your Clementine.js app to Heroku. Currently this has been tested with the Standard and Free Code Camp versions.
+This tutorial shows a quick and easy way to deploy your Clementine.js app to Heroku.
 
 ## Future Tutorials
 

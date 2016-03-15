@@ -14,7 +14,7 @@ Cloud 9(C9) is a great online [IDE](https://en.wikipedia.org/wiki/Integrated_dev
 
 Heroku solves this problem. On the Heroku free plan your app will always be accessible. Your app will sleep after 30 minutes of inactivity but once a user visits your Heroku app it will reactivate.
 
-Of course there are other limitations associated with the free plan. You can read more about those at the [Heroku Dyno Types page](https://devcenter.heroku.com/articles/dyno-types). In particular your app will `sleep` for a minimum of 6 hours per day. If that starts to become a problem you might want to consider upgrading to one of Heroku's paid plan.
+Of course there are other limitations associated with the free plan. You can read more about those at the [Heroku Dyno Types page](https://devcenter.heroku.com/articles/dyno-types). In particular your app will `sleep` for a minimum of 6 hours per day. If that starts to become a problem you might want to consider upgrading to one of Heroku's paid plans.
 
 All in all Heroku is an excellent platform for deploying apps to the Interweb. Another benefit is that you will get hands on experience with a widely used professional hosting platform.
 
