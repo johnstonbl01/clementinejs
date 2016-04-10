@@ -431,18 +431,16 @@ This can be solved by adding an additional line to the `server.js` file.
 ```js
 'use strict';
 
-	...
+...
 
-		console.log('Successfully connected to MongoDB on port 27017.');
-	}
+app.use('/public', express.static(process.cwd() + '/public'));
+
+app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+
+routes(app);
+
+...
 	
-	app.use('/public', express.static(process.cwd() + '/public'));
-	
-	app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-
-	...
-
-});
 ```
 
 Here we will use Express's [`app.use`](http://expressjs.com/4x/api.html#app.use) and [`express.static`](http://expressjs.com/4x/api.html#express.static) to bind the directory path for `/public` to a shortcut: `/public`. Now when `/public` is referenced within our HTML file, Express and Node should be able to locate the logo and pass it to the browser successfully.
