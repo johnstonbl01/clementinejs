@@ -264,7 +264,7 @@ angular
          };
 
          $scope.getClicks();
-         
+
          $scope.addClick = function () {
             $scope.clicks += 1;
          };
@@ -334,6 +334,35 @@ _clickController.client.js_:
 })();
 ```
 
-Let's test these out in the browser! Start node and browse to `localhost:3000`. Click on all the buttons! Everything should update and reset appropriately. gratulations, you've just integrated AngularJS into your full stack JavaScript application! AngularJS has a lot of additional functionality, and this tutorial just scratches the surface. For more information on Angular, check out [this tutorial by Dan Wahlin](https://www.youtube.com/watch?v=i9MHigUZKEM&index=39&list=WL) -- it's great.
+Let's test these out in the browser! Start node and browse to `localhost:3000`. Click on all the buttons! Everything should update and reset appropriately.
 
-Happy coding!
+Wait...Did you see that?  Our `{{ clicks }}` flashed on the screen before the controller could update the DOM.   
+When you are working with AngularJS, the Javascript loads after the DOM is complete and then removes the `{{ clicks }}` and replaces it with our click value from `$scope.clicks`.   
+Luckily there is a way to remove this unpleasant flash.
+
+First we can add `ng-cloak` to a `<span>` that wraps our `{{ clicks }}`. We add it to a `<span>` so that it only impacts our `{{ clicks }}` and the rest of the `<p>` still displays.
+
+```html
+<div class="container" ng-controller="clickController" ng-cloak>
+    <p>You have clicked the button <span ng-cloak>{{ clicks }}</span> times.</p>
+    <br />
+    <div class="btn-container">
+      <button type="submit" class="btn btn-add" ng-click="addClick()">CLICK ME!</button>
+      <button class="btn btn-delete" ng-click="resetClicks()">RESET</button>
+    </div>
+</div>
+```
+
+Next we need to add `display: none !important;` to the `style.css` file for `ng-cloak`.  This tells the DOM to hide the elements and child elements with this attribute until our controller steps in and removes it.
+
+```css
+[ng-cloak] {
+  display: none !important;
+}
+```
+
+Let's test it out in the browser once more! Start node and browse to `localhost:3000`.  
+Great!  Everything works and no unpleasant flash.
+
+
+ Congratulations, you've just integrated AngularJS into your full stack JavaScript application! AngularJS has a lot of additional functionality, and this tutorial just scratches the surface. For more information on Angular, check out [this tutorial by Dan Wahlin](https://www.youtube.com/watch?v=i9MHigUZKEM&index=39&list=WL) -- it's great.
