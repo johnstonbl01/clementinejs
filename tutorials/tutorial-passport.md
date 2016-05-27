@@ -358,7 +358,24 @@ function ClickHandler () {
 module.exports = ClickHandler;
 ```
 
-This syntax should be familiar now. Let's test that the application still works. In the terminal window of the project directory, type `node server`, and then browse to `localhost:8080`. The app should function just as it did before -- adding and resetting clicks!
+This syntax should be familiar now. Before we test if the application still works, we first need to edit our `clickController.client.js` so that the `port` in our `apiUrl` reflects the port change to `8080` in our application.
+ 
+ _clickController.client.js_:
+ 
+ ```js
+ 'use strict';
+ 
+ (function () {
+ 	var addButton = document.querySelector('.btn-add');
+    	var deleteButton = document.querySelector('.btn-delete');
+    	var clickNbr = document.querySelector('#click-nbr');
+    	var apiUrl = 'http://localhost:8080/api/clicks';
+ 
+ 	...
+ 	...
+ ```
+ 
+ Now in the terminal window of the project directory, type `node server`, and then browse to `localhost:8080`. The app should function just as it did before -- adding and resetting clicks!
 
 ## Passport Server-Side Integration
 
