@@ -16,7 +16,7 @@ An internet connection is required to successfully complete this tutorial. Addit
 
 ### A Note to c9 Users
 
-If you're using the remote [IDE (Integrated Development Environment)](https://en.wikipedia.org/wiki/Integrated_development_environment) c9, then you'll not need to install Node or MongoDB. c9 has those pre-installed. However, you'll want to type the following into the terminal window at the bottom of the screen:
+If you're using the remote [IDE (Integrated Development Environment)](https://en.wikipedia.org/wiki/Integrated_development_environment) c9, then you'll not need to install Node. To install MongoDB, type `$ sudo apt-get install mongodb-org` into the terminal window at the bottom of the browser window within the c9 workspace. You'll also need to type the following into the terminal window once the MongoDB installation has completed:
 
 `$ mongod --smallfiles`
 

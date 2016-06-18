@@ -157,7 +157,8 @@ APP_URL=https://projectname-username.c9.io/
 ```
 _Note_: Don't forget the `/` at the end of the project URL.
 
-- In the terminal window at the bottom of the browser window, type `$ mongod --smallfiles`. This runs the `mongod` service required by MongoDB to run successfully.
+- In the terminal window at the bottom of the browser window, type `$ sudo apt-get install mongodb-org`. This will install MongoDB in the c9 workspace.
+- Next, type `$ mongod --smallfiles` into the terminal window. This runs the `mongod` service required by MongoDB to run successfully.
 - Open a new terminal window by clicking on the plus sign above the terminal window.
 
 ![c9 Setup Image 06](/img/docs_c9_clemjs_setup04.png)

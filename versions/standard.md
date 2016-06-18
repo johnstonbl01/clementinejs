@@ -161,7 +161,8 @@ Setup for the remote dev environment [c9.io](http://www.c9.io) differs from the 
 	 ```
 
 - Next, update the port number in `server.js` from `3000` to `8080`.
-- In the terminal window at the bottom of the browser window, type `$ mongod --smallfiles`. This runs the `mongod` service required by MongoDB to run successfully.
+- In the terminal window at the bottom of the browser window, type `$ sudo apt-get install mongodb-org`. This will install MongoDB in the c9 workspace.
+- Next, type `$ mongod --smallfiles` into the terminal window. This runs the `mongod` service required by MongoDB to run successfully.
 - Open a new terminal window by clicking on the plus sign above the terminal window.
 
 ![c9 Setup Image 04](/img/docs_c9_clemjs_setup03.png)
