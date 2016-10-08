@@ -40,7 +40,7 @@ Prerequisites for Clementine.js:
 
 ### Install Node.js and NPM
 
-_Note:_ The Node insallation installs both Node & NPM.
+_Note:_ The Node installation installs both Node & NPM.
 
 **MAC OSX & Windows**
 
