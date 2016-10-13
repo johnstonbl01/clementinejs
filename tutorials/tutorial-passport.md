@@ -394,9 +394,9 @@ Head to GitHub and log in.
 
 5. Fill out the form:
 	- Name: Whatever you'd like to name your app. Mine says 'clementinejs-fcc', of course. This app name needs to be unique.
-	- Homepage URL: Since we're using localhost, simply use `http://127.0.0.1:8080/`. `127.0.0.1` is the default IP address for localhost. For some reason, simply entering 'localhost' instead wouldn't work for me.
+	- Homepage URL: Since we're using localhost, simply use `http://localhost:8080/`.
 	- Description: A short description of your app.
-	- Authorization callback URL: `http://127.0.0.1:8080/auth/github/callback`. This will be the URL that gets passed in when we're authenticated. We'll add a route for this URL later.
+	- Authorization callback URL: `http://localhost:8080/auth/github/callback`. This will be the URL that gets passed in when we're authenticated. We'll add a route for this URL later.
 4. Click 'Register application'.
 
 ![GitHub App Registration](/img/passporttut02.png)
