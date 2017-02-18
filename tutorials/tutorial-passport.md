@@ -19,7 +19,7 @@ Let's assume that we only want people to see our coveted click-counting applicat
 In order to accomplish this, we'll need to integrate some sort of authorization and authentication system into our application. Additionally, we'll want to give users the option to sign up for the site if they haven't already. It's important to understand that although authorization and authentication sound similar, they have very different meanings:
 
 - _authorization_ is the set of rules put in place that determine what a user can do within the application based on his or her credentials (i.e. an admin often has more functionality at her fingertips than a normal user)
-- _authentication_ is the act of identifying and verifying users (i.e. username / password verfication, etc)
+- _authentication_ is the act of identifying and verifying users (i.e. username / password verification, etc)
 
 Normally, this requires worrying about securing and encrypting passwords, but luckily we're going to use a very common JavaScript library named [Passport.js](http://passportjs.org/). As an extension of this library, we're going to focus on a feature known as [OAuth](https://en.wikipedia.org/wiki/OAuth).
 
@@ -63,7 +63,7 @@ This will uninstall the MongoDB Node driver used in the last tutorial, since we'
 $ npm install mongoose --save
 ```
 
-[Mongoose](http://mongoosejs.com/) is an object modeling tool for MongoDB. It sits on top of the database and provides additional querying and validaiton support for the database. Most importantly, it allows for the definition of [database schemas](https://en.wikipedia.org/wiki/Database_schema). 
+[Mongoose](http://mongoosejs.com/) is an object modeling tool for MongoDB. It sits on top of the database and provides additional querying and validation support for the database. Most importantly, it allows for the definition of [database schemas](https://en.wikipedia.org/wiki/Database_schema). 
 
 Think of a database schema as a set of rules that determine the type of data that can be inserted into the database. As an example, we could set up a schema so that a username in the database will always be a string, and that it is a required field. If someone were to try and insert a number or any other data type, an error would be thrown.
 
@@ -101,7 +101,7 @@ The `package.json` file should now look like:
 
 ### Updating the Folder Structure
 
-Let's go ahead and modify the folder structure to include some of the new functionality we'll be convering. 
+Let's go ahead and modify the folder structure to include some of the new functionality we'll be covering. 
 
 ```
 +--	Project Folder
@@ -288,7 +288,7 @@ Let's breakdown each of the changes:
 
 - Remove `var clickProjection = { ... };`. Removal of the `_id` field is inherent in the Mongoose schema, so this statement is no longer needed.
 - `clicks` replaced with `Clicks`
-	- this is to accomodate our newly imported Mongoose model.
+	- this is to accommodate our newly imported Mongoose model.
 - `findOne({}, { '_id': false } function (err, result) {...})` replaced by `findOne({}, { '_id': false }).exec(function (err, result) {...})`
 	- This is simply different syntax that will accomplish the same result. The Mongoose [`.exec()`](http://mongoosejs.com/docs/api.html#query_Query-exec) function simply executes the query when called. 
 	- This is different from the MongoDB driver in that it does not execute the query immediately. Mongoose will execute the function only when the `.exec` method is called.
@@ -537,7 +537,7 @@ module.exports = function (passport) {
 };
 ```
 
-This function will contain all of our Passport code. To begin, we'll serialize and deserialize our users. What's serialization? [Serialization](https://en.wikipedia.org/wiki/Serialization) is the process of taking information and transforming it into a state (a series of bytes) that can be stored in persistant storage and streamed across a network. This information can then be deserialized into a copy of the original object. 
+This function will contain all of our Passport code. To begin, we'll serialize and deserialize our users. What's serialization? [Serialization](https://en.wikipedia.org/wiki/Serialization) is the process of taking information and transforming it into a state (a series of bytes) that can be stored in persistent storage and streamed across a network. This information can then be deserialized into a copy of the original object. 
 
 In the case of authentication, we're transforming our user object into a format that can be stored within the session. The bulk of this is done by Passport, but it's important to understand what's happening conceptually. More information on this can be found within the [configure documentation on the Passport site](http://passportjs.org/docs/configure).
 
@@ -563,7 +563,7 @@ When subsequent calls are made, Passport will deserialize this information, and 
 
 Serialization is not an easy subject -- especially in the beginning. For now, it's mostly just important to understand:
 
-- Information sent over the network is compressed into bytes (serialization) and stored within a session (a small amount of persistant storage)
+- Information sent over the network is compressed into bytes (serialization) and stored within a session (a small amount of persistent storage)
 - The user information submitted via serialization must then be de-compressed
 - Afterward, the database is searched to find the user information that corresponds to the matching user ID and provided back to the browser
 
@@ -616,7 +616,7 @@ module.exports = function (passport) {
 };
 ```
 
-The first 3 argumentions for this function (`token`, `refreshToken`, `profile`) contain objects with information provided back from the GitHub API. Once we receive this information back, it's Passport's job to determine whether or not this user exists in the application database.
+The first 3 arguments for this function (`token`, `refreshToken`, `profile`) contain objects with information provided back from the GitHub API. Once we receive this information back, it's Passport's job to determine whether or not this user exists in the application database.
 
 Let's take a look at what this function is doing so far:
 
@@ -1141,7 +1141,7 @@ var express = require('express'),
 	session = require('express-session');
 ```
 
-Next, we need to pass in this `passport` NPM Module to the Passport configuration file we created earlier (`app/config/passport.js`). Remember that the exported module from that file takes `passport` as an argument, so we're essentially intializing the Passport functionality when the `server.js` file is run by Node.
+Next, we need to pass in this `passport` NPM Module to the Passport configuration file we created earlier (`app/config/passport.js`). Remember that the exported module from that file takes `passport` as an argument, so we're essentially initializing the Passport functionality when the `server.js` file is run by Node.
 
 In addition, here me initialize the dotenv Node module, which will add our GitHub API information from `.env` to the Node `process.env` object.
 
@@ -1228,7 +1228,7 @@ app.listen(port, function () {
 
 ```
 
-In the above, we've changed the argument for the `mongoose.connect()` method to reference the property in the `process.env` object. Additionally, we've incluced `var port = process.env.PORT || 8080;` This statement uses the JavaScript [OR operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_OR_()) (`||`). 
+In the above, we've changed the argument for the `mongoose.connect()` method to reference the property in the `process.env` object. Additionally, we've included `var port = process.env.PORT || 8080;` This statement uses the JavaScript [OR operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_OR_()) (`||`). 
 
 If what's left of the `||` evaluates to `true`, then that is the value that is used. However, if the value left of `||` evaluates to `false`, then JS will check the value on the right. If that value evaluates as `true`, then it is used. We're saying "if there is a `process.env.PORT` variable, use it -- else use the port `8080`."
 
@@ -1285,7 +1285,7 @@ To integrate our newly created authentication routines on the client side, we'll
 
 Since we'll have multiple controllers in our application making AJAX requests, we'll be reusing a bit of functionality. It's best to follow the DRY (don't repeat yourself) principle as much as possible when coding. In this case, let's take these common functions make them available across each of our controllers without having to type them out more than once.
 
-Let's start by creating a new file in `/app/common` named `ajax-functions.js`. Begin by creating a new variable with our app URL and anobject named `ajaxFunctions`:
+Let's start by creating a new file in `/app/common` named `ajax-functions.js`. Begin by creating a new variable with our app URL and an object named `ajaxFunctions`:
 
 _ajax-functions.js_:
 
@@ -1398,7 +1398,7 @@ In `server.js`, we've added an additional static path for the `/app/common` fold
 
 Since we moved the location of our `clicks` property to be within the user object, we need to make a few additional small modifications to the current `clickController`.
 
-The first modification should be to update the `apiURL` variable. We created a global variable named `appurl` with the base URL of our app. Here we'll use that and concatentate it with the API information to create the entire API URL. Additionally, we've moved the location of our clicks API to `/api/:id/clicks`, so this variable should reflect that.
+The first modification should be to update the `apiURL` variable. We created a global variable named `appurl` with the base URL of our app. Here we'll use that and concatenate it with the API information to create the entire API URL. Additionally, we've moved the location of our clicks API to `/api/:id/clicks`, so this variable should reflect that.
 
 _clickController.client.js_:
 
@@ -1743,7 +1743,7 @@ This new function will take 3 arguments:
 - `element` will be the variable of the HTML element we want to update
 - `userProperty` will be a string representing the property on the user object
 
-Then we're setting the [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) value of the element passed in as an argument to the value of the `userProperty` arguement on the `data` object. We have to use [bracket notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_Accessors#Bracket_notation) because we are passing in a string as the property name. It's not possible to use dot notation with a string as the property name.
+Then we're setting the [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) value of the element passed in as an argument to the value of the `userProperty` argument on the `data` object. We have to use [bracket notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_Accessors#Bracket_notation) because we are passing in a string as the property name. It's not possible to use dot notation with a string as the property name.
 
 Next we'll create the AJAX function to query the API and return the user information. This will be very similar to the AJAX function within the click controller.
 
