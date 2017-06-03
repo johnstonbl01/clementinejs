@@ -49,7 +49,7 @@ This will install the GitHub "Strategy" for Passport. Strategies are Passport's 
 $ npm install express-session --save
 ```
 
-This package is [middleware](https://en.wikipedia.org/wiki/Middleware) for the Express framework. You can think of middleware as an "add-on" or "plugin" that will allow additional functionality within Express. In this case, it's going to allow us to use [sessions](http://stackoverflow.com/questions/3804209/what-are-sessions-how-do-they-work). 
+This package is [middleware](https://en.wikipedia.org/wiki/Middleware) for the Express framework. You can think of middleware as an "add-on" or "plugin" that will allow additional functionality within Express. In this case, it's going to allow us to use [sessions](http://stackoverflow.com/questions/3804209/what-are-sessions-how-do-they-work).
 
 Sessions are essentially server-side storage where information like a user ID are stored and persist through interaction with a website. This essentially means that the site "remembers" your user ID and that you've been authenticated. In the case of this app, it will allow us to interact with the website without having to constantly re-authenticate.
 
@@ -63,7 +63,7 @@ This will uninstall the MongoDB Node driver used in the last tutorial, since we'
 $ npm install mongoose --save
 ```
 
-[Mongoose](http://mongoosejs.com/) is an object modeling tool for MongoDB. It sits on top of the database and provides additional querying and validation support for the database. Most importantly, it allows for the definition of [database schemas](https://en.wikipedia.org/wiki/Database_schema). 
+[Mongoose](http://mongoosejs.com/) is an object modeling tool for MongoDB. It sits on top of the database and provides additional querying and validation support for the database. Most importantly, it allows for the definition of [database schemas](https://en.wikipedia.org/wiki/Database_schema).
 
 Think of a database schema as a set of rules that determine the type of data that can be inserted into the database. As an example, we could set up a schema so that a username in the database will always be a string, and that it is a required field. If someone were to try and insert a number or any other data type, an error would be thrown.
 
@@ -101,7 +101,7 @@ The `package.json` file should now look like:
 
 ### Updating the Folder Structure
 
-Let's go ahead and modify the folder structure to include some of the new functionality we'll be covering. 
+Let's go ahead and modify the folder structure to include some of the new functionality we'll be covering.
 
 ```
 +--	Project Folder
@@ -195,7 +195,7 @@ First, Mongoose is included in the file with `require('mongoose');`. Next, we're
 
 The `Click` object is our Mongoose Schema. Predictably, we're defining the `clicks` property and casting its value as a `Number` type. Mongoose automatically adds a property to every schema called `__v`. This property is used for versioning. In this particular case, we've disabled this using `versionKey: false`.
 
-Finally, we must convert our schema to a Mongoose [model](http://mongoosejs.com/docs/models.html). The model is an object [constructor](https://en.wikipedia.org/wiki/Constructor_(object-oriented_programming)) that represents documents within the database. 
+Finally, we must convert our schema to a Mongoose [model](http://mongoosejs.com/docs/models.html). The model is an object [constructor](https://en.wikipedia.org/wiki/Constructor_(object-oriented_programming)) that represents documents within the database.
 
 The `mongoose.model` method accepts two arguments:
 
@@ -253,7 +253,7 @@ function clickHandler (db) {...}
 
 We're importing and storing our `mongoose.model` within the `Clicks` variable, so that we can update the clickHandler methods to query this collection. Remember that Mongoose will automatically find the correct collection in the database (it looks for the plural version of the model name we provided in the `mongoose.model(...)` function). Additionally, keep in mind that MongoDB will create the collection if it does not already exist.
 
-Next, we need to remove the `db` argument from the clickHandler function. 
+Next, we need to remove the `db` argument from the clickHandler function.
 In addition, we want to remove the `var clicks = db.collection('clicks');` line because that's no longer needed. Our database model is already being stored in the `Clicks` variable. Now we'll move on to modifying each of the methods within this file.
 
 **getClicks Method**
@@ -290,7 +290,7 @@ Let's breakdown each of the changes:
 - `clicks` replaced with `Clicks`
 	- this is to accommodate our newly imported Mongoose model.
 - `findOne({}, { '_id': false } function (err, result) {...})` replaced by `findOne({}, { '_id': false }).exec(function (err, result) {...})`
-	- This is simply different syntax that will accomplish the same result. The Mongoose [`.exec()`](http://mongoosejs.com/docs/api.html#query_Query-exec) function simply executes the query when called. 
+	- This is simply different syntax that will accomplish the same result. The Mongoose [`.exec()`](http://mongoosejs.com/docs/api.html#query_Query-exec) function simply executes the query when called.
 	- This is different from the MongoDB driver in that it does not execute the query immediately. Mongoose will execute the function only when the `.exec` method is called.
 - Conditional `else {...}` changes
 	- The biggest change is in the conditional else, where we are inserting data into the database if no results are found. All of the former code is removed, and replaced by new (and much easier to read) Mongoose code.
@@ -299,7 +299,7 @@ Let's breakdown each of the changes:
 
 **addClick Method**
 
-The remaining two methods in our clickHandler function object require fewer changes. For the `addClick` method, we simply change the function from `clicks.findAndModify()` to `Clicks.findOneAndUpdate()`. The [`findOneAndUpdate()`](http://mongoosejs.com/docs/api.html#query_Query-findOneAndUpdate) Mongoose function will find the first result from the query parameter (`{}` in our case will pull back all records). 
+The remaining two methods in our clickHandler function object require fewer changes. For the `addClick` method, we simply change the function from `clicks.findAndModify()` to `Clicks.findOneAndUpdate()`. The [`findOneAndUpdate()`](http://mongoosejs.com/docs/api.html#query_Query-findOneAndUpdate) Mongoose function will find the first result from the query parameter (`{}` in our case will pull back all records).
 
 Since our collection only has a single document, it will return the appropriate record. Again, we're using the Mongoose `exec()` function to execute the query. And lastly, we remove the `{ '_id': 1 }` projection from the query. Removing the projection here is not required, because by default Mongoose will not return the `_id` field.
 
@@ -359,22 +359,22 @@ module.exports = ClickHandler;
 ```
 
 This syntax should be familiar now. Before we test if the application still works, we first need to edit our `clickController.client.js` so that the `port` in our `apiUrl` reflects the port change to `8080` in our application.
- 
+
  _clickController.client.js_:
- 
+
  ```js
  'use strict';
- 
+
  (function () {
  	var addButton = document.querySelector('.btn-add');
     	var deleteButton = document.querySelector('.btn-delete');
     	var clickNbr = document.querySelector('#click-nbr');
     	var apiUrl = 'http://localhost:8080/api/clicks';
- 
+
  	...
  	...
  ```
- 
+
  Now in the terminal window of the project directory, type `node server`, and then browse to `localhost:8080`. The app should function just as it did before -- adding and resetting clicks!
 
 ## Passport Server-Side Integration
@@ -433,7 +433,7 @@ APP_URL=http://localhost:8080/
 
 You'll simply need to paste the keys GitHub provides as part of the app registration into this file.
 
-`MONGO_URI` is the same as the URI we're passing to to the `mongoose.connect()` method in the `server.js` file. Hang on... What's a URI? URIs are [Uniform Resource Identifiers](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) and are strings of characters which identify the name of a resource. In our case, the resource is the MongoDB database and its port (`27017` and subsequent database (`clementinejs`). 
+`MONGO_URI` is the same as the URI we're passing to to the `mongoose.connect()` method in the `server.js` file. Hang on... What's a URI? URIs are [Uniform Resource Identifiers](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) and are strings of characters which identify the name of a resource. In our case, the resource is the MongoDB database and its port (`27017` and subsequent database (`clementinejs`).
 
 Next, we need to include this `.env` file as part of our `.gitignore` file so that this file does not get tracked by Git. This is an important step to ensure that these private keys remain private.
 
@@ -533,11 +533,11 @@ We're importing the Passport GitHub strategy object, our user model and our auth
 
 ```js
 module.exports = function (passport) {
-	
+
 };
 ```
 
-This function will contain all of our Passport code. To begin, we'll serialize and deserialize our users. What's serialization? [Serialization](https://en.wikipedia.org/wiki/Serialization) is the process of taking information and transforming it into a state (a series of bytes) that can be stored in persistent storage and streamed across a network. This information can then be deserialized into a copy of the original object. 
+This function will contain all of our Passport code. To begin, we'll serialize and deserialize our users. What's serialization? [Serialization](https://en.wikipedia.org/wiki/Serialization) is the process of taking information and transforming it into a state (a series of bytes) that can be stored in persistent storage and streamed across a network. This information can then be deserialized into a copy of the original object.
 
 In the case of authentication, we're transforming our user object into a format that can be stored within the session. The bulk of this is done by Passport, but it's important to understand what's happening conceptually. More information on this can be found within the [configure documentation on the Passport site](http://passportjs.org/docs/configure).
 
@@ -559,7 +559,7 @@ module.exports = function (passport) {
 
 In `serializeUser`, we're passing in a callback function with the user object and `done` as arguments. `done` is a function native to Passport, which tells Passport to proceed in the authentication process. When `done(null, user.id)` is called, Passport takes this information and passes it to the authenticate function. The information is stored in the `req.session.passport.user` user object.
 
-When subsequent calls are made, Passport will deserialize this information, and search our `User` model for the deserialized ID. This information is then stored in the `req.user` object. 
+When subsequent calls are made, Passport will deserialize this information, and search our `User` model for the deserialized ID. This information is then stored in the `req.user` object.
 
 Serialization is not an easy subject -- especially in the beginning. For now, it's mostly just important to understand:
 
@@ -775,7 +775,7 @@ The changes for the `resetClicks` method are similar to the changes for `addClic
 - Change object property from `clicks` to `nbrClicks.clicks` in the function parameters
 - Update result response to `result.nbrClicks`
 
-That's it for the server-side controller. We won't touch it again, I promise! 
+That's it for the server-side controller. We won't touch it again, I promise!
 
 ### Update and Create Routes
 
@@ -829,7 +829,7 @@ It's going to take the `req` and `res` objects as arguments along with `next`. N
 
 So what is this function doing?
 
-`if (req.isAuthenticated()) {...}`: [`req.isAuthenticated()`](https://github.com/jaredhanson/passport/blob/a892b9dc54dce34b7170ad5d73d8ccfba87f4fcf/lib/passport/http/request.js#L74) is a Passport method which will return a `true` or `false` value if the user has been authenticated. 
+`if (req.isAuthenticated()) {...}`: [`req.isAuthenticated()`](https://github.com/jaredhanson/passport/blob/a892b9dc54dce34b7170ad5d73d8ccfba87f4fcf/lib/passport/http/request.js#L74) is a Passport method which will return a `true` or `false` value if the user has been authenticated.
 
 If this method returns `true`, then we are returning the `next()` function, which returns control to the next middleware. This entire statement is saying, "if the user has been verified, then carry on."
 
@@ -965,7 +965,7 @@ app.route('/api/:id')
 
 ...
 ```
-Here we're introducing some new Express functionality. We've added `:id` to the API route. This is known as a route parameter. When the `/auth/github` route is requested and Passport authenticates successfully with GitHub, Passport creates a `user` property on the Express `req` object. This object contains all of the fields requested from the GitHub API (i.e. username, display name, number of repos, ID, etc.). 
+Here we're introducing some new Express functionality. We've added `:id` to the API route. This is known as a route parameter. When the `/auth/github` route is requested and Passport authenticates successfully with GitHub, Passport creates a `user` property on the Express `req` object. This object contains all of the fields requested from the GitHub API (i.e. username, display name, number of repos, ID, etc.).
 
 When the route is requested, the ID from this user object is passed as part of the URL (i.e. the URL would look like `/api/1234567`). This makes these requested URLs unique to each user.
 
@@ -1228,7 +1228,7 @@ app.listen(port, function () {
 
 ```
 
-In the above, we've changed the argument for the `mongoose.connect()` method to reference the property in the `process.env` object. Additionally, we've included `var port = process.env.PORT || 8080;` This statement uses the JavaScript [OR operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_OR_()) (`||`). 
+In the above, we've changed the argument for the `mongoose.connect()` method to reference the property in the `process.env` object. Additionally, we've included `var port = process.env.PORT || 8080;` This statement uses the JavaScript [OR operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_OR_()) (`||`).
 
 If what's left of the `||` evaluates to `true`, then that is the value that is used. However, if the value left of `||` evaluates to `false`, then JS will check the value on the right. If that value evaluates as `true`, then it is used. We're saying "if there is a `process.env.PORT` variable, use it -- else use the port `8080`."
 
@@ -1470,13 +1470,13 @@ _login.html_:
 
 	<head>
 		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
-		
+
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<body>
-		
+
 	</body>
 
 </html>
@@ -1492,7 +1492,7 @@ _login.html_:
 
 ```html
 <body>
-	<div class="container">	
+	<div class="container">
 		<div class="login">
 			<img src="/public/img/clementine_150.png" />
 			<br />
@@ -1510,7 +1510,7 @@ _login.html_:
 
 Ignore the CSS classes, as the stylesheet will be provided for these pages as it was in the previous tutorial. We create a `<div>` element for our login components, followed by inserting the Clementine.js logo. Next, the title `Clementine.js` is added in a `<p>` element.
 
-Finally, we're going to create an anchor element (`<a>`) and point the hyperlink to our `/auth/github` route. Remember that this is the route that will prompt authentication with GitHub. 
+Finally, we're going to create an anchor element (`<a>`) and point the hyperlink to our `/auth/github` route. Remember that this is the route that will prompt authentication with GitHub.
 
 Inside the anchor element, we're including a `<div>` with the GitHub logo and the phrase, "LOGIN WITH GITHUB". After CSS is applied, this anchor element will wrap the `<div>`. We do this so that whenever a user clicks anywhere on the `div`, it will fire the anchor element.
 
@@ -1529,13 +1529,13 @@ _profile.html_:
 
 	<head>
 		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
-		
+
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<body>
-		
+
 	</body>
 
 </html>
@@ -1577,7 +1577,7 @@ _profile.html_:
 
 	<head>
 		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
-		
+
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
@@ -1595,7 +1595,7 @@ _profile.html_:
 				<a class="menu" href="/logout">Logout</a>
 			</div>
 		</div>
-		
+
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
 	</body>
@@ -1639,7 +1639,7 @@ _index.html_:
 
 	<head>
 		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
-		
+
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
@@ -1657,7 +1657,7 @@ _index.html_:
 			<br />
 			<p class="clementine-text">Clementine.js</p>
 		</div>
-	
+
 		<div class="container">
 			<p>You have clicked the button <span id="click-nbr"></span> times.</p>
 			<br />
@@ -1666,7 +1666,7 @@ _index.html_:
 				<button class="btn btn-delete">RESET</button>
 			</div>
 		</div>
-		
+
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
 		<script type="text/javascript" src="controllers/clickController.client.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
@@ -1677,7 +1677,7 @@ _index.html_:
 
 ### Create the User Controller
 
-The next problem we need to solve is to write a controller which will retrieve the user information from the API and update the appropriate values in the view. This controller is slightly different in that we want to be able to use this controller for both the `index.html` and `profile.html` views. 
+The next problem we need to solve is to write a controller which will retrieve the user information from the API and update the appropriate values in the view. This controller is slightly different in that we want to be able to use this controller for both the `index.html` and `profile.html` views.
 
 The profile page will have fields that we don't want to show on the `index.html` page, so we have to think about how to write the code so that it is dynamic enough to not produce errors a page is missing certain HTML elements. We'll work through this problem shortly.
 
@@ -1689,7 +1689,7 @@ _userController.client.js_:
 'use strict';
 
 (function () {
-	
+
 })();
 ```
 
@@ -1765,7 +1765,7 @@ _userController.client.js_:
 
 This should look familiar so far. The only difference is that rather than passing a named callback function, we're passing in an anonymous function (`function (data) {...}`). We're doing this so that we can make multiple changes to the DOM with this one request since it contains all the information we need.
 
-We'll start by parsing the AJAX data and storing the object in a variable that we can pass into subsequent functions. We'll then update the value of the `displayName` elements, and then move to making conditional statements for our other HTML elements. 
+We'll start by parsing the AJAX data and storing the object in a variable that we can pass into subsequent functions. We'll then update the value of the `displayName` elements, and then move to making conditional statements for our other HTML elements.
 
 These are the elements that may or may not exist depending on the page. We'll create `if` blocks that will test if the variable is equal to `null`. If it's not, then we'll update the HTML element. If the variable is equal to `null`, then no action will be taken.
 
