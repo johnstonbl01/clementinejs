@@ -386,11 +386,10 @@ Before getting to the coding portion, we need to register our app with GitHub an
 Head to GitHub and log in.
 
 1. Click your profile picture in the top right corner and choose the 'Settings' option.
-2. On the left-hand side, click on 'Applications'.
-3. At the top of the page, click on 'Developer applications'.
-4. Click the 'Register new application' button.
+2. On the left-hand side, in the Developer Settings, click on 'OAuth applications'.
+3. Click the 'Register new application' button.
 
-![GitHub Settings](/img/passporttut01.png)
+![GitHub Settings](/img/passporttut00.png)
 
 5. Fill out the form:
 	- Name: Whatever you'd like to name your app. Mine says 'clementinejs-fcc', of course. This app name needs to be unique.
