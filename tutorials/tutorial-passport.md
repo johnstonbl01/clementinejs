@@ -400,7 +400,7 @@ Head to GitHub and log in.
 
 ![GitHub App Registration](/img/passporttut02.png)
 
-Once this is done, it will take you to a page with information about your application. On the top right, there will be codes for Client ID (API Key) and the Client Secret (API Secret). We'll use these later in our app.
+Once this is done, it will take you to a page with information about your application. At the top, there will be codes for Client ID (API Key) and the Client Secret (API Secret). We'll need these later in our app.
 
 ![GitHub API Keys](/img/passporttut03.png)
 
