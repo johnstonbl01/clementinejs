@@ -386,16 +386,15 @@ Before getting to the coding portion, we need to register our app with GitHub an
 Head to GitHub and log in.
 
 1. Click your profile picture in the top right corner and choose the 'Settings' option.
-2. On the left-hand side, click on 'Applications'.
-3. At the top of the page, click on 'Developer applications'.
-4. Click the 'Register new application' button.
+2. On the left-hand side, click on 'OAuth Apps'.
+3. Click the 'Register new application' button.
 
 ![GitHub Settings](/img/passporttut01.png)
 
-5. Fill out the form:
+4. Fill out the form:
 	- Name: Whatever you'd like to name your app. Mine says 'clementinejs-fcc', of course. This app name needs to be unique.
 	- Homepage URL: Since we're using localhost, simply use `http://127.0.0.1:8080/`. `127.0.0.1` is the default IP address for localhost. For some reason, simply entering 'localhost' instead wouldn't work for me.
-	- Description: A short description of your app.
+	- Application Description: A short description of your app.
 	- Authorization callback URL: `http://127.0.0.1:8080/auth/github/callback`. This will be the URL that gets passed in when we're authenticated. We'll add a route for this URL later.
 4. Click 'Register application'.
 
