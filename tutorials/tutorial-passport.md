@@ -386,11 +386,10 @@ Before getting to the coding portion, we need to register our app with GitHub an
 Head to GitHub and log in.
 
 1. Click your profile picture in the top right corner and choose the 'Settings' option.
-2. On the left-hand side, click on 'Applications'.
-3. At the top of the page, click on 'Developer applications'.
-4. Click the 'Register new application' button.
+2. On the left-hand side, click on 'Developer settings'.
+3. Click the 'Register new application' button.
 
-![GitHub Settings](/img/passporttut01.png)
+![GitHub Settings](/img/passporttut01_new.png)
 
 5. Fill out the form:
 	- Name: Whatever you'd like to name your app. Mine says 'clementinejs-fcc', of course. This app name needs to be unique.
@@ -399,11 +398,11 @@ Head to GitHub and log in.
 	- Authorization callback URL: `http://127.0.0.1:8080/auth/github/callback`. This will be the URL that gets passed in when we're authenticated. We'll add a route for this URL later.
 4. Click 'Register application'.
 
-![GitHub App Registration](/img/passporttut02.png)
+![GitHub App Registration](/img/passporttut02_new.png)
 
-Once this is done, it will take you to a page with information about your application. On the top right, there will be codes for Client ID (API Key) and the Client Secret (API Secret). We'll use these later in our app.
+Once this is done, it will take you to a page with information about your application. There will be codes for Client ID (API Key) and the Client Secret (API Secret). We'll use these later in our app.
 
-![GitHub API Keys](/img/passporttut03.png)
+![GitHub API Keys](/img/passporttut03_new.png)
 
 The difference between the API Key and the API Secret is that the key is considered _public_, while the secret is known only to the vendor (GitHub in this case) and you.
 
