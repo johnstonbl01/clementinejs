@@ -1,0 +1,14 @@
+{
+    "test": {
+        "PORT": 3000,
+        "MONGODB_URI": "mongodb://localhost:27017/clementinejsTest",
+        "JWT-SECRET": "some JWT SECRET for User token generation",
+        "GLOBAL-VARIABLES": "Other global variables like api-keys and stuff"
+    },
+    "development": {
+        "PORT": 3000,
+        "MONGODB_URI": "mongodb://localhost:27017/clementinejs",
+        "JWT-SECRET": "some JWT SECRET for User token generation",
+        "GLOBAL-VARIABLES": "Other global variables like api-keys and stuff"
+    }
+}

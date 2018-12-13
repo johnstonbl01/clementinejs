@@ -4,7 +4,8 @@
   "description": "A light-weight MEAN stack boilerplate.",
   "main": "server.js",
   "scripts": {
-    "start": "gulp"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",

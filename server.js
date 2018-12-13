@@ -1,12 +1,13 @@
 'use strict';
+require('./app/config/config');
+let express = require('express');
+let mongo = require('mongodb');
+let routes = require('./app/routes/index.js');
 
-var express = require('express');
-var mongo = require('mongodb');
-var routes = require('./app/routes/index.js');
+let PORT = process.env.PORT || 3000;
+let app = express();
 
-var app = express();
-
-mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
+mongo.connect(process.env.MONGODB_URI, function (err, db) {
 
    if (err) {
       throw new Error('Database failed to connect!');
@@ -19,8 +20,8 @@ mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
 
    routes(app, db);
 
-   app.listen(3000, function () {
-      console.log('Node.js listening on port 3000...');
+   app.listen(PORT, function () {
+      console.log(`Node.js listening on port ${PORT}...`);
    });
 
 });

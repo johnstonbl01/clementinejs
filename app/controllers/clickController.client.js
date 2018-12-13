@@ -7,7 +7,7 @@
    var clickNbr = document.querySelector('#click-nbr');
    var apiUrl = 'http://localhost:3000/api/clicks';
 
-   function ready (fn) {
+   function ready(fn) {
       if (typeof fn !== 'function') {
          return;
       }
@@ -19,7 +19,7 @@
       document.addEventListener('DOMContentLoaded', fn, false);
    }
 
-   function ajaxRequest (method, url, callback) {
+   function ajaxRequest(method, url, callback) {
       var xmlhttp = new XMLHttpRequest();
 
       xmlhttp.onreadystatechange = function () {
@@ -32,7 +32,7 @@
       xmlhttp.send();
    }
 
-   function updateClickCount (data) {
+   function updateClickCount(data) {
       var clicksObject = JSON.parse(data);
       clickNbr.innerHTML = clicksObject.clicks;
    }
