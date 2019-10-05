@@ -6,7 +6,7 @@ var routes = require('./app/routes/index.js');
 
 var app = express();
 
-mongo.connect('mongodb://localhost:27017/clementinejs',  { useNewUrlParser: true },function (err, db) {
+mongo.connect('mongodb://localhost:27017/clementinejs',  { useNewUrlParser: true },{useMongooseClient: true},function (err, db) {
 
    if (err) {
       throw new Error('Database failed to connect!');
