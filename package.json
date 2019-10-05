@@ -25,6 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.13.3",
+    "gulp": "^4.0.2",
     "mongodb": "^2.0.42"
   }
 }
