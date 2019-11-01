@@ -1,3 +1,7 @@
+# Deprecation
+
+Heya! :wave: This package is being deprecated & moved to another repository for a new version of Clementine in early 2020. I'll link to the repo when that happens, but this repository will be archived at that time.
+
 # Clementine.js Boilerplate
 
 [![Join the chat at https://gitter.im/johnstonbl01/clementinejs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/johnstonbl01/clementinejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
