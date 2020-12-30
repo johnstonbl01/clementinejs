@@ -1,0 +1,28 @@
+html,
+body {
+  font-size: 16px;
+  line-height: 1.428571429;
+  margin: 0;
+  color: #333333;
+  background-color: #f7f7f7;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}

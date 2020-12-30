@@ -1,0 +1,63 @@
+.container {
+  padding: 3rem 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 610px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoImage {
+  max-width: 200px;
+}
+
+.logoTitle {
+  letter-spacing: -3px;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #666666;
+}
+
+.main p:first-of-type {
+  margin-top: 2rem;
+}
+
+.signatureLayout {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 8rem;
+}
+
+.signatureLayout p {
+  color: #666666;
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .logoTitle {
+    font-size: 3rem;
+  }
+
+  .logoImage {
+    max-width: 160px;
+  }
+}
