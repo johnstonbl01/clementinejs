@@ -5,7 +5,8 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Clementine.js</title>
+        <meta description="Clementine.js is no longer actively maintained"></meta>
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.gstatic.com"></link>
         <link
@@ -20,6 +21,8 @@ export default function Home() {
             className={styles.logoImage}
             src="/clementine-logo.svg"
             alt="The Clementine.js Logo"
+            width={200}
+            height={200}
           />
           <h1 className={styles.logoTitle}>Clementine.js</h1>
         </div>
