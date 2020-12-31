@@ -57,7 +57,9 @@ export default function Home() {
           with any questions / concerns in the future.
         </p>
         <div className={styles.signatureLayout}>
-          <p>- Blake</p>
+          <p>
+            - <a href="https://www.blakej.io">Blake</a>
+          </p>
         </div>
       </main>
     </div>
